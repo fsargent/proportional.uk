@@ -1,0 +1,1167 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #555;
+    --text-dark: #000;
+    --header-bg: #437527;
+    --highlight-bg: #f0f8f0;
+    --demo-border: #ddd;
+    --plurality-color: #d4351c;
+    --proportional-color: #2c5aa0;
+    --conservative-color: #1d70b8;
+    --labour-color: #d4351c;
+    --libdem-color: #f47738;
+    --green-color: #00703c;
+    --reform-color: #28a197;
+    --border-color: #ddd;
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    border-top: 0.5rem solid var(--header-bg);
+    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    color: var(--text-color);
+    line-height: 1.4;
+    font-size: 1rem;
+}
+
+.container {
+    margin: 1.25rem auto;
+    max-width: 37.5rem;
+    padding: 0 0.75rem;
+}
+
+@media (min-width: 68.75rem) {
+    .container {
+        max-width: 62.5rem;
+    }
+}
+
+.govuk-header {
+    background-color: var(--header-bg);
+    border-bottom: none;
+    margin-bottom: 2rem;
+}
+
+.govuk-header__container {
+    padding: 0 0.75rem;
+    max-width: 37.5rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    min-height: 3.75rem;
+}
+
+@media (min-width: 68.75rem) {
+    .govuk-header__container {
+        max-width: 62.5rem;
+    }
+}
+
+.govuk-header__link--homepage {
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 1.2;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.content {
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.content p {
+    margin: 1rem 0;
+    line-height: 1.4;
+}
+
+.highlight {
+    font-style: italic;
+    margin: 1.875rem 0;
+}
+
+.interactive-hint {
+    background: var(--highlight-bg);
+    padding: 1rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 1.875rem;
+    border-radius: 0.25rem;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: white;
+    border-radius: 0.25rem;
+}
+
+.plurality-title {
+    background: var(--plurality-color);
+}
+
+.proportional-title {
+    background: var(--proportional-color);
+}
+
+.proportional-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.proportional-results .results-title {
+    background: var(--proportional-color);
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-color {
+    width: 1rem;
+    height: 1rem;
+}
+
+.legend-text {
+    font-size: 0.875rem;
+}
+
+.result-bar {
+    margin: 0.5rem 0;
+    position: relative;
+    height: 1.5rem;
+    background: var(--demo-border);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 0.125rem;
+}
+
+.bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transition: width 0.5s ease;
+}
+
+.bar-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+    font-weight: bold;
+    font-size: 0.75rem;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+.bar-text.zero-votes {
+    text-shadow: none;
+    color: var(--text-color);
+}
+
+.conservative { background: var(--conservative-color); }
+.labour { background: var(--labour-color); }
+.liberal-democrats { background: var(--libdem-color); }
+.green { background: var(--green-color); }
+.reform-uk { background: var(--reform-color); }
+
+.winner-announcement {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.plurality-winner {
+    background: #ffdde1;
+    color: var(--plurality-color);
+    border: 1px solid var(--plurality-color);
+}
+
+.proportional-winner {
+    background: #e0f2f7;
+    color: var(--proportional-color);
+    border: 1px solid var(--proportional-color);
+}
+
+.section-header {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin: 2.5rem 0 1.25rem 0;
+    border-bottom: 2px solid var(--header-bg);
+    padding-bottom: 0.5rem;
+    font-weight: normal;
+}
+
+.data-link {
+    color: var(--proportional-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.data-link:hover {
+    text-decoration: underline;
+}
+
+.ballot-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.875rem;
+    justify-content: center;
+    margin: 1.875rem 0;
+}
+
+@media (min-width: 48rem) {
+    .ballot-container {
+        flex-direction: row;
+        gap: 1.875rem;
+    }
+}
+
+.ballot {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    width: 100%;
+    font-size: 0.875rem;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 48rem) {
+    .ballot {
+        width: 200px;
+    }
+}
+
+.ballot:hover {
+    border-color: var(--proportional-color);
+}
+
+.ballot h4 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    border-bottom: 1px solid var(--demo-border);
+    padding-bottom: 0.25rem;
+}
+
+.candidate-option {
+    margin: 0.25rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.candidate-option input {
+    margin-right: 0.5rem;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.candidate-option label {
+    cursor: pointer;
+    font-size: 0.8rem;
+    flex: 1;
+}
+
+.results-box {
+    flex: 1;
+    padding: 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.results-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+    padding: 0.5rem;
+    color: white;
+    border-radius: 0.25rem;
+}
+
+.plurality-results .results-title {
+    background: var(--plurality-color);
+}
+
+.proportional-results .results-title {
+    background: var(--proportional-color);
+}
+
+.ballot-box {
+    padding: 1.5rem;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 0.25rem;
+    flex: 1;
+}
+
+.ballot-box--plurality {
+    border-color: var(--plurality-color);
+}
+
+.ballot-box--proportional {
+    border-color: var(--proportional-color);
+}
+
+.ballot-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.ballot-title h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.125rem;
+    font-weight: bold;
+}
+
+.ballot-title--plurality h3 {
+    color: var(--plurality-color);
+}
+
+.ballot-title--proportional h3 {
+    color: var(--proportional-color);
+}
+
+.ballot-subtitle {
+    font-size: 0.875rem;
+    margin: 0;
+    color: var(--text-color);
+}
+
+.ballot-subtitle span {
+    font-weight: bold;
+}
+
+.ballot-subtitle--plurality span {
+    color: var(--plurality-color);
+}
+
+.ballot-subtitle--proportional span {
+    color: var(--proportional-color);
+}
+
+.ballot-options {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.ballot-option {
+    display: flex;
+    align-items: center;
+    margin: 0.75rem 0;
+}
+
+.ballot-radio, .ballot-checkbox {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--text-color);
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+}
+
+.ballot-radio {
+    border-radius: 50%;
+}
+
+.ballot-checkbox {
+    position: relative;
+    border-radius: 0.125rem;
+}
+
+.ballot-checkbox--checked {
+    background: var(--text-color);
+}
+
+.ballot-checkbox--checked::after {
+    content: '✓';
+    color: white;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ballot-label {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.ballot-label--libdem {
+    color: var(--libdem-color);
+    font-weight: bold;
+}
+
+.spoiler-warning, .favorites-message, .proportional-message {
+    padding: 0.75rem;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 0.875rem;
+    border-radius: 0.25rem;
+}
+
+.spoiler-warning {
+    background: #ffdde1;
+    color: var(--plurality-color);
+}
+
+.favorites-message {
+    background: var(--highlight-bg);
+    color: var(--proportional-color);
+}
+
+.proportional-message {
+    background: var(--highlight-bg);
+    color: var(--proportional-color);
+}
+
+/* Mobile improvements */
+@media (max-width: 47.9375rem) {
+    .content {
+        padding: 0;
+    }
+    
+    .ballot-container {
+        flex-direction: column;
+    }
+    
+    .ballot-box {
+        margin-bottom: 1rem;
+    }
+    
+    .results-box {
+        margin-bottom: 1rem;
+    }
+    
+    .section-header {
+        font-size: 1.25rem;
+        margin: 2rem 0 1rem 0;
+    }
+    
+    .ballot {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .ballot-options {
+        font-size: 0.875rem;
+    }
+    
+    .ballot-label {
+        font-size: 0.875rem;
+    }
+    
+    .govuk-header__link--homepage {
+        font-size: 1.5rem;
+    }
+    
+    .ballot-radio, .ballot-checkbox {
+        width: 1.125rem;
+        height: 1.125rem;
+    }
+    
+    .ballot-checkbox--checked::after {
+        font-size: 0.625rem;
+        line-height: 0.875rem;
+    }
+}
+
+/* Responsive grid for demo ballots */
+@media (max-width: 47.9375rem) {
+    #plurality-ballots,
+    #proportional-ballots {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+}
+
+@media (min-width: 48rem) and (max-width: 68.6875rem) {
+    #plurality-ballots,
+    #proportional-ballots {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 68.75rem) {
+    #plurality-ballots,
+    #proportional-ballots {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+}
+
+/* Responsive results layout */
+.results-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+@media (min-width: 68.75rem) {
+    .results-layout {
+        flex-direction: row;
+    }
+}
+
+/* Demo section layout */
+.demo-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+/* Use a larger breakpoint for side-by-side layout */
+@media (min-width: 68.75rem) { /* 1100px to match container breakpoint */
+    .demo-section {
+        flex-direction: row;
+        gap: 2rem;
+    }
+}
+
+.demo-column {
+    flex: 1;
+}
+
+.demo-column .section-title {
+    margin-bottom: 1rem;
+}
+
+/* Chart responsiveness */
+#proportional-chart svg {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 47.9375rem) {
+    #proportional-chart svg {
+        width: 100%;
+        height: 200px;
+    }
+}
+
+/* Mobile Parliamentary Chart */
+.mobile-parliament-chart {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.parliament-canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.parliament-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.02);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.parliament-legend .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    background: white;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.parliament-legend .legend-item:hover {
+    background: var(--highlight-bg);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.parliament-legend .legend-color {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.parliament-legend .legend-label {
+    font-size: 0.875rem;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 47.9375rem) {
+    .mobile-parliament-chart {
+        padding: 0.5rem;
+    }
+    
+    .parliament-legend {
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+    
+    .parliament-legend .legend-item {
+        font-size: 0.75rem;
+        padding: 0.125rem 0.375rem;
+    }
+    
+    .parliament-legend .legend-label {
+        font-size: 0.75rem;
+    }
+}
+
+/* Proportional Approval Voting Explanation Styles */
+.pav-explanation {
+    margin: 2rem 0;
+}
+
+.pav-explanation h3 {
+    color: var(--proportional-color);
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem 0;
+}
+
+.ballot-example {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 500px;
+}
+
+
+
+.ballot-part {
+    flex: 1;
+    background: #f9f9f9;
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+
+.ballot-part h4 {
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.party-list, .candidate-list {
+    list-style: none;
+    padding: 0;
+}
+
+.party-list li, .candidate-list li {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.party-checkbox, .candidate-checkbox {
+    margin-right: 0.75rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+}
+
+.party-list label, .candidate-list label {
+    cursor: pointer;
+    flex: 1;
+}
+
+.candidate-approval {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border-color);
+}
+
+.hint {
+    color: var(--proportional-color);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+.allocation-steps {
+    display: grid;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+@media (min-width: 48rem) {
+    .allocation-steps {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.step-number {
+    background: var(--proportional-color);
+    color: white;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.step-content h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-dark);
+}
+
+.step-content p {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    overflow-x: auto;
+    display: block;
+}
+
+@media (min-width: 48rem) {
+    .results-table {
+        display: table;
+    }
+}
+
+.results-table thead {
+    background: var(--proportional-color);
+    color: white;
+}
+
+.results-table th, .results-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid var(--border-color);
+}
+
+.results-table tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.results-table tbody tr:hover {
+    background: var(--highlight-bg);
+}
+
+.pav-benefits {
+    background: var(--highlight-bg);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin: 2rem 0;
+}
+
+.pav-benefits h3 {
+    margin-top: 0;
+}
+
+    .pav-benefits ul {
+        margin: 0;
+        padding-left: 1.5rem;
+    }
+
+    .spav-explanation {
+        background: var(--highlight-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .spav-explanation h4 {
+        color: var(--text-color);
+        margin: 0 0 0.75rem 0;
+        font-size: 1.1rem;
+    }
+
+    .spav-explanation p {
+        margin: 0 0 0.75rem 0;
+    }
+
+    .spav-explanation ul {
+        margin: 0;
+        padding-left: 1.5rem;
+    }
+
+    .spav-explanation li {
+        margin: 0.5rem 0;
+    }
+
+.pav-benefits li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+/* RCV/STV Comparison Styles */
+.comparison-section {
+    margin: 2rem 0;
+}
+
+.comparison-grid {
+    display: grid;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+@media (min-width: 68.75rem) {
+    .comparison-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.comparison-item {
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.comparison-item h3 {
+    background: var(--proportional-color);
+    color: white;
+    margin: 0;
+    padding: 1rem;
+    font-size: 1.25rem;
+}
+
+.comparison-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex: 1;
+}
+
+@media (max-width: 47.9375rem) {
+    .comparison-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.rcv-side, .proportional-side {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.rcv-side {
+    background: #fff5f5;
+    border-right: 1px solid var(--border-color);
+}
+
+.proportional-side {
+    background: var(--highlight-bg);
+}
+
+@media (max-width: 47.9375rem) {
+    .rcv-side {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+}
+
+.rcv-side h4 {
+    color: var(--plurality-color);
+    margin: 0 0 1rem 0;
+}
+
+.proportional-side h4 {
+    color: var(--proportional-color);
+    margin: 0 0 1rem 0;
+}
+
+.comparison-content ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    list-style-type: none;
+}
+
+.comparison-content li {
+    position: relative;
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+}
+
+.rcv-side li::before {
+    content: "✗";
+    position: absolute;
+    left: 0;
+    color: var(--plurality-color);
+    font-weight: bold;
+}
+
+.proportional-side li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--proportional-color);
+    font-weight: bold;
+}
+
+.real-world-examples {
+    margin: 3rem 0;
+}
+
+.real-world-examples h3 {
+    color: var(--proportional-color);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.example-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 48rem) {
+    .example-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.example {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--proportional-color);
+}
+
+.example h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-dark);
+}
+
+.example p {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.key-takeaway {
+    background: var(--highlight-bg);
+    border: 2px solid var(--proportional-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.key-takeaway h3 {
+    color: var(--proportional-color);
+    margin: 0 0 1rem 0;
+}
+
+.key-takeaway p {
+    margin: 0 0 1rem 0;
+}
+
+.key-takeaway p:last-child {
+    margin: 0;
+}
+
+/* Legislative Section Styles */
+.legislative-section {
+    margin: 2rem 0;
+}
+
+.legislative-section h3 {
+    color: var(--text-color);
+    margin: 2rem 0 1rem 0;
+    font-size: 1.5rem;
+}
+
+.legislative-section h4 {
+    color: var(--text-color);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.25rem;
+}
+
+.legislative-section h5 {
+    color: var(--text-color);
+    margin: 1.25rem 0 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.definition-box {
+    background: var(--highlight-bg);
+    border: 2px solid var(--proportional-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.definition-box h4 {
+    margin-top: 0;
+    color: var(--proportional-color);
+}
+
+.definition-box p {
+    margin-bottom: 0;
+}
+
+.legal-text {
+    background: #f8f9fa;
+    border-left: 4px solid var(--border-color);
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 0.25rem;
+}
+
+.legal-quote {
+    font-style: italic;
+    color: #495057;
+    margin: 0.5rem 0;
+}
+
+.legal-list {
+    margin: 1rem 0 1rem 1.5rem;
+    line-height: 1.8;
+}
+
+.legal-list li {
+    margin: 0.5rem 0;
+}
+
+.legal-list ul {
+    margin: 0.5rem 0 0.5rem 1.5rem;
+    list-style-type: lower-alpha;
+}
+
+.distinction-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}
+
+.distinction-box p {
+    margin: 0 0 0.75rem 0;
+    font-weight: 600;
+}
+
+.distinction-box ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.distinction-box li {
+    margin: 0.5rem 0;
+}
+
+.timeline-box {
+    background: var(--highlight-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.timeline-box p {
+    margin: 0.75rem 0;
+    line-height: 1.6;
+}
+
+.timeline-box p:first-child {
+    margin-top: 0;
+}
+
+.timeline-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mobile responsiveness for legislative section */
+@media (max-width: 47.9375rem) {
+    .distinction-box {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .legal-text {
+        padding: 1rem;
+    }
+
+    .legislative-section h3 {
+        font-size: 1.25rem;
+    }
+
+    .legislative-section h4 {
+        font-size: 1.1rem;
+    }
+
+    .legislative-section h5 {
+        font-size: 1rem;
+    }
+}
