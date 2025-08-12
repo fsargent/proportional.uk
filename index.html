@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proportional.uk - Electoral Reform for the UK</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✅</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
 </head>
 <body>
     <header class="govuk-header" role="banner">
@@ -17,6 +19,7 @@
             ✅ Proportional.uk - Electoral Reform for the UK</a>
         </div>
     </header>
+    
     <div class="container">
         <div class="content">
             <p>
@@ -29,19 +32,19 @@
 
             <p><strong>For a party that wants to deliver a decade of national renewal, electoral reform is not just an option, it's a necessity.</strong></p>
 
-            <h2 class="section-header">Fair Share Voting: A Proven Solution</h2>
-            <p>Fair Share Voting is a simple, proven system used successfully across Europe. Voters choose their preferred party, and seats are allocated proportionally. This ensures that Parliament accurately reflects the diversity of political opinion in the country, while maintaining the simplicity that voters expect.</p>
+            <h2 class="section-header">Fair Share Voting: A Hybrid Proportional Solution</h2>
+            <p>Fair Share Voting combines the simplicity of closed list proportional representation with a vote transfer system to ensure every vote counts. Voters choose their preferred party, and seats are allocated proportionally. Parties below a 5% threshold have their votes transferred to other parties based on democratic preferences, ensuring maximum representation while maintaining the simplicity voters expect.</p>
 
             <h2 class="section-header">How Fair Share Voting Works</h2>
             
-            <div class="d-hondt-explanation">
+            <div class="d-hondt-explanation ballot-section">
                 <h3>🗳️ The Ballot</h3>
                 <p>Under Fair Share Voting, you simply vote for your preferred party:</p>
                 
                 <div class="ballot-example">
                     <div class="ballot-part">
                         <h4>The Ballot</h4>
-                        <p>Simply mark an X next to your preferred party:</p>
+                        <p>Simply mark your preferred party:</p>
                         <ul class="party-list">
                             <li><input type="radio" name="party-choice" id="party-labour" class="party-radio"> <label for="party-labour">Labour Party</label></li>
                             <li><input type="radio" name="party-choice" id="party-conservative" class="party-radio"> <label for="party-conservative">Conservative Party</label></li>
@@ -54,7 +57,7 @@
                 </div>
                 
                 <h3>📊 How Seats Are Allocated</h3>
-                <p>Seats are allocated proportionally using a simple highest-averages method:</p>
+                <p>Seats are allocated using a hybrid proportional system with vote transfers:</p>
                 
                 <div class="allocation-steps">
                     <div class="step">
@@ -68,7 +71,7 @@
                     <div class="step">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <h4>Apply Threshold</h4>
+                            <h4>Apply 5% Threshold</h4>
                             <p>Parties must receive at least 5% of total votes to qualify for seats</p>
                         </div>
                     </div>
@@ -76,13 +79,21 @@
                     <div class="step">
                         <div class="step-number">3</div>
                         <div class="step-content">
-                            <h4>Allocate Seats Proportionally</h4>
-                            <p>Seats are assigned in order to the highest quotients so results match vote shares</p>
+                            <h4>Transfer Below-Threshold Votes</h4>
+                            <p>Votes from parties below 5% are transferred to other parties based on democratic preferences</p>
                         </div>
                     </div>
                     
                     <div class="step">
                         <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Allocate Seats Proportionally</h4>
+                            <p>Seats are assigned proportionally to the remaining parties using highest-averages method</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
                         <div class="step-content">
                             <h4>Parties Fill Seats</h4>
                             <p>Each party fills their allocated seats from their pre-ordered candidate list</p>
@@ -91,19 +102,31 @@
                 </div>
 
                 <div class="d-hondt-explanation">
-                    <h4>📐 How Proportional Allocation Works</h4>
-                    <p>To keep it simple and fair:</p>
+                    <h4>📐 How the Hybrid System Works</h4>
+                    <p>Fair Share Voting combines the best of both worlds:</p>
                     <ul>
-                        <li>Divide each party's vote total by 1, 2, 3, 4, etc.</li>
-                        <li>Allocate seats to the highest quotients in descending order</li>
-                        <li>This slightly favors larger parties but ensures stable government</li>
-                        <li>Result: Each party's seat share closely matches their vote share</li>
-                        <li>Used successfully in many European countries</li>
+                        <li><strong>Initial Allocation:</strong> Each party gets seats based on their vote share using a Hare quota system</li>
+                        <li><strong>Threshold Application:</strong> Parties below 5% cannot keep seats and their votes are transferred</li>
+                        <li><strong>Vote Transfers:</strong> Below-threshold votes go to other parties based on democratic preferences (e.g., Green votes might transfer to Labour)</li>
+                        <li><strong>Final Proportional Allocation:</strong> Remaining seats are distributed proportionally among qualifying parties</li>
+                        <li><strong>Result:</strong> Maximum representation with no wasted votes, while maintaining electoral stability</li>
                     </ul>
                 </div>
                 
-                <h3>🏆 A Real Example</h3>
-                <p>Based on current polling (approximate):</p>
+                <div class="transfer-explanation">
+                    <h4>🔄 Understanding Vote Transfers</h4>
+                    <p>The transfer system ensures that even votes for small parties contribute to representation:</p>
+                    <ul>
+                        <li><strong>Democratic Preferences:</strong> Transfer preferences are set through internal party democracy and public consultation</li>
+                        <li><strong>No Wasted Votes:</strong> Every vote contributes to electing representatives, even if not from the voter's first choice</li>
+                        <li><strong>Coalition Building:</strong> Transfers encourage parties to work together and find common ground</li>
+                        <li><strong>Regional Representation:</strong> Small regional parties can still influence national politics through transfers</li>
+                    </ul>
+                </div>
+                
+                <div class="real-example-section">
+                    <h3>🏆 A Real Example</h3>
+                    <p>Based on current polling (approximate):</p>
                 
                 <table class="results-table">
                     <thead>
@@ -147,6 +170,7 @@
                         </tr>
                     </tbody>
                 </table>
+                </div>
                 
                 <div class="proportional-benefits">
                     <h3>✅ Why This Matters</h3>
@@ -163,12 +187,12 @@
             </div>
 
             <h2 class="section-header">Why Fair Share Voting Works</h2>
-            <p>Fair Share Voting is a proven system used successfully across Europe. It's simple for voters to understand, easy to implement, and provides true proportional representation. The key advantages are:</p>
+            <p>Fair Share Voting combines the proven benefits of proportional representation with an innovative transfer system to maximize representation. While more complex than pure closed list PR, it provides significant advantages over FPTP and ensures no vote is wasted. The key advantages are:</p>
             
             <div class="comparison-section">
                 <div class="comparison-grid">
                     <div class="comparison-item">
-                        <h3>🗳️ Simplicity</h3>
+                        <h3>🗳️ Simplicity vs. Effectiveness</h3>
                         <div class="comparison-content">
                             <div class="rcv-side">
                                 <h4>Complex Systems</h4>
@@ -180,12 +204,12 @@
                                 </ul>
                             </div>
                             <div class="proportional-side">
-                                <h4>Closed List PR</h4>
+                                <h4>Fair Share Voting</h4>
                                 <ul>
                                     <li>Simple X next to preferred party</li>
                                     <li>Familiar voting method</li>
                                     <li>Results available election night</li>
-                                    <li>Anyone can understand in seconds</li>
+                                    <li>Vote transfers happen automatically</li>
                                 </ul>
                             </div>
                         </div>
@@ -288,534 +312,102 @@
                 
                 <div class="key-takeaway">
                     <h3>🎯 The Bottom Line</h3>
-                    <p>Fair Share Voting is a proven, simple, and effective system that would transform UK politics for the better. It's time to join the rest of Europe in using a modern electoral system.</p>
-                    <p><strong>Remember:</strong> The best voting system is one that voters trust and understand. Closed List PR's simplicity is its greatest strength.</p>
+                    <p>Fair Share Voting is an innovative hybrid system that combines the simplicity of closed list PR with the representation benefits of vote transfers. While more complex than pure proportional systems, it ensures maximum representation with no wasted votes, making it a powerful tool for electoral reform in the UK.</p>
+                    <p><strong>Remember:</strong> The goal is maximum representation with electoral stability. Fair Share Voting achieves this through its hybrid approach.</p>
                 </div>
             </div>
 
             <h2 class="section-header">Regional Representation and Cross-Regional Support</h2>
-            <p>One of the key advantages of Closed List Proportional Representation is how it handles regional representation. Under the current system, regional parties like the SNP, Plaid Cymru, or the Northern Irish parties are limited to their geographic regions. With closed list PR, these parties can receive votes from supporters across the entire UK, while parties are incentivized to include candidates from all regions on their lists.</p>
+            <p>One of the key advantages of Fair Share Voting is how it handles regional representation through its innovative transfer system. Under the current FPTP system, regional parties like the SNP, Plaid Cymru, or the Northern Irish parties are limited to their geographic regions. With Fair Share Voting, these parties can receive votes from supporters across the entire UK, and when they fall below the 5% threshold, their votes are transferred to other parties based on democratic preferences, ensuring regional voices still influence national politics.</p>
 
-            <h2 class="section-header">Party Internal Democracy</h2>
-            <p>Closed List Proportional Representation encourages parties to develop robust internal democratic processes. Parties would be strongly encouraged to run their own primaries or conventions to determine the order of their candidate lists. This could include using methods like proportional approval voting within party conventions to ensure fair representation of different factions and viewpoints within each party.</p>
-
-            <h2 class="section-header">Meeting the 'Good Systems Agreement' Principles</h2>
-            <p>Fair Share Voting aligns with the key principles of the "Good Systems Agreement" from Make Votes Matter:</p>
-            <ul>
-                <li><strong>Proportionality:</strong> Seats would closely match the votes cast for each party.</li>
-                <li><strong>Representation:</strong> MPs and governments would better represent the views of the voters.</li>
-                <li><strong>Equal votes:</strong> The value of individual votes would not be distorted by geography, and tactical voting would be eliminated.</li>
-                <li><strong>Local links:</strong> Parties would be incentivized to include candidates from all regions on their lists.</li>
-                <li><strong>Diversity:</strong> It would encourage the election of parliaments that reflect the population.</li>
-                <li><strong>Voter choice:</strong> Voters would have a wide choice of parties and could express preferences for parties rather than just individual candidates.</li>
-                <li><strong>Accountability:</strong> Parties would be accountable to their members for list composition and ordering.</li>
-                <li><strong>Balance of stability and flexibility:</strong> It would engender stable, flexible government with the ability to compromise.</li>
-                <li><strong>Sustainability and adaptability:</strong> The system would be able to respond and adapt to changing needs.</li>
-                <li><strong>Voting simplicity:</strong> The ballot papers would be easy for voters to understand and use.</li>
-            </ul>
-
-            <h2 class="section-header">Draft Legislative Language</h2>
-            <p>To implement Fair Share Voting in the UK, we propose the following legislative framework:</p>
-
-            <div class="legislative-section">
-                <h3>Key Definitions</h3>
-                <div class="definition-box">
-                    <h4>Closed List Proportional Representation</h4>
-                    <p>A voting system where electors vote for their preferred party, and seats are allocated proportionally using a highest-averages method. Each party submits a pre-ordered list of candidates, and seats are filled from the top of each party's list in order of allocation.</p>
-                </div>
-
-                <h3>For Parliamentary Elections</h3>
-                <div class="legal-text">
-                    <h4>Proposed Closed List Proportional Representation (Parliamentary Elections) Act</h4>
-                    
-                    <h5>Section 1: Voting Method</h5>
-                    <p class="legal-quote">"In elections to the House of Commons:</p>
-                    <ol class="legal-list">
-                        <li>Elections shall be conducted at-large across the United Kingdom as a single constituency.</li>
-                        <li>Each registered political party shall submit an ordered list of candidates prior to the election.</li>
-                        <li>Each elector may vote for one registered political party by marking an 'X' in the appropriate box.</li>
-                        <li>There shall be no ranking of preferences or multiple votes.</li>
-                    </ol>
-                    
-                    <h5>Section 2: Allocation of Seats</h5>
-                    <p class="legal-quote">"Seats shall be allocated as follows:</p>
-                    <ol class="legal-list">
-                        <li>The total number of votes received by each party shall be calculated.</li>
-                        <li>Seats shall be allocated to parties proportionally using the highest quotients in descending order:</li>
-                            <ul>
-                                <li>(a) Divide each party's vote total by 1, 2, 3, 4, etc.;</li>
-                                <li>(b) Allocate seats to the highest quotients in descending order;</li>
-                                <li>(c) This ensures proportional representation across all 650 seats;</li>
-                                <li>(d) The method slightly favors larger parties but ensures stable government.</li>
-                            </ul>
-                        </li>
-                        <li>Within each party's allocation:
-                            <ul>
-                                <li>(a) Each party shall fill their allocated seats from their pre-ordered candidate list;</li>
-                                <li>(b) Parties are strongly encouraged to consider:
-                                    <ul>
-                                        <li>(i) Geographic representation across all regions of the United Kingdom;</li>
-                                        <li>(ii) Demographic diversity including but not limited to gender, ethnicity, age, and socioeconomic background;</li>
-                                    </ul>
-                                </li>
-                                <li>(c) Parties must publish their list composition and ordering process prior to the election;</li>
-                                <li>(d) The Electoral Commission shall monitor and report on parties' adherence to representation principles.</li>
-                            </ul>
-                        </li>
-                        <li>A minimum threshold of 5% of total votes shall be required for a party to receive any seats.</li>
-                    </ol>
-
-                    <h5>Section 3: Party Internal Democracy</h5>
-                    <p class="legal-quote">"Parties shall be encouraged to:</p>
-                    <ol class="legal-list">
-                        <li>Hold internal primaries or conventions to determine list composition and ordering;</li>
-                        <li>Use democratic methods such as proportional approval voting within party conventions;</li>
-                        <li>Ensure fair representation of different factions and viewpoints within each party;</li>
-                        <li>Publish transparent criteria for list composition and ordering;</li>
-                        <li>Allow party members to participate in list selection processes.</li>
-                    </ol>
-
-                    <h5>Section 4: Transitional Provisions</h5>
-                    <p class="legal-quote">"The Closed List Proportional Representation system shall:</p>
-                    <ol class="legal-list">
-                        <li>Be implemented at the next general election following Royal Assent;</li>
-                        <li>Be reviewed by an independent commission after two general elections;</li>
-                        <li>Not require a referendum, as it is a proven system used across Europe.</li>
-                    </ol>
-                </div>
-
-                <h3>Implementation Timeline</h3>
-                <div class="timeline-box">
-                    <p><strong>Year 1:</strong> Legislation passed, parties begin developing internal democratic processes</p>
-                    <p><strong>Year 2:</strong> Parties establish list selection procedures, public education campaign</p>
-                    <p><strong>Year 3:</strong> Parties submit candidate lists, final preparations</p>
-                    <p><strong>Year 4:</strong> First general election under Closed List Proportional Representation</p>
-                </div>
+            <div class="regional-benefits">
+                <h3>🏴󠁧󠁢󠁳󠁣󠁴󠁿 How Regional Representation Works</h3>
+                <ul>
+                    <li><strong>National Voting:</strong> Voters can support regional parties regardless of where they live</li>
+                    <li><strong>Threshold Protection:</strong> Regional parties below 5% have their votes transferred rather than wasted</li>
+                    <li><strong>Democratic Transfers:</strong> Transfer preferences are set through consultation with party members and supporters</li>
+                    <li><strong>Influence Preservation:</strong> Even small regional parties can influence national policy through vote transfers</li>
+                    <li><strong>Balanced Lists:</strong> Major parties are incentivized to include candidates from all regions on their lists</li>
+                </ul>
             </div>
 
-            <!-- Simulation section removed per request; keeping Official Results below -->
+            <h2 class="section-header">Party Internal Democracy</h2>
+            <p>Fair Share Voting strengthens party internal democracy in two key ways. First, parties must create and maintain candidate lists that reflect their values and priorities through transparent internal processes. Second, parties must establish transfer preferences through democratic consultation with their members, giving party members a direct say in both who represents them and where their votes go if they fall below the threshold.</p>
 
-            <h2 class="section-header">2024 General Election: Official Results</h2>
-            <p>Using official national vote totals, compare the actual FPTP seat outcome to a Fair Share proportional outcome using the same votes.</p>
-            <div class="results-layout">
-                <div class="results-box plurality-results">
-                    <div class="results-title">Actual 2024 (FPTP seats)</div>
-                    <div id="official-fptp-chart"></div>
-                    <div id="official-fptp-winner" class="winner-announcement plurality-winner"></div>
+            <h2 class="section-header">Interactive Demonstration</h2>
+            <div class="demo-section">
+                <div class="demo-intro">
+                    <h3>Interactive Demonstration</h3>
+                    <p>Compare how the same votes produce different results under different voting systems. The Fair Share Voting system includes vote transfers for parties below the 5% threshold, ensuring maximum representation.</p>
                 </div>
-                <div class="results-box proportional-results">
-                    <div class="results-title">Fair Share (Same votes, proportional seats)</div>
-                    <div id="official-pr-chart"></div>
-                    <div id="official-pr-winner" class="winner-announcement proportional-winner"></div>
+                
+                <div class="demo-charts">
+                    <div class="chart-item">
+                        <h4>First Past the Post</h4>
+                        <div class="chart-container">
+                            <div id="official-fptp-chart" class="parliament-chart compact"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-item">
+                        <h4>Fair Share Voting (with transfers)</h4>
+                        <div class="chart-container">
+                            <div id="official-pr-chart" class="parliament-chart compact"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vote-tuner">
+                    <h3>Adjust Vote Shares and Transfer Preferences</h3>
+                    <p class="tuner-description">Modify the vote totals for each party and see how seat allocation changes. You can also adjust transfer preferences to see how below-threshold votes are redistributed:</p>
+                    <div class="vote-tuner-table-wrapper">
+                        <table id="vote-inputs" class="vote-input-table">
+                            <thead>
+                                <tr>
+                                    <th>Party</th>
+                                    <th>Votes</th>
+                                    <th>%</th>
+                                    <th>Transfer Preferences</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="vote-controls">
+                        <button id="apply-custom-votes" class="btn btn-primary">Apply Changes</button>
+                        <button id="reset-votes" class="btn btn-secondary">Reset to Default</button>
+                        <div id="total-votes-value" class="total-votes"></div>
+                    </div>
+                    <div class="transfer-explanation-demo">
+                        <h4>🔄 How Transfer Preferences Work</h4>
+                        <p>When a party falls below the 5% threshold, their votes are automatically transferred to other parties based on the preferences you set above. This ensures no votes are wasted and maximum representation is achieved.</p>
+                        <ul>
+                            <li><strong>Democratic Process:</strong> In real elections, these preferences would be set through party member consultation</li>
+                            <li><strong>Strategic Alliances:</strong> Parties can align with ideologically similar parties</li>
+                            <li><strong>Regional Considerations:</strong> Transfer preferences can reflect regional and policy alignments</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="allocation-steps">
+                    <h3>Seat Allocation Process</h3>
+                    <p>See exactly how seats are allocated using the Fair Share Voting system, including vote transfers:</p>
+                    <div id="official-pr-steps"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        const candidates = [
-            { key: 'reform-uk', name: 'Reform UK', color: '#12B6CF' },
-            { key: 'conservative', name: 'Conservative', color: '#0087DC' },
-            { key: 'liberal-democrats', name: 'Liberal Democrats', color: '#FAA61A' },
-            { key: 'labour', name: 'Labour', color: '#E4003B' },
-            { key: 'green', name: 'Green', color: '#6AB023' }
-        ];
+    <div style="text-align:center; color:#666; font-size:0.9rem; margin: 1.5rem 0 2.5rem;">
+        Data source: <a class="data-link" href="https://election2024.electoral-reform.org.uk/" target="_blank" rel="noopener noreferrer">Electoral Reform Society – Election 2024</a>
+    </div>
 
-        // Baseline national vote shares (approximate)
-        const nationalShares = {
-            'labour': 0.40,
-            'conservative': 0.25,
-            'reform-uk': 0.15,
-            'liberal-democrats': 0.12,
-            'green': 0.08
-        };
-
-        function clamp01(x) { return Math.max(0, Math.min(1, x)); }
-
-        function normalRandom(mean = 0, std = 1) {
-            // Box-Muller
-            let u = 0, v = 0;
-            while (u === 0) u = Math.random();
-            while (v === 0) v = Math.random();
-            const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-            return mean + z * std;
-        }
-
-        function generateDistrictShares(variance = 0.06) {
-            // Start from national shares and add noise, then renormalize
-            const raw = {};
-            let sum = 0;
-            candidates.forEach(c => {
-                const base = nationalShares[c.key] || 0;
-                const noisy = clamp01(base + normalRandom(0, variance));
-                raw[c.key] = noisy;
-                sum += noisy;
-            });
-            // Normalize
-            const shares = {};
-            candidates.forEach(c => { shares[c.key] = sum > 0 ? raw[c.key] / sum : (1 / candidates.length); });
-            return shares;
-        }
-
-        function sampleVotesFromShares(shares, voters) {
-            const votes = {};
-            candidates.forEach(c => { votes[c.key] = 0; });
-            // Simple deterministic rounding by shares (faster than multinomial sampling)
-            let allocated = 0;
-            candidates.forEach(c => {
-                const count = Math.floor(shares[c.key] * voters);
-                votes[c.key] += count;
-                allocated += count;
-            });
-            // Distribute remainder to highest fractional shares
-            const remainders = candidates.map(c => ({ key: c.key, frac: shares[c.key] * voters - Math.floor(shares[c.key] * voters) }));
-            remainders.sort((a, b) => b.frac - a.frac);
-            for (let i = 0; i < voters - allocated; i++) {
-                votes[remainders[i % remainders.length].key]++;
-            }
-            return votes;
-        }
-
-        function simulateElections(numDistricts, votersPerDistrict) {
-            const totalVotes = {};
-            const fptpSeats = {};
-            candidates.forEach(c => { totalVotes[c.key] = 0; fptpSeats[c.key] = 0; });
-
-            for (let d = 0; d < numDistricts; d++) {
-                const shares = generateDistrictShares();
-                const votes = sampleVotesFromShares(shares, votersPerDistrict);
-                // Aggregate national votes
-                candidates.forEach(c => { totalVotes[c.key] += votes[c.key]; });
-                // FPTP seat winner
-                let winner = candidates[0].key;
-                let max = -1;
-                candidates.forEach(c => { if (votes[c.key] > max) { max = votes[c.key]; winner = c.key; } });
-                fptpSeats[winner]++;
-            }
-
-            return { totalVotes, fptpSeats };
-        }
-
-        function allocateSeatsFairShare(votesByParty, totalSeats = 650) {
-            // Highest-averages seat allocation
-            const quotients = [];
-            Object.keys(votesByParty).forEach(party => {
-                const v = votesByParty[party];
-                if (v > 0) {
-                    for (let d = 1; d <= totalSeats; d++) {
-                        quotients.push({ party, q: v / d });
-                    }
-                }
-            });
-            quotients.sort((a, b) => b.q - a.q);
-            const seats = {};
-            Object.keys(votesByParty).forEach(p => seats[p] = 0);
-            for (let i = 0; i < totalSeats; i++) {
-                seats[quotients[i].party]++;
-            }
-            return seats;
-        }
-
-        function renderParliament(containerId, winnerId, seatsByParty) {
-            const container = document.getElementById(containerId);
-            const winnerDiv = document.getElementById(winnerId);
-            if (!container || !winnerDiv) return;
-            container.innerHTML = '';
-            winnerDiv.innerHTML = '';
-
-            const chartData = [];
-            const seatDistribution = [];
-            candidates.forEach(c => {
-                const seatCount = seatsByParty[c.key] || 0;
-                if (seatCount > 0) {
-                    chartData.push({ seats: seatCount, color: c.color, name: c.name });
-                    seatDistribution.push(`${c.name}: ${seatCount}`);
-                }
-            });
-            if (chartData.length === 0) {
-                winnerDiv.textContent = 'No seats allocated';
-                return;
-            }
-            createMobileParliamentChart(container, chartData);
-            winnerDiv.textContent = '🏆 Seat Allocation: ' + seatDistribution.join(', ');
-        }
-
-        function scaleSeatsTo650(seatsByParty, totalSeats) {
-            if (totalSeats === 650) return seatsByParty;
-            const scaled = {};
-            let sum = 0;
-            Object.keys(seatsByParty).forEach(k => { sum += seatsByParty[k]; });
-            if (sum === 0) return seatsByParty;
-            let allocated = 0;
-            const entries = Object.keys(seatsByParty).map(k => ({ key: k, exact: (seatsByParty[k] * 650) / totalSeats }));
-            entries.forEach(e => { scaled[e.key] = Math.floor(e.exact); allocated += Math.floor(e.exact); });
-            // Assign remaining to largest fractional parts
-            entries.sort((a, b) => (b.exact - Math.floor(b.exact)) - (a.exact - Math.floor(a.exact)));
-            for (let i = 0; i < 650 - allocated; i++) {
-                scaled[entries[i % entries.length].key]++;
-            }
-            return scaled;
-        }
-
-        function formatPercent(n) { return (n * 100).toFixed(1) + '%'; }
-
-        function updateNationalSummary(totalVotes) {
-            const s = document.getElementById('national-summary');
-            const total = Object.values(totalVotes).reduce((a, b) => a + b, 0);
-            if (!s || total === 0) return;
-            const parts = candidates.map(c => `${c.name}: ${formatPercent((totalVotes[c.key] || 0) / total)}`).join(' · ');
-            s.textContent = `Simulated national vote share — ${parts}`;
-        }
-
-        function runSimulation() {
-            const numDistricts = parseInt(document.getElementById('num-districts').value, 10) || 650;
-            const votersPerDistrict = parseInt(document.getElementById('voters-per-district').value, 10) || 2000;
-            const { totalVotes, fptpSeats } = simulateElections(numDistricts, votersPerDistrict);
-            updateNationalSummary(totalVotes);
-            const fairSeats = allocateSeatsFairShare(totalVotes, 650);
-            const fptpScaled = scaleSeatsTo650(fptpSeats, numDistricts);
-            renderParliament('fptp-chart', 'fptp-winner', fptpScaled);
-            renderParliament('pr-chart', 'pr-winner', fairSeats);
-        }
-
-        window.addEventListener('DOMContentLoaded', function() {
-            renderOfficial();
-        });
-
-        // Official 2024 results dataset (source: Electoral Reform Society 2024)
-        // https://election2024.electoral-reform.org.uk/
-        const officialVotes = {
-            labour: 9708816,
-            conservative: 6828726,
-            'liberal-democrats': 3519214,
-            'scottish-national-party': 724758,
-            'sinn-fein': 210891,
-            'reform-uk': 4117610,
-            'democratic-unionist-party': 172058,
-            'green': 1943804,
-            'plaid-cymru': 194811,
-            'social-democratic-and-labour-party': 86861,
-            alliance: 117191,
-            'ulster-unionist-party': 94779,
-            'traditional-unionist-voice': 48685,
-            speaker: 25238,
-            'workers-party-of-britain': 210252,
-            others: 805102
-        };
-
-        const officialFptpSeats = {
-            labour: 411,
-            conservative: 121,
-            'liberal-democrats': 72,
-            'scottish-national-party': 9,
-            'sinn-fein': 7,
-            'reform-uk': 5,
-            'democratic-unionist-party': 5,
-            green: 4,
-            'plaid-cymru': 4,
-            'social-democratic-and-labour-party': 2,
-            alliance: 1,
-            'ulster-unionist-party': 1,
-            'traditional-unionist-voice': 1,
-            speaker: 1,
-            'workers-party-of-britain': 0,
-            others: 6
-        };
-
-        // Map minor parties to our color/name set; if missing, generate neutral color
-        const partyMeta = {
-            labour: { name: 'Labour', color: '#E4003B' },
-            conservative: { name: 'Conservative', color: '#0087DC' },
-            'liberal-democrats': { name: 'Liberal Democrats', color: '#FAA61A' },
-            green: { name: 'Green', color: '#6AB023' },
-            'reform-uk': { name: 'Reform UK', color: '#12B6CF' },
-            'scottish-national-party': { name: 'SNP', color: '#FADF00' },
-            'sinn-fein': { name: 'Sinn Féin', color: '#2E8B57' },
-            'democratic-unionist-party': { name: 'DUP', color: '#B22222' },
-            'plaid-cymru': { name: 'Plaid Cymru', color: '#006400' },
-            'social-democratic-and-labour-party': { name: 'SDLP', color: '#2E8B57' },
-            alliance: { name: 'Alliance', color: '#FFC107' },
-            'ulster-unionist-party': { name: 'UUP', color: '#1E90FF' },
-            'traditional-unionist-voice': { name: 'TUV', color: '#1E90FF' },
-            speaker: { name: 'Speaker', color: '#999999' },
-            'workers-party-of-britain': { name: 'Workers', color: '#A52A2A' },
-            others: { name: 'Others', color: '#9E9E9E' }
-        };
-
-        function renderOfficial() {
-            const totalVotes = officialVotes; // already national
-            const prSeats = allocateSeatsFairShare(totalVotes, 650);
-
-            // Convert to chart data using partyMeta order by seat count desc
-            function toChartData(seatsByParty) {
-                const entries = Object.keys(seatsByParty).map(k => ({ key: k, seats: seatsByParty[k] }))
-                    .filter(e => e.seats > 0)
-                    .sort((a, b) => b.seats - a.seats);
-                return entries.map(e => ({
-                    seats: e.seats,
-                    color: (partyMeta[e.key] && partyMeta[e.key].color) || '#888888',
-                    name: (partyMeta[e.key] && partyMeta[e.key].name) || e.key
-                }));
-            }
-
-            // Render FPTP
-            (function renderFPTP() {
-                const container = document.getElementById('official-fptp-chart');
-                const winnerDiv = document.getElementById('official-fptp-winner');
-                if (!container || !winnerDiv) return;
-                container.innerHTML = '';
-                winnerDiv.innerHTML = '';
-                const data = toChartData(officialFptpSeats);
-                createMobileParliamentChart(container, data);
-                const summary = data.map(d => `${d.name}: ${d.seats}`).join(', ');
-                winnerDiv.textContent = '🏆 Seats: ' + summary;
-            })();
-
-            // Render PR
-            (function renderPR() {
-                const container = document.getElementById('official-pr-chart');
-                const winnerDiv = document.getElementById('official-pr-winner');
-                if (!container || !winnerDiv) return;
-                container.innerHTML = '';
-                winnerDiv.innerHTML = '';
-                const data = toChartData(prSeats);
-                createMobileParliamentChart(container, data);
-                const summary = data.map(d => `${d.name}: ${d.seats}`).join(', ');
-                winnerDiv.textContent = '🏆 Seats: ' + summary;
-            })();
-        }
-
-        // Existing canvas-based parliament renderer remains unchanged below
-        function createMobileParliamentChart(container, data) {
-            if (!data || data.length === 0) return;
-
-            const totalSeats = data.reduce((sum, item) => sum + item.seats, 0);
-            if (totalSeats === 0) return;
-
-            const chartWrapper = document.createElement('div');
-            chartWrapper.className = 'mobile-parliament-chart';
-            container.appendChild(chartWrapper);
-
-            const canvas = document.createElement('canvas');
-            canvas.className = 'parliament-canvas';
-            const containerWidth = chartWrapper.offsetWidth || container.offsetWidth || 600;
-            const padding = 32;
-            const maxWidth = Math.min(containerWidth - padding, 600);
-            const canvasWidth = Math.max(320, maxWidth);
-            let aspectRatio = 0.5;
-            if (canvasWidth < 400) aspectRatio = 0.7; else if (canvasWidth < 500) aspectRatio = 0.6;
-            const canvasHeight = canvasWidth * aspectRatio;
-            const dpr = window.devicePixelRatio || 1;
-            canvas.width = canvasWidth * dpr;
-            canvas.height = canvasHeight * dpr;
-            canvas.style.width = canvasWidth + 'px';
-            canvas.style.height = canvasHeight + 'px';
-            const ctx = canvas.getContext('2d');
-            ctx.scale(dpr, dpr);
-
-            let seatRadius, rowHeight;
-            if (canvasWidth < 350) { seatRadius = 2.5; rowHeight = 6; }
-            else if (canvasWidth < 400) { seatRadius = 3; rowHeight = 7; }
-            else if (canvasWidth < 500) { seatRadius = 4; rowHeight = 8; }
-            else { seatRadius = 5; rowHeight = 10; }
-
-            const options = { sections: 1, sectionGap: 0, seatRadius, rowHeight };
-            const totalSeatsInChart = data.reduce((sum, item) => sum + item.seats, 0);
-            const seatPositions = calculateParliamentPoints(totalSeatsInChart, options, canvasWidth);
-            const seatPositionsWithAngle = seatPositions.map((pos) => {
-                const dx = pos.x - (canvasWidth / 2);
-                const dy = (canvasHeight) - pos.y;
-                const angle = Math.atan2(dy, dx);
-                return { ...pos, angle };
-            });
-            seatPositionsWithAngle.sort((a, b) => b.angle - a.angle);
-
-            const seatData = [];
-            let seatIndex = 0;
-            data.forEach(party => {
-                for (let i = 0; i < party.seats; i++) {
-                    if (seatIndex < seatPositionsWithAngle.length) {
-                        seatData.push({ x: seatPositionsWithAngle[seatIndex].x, y: seatPositionsWithAngle[seatIndex].y, color: party.color, name: party.name, partySeats: party.seats });
-                        seatIndex++;
-                    }
-                }
-            });
-
-            ctx.shadowColor = 'transparent';
-            ctx.shadowBlur = 0;
-            ctx.shadowOffsetX = 0;
-            ctx.shadowOffsetY = 0;
-            seatData.forEach(seat => {
-                ctx.beginPath();
-                ctx.arc(seat.x, seat.y, options.seatRadius, 0, 2 * Math.PI);
-                ctx.fillStyle = seat.color;
-                ctx.fill();
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-                ctx.lineWidth = 0.5;
-                ctx.stroke();
-            });
-
-            chartWrapper.appendChild(canvas);
-
-            canvas.addEventListener('mousemove', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                const x = (e.clientX - rect.left) * dpr;
-                const y = (e.clientY - rect.top) * dpr;
-                let hoveredSeat = null;
-                seatData.forEach(seat => {
-                    const distance = Math.sqrt(Math.pow(x - seat.x * dpr, 2) + Math.pow(y - seat.y * dpr, 2));
-                    if (distance <= options.seatRadius * dpr) hoveredSeat = seat;
-                });
-                canvas.style.cursor = hoveredSeat ? 'pointer' : 'default';
-                canvas.title = hoveredSeat ? `${hoveredSeat.name}: ${hoveredSeat.partySeats} seats` : '';
-            });
-
-            const legend = document.createElement('div');
-            legend.className = 'parliament-legend';
-            data.forEach(party => {
-                const legendItem = document.createElement('div');
-                legendItem.className = 'legend-item';
-                const colorBox = document.createElement('div');
-                colorBox.className = 'legend-color';
-                colorBox.style.backgroundColor = party.color;
-                const label = document.createElement('span');
-                label.className = 'legend-label';
-                label.textContent = `${party.name}: ${party.seats}`;
-                legendItem.appendChild(colorBox);
-                legendItem.appendChild(label);
-                legend.appendChild(legendItem);
-            });
-            chartWrapper.appendChild(legend);
-        }
-
-        function calculateParliamentPoints(totalPoints, options, graphicWidth) {
-            const graphicHeight = graphicWidth / 2;
-            const { seatRadius, rowHeight, sectionGap } = options;
-            const startRad = 0;
-            const endRad = Math.PI;
-            const padding = seatRadius * 2;
-            const graphRadius = graphicHeight - padding;
-            const points = [];
-            let currentRow = 0;
-            while (points.length < totalPoints) {
-                const currentRowRadius = graphRadius - (rowHeight * currentRow);
-                const currentRowGapRad = Math.atan((seatRadius + (sectionGap / 2)) / currentRowRadius);
-                const currentRowStartRad = startRad + currentRowGapRad;
-                const currentRowEndRad = endRad - currentRowGapRad;
-                if (currentRowEndRad <= currentRowStartRad || currentRowRadius <= 0) break;
-                const spacingFactor = totalPoints > 400 ? 2.0 : 2.5;
-                const currRadStep = Math.atan((spacingFactor * seatRadius) / currentRowRadius);
-                const rowSeats = Math.min(Math.floor((currentRowEndRad - currentRowStartRad) / currRadStep), totalPoints - points.length);
-                const roundedRadStep = rowSeats > 0 ? (currentRowEndRad - currentRowStartRad) / rowSeats : 0;
-                for (let currSeat = 0; currSeat < rowSeats; currSeat++) {
-                    const currentAngle = rowSeats > 0 ? (currSeat * roundedRadStep + currentRowStartRad + roundedRadStep / 2) : ((currentRowStartRad + currentRowEndRad) / 2);
-                    points.push({ x: Math.cos(currentAngle) * currentRowRadius + graphicHeight, y: graphicHeight - Math.sin(currentAngle) * currentRowRadius - seatRadius });
-                }
-                currentRow++;
-            }
-            return points;
-        }
-    </script>
-
-
-</body></html>
+    <!-- JavaScript modules -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/seat-allocation.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/demo.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
