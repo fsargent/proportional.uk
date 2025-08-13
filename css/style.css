@@ -1574,6 +1574,30 @@ body {
     margin-bottom: 0.75rem;
 }
 
+.transfer-timing {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--demo-border);
+    border-radius: 6px;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.transfer-timing h5 {
+    color: var(--proportional-color);
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.transfer-timing p {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.transfer-timing p:last-child {
+    margin-bottom: 0;
+}
+
 .transfer-explanation-demo {
     background: var(--highlight-bg);
     border: 1px solid var(--demo-border);
@@ -2042,25 +2066,230 @@ body {
 
 /* Allocation Steps Styles */
 .allocation-steps {
-    margin: 2rem 0;
-    background: white;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1.5rem;
+  margin: 2rem 0;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
 }
 
 .allocation-steps h3 {
-    margin-bottom: 1rem;
-    color: var(--text-dark);
-    text-align: center;
-    font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+  text-align: center;
+  font-size: 1.3rem;
 }
 
 .allocation-steps p {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: var(--text-color);
-    font-style: italic;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-style: italic;
+}
+
+/* Allocation Table Styles */
+.allocation-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.allocation-table thead {
+  background: #f3f4f6;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.allocation-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.allocation-table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: var(--text-color);
+}
+
+.allocation-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.allocation-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.allocation-table tbody tr.below-threshold-row {
+  background: #fee2e2;
+  position: relative;
+}
+
+.allocation-table tbody tr.below-threshold-row:hover {
+  background: #fecaca;
+}
+
+.allocation-table tbody tr.below-threshold-row td {
+  border-bottom-color: #fca5a5;
+}
+
+.allocation-table tbody tr.below-threshold-row td:first-child {
+  padding-left: 2.5rem;
+}
+
+.allocation-table tbody tr.below-threshold-row td:first-child::before {
+  content: "⚠️";
+  position: absolute;
+  left: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.allocation-table .party-name {
+  font-weight: 600;
+}
+
+.allocation-table .votes-received,
+.allocation-table .cost-per-seat,
+.allocation-table .seats-gained,
+.allocation-table .unused-votes {
+  text-align: right;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+}
+
+.allocation-summary {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.allocation-summary p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  text-align: left;
+}
+
+/* Allocation steps container */
+.allocation-steps-container {
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  /* No max-height - full height display */
+}
+
+/* Round-based allocation styles */
+.allocation-round {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.allocation-round:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.round-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: var(--proportional-color);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.round-icon {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.round-description {
+  color: var(--text-color);
+  font-size: 0.95rem;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.round-summary {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.round-summary p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.below-threshold-notice {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  color: #92400e;
+  font-size: 0.9rem;
+}
+
+.threshold-icon {
+  margin-right: 0.5rem;
+}
+
+.transfers-container {
+  margin: 1rem 0;
+  padding: 0.5rem 0;
+}
+
+.transfer-step {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  background: #f0f9ff;
+  border-left: 3px solid #0284c7;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.9rem;
+  color: #075985;
+}
+
+.transfer-icon {
+  margin-right: 0.5rem;
+  color: #0284c7;
+}
+
+.progress-update {
+  margin-top: 1rem;
+  padding: 0.5rem 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.final-result-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 2px solid #0284c7;
+  border-radius: 8px;
+}
+
+.final-result-section h4 {
+  margin: 0 0 1rem 0;
+  color: #0369a1;
+  font-size: 1.3rem;
+  text-align: center;
 }
 
 
@@ -2240,6 +2469,42 @@ body {
     .allocation-steps h3 {
         font-size: 1.2rem;
     }
+    
+    /* Responsive styles for allocation tables */
+    .allocation-steps-container {
+        padding: 1rem;
+    }
+    
+    .allocation-round {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+    }
+    
+    .allocation-table {
+        font-size: 0.85rem;
+        overflow-x: auto;
+        display: block;
+    }
+    
+    .allocation-table th,
+    .allocation-table td {
+        padding: 0.5rem;
+    }
+    
+    .allocation-table th {
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+    
+    .round-header {
+        font-size: 1rem;
+    }
+    
+    .transfer-step,
+    .below-threshold-notice {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2283,6 +2548,16 @@ body {
     
     .transfer-pref-select {
         font-size: 0.8rem;
+    }
+    
+    .allocation-table th {
+        font-size: 0.7rem;
+        padding: 0.4rem;
+    }
+    
+    .allocation-table td {
+        font-size: 0.8rem;
+        padding: 0.4rem;
     }
 }
 

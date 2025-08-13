@@ -4,21 +4,22 @@ This repository contains the source code for a single-page site advocating for t
 
 ## Goals of this Page
 
-*   Clearly demonstrate the advantages of Fair Share Voting (hybrid proportional representation with vote transfers) for the UK.
-*   Compare and contrast it with First Past the Post (FPTP) and other voting systems.
-*   Demonstrate how proportional representation with vote transfers would work in practice.
-*   Show how regional parties can receive cross-regional support through the transfer system.
-*   Explain how party internal democracy would work with closed lists and transfer preferences.
+- Clearly demonstrate the advantages of Fair Share Voting (hybrid proportional representation with vote transfers) for the UK.
+- Compare and contrast it with First Past the Post (FPTP) and other voting systems.
+- Demonstrate how proportional representation with vote transfers would work in practice.
+- Show how regional parties can receive cross-regional support through the transfer system.
+- Explain how party internal democracy would work with closed lists and transfer preferences.
 
 ## What is Fair Share Voting?
 
 Fair Share Voting is a hybrid electoral system that combines:
+
 - **Closed List Proportional Representation**: Voters choose their preferred party
 - **5% Threshold**: Parties must receive at least 5% of votes to qualify for seats
-- **Vote Transfer System**: Votes from below-threshold parties are transferred to other parties based on democratic preferences
+- **Vote Transfer System**: Votes from below-threshold parties are transferred to other parties based on pre-declared transfer preferences announced before the election
 - **Proportional Allocation**: Remaining seats are distributed proportionally among qualifying parties
 
-This system ensures maximum representation with no wasted votes, while maintaining electoral stability and encouraging coalition building.
+This system ensures maximum representation with no wasted votes, while maintaining electoral stability and encouraging coalition building. Transfer preferences are publicly announced before each election, ensuring transparency and allowing voters to make informed choices.
 
 ## Project Structure
 
@@ -42,12 +43,12 @@ proportional.uk/
 
 ## Features
 
-* **Interactive Parliament Charts**: Visual representation of seat allocation under different systems
-* **Vote Tuner**: Adjust vote shares and see real-time seat allocation changes
-* **Transfer Preferences**: Configure how below-threshold party votes are transferred
-* **Step-by-Step Allocation**: See exactly how seats are allocated using the Fair Share system
-* **Responsive Design**: Works on desktop and mobile devices
-* **Real Election Data**: Uses actual 2024 UK General Election results
+- **Interactive Parliament Charts**: Visual representation of seat allocation under different systems
+- **Vote Tuner**: Adjust vote shares and see real-time seat allocation changes
+- **Transfer Preferences**: Configure how below-threshold party votes are transferred
+- **Step-by-Step Allocation**: See exactly how seats are allocated using the Fair Share system
+- **Responsive Design**: Works on desktop and mobile devices
+- **Real Election Data**: Uses actual 2024 UK General Election results
 
 ## Getting Started
 
@@ -55,18 +56,20 @@ To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
 
-*   Node.js (version 14 or higher)
-*   npm
+- Node.js (version 14 or higher)
+- npm
 
 ### Installation
 
 1.  Clone the repo
+
     ```sh
     git clone https://github.com/fsargent/proportional.uk.git
     cd proportional.uk
     ```
 
 2.  Install dependencies
+
     ```sh
     npm install
     ```
@@ -83,6 +86,7 @@ The site will be available at `http://localhost:3000`.
 If you prefer not to use npm:
 
 1.  Install browser-sync globally
+
     ```sh
     npm install -g browser-sync
     ```
@@ -96,18 +100,18 @@ If you prefer not to use npm:
 
 ### Code Organization
 
-* **HTML**: Clean, semantic markup with no embedded JavaScript or CSS
-* **CSS**: Organized with CSS custom properties (variables) and responsive design
-* **JavaScript**: Modular ES6+ code split into logical concerns
+- **HTML**: Clean, semantic markup with no embedded JavaScript or CSS
+- **CSS**: Organized with CSS custom properties (variables) and responsive design
+- **JavaScript**: Modular ES6+ code split into logical concerns
 
 ### Key Modules
 
-* **config.js**: Contains all constants, party metadata, and election data
-* **utils.js**: Helper functions for calculations and data processing
-* **seat-allocation.js**: Core algorithms for proportional seat allocation
-* **charts.js**: Parliament visualization using HTML5 Canvas
-* **demo.js**: Interactive demonstration and vote tuning interface
-* **main.js**: Application initialization and main functionality
+- **config.js**: Contains all constants, party metadata, and election data
+- **utils.js**: Helper functions for calculations and data processing
+- **seat-allocation.js**: Core algorithms for proportional seat allocation
+- **charts.js**: Parliament visualization using HTML5 Canvas
+- **demo.js**: Interactive demonstration and vote tuning interface
+- **main.js**: Application initialization and main functionality
 
 ### Adding New Features
 
@@ -120,15 +124,15 @@ If you prefer not to use npm:
 
 The site uses modern JavaScript features and CSS. For production use, consider adding:
 
-* Babel for JavaScript transpilation
-* PostCSS for CSS processing
-* A bundler like Webpack or Vite
+- Babel for JavaScript transpilation
+- PostCSS for CSS processing
+- A bundler like Webpack or Vite
 
 ## Data Sources
 
-* **Election Results**: [Electoral Reform Society – Election 2024](https://election2024.electoral-reform.org.uk/)
-* **Party Colors**: Official party brand guidelines
-* **Vote Totals**: National vote counts from the 2024 General Election
+- **Election Results**: [Electoral Reform Society – Election 2024](https://election2024.electoral-reform.org.uk/)
+- **Party Colors**: Official party brand guidelines
+- **Vote Totals**: National vote counts from the 2024 General Election
 
 ## Contributing
 
@@ -144,6 +148,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-* Electoral Reform Society for election data
-* Make Votes Matter for advocacy support
-* Contributors to the proportional representation movement
+- Electoral Reform Society for election data
+- Make Votes Matter for advocacy support
+- Contributors to the proportional representation movement

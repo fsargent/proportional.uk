@@ -1,413 +1,681 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Proportional.uk - Electoral Reform for the UK</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✅</text></svg>">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✅</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <header class="govuk-header" role="banner">
-        <div class="govuk-header__container">
-            <a href="#" class="govuk-header__link govuk-header__link--homepage">
-            ✅ Proportional.uk - Electoral Reform for the UK</a>
-        </div>
+      <div class="govuk-header__container">
+        <a href="#" class="govuk-header__link govuk-header__link--homepage">
+          ✅ Proportional.uk - Electoral Reform for the UK</a
+        >
+      </div>
     </header>
-    
+
     <div class="container">
-        <div class="content">
+      <div class="content">
+        <p>
+          The UK's "choose-one" First-Past-the-Post system guarantees a
+          two-party dominance, forcing voters into tactical decisions rather
+          than allowing them to vote for who they truly support.
+        </p>
+
+        <p>
+          <strong
+            >The simplest, most effective solution is to let people vote for
+            their preferred party, with seats allocated proportionally. We call
+            this Fair Share Voting.</strong
+          >
+        </p>
+
+        <p>
+          This isn't a radical idea. It's a proven system used across Europe
+          that would empower voters and lead to a more representative
+          government. For the Labour Party, a party of progress and reform, this
+          is a historic opportunity to fix our broken political system.
+        </p>
+
+        <p>
+          <strong
+            >For a party that wants to deliver a decade of national renewal,
+            electoral reform is not just an option, it's a necessity.</strong
+          >
+        </p>
+
+        <h2 class="section-header">
+          Fair Share Voting: A Hybrid Proportional Solution
+        </h2>
+        <p>
+          Fair Share Voting combines the simplicity of closed list proportional
+          representation with a vote transfer system to ensure every vote
+          counts. Voters choose their preferred party, and seats are allocated
+          proportionally. Parties below a 5% threshold have their votes
+          transferred to other parties based on pre-declared transfer
+          preferences that are announced before the election, ensuring maximum
+          representation while maintaining the simplicity voters expect.
+        </p>
+
+        <h2 class="section-header">How Fair Share Voting Works</h2>
+
+        <div class="d-hondt-explanation ballot-section">
+          <h3>🗳️ The Ballot</h3>
+          <p>
+            Under Fair Share Voting, you simply vote for your preferred party:
+          </p>
+
+          <div class="ballot-example">
+            <div class="ballot-part">
+              <h4>The Ballot</h4>
+              <p>Simply mark your preferred party:</p>
+              <ul class="party-list">
+                <li>
+                  <input
+                    type="radio"
+                    name="party-choice"
+                    id="party-labour"
+                    class="party-radio"
+                  />
+                  <label for="party-labour">Labour Party</label>
+                </li>
+                <li>
+                  <input
+                    type="radio"
+                    name="party-choice"
+                    id="party-conservative"
+                    class="party-radio"
+                  />
+                  <label for="party-conservative">Conservative Party</label>
+                </li>
+                <li>
+                  <input
+                    type="radio"
+                    name="party-choice"
+                    id="party-libdem"
+                    class="party-radio"
+                  />
+                  <label for="party-libdem">Liberal Democrat Party</label>
+                </li>
+                <li>
+                  <input
+                    type="radio"
+                    name="party-choice"
+                    id="party-green"
+                    class="party-radio"
+                  />
+                  <label for="party-green">Green Party</label>
+                </li>
+                <li>
+                  <input
+                    type="radio"
+                    name="party-choice"
+                    id="party-reform"
+                    class="party-radio"
+                  />
+                  <label for="party-reform">Reform UK</label>
+                </li>
+              </ul>
+              <p class="hint">✓ Simple, familiar voting method!</p>
+            </div>
+          </div>
+
+          <h3>📊 How Seats Are Allocated</h3>
+          <p>
+            Seats are allocated using a hybrid proportional system with vote
+            transfers:
+          </p>
+
+          <div class="allocation-steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Count Party Votes</h4>
+                <p>Count total votes for each party nationwide</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Apply 5% Threshold</h4>
+                <p>
+                  Parties must receive at least 5% of total votes to qualify for
+                  seats
+                </p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Transfer Below-Threshold Votes</h4>
+                <p>
+                  Votes from parties below 5% are transferred to other parties
+                  based on pre-declared transfer preferences announced before
+                  the election
+                </p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h4>Allocate Seats Proportionally</h4>
+                <p>
+                  Seats are assigned proportionally to the remaining parties
+                  using highest-averages method
+                </p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">5</div>
+              <div class="step-content">
+                <h4>Parties Fill Seats</h4>
+                <p>
+                  Each party fills their allocated seats from their pre-ordered
+                  candidate list
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-hondt-explanation">
+            <h4>📐 How the Hybrid System Works</h4>
+            <p>Fair Share Voting combines the best of both worlds:</p>
+            <ul>
+              <li>
+                <strong>Initial Allocation:</strong> Each party gets seats based
+                on their vote share using a Hare quota system
+              </li>
+              <li>
+                <strong>Threshold Application:</strong> Parties below 5% cannot
+                keep seats and their votes are transferred
+              </li>
+              <li>
+                <strong>Vote Transfers:</strong> Below-threshold votes are
+                transferred to other parties based on each party's pre-declared
+                transfer preferences (e.g., Green Party declares that their
+                votes should go to Labour if they fall below 5%)
+              </li>
+              <li>
+                <strong>Final Proportional Allocation:</strong> Remaining seats
+                are distributed proportionally among qualifying parties
+              </li>
+              <li>
+                <strong>Result:</strong> Maximum representation with no wasted
+                votes, while maintaining electoral stability
+              </li>
+            </ul>
+          </div>
+
+          <div class="transfer-explanation">
+            <h4>🔄 Understanding Vote Transfers</h4>
             <p>
-                The UK's "choose-one" First-Past-the-Post system guarantees a two-party dominance, forcing voters into tactical decisions rather than allowing them to vote for who they truly support.
+              The transfer system ensures that every vote contributes to
+              representation, with two types of transfers:
             </p>
+            <ul>
+              <li>
+                <strong>Below-Threshold Transfers:</strong> When a party falls
+                below 5%, ALL their votes are transferred to their pre-declared
+                preferred party (e.g., if Green Party gets 4%, all their votes
+                go to Labour as declared before the election)
+              </li>
+              <li>
+                <strong>Surplus Vote Transfers:</strong> Even winning parties
+                may have surplus votes above what's needed for their seats -
+                these are also transferred to their preferred parties
+              </li>
+              <li>
+                <strong>Pre-Declared Preferences:</strong> Each party must
+                publicly announce their transfer preferences BEFORE the
+                election, so voters know exactly where their votes will go
+              </li>
+              <li>
+                <strong>Democratic Process:</strong> Transfer preferences are
+                set through internal party democracy and consultation with
+                supporters
+              </li>
+              <li>
+                <strong>No Wasted Votes:</strong> Every vote contributes to
+                electing representatives, even if not from the voter's first
+                choice
+              </li>
+              <li>
+                <strong>Coalition Building:</strong> Transfers encourage parties
+                to work together and find common ground
+              </li>
+            </ul>
 
-            <p><strong>The simplest, most effective solution is to let people vote for their preferred party, with seats allocated proportionally. We call this Fair Share Voting.</strong></p>
-
-            <p>This isn't a radical idea. It's a proven system used across Europe that would empower voters and lead to a more representative government. For the Labour Party, a party of progress and reform, this is a historic opportunity to fix our broken political system.</p>
-
-            <p><strong>For a party that wants to deliver a decade of national renewal, electoral reform is not just an option, it's a necessity.</strong></p>
-
-            <h2 class="section-header">Fair Share Voting: A Hybrid Proportional Solution</h2>
-            <p>Fair Share Voting combines the simplicity of closed list proportional representation with a vote transfer system to ensure every vote counts. Voters choose their preferred party, and seats are allocated proportionally. Parties below a 5% threshold have their votes transferred to other parties based on democratic preferences, ensuring maximum representation while maintaining the simplicity voters expect.</p>
-
-            <h2 class="section-header">How Fair Share Voting Works</h2>
-            
-            <div class="d-hondt-explanation ballot-section">
-                <h3>🗳️ The Ballot</h3>
-                <p>Under Fair Share Voting, you simply vote for your preferred party:</p>
-                
-                <div class="ballot-example">
-                    <div class="ballot-part">
-                        <h4>The Ballot</h4>
-                        <p>Simply mark your preferred party:</p>
-                        <ul class="party-list">
-                            <li><input type="radio" name="party-choice" id="party-labour" class="party-radio"> <label for="party-labour">Labour Party</label></li>
-                            <li><input type="radio" name="party-choice" id="party-conservative" class="party-radio"> <label for="party-conservative">Conservative Party</label></li>
-                            <li><input type="radio" name="party-choice" id="party-libdem" class="party-radio"> <label for="party-libdem">Liberal Democrat Party</label></li>
-                            <li><input type="radio" name="party-choice" id="party-green" class="party-radio"> <label for="party-green">Green Party</label></li>
-                            <li><input type="radio" name="party-choice" id="party-reform" class="party-radio"> <label for="party-reform">Reform UK</label></li>
-                        </ul>
-                        <p class="hint">✓ Simple, familiar voting method!</p>
-                    </div>
-                </div>
-                
-                <h3>📊 How Seats Are Allocated</h3>
-                <p>Seats are allocated using a hybrid proportional system with vote transfers:</p>
-                
-                <div class="allocation-steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h4>Count Party Votes</h4>
-                            <p>Count total votes for each party nationwide</p>
-                        </div>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h4>Apply 5% Threshold</h4>
-                            <p>Parties must receive at least 5% of total votes to qualify for seats</p>
-                        </div>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h4>Transfer Below-Threshold Votes</h4>
-                            <p>Votes from parties below 5% are transferred to other parties based on democratic preferences</p>
-                        </div>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <div class="step-content">
-                            <h4>Allocate Seats Proportionally</h4>
-                            <p>Seats are assigned proportionally to the remaining parties using highest-averages method</p>
-                        </div>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">5</div>
-                        <div class="step-content">
-                            <h4>Parties Fill Seats</h4>
-                            <p>Each party fills their allocated seats from their pre-ordered candidate list</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-hondt-explanation">
-                    <h4>📐 How the Hybrid System Works</h4>
-                    <p>Fair Share Voting combines the best of both worlds:</p>
-                    <ul>
-                        <li><strong>Initial Allocation:</strong> Each party gets seats based on their vote share using a Hare quota system</li>
-                        <li><strong>Threshold Application:</strong> Parties below 5% cannot keep seats and their votes are transferred</li>
-                        <li><strong>Vote Transfers:</strong> Below-threshold votes go to other parties based on democratic preferences (e.g., Green votes might transfer to Labour)</li>
-                        <li><strong>Final Proportional Allocation:</strong> Remaining seats are distributed proportionally among qualifying parties</li>
-                        <li><strong>Result:</strong> Maximum representation with no wasted votes, while maintaining electoral stability</li>
-                    </ul>
-                </div>
-                
-                <div class="transfer-explanation">
-                    <h4>🔄 Understanding Vote Transfers</h4>
-                    <p>The transfer system ensures that even votes for small parties contribute to representation:</p>
-                    <ul>
-                        <li><strong>Democratic Preferences:</strong> Transfer preferences are set through internal party democracy and public consultation</li>
-                        <li><strong>No Wasted Votes:</strong> Every vote contributes to electing representatives, even if not from the voter's first choice</li>
-                        <li><strong>Coalition Building:</strong> Transfers encourage parties to work together and find common ground</li>
-                        <li><strong>Regional Representation:</strong> Small regional parties can still influence national politics through transfers</li>
-                    </ul>
-                </div>
-                
-                <div class="real-example-section">
-                    <h3>🏆 A Real Example</h3>
-                    <p>Based on current polling (approximate):</p>
-                
-                <table class="results-table">
-                    <thead>
-                        <tr>
-                            <th>Party</th>
-                            <th>Vote Share</th>
-                            <th>FPTP Seats (projected)</th>
-                            <th>Proportional Seats</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Labour</td>
-                            <td>40%</td>
-                            <td>400+</td>
-                            <td>260</td>
-                        </tr>
-                        <tr>
-                            <td>Conservative</td>
-                            <td>25%</td>
-                            <td>150-200</td>
-                            <td>162</td>
-                        </tr>
-                        <tr>
-                            <td>Reform UK</td>
-                            <td>15%</td>
-                            <td>20-40</td>
-                            <td>97</td>
-                        </tr>
-                        <tr>
-                            <td>Liberal Democrats</td>
-                            <td>12%</td>
-                            <td>15-25</td>
-                            <td>78</td>
-                        </tr>
-                        <tr>
-                            <td>Green</td>
-                            <td>8%</td>
-                            <td>1-3</td>
-                            <td>52</td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-                
-                <div class="proportional-benefits">
-                    <h3>✅ Why This Matters</h3>
-                    <ul>
-                        <li><strong>True Representation:</strong> Seat share matches vote share - no more artificial majorities</li>
-                        <li><strong>Every Vote Counts:</strong> No "safe seats" or "wasted votes" - your voice matters everywhere</li>
-                        <li><strong>Regional Representation:</strong> Parties are incentivized to include candidates from all regions on their lists</li>
-                        <li><strong>Diversity:</strong> Parties can ensure their lists reflect the diversity of their support base</li>
-                        <li><strong>Coalition Building:</strong> Parties must work together and find common ground</li>
-                        <li><strong>Party Accountability:</strong> List composition and ordering is transparent and subject to internal democracy</li>
-                        <li><strong>Cross-Regional Support:</strong> Voters can support regional parties regardless of where they live</li>
-                    </ul>
-                </div>
+            <div class="transfer-timing">
+              <h5>⏰ When Are Transfer Preferences Set?</h5>
+              <p>
+                <strong>Before the election:</strong> All parties must publicly
+                announce their transfer preferences well in advance of voting
+                day. This ensures complete transparency and allows voters to
+                make informed decisions about which party to support.
+              </p>
+              <p>
+                <strong>Democratic consultation:</strong> Each party's transfer
+                preferences are determined through internal democratic
+                processes, often including member votes and consultation with
+                supporters.
+              </p>
             </div>
+          </div>
 
-            <h2 class="section-header">Why Fair Share Voting Works</h2>
-            <p>Fair Share Voting combines the proven benefits of proportional representation with an innovative transfer system to maximize representation. While more complex than pure closed list PR, it provides significant advantages over FPTP and ensures no vote is wasted. The key advantages are:</p>
-            
-            <div class="comparison-section">
-                <div class="comparison-grid">
-                    <div class="comparison-item">
-                        <h3>🗳️ Simplicity vs. Effectiveness</h3>
-                        <div class="comparison-content">
-                            <div class="rcv-side">
-                                <h4>Complex Systems</h4>
-                                <ul>
-                                    <li>Ranked choice voting requires complex counting</li>
-                                    <li>STV ballots are confusing and error-prone</li>
-                                    <li>Results can take days to determine</li>
-                                    <li>Voters struggle to understand the process</li>
-                                </ul>
-                            </div>
-                            <div class="proportional-side">
-                                <h4>Fair Share Voting</h4>
-                                <ul>
-                                    <li>Simple X next to preferred party</li>
-                                    <li>Familiar voting method</li>
-                                    <li>Results available election night</li>
-                                    <li>Vote transfers happen automatically</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="comparison-item">
-                        <h3>📊 Representation</h3>
-                        <div class="comparison-content">
-                            <div class="rcv-side">
-                                <h4>FPTP Problems</h4>
-                                <ul>
-                                    <li>Wasted votes in safe seats</li>
-                                    <li>Regional parties excluded</li>
-                                    <li>Artificial majorities</li>
-                                    <li>No cross-regional support</li>
-                                </ul>
-                            </div>
-                            <div class="proportional-side">
-                                <h4>Proportional Benefits</h4>
-                                <ul>
-                                    <li>Every vote counts towards representation</li>
-                                    <li>Regional parties can get national support</li>
-                                    <li>Seat share matches vote share</li>
-                                    <li>Cross-regional voting possible</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="comparison-item">
-                        <h3>🏛️ Party Democracy</h3>
-                        <div class="comparison-content">
-                            <div class="rcv-side">
-                                <h4>Individual Candidates</h4>
-                                <ul>
-                                    <li>Focus on personality over policy</li>
-                                    <li>Local interests dominate</li>
-                                    <li>Difficult to ensure diversity</li>
-                                    <li>No party accountability</li>
-                                </ul>
-                            </div>
-                            <div class="proportional-side">
-                                <h4>Party Lists</h4>
-                                <ul>
-                                    <li>Policy-focused campaigns</li>
-                                    <li>Parties balance regional interests</li>
-                                    <li>Parties can ensure diverse representation</li>
-                                    <li>Internal party democracy</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="comparison-item">
-                        <h3>🤝 Coalition Building</h3>
-                        <div class="comparison-content">
-                            <div class="rcv-side">
-                                <h4>FPTP Problems</h4>
-                                <ul>
-                                    <li>Rare coalition governments</li>
-                                    <li>Unstable when they do form</li>
-                                    <li>Policy gridlock common</li>
-                                    <li>Voter dissatisfaction</li>
-                                </ul>
-                            </div>
-                            <div class="proportional-side">
-                                <h4>Proportional Benefits</h4>
-                                <ul>
-                                    <li>Stable coalition governments</li>
-                                    <li>Parties work together</li>
-                                    <li>Policy compromise and progress</li>
-                                    <li>Broad-based support</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="real-world-examples">
-                    <h3>🌍 Real-World Success Stories</h3>
-                    <div class="example-grid">
-                        <div class="example">
-                            <h4>Germany</h4>
-                            <p>Uses Mixed Member Proportional with closed lists. Stable coalitions, diverse representation, and strong regional parties like the CSU.</p>
-                        </div>
-                        <div class="example">
-                            <h4>Spain</h4>
-                            <p>Closed list proportional representation. Regional parties like ERC and PNV have national influence despite small vote shares.</p>
-                        </div>
-                        <div class="example">
-                            <h4>Netherlands</h4>
-                            <p>Pure proportional representation with closed lists. Highly diverse parliament with many parties represented.</p>
-                        </div>
-                        <div class="example">
-                            <h4>Sweden</h4>
-                            <p>Closed list PR with 4% threshold. Stable governments and strong representation of smaller parties.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="key-takeaway">
-                    <h3>🎯 The Bottom Line</h3>
-                    <p>Fair Share Voting is an innovative hybrid system that combines the simplicity of closed list PR with the representation benefits of vote transfers. While more complex than pure proportional systems, it ensures maximum representation with no wasted votes, making it a powerful tool for electoral reform in the UK.</p>
-                    <p><strong>Remember:</strong> The goal is maximum representation with electoral stability. Fair Share Voting achieves this through its hybrid approach.</p>
-                </div>
-            </div>
-
-            <h2 class="section-header">Regional Representation and Cross-Regional Support</h2>
-            <p>One of the key advantages of Fair Share Voting is how it handles regional representation through its innovative transfer system. Under the current FPTP system, regional parties like the SNP, Plaid Cymru, or the Northern Irish parties are limited to their geographic regions. With Fair Share Voting, these parties can receive votes from supporters across the entire UK, and when they fall below the 5% threshold, their votes are transferred to other parties based on democratic preferences, ensuring regional voices still influence national politics.</p>
-
-            <div class="regional-benefits">
-                <h3>🏴󠁧󠁢󠁳󠁣󠁴󠁿 How Regional Representation Works</h3>
-                <ul>
-                    <li><strong>National Voting:</strong> Voters can support regional parties regardless of where they live</li>
-                    <li><strong>Threshold Protection:</strong> Regional parties below 5% have their votes transferred rather than wasted</li>
-                    <li><strong>Democratic Transfers:</strong> Transfer preferences are set through consultation with party members and supporters</li>
-                    <li><strong>Influence Preservation:</strong> Even small regional parties can influence national policy through vote transfers</li>
-                    <li><strong>Balanced Lists:</strong> Major parties are incentivized to include candidates from all regions on their lists</li>
-                </ul>
-            </div>
-
-            <h2 class="section-header">Party Internal Democracy</h2>
-            <p>Fair Share Voting strengthens party internal democracy in two key ways. First, parties must create and maintain candidate lists that reflect their values and priorities through transparent internal processes. Second, parties must establish transfer preferences through democratic consultation with their members, giving party members a direct say in both who represents them and where their votes go if they fall below the threshold.</p>
-
-            <h2 class="section-header">Interactive Demonstration</h2>
-            <div class="demo-section">
-                <div class="demo-intro">
-                    <h3>Interactive Demonstration</h3>
-                    <p>Compare how the same votes produce different results under different voting systems. The Fair Share Voting system includes vote transfers for parties below the 5% threshold, ensuring maximum representation.</p>
-                </div>
-                
-                <div class="demo-charts">
-                    <div class="chart-item">
-                        <h4>First Past the Post</h4>
-                        <div class="chart-container">
-                            <div id="official-fptp-chart" class="parliament-chart compact"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="chart-item">
-                        <h4>Fair Share Voting (with transfers)</h4>
-                        <div class="chart-container">
-                            <div id="official-pr-chart" class="parliament-chart compact"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="vote-tuner">
-                    <h3>Adjust Vote Shares and Transfer Preferences</h3>
-                    <p class="tuner-description">Modify the vote totals for each party and see how seat allocation changes. You can also adjust transfer preferences to see how below-threshold votes are redistributed:</p>
-                    <div class="vote-tuner-table-wrapper">
-                        <table id="vote-inputs" class="vote-input-table">
-                            <thead>
-                                <tr>
-                                    <th>Party</th>
-                                    <th>Votes</th>
-                                    <th>%</th>
-                                    <th>Transfer Preferences</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div class="vote-controls">
-                        <button id="apply-custom-votes" class="btn btn-primary">Apply Changes</button>
-                        <button id="reset-votes" class="btn btn-secondary">Reset to Default</button>
-                        <div id="total-votes-value" class="total-votes"></div>
-                    </div>
-                    <div class="transfer-explanation-demo">
-                        <h4>🔄 How Transfer Preferences Work</h4>
-                        <p>When a party falls below the 5% threshold, their votes are automatically transferred to other parties based on the preferences you set above. This ensures no votes are wasted and maximum representation is achieved.</p>
-                        <ul>
-                            <li><strong>Democratic Process:</strong> In real elections, these preferences would be set through party member consultation</li>
-                            <li><strong>Strategic Alliances:</strong> Parties can align with ideologically similar parties</li>
-                            <li><strong>Regional Considerations:</strong> Transfer preferences can reflect regional and policy alignments</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="allocation-steps">
-                    <h3>Seat Allocation Process</h3>
-                    <p>See exactly how seats are allocated using the Fair Share Voting system, including vote transfers:</p>
-                    <div id="official-pr-steps"></div>
-                </div>
-            </div>
+          <div class="proportional-benefits">
+            <h3>✅ Why This Matters</h3>
+            <ul>
+              <li>
+                <strong>True Representation:</strong> Seat share matches vote
+                share - no more artificial majorities
+              </li>
+              <li>
+                <strong>Every Vote Counts:</strong> No "safe seats" or "wasted
+                votes" - your voice matters everywhere
+              </li>
+              <li>
+                <strong>Regional Representation:</strong> Parties are
+                incentivized to include candidates from all regions on their
+                lists
+              </li>
+              <li>
+                <strong>Diversity:</strong> Parties can ensure their lists
+                reflect the diversity of their support base
+              </li>
+              <li>
+                <strong>Coalition Building:</strong> Parties must work together
+                and find common ground
+              </li>
+              <li>
+                <strong>Party Accountability:</strong> List composition and
+                ordering is transparent and subject to internal democracy
+              </li>
+              <li>
+                <strong>Cross-Regional Support:</strong> Voters can support
+                regional parties regardless of where they live
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <h2 class="section-header">Why Fair Share Voting Works</h2>
+        <p>
+          Fair Share Voting combines the proven benefits of proportional
+          representation with an innovative transfer system to maximize
+          representation. While more complex than pure closed list PR, it
+          provides significant advantages over FPTP and ensures no vote is
+          wasted. The key advantages are:
+        </p>
+
+        <div class="comparison-section">
+          <div class="comparison-grid">
+            <div class="comparison-item">
+              <h3>🗳️ Simplicity vs. Effectiveness</h3>
+              <div class="comparison-content">
+                <div class="rcv-side">
+                  <h4>Complex Systems</h4>
+                  <ul>
+                    <li>Ranked choice voting requires complex counting</li>
+                    <li>STV ballots are confusing and error-prone</li>
+                    <li>Results can take days to determine</li>
+                    <li>Voters struggle to understand the process</li>
+                  </ul>
+                </div>
+                <div class="proportional-side">
+                  <h4>Fair Share Voting</h4>
+                  <ul>
+                    <li>Simple X next to preferred party</li>
+                    <li>Familiar voting method</li>
+                    <li>Results available election night</li>
+                    <li>Vote transfers happen automatically</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="comparison-item">
+              <h3>📊 Representation</h3>
+              <div class="comparison-content">
+                <div class="rcv-side">
+                  <h4>FPTP Problems</h4>
+                  <ul>
+                    <li>Wasted votes in safe seats</li>
+                    <li>Regional parties excluded</li>
+                    <li>Artificial majorities</li>
+                    <li>No cross-regional support</li>
+                  </ul>
+                </div>
+                <div class="proportional-side">
+                  <h4>Proportional Benefits</h4>
+                  <ul>
+                    <li>Every vote counts towards representation</li>
+                    <li>Regional parties can get national support</li>
+                    <li>Seat share matches vote share</li>
+                    <li>Cross-regional voting possible</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="comparison-item">
+              <h3>🏛️ Party Democracy</h3>
+              <div class="comparison-content">
+                <div class="rcv-side">
+                  <h4>Individual Candidates</h4>
+                  <ul>
+                    <li>Focus on personality over policy</li>
+                    <li>Local interests dominate</li>
+                    <li>Difficult to ensure diversity</li>
+                    <li>No party accountability</li>
+                  </ul>
+                </div>
+                <div class="proportional-side">
+                  <h4>Party Lists</h4>
+                  <ul>
+                    <li>Policy-focused campaigns</li>
+                    <li>Parties balance regional interests</li>
+                    <li>Parties can ensure diverse representation</li>
+                    <li>Internal party democracy</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="comparison-item">
+              <h3>🤝 Coalition Building</h3>
+              <div class="comparison-content">
+                <div class="rcv-side">
+                  <h4>FPTP Problems</h4>
+                  <ul>
+                    <li>Rare coalition governments</li>
+                    <li>Unstable when they do form</li>
+                    <li>Policy gridlock common</li>
+                    <li>Voter dissatisfaction</li>
+                  </ul>
+                </div>
+                <div class="proportional-side">
+                  <h4>Proportional Benefits</h4>
+                  <ul>
+                    <li>Stable coalition governments</li>
+                    <li>Parties work together</li>
+                    <li>Policy compromise and progress</li>
+                    <li>Broad-based support</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="real-world-examples">
+            <h3>🌍 Real-World Success Stories</h3>
+            <div class="example-grid">
+              <div class="example">
+                <h4>Germany</h4>
+                <p>
+                  Uses Mixed Member Proportional with closed lists. Stable
+                  coalitions, diverse representation, and strong regional
+                  parties like the CSU.
+                </p>
+              </div>
+              <div class="example">
+                <h4>Spain</h4>
+                <p>
+                  Closed list proportional representation. Regional parties like
+                  ERC and PNV have national influence despite small vote shares.
+                </p>
+              </div>
+              <div class="example">
+                <h4>Netherlands</h4>
+                <p>
+                  Pure proportional representation with closed lists. Highly
+                  diverse parliament with many parties represented.
+                </p>
+              </div>
+              <div class="example">
+                <h4>Sweden</h4>
+                <p>
+                  Closed list PR with 4% threshold. Stable governments and
+                  strong representation of smaller parties.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="key-takeaway">
+            <h3>🎯 The Bottom Line</h3>
+            <p>
+              Fair Share Voting is an innovative hybrid system that combines the
+              simplicity of closed list PR with the representation benefits of
+              vote transfers. While more complex than pure proportional systems,
+              it ensures maximum representation with no wasted votes, making it
+              a powerful tool for electoral reform in the UK.
+            </p>
+            <p>
+              <strong>Remember:</strong> The goal is maximum representation with
+              electoral stability. Fair Share Voting achieves this through its
+              hybrid approach.
+            </p>
+          </div>
+        </div>
+
+        <h2 class="section-header">
+          Regional Representation and Cross-Regional Support
+        </h2>
+        <p>
+          One of the key advantages of Fair Share Voting is how it handles
+          regional representation through its innovative transfer system. Under
+          the current FPTP system, regional parties like the SNP, Plaid Cymru,
+          or the Northern Irish parties are limited to their geographic regions.
+          With Fair Share Voting, these parties can receive votes from
+          supporters across the entire UK, and when they fall below the 5%
+          threshold, their votes are transferred to other parties based on
+          pre-declared transfer preferences, ensuring regional voices still
+          influence national politics.
+        </p>
+
+        <div class="regional-benefits">
+          <h3>🏴󠁧󠁢󠁳󠁣󠁴󠁿 How Regional Representation Works</h3>
+          <ul>
+            <li>
+              <strong>National Voting:</strong> Voters can support regional
+              parties regardless of where they live
+            </li>
+            <li>
+              <strong>Threshold Protection:</strong> Regional parties below 5%
+              have their votes transferred rather than wasted
+            </li>
+            <li>
+              <strong>Democratic Transfers:</strong> Transfer preferences are
+              set through consultation with party members and supporters, and
+              publicly announced before the election
+            </li>
+            <li>
+              <strong>Influence Preservation:</strong> Even small regional
+              parties can influence national policy through vote transfers
+            </li>
+            <li>
+              <strong>Balanced Lists:</strong> Major parties are incentivized to
+              include candidates from all regions on their lists
+            </li>
+          </ul>
+        </div>
+
+        <h2 class="section-header">Party Internal Democracy</h2>
+        <p>
+          Fair Share Voting strengthens party internal democracy in two key
+          ways. First, parties must create and maintain candidate lists that
+          reflect their values and priorities through transparent internal
+          processes. Second, parties must establish transfer preferences through
+          democratic consultation with their members, giving party members a
+          direct say in both who represents them and where their votes go if
+          they fall below the threshold.
+        </p>
+
+        <h2 class="section-header">Interactive Demonstration</h2>
+        <div class="demo-section">
+          <div class="demo-intro">
+            <h3>Interactive Demonstration</h3>
+            <p>
+              Compare how the same votes produce different results under
+              different voting systems. The Fair Share Voting system includes
+              vote transfers for parties below the 5% threshold, ensuring
+              maximum representation.
+            </p>
+          </div>
+
+          <div class="demo-charts">
+            <div class="chart-item">
+              <h4>First Past the Post</h4>
+              <div class="chart-container">
+                <div
+                  id="official-fptp-chart"
+                  class="parliament-chart compact"
+                ></div>
+              </div>
+            </div>
+
+            <div class="chart-item">
+              <h4>Fair Share Voting (with transfers)</h4>
+              <div class="chart-container">
+                <div
+                  id="official-pr-chart"
+                  class="parliament-chart compact"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vote-tuner">
+            <h3>Adjust Vote Shares and Transfer Preferences</h3>
+            <p class="tuner-description">
+              Modify the vote totals for each party and see how seat allocation
+              changes. You can also adjust transfer preferences to see how
+              below-threshold votes are redistributed:
+            </p>
+            <div class="vote-tuner-table-wrapper">
+              <table id="vote-inputs" class="vote-input-table">
+                <thead>
+                  <tr>
+                    <th>Party</th>
+                    <th>Votes</th>
+                    <th>%</th>
+                    <th>Transfer Preferences</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="vote-controls">
+              <button id="apply-custom-votes" class="btn btn-primary">
+                Apply Changes
+              </button>
+              <button id="reset-votes" class="btn btn-secondary">
+                Reset to Default
+              </button>
+              <div id="total-votes-value" class="total-votes"></div>
+            </div>
+            <div class="transfer-explanation-demo">
+              <h4>🔄 How Transfer Preferences Work</h4>
+              <p>
+                When a party falls below the 5% threshold, their votes are
+                automatically transferred to other parties based on the
+                preferences you set above. This ensures no votes are wasted and
+                maximum representation is achieved.
+              </p>
+              <ul>
+                <li>
+                  <strong>Democratic Process:</strong> In real elections, these
+                  preferences would be set through party member consultation and
+                  publicly announced before the election
+                </li>
+                <li>
+                  <strong>Strategic Alliances:</strong> Parties can align with
+                  ideologically similar parties
+                </li>
+                <li>
+                  <strong>Regional Considerations:</strong> Transfer preferences
+                  can reflect regional and policy alignments
+                </li>
+                <li>
+                  <strong>Transparency:</strong> All transfer preferences are
+                  public knowledge, allowing voters to make informed decisions
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- <div class="vote-flow-visualization">
+            <h3>Vote Transfer Flow Visualization</h3>
+            <p>
+              This Sankey diagram shows how votes flow between parties during
+              the allocation process:
+            </p>
+            <div id="sankey-diagram" style="width: 100%; height: 400px"></div>
+          </div> -->
+
+          <div class="allocation-steps">
+            <h3>Detailed Seat Allocation Process</h3>
+            <p>
+              Step-by-step breakdown of how seats are allocated using the Fair
+              Share Voting system:
+            </p>
+            <div class="allocation-steps-container">
+              <div id="official-pr-steps"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div style="text-align:center; color:#666; font-size:0.9rem; margin: 1.5rem 0 2.5rem;">
-        Data source: <a class="data-link" href="https://election2024.electoral-reform.org.uk/" target="_blank" rel="noopener noreferrer">Electoral Reform Society – Election 2024</a>
+    <div
+      style="
+        text-align: center;
+        color: #666;
+        font-size: 0.9rem;
+        margin: 1.5rem 0 2.5rem;
+      "
+    >
+      Data source:
+      <a
+        class="data-link"
+        href="https://election2024.electoral-reform.org.uk/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Electoral Reform Society – Election 2024</a
+      >
     </div>
+
+    <!-- Google Charts for Sankey diagram -->
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
 
     <!-- JavaScript modules -->
+    <script src="js/logger.js"></script>
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/seat-allocation.js"></script>
     <script src="js/charts.js"></script>
+    <script src="js/sankey.js"></script>
     <script src="js/demo.js"></script>
     <script src="js/main.js"></script>
-</body>
+  </body>
 </html>

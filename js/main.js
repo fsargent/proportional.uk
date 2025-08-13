@@ -1,6 +1,25 @@
 // Main application module for Proportional.uk
 // This module initializes the application and handles the main functionality
 
+// Create logger for this module
+const mainLogger = typeof Logger !== 'undefined' ? new Logger('Main') : null;
+
+// Set log level based on URL parameter or default to INFO
+if (typeof Logger !== 'undefined') {
+    const urlParams = new URLSearchParams(window.location.search);
+    const logLevel = urlParams.get('loglevel');
+    
+    if (logLevel) {
+        const level = LOG_LEVELS[logLevel.toUpperCase()];
+        if (level !== undefined) {
+            Logger.setLogLevel(level);
+            if (mainLogger) {
+                mainLogger.info(`Log level set to ${logLevel.toUpperCase()}`);
+            }
+        }
+    }
+}
+
 /**
  * Initialize the application
  */
@@ -9,7 +28,9 @@ function initApp() {
     renderOfficial();
     
     // Add any additional initialization here
-    console.log('Proportional.uk initialized successfully');
+    if (mainLogger) {
+        mainLogger.info('Proportional.uk initialized successfully');
+    }
 }
 
 /**
