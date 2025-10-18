@@ -3015,3 +3015,46 @@ body {
 }
 
 /* ===== END AMS+ SPECIFIC STYLES ===== */
+
+/* FAQ Section Styles */
+.faq-section {
+  margin: 2rem 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.faq-item {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.faq-item:hover {
+  border-color: var(--header-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.faq-item h3 {
+  margin-top: 0;
+  color: var(--header-bg);
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.faq-item p {
+  margin: 0;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .faq-item {
+    padding: 1rem;
+  }
+
+  .faq-item h3 {
+    font-size: 1rem;
+  }
+}
