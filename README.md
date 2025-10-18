@@ -1,29 +1,30 @@
 # Proportional.uk - Electoral Reform for the UK
 
-This repository contains the source code for a single-page site advocating for the adoption of a hybrid proportional representation system in the United Kingdom, which we call Fair Share Voting.
+This repository contains the source code for a single-page site advocating for the adoption of AMS+ (Additional Member System Plus), an improved version of the Additional Member System already used in Scotland and Wales.
 
 ## Goals of this Page
 
-- Clearly demonstrate the advantages of Fair Share Voting (hybrid proportional representation with vote transfers) for the UK.
-- Compare and contrast it with First Past the Post (FPTP) and other voting systems.
-- Demonstrate how proportional representation with vote transfers would work in practice.
-- Show how regional parties can receive cross-regional support through the transfer system.
-- Explain how party internal democracy would work with closed lists and transfer preferences.
+- Clearly demonstrate the advantages of AMS+ (AMS with approval voting for constituency seats)
+- Compare AMS+ with First Past the Post (FPTP) and traditional AMS
+- Show how approval voting makes constituency voting more expressive
+- Demonstrate how the two-vote system balances local and proportional representation
+- Explain how consensus candidates are rewarded through approval voting
 
-## What is Fair Share Voting?
+## What is AMS+?
 
-Fair Share Voting is a hybrid electoral system that combines:
+AMS+ is an improved version of the Additional Member System that combines:
 
-- **Closed List Proportional Representation**: Voters choose their preferred party
-- **5% Threshold**: Parties must receive at least 5% of votes to qualify for seats
-- **Vote Transfer System**: Votes from below-threshold parties are transferred to other parties based on pre-declared transfer preferences announced before the election
-- **Proportional Allocation**: Remaining seats are distributed proportionally among qualifying parties
+- **Two Separate Ballots**: Constituency ballot and party list ballot (familiar from current AMS)
+- **Approval Voting for Constituency**: Voters approve multiple candidates they trust, not forced into a single choice
+- **Proportional Party List**: Voters select one party for regional representation
+- **Local Representation**: Candidate with most approvals wins the local seat
+- **Proportional Top-Up**: Party list seats distributed proportionally to ensure overall proportionality
 
-This system ensures maximum representation with no wasted votes, while maintaining electoral stability and encouraging coalition building. Transfer preferences are publicly announced before each election, ensuring transparency and allowing voters to make informed choices.
+This system builds on the proven success of AMS in Scotland and Wales while addressing the limitation of single-choice constituency voting through approval voting, allowing voters to express genuine preferences for multiple candidates they trust.
 
 ## Project Structure
 
-The project has been refactored for better maintainability:
+The project is organized for maintainability:
 
 ```
 proportional.uk/
@@ -33,9 +34,7 @@ proportional.uk/
 ├── js/
 │   ├── config.js      # Configuration and constants
 │   ├── utils.js       # Utility functions
-│   ├── seat-allocation.js  # Core seat allocation logic
-│   ├── charts.js      # Parliament visualization
-│   ├── demo.js        # Interactive demonstration
+│   ├── logger.js      # Logging utilities
 │   └── main.js        # Main application logic
 ├── package.json        # Development dependencies
 └── README.md          # This file
@@ -43,12 +42,11 @@ proportional.uk/
 
 ## Features
 
-- **Interactive Parliament Charts**: Visual representation of seat allocation under different systems
-- **Vote Tuner**: Adjust vote shares and see real-time seat allocation changes
-- **Transfer Preferences**: Configure how below-threshold party votes are transferred
-- **Step-by-Step Allocation**: See exactly how seats are allocated using the Fair Share system
+- **Clear Ballot Demonstrations**: Visual representation of approval voting ballots
+- **Benefits Overview**: Key advantages of AMS+ compared to other systems
+- **System Explanation**: Step-by-step breakdown of how AMS+ works
+- **Comparative Analysis**: AMS+ vs FPTP vs Traditional AMS
 - **Responsive Design**: Works on desktop and mobile devices
-- **Real Election Data**: Uses actual 2024 UK General Election results
 
 ## Getting Started
 
@@ -102,15 +100,13 @@ If you prefer not to use npm:
 
 - **HTML**: Clean, semantic markup with no embedded JavaScript or CSS
 - **CSS**: Organized with CSS custom properties (variables) and responsive design
-- **JavaScript**: Modular ES6+ code split into logical concerns
+- **JavaScript**: Modular ES6+ code for functionality
 
-### Key Modules
+### Key Files
 
-- **config.js**: Contains all constants, party metadata, and election data
-- **utils.js**: Helper functions for calculations and data processing
-- **seat-allocation.js**: Core algorithms for proportional seat allocation
-- **charts.js**: Parliament visualization using HTML5 Canvas
-- **demo.js**: Interactive demonstration and vote tuning interface
+- **config.js**: Constants and configuration
+- **utils.js**: Helper and utility functions
+- **logger.js**: Logging utility functions
 - **main.js**: Application initialization and main functionality
 
 ### Adding New Features
@@ -128,12 +124,6 @@ The site uses modern JavaScript features and CSS. For production use, consider a
 - PostCSS for CSS processing
 - A bundler like Webpack or Vite
 
-## Data Sources
-
-- **Election Results**: [Electoral Reform Society – Election 2024](https://election2024.electoral-reform.org.uk/)
-- **Party Colors**: Official party brand guidelines
-- **Vote Totals**: National vote counts from the 2024 General Election
-
 ## Contributing
 
 1. Fork the repository
@@ -148,6 +138,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Electoral Reform Society for election data
-- Make Votes Matter for advocacy support
-- Contributors to the proportional representation movement
+- Electoral Reform Society for information on voting systems
+- Contributors to the electoral reform movement
