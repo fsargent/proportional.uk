@@ -92,17 +92,18 @@ input[type="checkbox"] {
   --bg-color: #ffffff;
   --text-color: #555;
   --text-dark: #000;
-  --header-bg: #437527;
+  --header-bg: #1d70b8;
   --highlight-bg: #f0f8f0;
   --demo-border: #ddd;
   --plurality-color: #d4351c;
-  --proportional-color: #437527;
+  --proportional-color: #1d70b8;
   --conservative-color: #1d70b8;
   --labour-color: #d4351c;
   --libdem-color: #f47738;
   --green-color: #00703c;
   --reform-color: #28a197;
   --border-color: #ddd;
+  --govuk-blue: #1d70b8;
 }
 
 *,
@@ -120,76 +121,168 @@ html {
 body {
   margin: 0;
   padding: 0;
-  border-top: 0.5rem solid var(--header-bg);
   font-family:
-    "Source Sans Pro",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen-Sans,
-    Ubuntu,
-    Cantarell,
-    "Helvetica Neue",
-    sans-serif;
-  color: var(--text-color);
-  line-height: 1.4;
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  color: #0b0c0c;
+  line-height: 1.5;
   font-size: 1rem;
+  background-color: #ffffff;
 }
 
-.container {
-  margin: 1.25rem auto;
-  max-width: 37.5rem;
-  padding: 0 0.75rem;
+.govuk-template {
+  background-color: #ffffff;
 }
 
-@media (min-width: 68.75rem) {
-  .container {
-    max-width: 62.5rem;
-  }
+.govuk-template__body {
+  margin: 0;
+  padding: 0;
 }
 
-@media (min-width: 90rem) {
-  .container {
-    max-width: 80rem; /* Give more space for interactive elements */
-  }
+.govuk-skip-link {
+  display: block;
+  padding: 12px 15px;
+  margin: 0;
+  overflow: hidden;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+}
+
+.govuk-skip-link:focus {
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 999;
 }
 
 .govuk-header {
-  background-color: var(--header-bg);
+  background-color: #1d70b8;
   border-bottom: none;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
   width: 100%;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
 }
 
 .govuk-header__container {
-  padding: 0 0.75rem;
-  max-width: 80rem;
+  padding: 12px 15px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  min-height: 3.75rem;
+  min-height: 60px;
 }
 
-@media (min-width: 68.75rem) {
-  .govuk-header__container {
-    max-width: 80rem;
-  }
+.govuk-header__logo {
+  display: flex;
+  align-items: center;
 }
 
 .govuk-header__link--homepage {
   font-family: inherit;
-  font-weight: 400;
-  font-size: 1.75rem;
+  font-weight: 700;
+  font-size: 18px;
   line-height: 1.2;
   color: #ffffff;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.govuk-header__link--homepage:hover {
+  text-decoration: underline;
+}
+
+.govuk-header__logotype-text {
+  font-size: 31px;
+  font-weight: 400;
+  letter-spacing: -0.465px;
+  line-height: 31px;
+  color: #ffffff;
+  display: inline-table;
+  vertical-align: top;
+  height: 31px;
+  -webkit-font-smoothing: antialiased;
+  margin-left: 0.5rem;
+}
+
+.govuk-main-wrapper {
+  display: block;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.govuk-width-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 15px;
+}
+
+@media (min-width: 48rem) {
+  .container {
+    max-width: 1200px;
+  }
 }
 
 .content {
   padding: 0;
   font-size: 1rem;
-  line-height: 1.4;
+  line-height: 1.5;
+}
+
+.content h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 20px 0;
+  color: #0b0c0c;
+}
+
+.content h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 30px 0 15px 0;
+  color: #0b0c0c;
+}
+
+.content h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 20px 0 10px 0;
+  color: #0b0c0c;
+}
+
+.content p {
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+  color: #0b0c0c;
+}
+
+.highlight {
+  font-style: italic;
+  margin: 1.875rem 0;
+}
+
+.section-header {
+  font-size: 1.75rem;
+  color: #0b0c0c;
+  margin: 30px 0 15px 0;
+  border-bottom: 4px solid #1d70b8;
+  padding-bottom: 10px;
+  font-weight: 700;
 }
 
 .content p {
