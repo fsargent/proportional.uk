@@ -290,6 +290,51 @@ body {
   line-height: 1.4;
 }
 
+/* Link styling - subtle and consistent */
+.content a {
+  color: #005ea5;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 94, 165, 0.2);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.content a:hover {
+  color: #004d84;
+  border-bottom-color: rgba(0, 77, 132, 0.35);
+}
+
+.content a:visited {
+  color: #4c2c92;
+  border-bottom-color: rgba(76, 44, 146, 0.2);
+}
+
+.content a:visited:hover {
+  color: #3d2375;
+  border-bottom-color: rgba(61, 35, 117, 0.35);
+}
+
+.content a:focus {
+  outline: 2px solid #005ea5;
+  outline-offset: 2px;
+}
+
+/* Links in headings - slightly more subtle */
+.content h1 a,
+.content h2 a,
+.content h3 a,
+.content h4 a {
+  color: #005ea5;
+  border-bottom-color: rgba(0, 94, 165, 0.15);
+}
+
+.content h1 a:hover,
+.content h2 a:hover,
+.content h3 a:hover,
+.content h4 a:hover {
+  color: #004d84;
+  border-bottom-color: rgba(0, 77, 132, 0.25);
+}
+
 .highlight {
   font-style: italic;
   margin: 1.875rem 0;
@@ -1197,7 +1242,15 @@ body {
 
 /* RCV/STV Comparison Styles */
 .comparison-section {
-  margin: 2rem 0;
+  display: grid;
+  gap: 2rem;
+  margin: 1.5rem 0 2.5rem 0;
+}
+
+@media (min-width: 68.75rem) {
+  .comparison-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .comparison-grid {
@@ -2810,6 +2863,7 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin: 2rem 0;
+  align-items: start;
 }
 
 .voting-section {
@@ -2839,6 +2893,15 @@ body {
   font-weight: 600;
   font-size: 0.95rem;
   margin-bottom: 1.5rem;
+}
+
+/* Ensure explanatory text area has consistent height for alignment */
+.voting-section .explanation-text {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0.75rem 0 1.5rem 0;
+  height: 7rem;
+  display: block;
 }
 
 /* Ballot Example */
