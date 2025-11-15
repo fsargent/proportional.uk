@@ -106,6 +106,17 @@ input[type="checkbox"] {
   --govuk-blue: #1d70b8;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121212;
+    --text-color: #b0b0b0;
+    --text-dark: #e0e0e0;
+    --highlight-bg: #1a3a1a;
+    --demo-border: #444;
+    --border-color: #444;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -130,13 +141,33 @@ body {
   background-color: #ffffff;
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+}
+
 .govuk-template {
   background-color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .govuk-template {
+    background-color: #121212;
+  }
 }
 
 .govuk-template__body {
   margin: 0;
   padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .govuk-template__body {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
 }
 
 .govuk-skip-link {
@@ -1382,6 +1413,13 @@ body {
   border-radius: 0.5rem;
   padding: 2rem;
   margin: 2rem 0;
+  color: var(--text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .key-takeaway {
+    color: #e0e0e0;
+  }
 }
 
 .key-takeaway h3 {
@@ -1391,6 +1429,7 @@ body {
 
 .key-takeaway p {
   margin: 0 0 1rem 0;
+  color: inherit;
 }
 
 .key-takeaway p:last-child {
