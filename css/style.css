@@ -108,12 +108,60 @@ input[type="checkbox"] {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #121212;
+    --bg-color: #0b0b0b;
     --text-color: #b0b0b0;
     --text-dark: #e0e0e0;
     --highlight-bg: #1a3a1a;
-    --demo-border: #444;
+    --demo-border: #333;
     --border-color: #444;
+    --link-color: #5694ca;
+    --link-visited: #da3984;
+    --link-hover: #7ca8d4;
+  }
+}
+
+/* Link colors for dark mode */
+@media (prefers-color-scheme: dark) {
+  a:link {
+    color: #5694ca;
+  }
+
+  a:visited {
+    color: #da3984;
+  }
+
+  a:hover {
+    color: #7ca8d4;
+  }
+
+  a:active {
+    color: #5694ca;
+  }
+}
+
+/* Heading colors for dark mode */
+@media (prefers-color-scheme: dark) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .content h1,
+  .content h2,
+  .content h3 {
+    color: #e0e0e0 !important;
+  }
+
+  /* Paragraph text in dark mode */
+  p,
+  .content p {
+    color: #e0e0e0;
+  }
+
+  /* Strong text */
+  strong {
+    color: #e0e0e0;
   }
 }
 
@@ -296,10 +344,24 @@ body {
   color: #0b0c0c;
 }
 
+@media (prefers-color-scheme: dark) {
+  .content h1,
+  .content h2,
+  .content h3 {
+    color: #e0e0e0;
+  }
+}
+
 .content p {
   margin: 0 0 15px 0;
   line-height: 1.5;
   color: #0b0c0c;
+}
+
+@media (prefers-color-scheme: dark) {
+  .content p {
+    color: #e0e0e0;
+  }
 }
 
 .highlight {
@@ -314,6 +376,12 @@ body {
   border-bottom: 4px solid #1d70b8;
   padding-bottom: 10px;
   font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+  .section-header {
+    color: #e0e0e0;
+  }
 }
 
 .content p {
@@ -1416,8 +1484,21 @@ body {
   color: var(--text-dark);
 }
 
+.key-takeaway-bottom {
+  margin-top: 3rem;
+}
+
 @media (prefers-color-scheme: dark) {
   .key-takeaway {
+    background: rgba(29, 112, 184, 0.1);
+    color: #e0e0e0;
+  }
+
+  .key-takeaway p {
+    color: #e0e0e0;
+  }
+
+  .key-takeaway strong {
     color: #e0e0e0;
   }
 }
@@ -2875,12 +2956,26 @@ body {
   border-radius: 8px;
   padding: 2rem;
   transition: all 0.3s ease;
+  color: var(--text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .benefit-card {
+    background: var(--bg-color);
+    color: var(--text-dark);
+  }
 }
 
 .benefit-card:hover {
   border-color: var(--proportional-color);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .benefit-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .benefit-card h3 {
@@ -2912,6 +3007,14 @@ body {
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  color: var(--text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .voting-section {
+    background: var(--bg-color);
+    color: var(--text-dark);
+  }
 }
 
 .voting-section h3 {
@@ -2962,6 +3065,16 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 4px;
   transition: all 0.2s ease;
+  color: var(--text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .candidate-item,
+  .party-item,
+  .list-item {
+    background: var(--bg-color);
+    color: var(--text-dark);
+  }
 }
 
 .candidate-item:hover,
@@ -2969,6 +3082,14 @@ body {
 .list-item:hover {
   background: var(--highlight-bg);
   border-color: var(--proportional-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  .candidate-item:hover,
+  .party-item:hover,
+  .list-item:hover {
+    background: var(--bg-color);
+  }
 }
 
 .candidate-checkbox,
@@ -3027,6 +3148,14 @@ body {
   border-radius: 8px;
   padding: 1rem;
   flex-grow: 1;
+  color: var(--text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .list-example {
+    background: var(--bg-color);
+    color: var(--text-dark);
+  }
 }
 
 .list-item {
@@ -3083,11 +3212,25 @@ body {
   padding: 2rem;
   text-align: center;
   transition: all 0.3s ease;
+  color: var(--text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .step-card {
+    background: var(--bg-color);
+    color: var(--text-dark);
+  }
 }
 
 .step-card:hover {
   border-color: var(--proportional-color);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .step-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .step-card .step-number {
@@ -3209,7 +3352,70 @@ body {
   }
 }
 
+/* FPTP Callout Box */
+.fptp-callout {
+  text-align: center;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f0f8f0;
+  border-left: 4px solid #00703c;
+  border-radius: 4px;
+  color: var(--text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .fptp-callout {
+    background: linear-gradient(135deg, rgba(0, 112, 60, 0.15) 0%, rgba(29, 112, 184, 0.1) 100%);
+    border-left-color: #00aa52;
+    color: #e0e0e0;
+  }
+}
+
+.fptp-callout-title {
+  margin: 0;
+  color: inherit;
+}
+
+.fptp-callout-text {
+  margin: 0.75rem 0 0 0;
+  color: inherit;
+}
+
+.fptp-callout-link {
+  color: #1d70b8;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.fptp-callout-link:hover {
+  text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+  .fptp-callout-link {
+    color: #5694ca;
+  }
+
+  .fptp-callout-link:hover {
+    color: #7ca8d4;
+  }
+}
+
 /* ===== END AMS+ SPECIFIC STYLES ===== */
+
+/* Page Footer */
+.page-footer {
+  text-align: center;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .page-footer {
+    color: #999;
+  }
+}
 
 /* FAQ Section Styles */
 .faq-section {
@@ -3224,11 +3430,25 @@ body {
   border-radius: 8px;
   padding: 1.5rem;
   transition: all 0.2s ease;
+  color: var(--text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .faq-item {
+    background: var(--bg-color);
+    color: #e0e0e0;
+  }
 }
 
 .faq-item:hover {
   border-color: var(--header-bg);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  .faq-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .faq-item h3 {
@@ -3238,10 +3458,34 @@ body {
   margin-bottom: 0.75rem;
 }
 
+@media (prefers-color-scheme: dark) {
+  .faq-item h3 {
+    color: #5694ca;
+  }
+}
+
 .faq-item p {
   margin: 0;
   color: var(--text-color);
   line-height: 1.6;
+}
+
+@media (prefers-color-scheme: dark) {
+  .faq-item p {
+    color: #e0e0e0;
+  }
+
+  .faq-item ul {
+    color: #e0e0e0;
+  }
+
+  .faq-item li {
+    color: #e0e0e0;
+  }
+
+  .faq-item strong {
+    color: #e0e0e0;
+  }
 }
 
 @media (max-width: 768px) {

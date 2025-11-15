@@ -39,7 +39,11 @@
 
 /* Intro Content within Challenge Card */
 .intro-content {
-  background: linear-gradient(135deg, rgba(0, 112, 60, 0.08) 0%, rgba(29, 112, 184, 0.08) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 112, 60, 0.08) 0%,
+    rgba(29, 112, 184, 0.08) 100%
+  );
   border-left: 4px solid var(--neutral-color);
   border-radius: 4px;
   padding: 1.5rem;
@@ -66,7 +70,11 @@
 
 @media (prefers-color-scheme: dark) {
   .intro-content {
-    background: linear-gradient(135deg, rgba(0, 112, 60, 0.15) 0%, rgba(29, 112, 184, 0.15) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 112, 60, 0.15) 0%,
+      rgba(29, 112, 184, 0.15) 100%
+    );
   }
 }
 
@@ -86,7 +94,11 @@
 
 @media (prefers-color-scheme: dark) {
   .intro-box {
-    background: linear-gradient(135deg, rgba(0, 112, 60, 0.15) 0%, rgba(29, 112, 184, 0.15) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 112, 60, 0.15) 0%,
+      rgba(29, 112, 184, 0.15) 100%
+    );
     border-color: var(--neutral-color);
   }
 }
@@ -170,7 +182,6 @@
   margin: 1.5rem auto;
   max-width: 700px;
   box-shadow: 0 4px 20px var(--card-shadow);
-  animation: slideInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   color: var(--text-primary);
 }
 
@@ -293,7 +304,11 @@
 
 .metric-item {
   padding: 1.25rem;
-  background: linear-gradient(135deg, rgba(29, 112, 184, 0.1), rgba(29, 112, 184, 0.05));
+  background: linear-gradient(
+    135deg,
+    rgba(29, 112, 184, 0.1),
+    rgba(29, 112, 184, 0.05)
+  );
   border-radius: 8px;
   border: 2px solid rgba(29, 112, 184, 0.2);
   text-align: center;
@@ -302,7 +317,11 @@
 
 @media (prefers-color-scheme: dark) {
   .metric-item {
-    background: linear-gradient(135deg, rgba(29, 112, 184, 0.2), rgba(29, 112, 184, 0.1));
+    background: linear-gradient(
+      135deg,
+      rgba(29, 112, 184, 0.2),
+      rgba(29, 112, 184, 0.1)
+    );
     border-color: rgba(29, 112, 184, 0.4);
   }
 }
@@ -344,39 +363,253 @@
   margin: 2rem 0;
 }
 
+.slider-track {
+  position: relative;
+  width: 100%;
+  height: 32px; /* Increased to accommodate thumb height */
+  margin: calc(1rem - 5px) 0 calc(1rem - 5px) 0;
+  padding: 0;
+  box-sizing: border-box;
+  top: -5px;
+  display: flex;
+  align-items: center;
+}
+
+.seat-share-marker {
+  position: absolute;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: #ffffff;
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.seat-share-marker::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #ffffff;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.seat-share-marker::after {
+  content: "Seat Share";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.75rem;
+  color: #ffffff;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  .seat-share-marker {
+    background: #ffffff;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+  }
+
+  .seat-share-marker::before {
+    border-top-color: #ffffff;
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.3));
+  }
+
+  .seat-share-marker::after {
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+}
+
+.actual-vote-share-marker {
+  position: absolute;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: #ffd700;
+  transform: translateX(-50%);
+  z-index: 4;
+  pointer-events: none;
+  box-shadow: 0 0 4px rgba(255, 215, 0, 0.6);
+}
+
+.actual-vote-share-marker::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #ffd700;
+  filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.6));
+}
+
+.actual-vote-share-marker::after {
+  content: "Actual";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.75rem;
+  color: #ffd700;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  .actual-vote-share-marker {
+    background: #ffd700;
+    box-shadow: 0 0 4px rgba(255, 215, 0, 0.8);
+  }
+
+  .actual-vote-share-marker::before {
+    border-top-color: #ffd700;
+    filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.6));
+  }
+
+  .actual-vote-share-marker::after {
+    color: #ffd700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+  }
+}
+
+.vote-difference-indicator {
+  position: absolute;
+  top: 0;
+  height: 4px;
+  background: #d4351c;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    width 0.2s ease,
+    left 0.2s ease;
+}
+
+.vote-difference-indicator.animate {
+  opacity: 1;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Slider Input - Base Styles */
 .guess-slider {
+  position: relative;
   width: 100%;
   height: 8px;
-  border-radius: 5px;
-  background: linear-gradient(to right, #ddd 0%, var(--neutral-color) 50%, #ddd 100%);
+  background: transparent;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
-  accent-color: var(--neutral-color);
+  accent-color: #666666;
+  z-index: 3;
+  transition: none; /* Disable CSS transition, we handle animation in JS */
+  margin: 0;
+  padding: 0;
 }
 
+/* Track Background (using ::before on slider-track) */
+.slider-track::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  transform: translateY(-50%);
+  border-radius: 5px;
+  background: linear-gradient(to right, #ddd 0%, #999 50%, #ddd 100%);
+  z-index: 0;
+}
+
+/* Webkit Track (Chrome, Safari, Edge) */
+.guess-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  width: 100%;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 5px;
+}
+
+/* Mozilla Track (Firefox) */
+.guess-slider::-moz-range-track {
+  height: 8px;
+  width: 100%;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 5px;
+  border: none;
+}
+
+/* Microsoft Track (IE11, Edge Legacy) */
+.guess-slider::-ms-track {
+  height: 8px;
+  width: 100%;
+  cursor: pointer;
+  color: transparent;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+}
+
+.guess-slider::-ms-fill-lower {
+  background: transparent;
+}
+
+.guess-slider::-ms-fill-upper {
+  background: transparent;
+}
+
+/* Webkit Thumb (Chrome, Safari, Edge) */
 .guess-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--neutral-color);
+  background: #666666;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
+  margin-top: -12px; /* Center 32px thumb on 8px track: (32-8)/2 = 12px */
 }
 
 .guess-slider::-webkit-slider-thumb:hover {
   transform: scale(1.15);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: #555555;
 }
 
+/* Mozilla Thumb (Firefox) */
 .guess-slider::-moz-range-thumb {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--neutral-color);
+  background: #666666;
   cursor: pointer;
   border: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -384,8 +617,61 @@
 }
 
 .guess-slider::-moz-range-thumb:hover {
+  background: #555555;
   transform: scale(1.15);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Microsoft Thumb (IE11, Edge Legacy) */
+.guess-slider::-ms-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #666666;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Focus States */
+.guess-slider:focus {
+  outline: none;
+}
+
+.guess-slider:focus::-webkit-slider-thumb {
+  box-shadow:
+    0 0 0 3px rgba(29, 112, 184, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.guess-slider:focus::-moz-range-thumb {
+  box-shadow:
+    0 0 0 3px rgba(29, 112, 184, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.guess-slider:focus::-ms-thumb {
+  box-shadow:
+    0 0 0 3px rgba(29, 112, 184, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Disabled States */
+.guess-slider:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.guess-slider:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+
+.guess-slider:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+}
+
+.guess-slider:disabled::-ms-thumb {
+  cursor: not-allowed;
 }
 
 /* Guess Display */
@@ -430,6 +716,35 @@
   margin-top: 0.5rem;
 }
 
+.difference-display {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.difference-text {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.difference-text.neutral {
+  color: var(--neutral-color);
+  background: rgba(29, 112, 184, 0.1);
+}
+
+.difference-text.below {
+  color: #d4351c;
+  background: rgba(212, 53, 28, 0.1);
+}
+
+.difference-text.above {
+  color: #00703c;
+  background: rgba(0, 112, 60, 0.1);
+}
+
 /* Range Labels */
 .slider-labels {
   display: flex;
@@ -468,7 +783,8 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  min-width: 150px;
+  min-width: 180px;
+  text-align: center;
 }
 
 .btn-submit {
@@ -510,6 +826,23 @@
   .btn-next:hover,
   .btn-start-over:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Inline Results */
+.inline-results {
+  margin: 2rem 0;
+  animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -710,6 +1043,35 @@
   margin: 0.5rem 0;
 }
 
+.election-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(29, 112, 184, 0.05);
+  border-radius: 6px;
+}
+
+.stat-inline {
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  margin-bottom: 0.35rem;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--neutral-color);
+}
+
 .election-status {
   font-size: 0.85rem;
   color: var(--success-color);
@@ -731,7 +1093,6 @@
   max-width: 700px;
   text-align: center;
   box-shadow: 0 4px 20px var(--card-shadow);
-  animation: slideInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   color: var(--text-primary);
 }
 
@@ -752,7 +1113,11 @@
 
 @media (prefers-color-scheme: dark) {
   .score-display {
-    background: linear-gradient(135deg, rgba(0, 112, 60, 0.15) 0%, rgba(29, 112, 184, 0.15) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 112, 60, 0.15) 0%,
+      rgba(29, 112, 184, 0.15) 100%
+    );
   }
 }
 
@@ -980,4 +1345,3 @@ body > div[style*="text-align: center"] {
     padding: 1rem;
   }
 }
-
