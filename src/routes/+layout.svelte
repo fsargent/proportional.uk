@@ -20,9 +20,9 @@
 						width="30"
 						fill="currentcolor"
 						class="govuk-header__logotype"
-						aria-label="GOV.UK Crown"
+						aria-label="Ballot Box"
 					>
-						<title>GOV.UK Crown</title>
+						<title>Ballot Box</title>
 						<g>
 							<circle cx="20" cy="17.6" r="3.7"></circle>
 							<circle cx="10.2" cy="23.5" r="3.7"></circle>
@@ -37,10 +37,14 @@
 							></path>
 						</g>
 					</svg>
-					AMS+ | Electoral Reform
+					Proportional.uk
 				</span>
 			</a>
 		</div>
+		<nav class="govuk-header__nav">
+			<a href="/" class="nav-link">Home</a>
+			<a href="/fptp-challenge" class="nav-link">FPTP Challenge</a>
+		</nav>
 	</div>
 </header>
 
@@ -53,7 +57,22 @@
 </main>
 
 <footer class="site-footer">
-	AMS+ | A proposal for electoral reform in the United Kingdom
+	<div class="footer-content">
+		<p class="footer-tagline">Better voting for a better democracy</p>
+		<p class="footer-links">
+			<a href="https://www.makevotesmatter.org.uk/" target="_blank" rel="noopener noreferrer"
+				>Make Votes Matter</a
+			>
+			·
+			<a href="https://www.electoral-reform.org.uk/" target="_blank" rel="noopener noreferrer"
+				>Electoral Reform Society</a
+			>
+			·
+			<a href="https://electionscience.org/" target="_blank" rel="noopener noreferrer"
+				>Center for Election Science</a
+			>
+		</p>
+	</div>
 </footer>
 
 <style>
@@ -93,6 +112,7 @@
 		margin: 0 auto;
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		min-height: 60px;
 	}
 
@@ -117,20 +137,40 @@
 	}
 
 	.govuk-header__logotype-text {
-		font-size: 31px;
-		font-weight: 400;
-		letter-spacing: -0.465px;
+		font-size: 28px;
+		font-weight: 600;
+		letter-spacing: -0.5px;
 		line-height: 31px;
 		color: #ffffff;
-		display: inline-table;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
 		vertical-align: top;
 		height: 31px;
 		-webkit-font-smoothing: antialiased;
-		margin-left: 0.5rem;
 	}
 
 	:global(.govuk-header__logotype) {
 		vertical-align: middle;
+	}
+
+	.govuk-header__nav {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	.nav-link {
+		color: white;
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 1rem;
+		padding: 0.5rem 0;
+		border-bottom: 2px solid transparent;
+		transition: border-color 0.2s ease;
+	}
+
+	.nav-link:hover {
+		border-bottom-color: white;
 	}
 
 	.govuk-main-wrapper {
@@ -146,15 +186,60 @@
 	}
 
 	.site-footer {
+		background: #f5f5f5;
+		border-top: 1px solid #ddd;
+		padding: 2rem 1rem;
+		margin-top: 3rem;
+	}
+
+	.footer-content {
+		max-width: 1200px;
+		margin: 0 auto;
 		text-align: center;
-		color: #666;
+	}
+
+	.footer-tagline {
+		margin: 0 0 1rem 0;
+		color: #0b0c0c;
+		font-weight: 600;
+		font-size: 1.1rem;
+	}
+
+	.footer-links {
+		margin: 0;
 		font-size: 0.9rem;
-		margin: 1.5rem 0 2.5rem;
+	}
+
+	.footer-links a {
+		color: #1d70b8;
+		text-decoration: none;
+	}
+
+	.footer-links a:hover {
+		text-decoration: underline;
 	}
 
 	@media (max-width: 47.9375rem) {
+		.govuk-header__container {
+			flex-direction: column;
+			gap: 0.75rem;
+			padding: 1rem 15px;
+		}
+
 		.govuk-header__link--homepage {
-			font-size: 1.5rem;
+			font-size: 1.25rem;
+		}
+
+		.govuk-header__logotype-text {
+			font-size: 1.25rem;
+		}
+
+		.govuk-header__nav {
+			gap: 1rem;
+		}
+
+		.nav-link {
+			font-size: 0.9rem;
 		}
 	}
 </style>

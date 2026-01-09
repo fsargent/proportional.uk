@@ -1,116 +1,117 @@
 # Proportional.uk - Electoral Reform for the UK
 
-This repository contains the source code for a single-page site advocating for the adoption of AMS+ (Additional Member System Plus), an improved version of the Additional Member System already used in Scotland and Wales.
+A single-page site advocating for approval-based electoral reform in the United Kingdom. The site presents two modern voting systems that address the problems with First Past the Post without the complexity of ranked-choice voting.
 
-## Goals of this Page
+## What This Site Covers
 
-- Clearly demonstrate the advantages of AMS+ (AMS with approval voting for constituency seats)
-- Compare AMS+ with First Past the Post (FPTP) and traditional AMS
-- Show how approval voting makes constituency voting more expressive
-- Demonstrate how the two-vote system balances local and proportional representation
-- Explain how consensus candidates are rewarded through approval voting
+### The Problem
+- Why FPTP (First Past the Post) is failing UK democracy
+- How millions of votes are wasted in "safe seats"  
+- The disconnect between vote share and seat allocation
+- Why voters are forced into tactical voting
 
-## What is AMS+?
+### Why Not STV or Ranked-Choice?
+- Problems with ranking-based systems (complexity, non-monotonicity, slow counting)
+- Why rating (approval) is simpler and more robust than ranking
+- Academic research on ballot error rates and voter understanding
 
-AMS+ is an improved version of the Additional Member System that combines:
+### Two Solutions
 
-- **Two Separate Ballots**: Constituency ballot and party list ballot (familiar from current AMS)
-- **Approval Voting for Constituency**: Voters approve multiple candidates they trust, not forced into a single choice
-- **Proportional Party List**: Voters select one party for regional representation
-- **Local Representation**: Candidate with most approvals wins the local seat
-- **Proportional Top-Up**: Party list seats distributed proportionally to ensure overall proportionality
+#### AMS+ (Approval-MMP)
+An improved version of the Additional Member System already used in Scotland and Wales:
+- Two ballots: constituency approval voting + party list vote
+- Keeps local constituency MPs
+- Proportional top-up from party lists
+- Builds on proven, familiar systems
 
-This system builds on the proven success of AMS in Scotland and Wales while addressing the limitation of single-choice constituency voting through approval voting, allowing voters to express genuine preferences for multiple candidates they trust.
-
-## Tech Stack
-
-- **SvelteKit** - Full-stack framework with static site generation
-- **TypeScript** - Type-safe JavaScript
-- **Bun** - Fast JavaScript runtime and package manager
-
-## Getting Started
-
-### Prerequisites
-
-- [Bun](https://bun.sh/) (version 1.0 or higher)
-
-### Installation
-
-1. Clone the repo
-
-   ```sh
-   git clone https://github.com/fsargent/proportional.uk.git
-   cd proportional.uk
-   ```
-
-2. Install dependencies
-
-   ```sh
-   bun install
-   ```
-
-3. Start the development server
-
-   ```sh
-   bun run dev
-   ```
-
-The site will be available at `http://localhost:5173`.
-
-### Building for Production
-
-To create a static build for GitHub Pages:
-
-```sh
-bun run build
-```
-
-The static files will be generated in the `build` directory.
-
-### Preview the Production Build
-
-```sh
-bun run preview
-```
+#### Proportional Approval
+A fully proportional system using Sequential Proportional Approval Voting (SPAV):
+- One simple ballot: approve any candidates you like
+- Maximum proportionality
+- No geographic constituencies (regional multi-member)
+- Fast counting, simple to understand
 
 ## Project Structure
 
 ```
 proportional.uk/
 ├── src/
+│   ├── app.html             # Base HTML template
+│   ├── app.css              # Global styles
 │   ├── lib/
-│   │   ├── components/     # Svelte components
-│   │   ├── config.ts       # Configuration and constants
-│   │   ├── utils.ts        # Utility functions
-│   │   ├── charts.ts       # Chart rendering utilities
-│   │   └── seat-allocation.ts  # Seat allocation algorithms
-│   ├── routes/
-│   │   ├── +layout.svelte  # Main layout
-│   │   ├── +layout.ts      # Layout configuration (prerender)
-│   │   └── +page.svelte    # Main page
-│   ├── app.css            # Global styles
-│   └── app.html           # HTML template
-├── static/                # Static assets
-├── .github/
-│   └── workflows/
-│       └── deploy.yml     # GitHub Actions deployment
-├── package.json           # Dependencies and scripts
-├── svelte.config.js       # SvelteKit configuration
-├── tsconfig.json          # TypeScript configuration
-└── vite.config.ts         # Vite configuration
+│   │   ├── components/      # Svelte components
+│   │   │   ├── ProblemSection.svelte
+│   │   │   ├── RankingProblems.svelte
+│   │   │   ├── RatingVsRanking.svelte
+│   │   │   ├── SystemChoice.svelte
+│   │   │   ├── AMSPlusSection.svelte
+│   │   │   ├── ProportionalApprovalSection.svelte
+│   │   │   ├── BenefitCard.svelte
+│   │   │   ├── StepCard.svelte
+│   │   │   ├── FAQItem.svelte
+│   │   │   └── ...
+│   │   ├── stores/          # Svelte stores
+│   │   │   └── navigation.ts
+│   │   ├── config.ts        # Party data, election results
+│   │   └── utils.ts         # Utility functions
+│   └── routes/
+│       ├── +layout.svelte   # Site layout
+│       ├── +page.svelte     # Main page
+│       └── fptp-challenge/  # Interactive FPTP demo
+├── static/                  # Static assets
+├── svelte.config.js
+├── vite.config.ts
+└── package.json
 ```
-
-## Deployment
-
-The site is automatically deployed to GitHub Pages when changes are pushed to the `main` branch. The deployment is handled by GitHub Actions using the workflow defined in `.github/workflows/deploy.yml`.
 
 ## Features
 
-- **Clear Ballot Demonstrations**: Visual representation of approval voting ballots
-- **Benefits Overview**: Key advantages of AMS+ compared to other systems
-- **System Explanation**: Step-by-step breakdown of how AMS+ works
-- **Comparative Analysis**: AMS+ vs FPTP vs Traditional AMS
-- **Responsive Design**: Works on desktop and mobile devices
+- **Narrative flow**: Guides visitors through the problems with current systems before presenting solutions
+- **Interactive choice**: Users choose between local+proportional (AMS+) or fully proportional (Proportional Approval)
+- **Interactive ballot demos**: Try out both voting systems
+- **FPTP Challenge**: Interactive game showing FPTP's flaws
+- **Responsive design**: Works on desktop and mobile
+- **SvelteKit**: Modern, fast, SEO-friendly
+
+## Getting Started
+
+### Prerequisites
+- Node.js (version 18 or higher)
+- npm or bun
+
+### Installation
+
+```bash
+git clone https://github.com/fsargent/proportional.uk.git
+cd proportional.uk
+npm install
+```
+
+### Development
+
+```bash
+npm run dev
+```
+
+The site will be available at `http://localhost:5173`.
+
+### Build
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## Key Technologies
+
+- **SvelteKit** - Full-stack web framework
+- **TypeScript** - Type safety
+- **Svelte 5** - Component framework with runes
 
 ## Contributing
 
@@ -120,11 +121,12 @@ The site is automatically deployed to GitHub Pages when changes are pushed to th
 4. Test thoroughly
 5. Submit a pull request
 
+## Resources
+
+- [Make Votes Matter](https://www.makevotesmatter.org.uk/) - Campaign for proportional representation
+- [Electoral Reform Society](https://www.electoral-reform.org.uk/) - Research and advocacy
+- [Center for Election Science](https://electionscience.org/) - Approval voting research
+
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Electoral Reform Society for information on voting systems
-- Contributors to the electoral reform movement
+This project is licensed under the MIT License.
