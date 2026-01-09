@@ -289,3 +289,52 @@ li {
 	font-size: 0.9rem;
 	color: var(--text-color);
 }
+
+/* FPTP Callout Box */
+.fptp-callout {
+	text-align: center;
+	margin: 2rem 0;
+	padding: 1.5rem;
+	background: #f0f8f0;
+	border-left: 4px solid #00703c;
+	border-radius: 4px;
+	color: var(--text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+	.fptp-callout {
+		background: linear-gradient(135deg, rgba(0, 112, 60, 0.15) 0%, rgba(29, 112, 184, 0.1) 100%);
+		border-left-color: #00aa52;
+		color: #e0e0e0;
+	}
+}
+
+.fptp-callout-title {
+	margin: 0;
+	color: inherit;
+}
+
+.fptp-callout-text {
+	margin: 0.75rem 0 0 0;
+	color: inherit;
+}
+
+.fptp-callout-link {
+	color: #1d70b8;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.fptp-callout-link:hover {
+	text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+	.fptp-callout-link {
+		color: #5694ca;
+	}
+
+	.fptp-callout-link:hover {
+		color: #7ca8d4;
+	}
+}

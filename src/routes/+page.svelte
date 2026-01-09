@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import BenefitCard from '$lib/components/BenefitCard.svelte';
 	import StepCard from '$lib/components/StepCard.svelte';
 	import ComparisonItem from '$lib/components/ComparisonItem.svelte';
@@ -165,6 +166,16 @@
 		>approval voting</a
 	>.
 </p>
+
+<div class="fptp-callout">
+	<p class="fptp-callout-title">
+		<strong>Want to see FPTP's problems in action?</strong>
+	</p>
+	<p class="fptp-callout-text">
+		<a href="{base}/fptp-challenge" class="fptp-callout-link">Try the FPTP Challenge →</a>
+		Test your intuition about vote shares vs. seat results.
+	</p>
+</div>
 
 <h2 class="section-header">Why AMS+?</h2>
 
