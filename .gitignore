@@ -1,1 +1,28 @@
+# Dependencies
 node_modules/
+
+# Build output
+build/
+.svelte-kit/
+
+# Bun
+bun.lockb
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*

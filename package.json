@@ -1,28 +1,23 @@
 {
-  "name": "proportional.uk",
-  "version": "1.0.0",
-  "description": "Electoral Reform for the UK - Fair Share Voting",
-  "main": "index.html",
-  "scripts": {
-    "start": "browser-sync start --server --files '*.html, css/*.css, js/*.js'",
-    "dev": "browser-sync start --server --files '*.html, css/*.css, js/*.js' --port 3000",
-    "build": "echo 'No build step required - static site'",
-    "test": "echo 'No tests specified'"
-  },
-  "keywords": [
-    "electoral-reform",
-    "proportional-representation",
-    "uk-politics",
-    "voting-systems"
-  ],
-  "author": "Proportional.uk",
-  "license": "MIT",
-  "devDependencies": {
-    "browser-sync": "3.0.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fsargent/proportional.uk.git"
-  },
-  "homepage": "https://proportional.uk"
+	"name": "proportional-uk",
+	"private": true,
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^3.0.0",
+		"@sveltejs/kit": "^2.49.1",
+		"@sveltejs/vite-plugin-svelte": "^6.2.1",
+		"svelte": "^5.45.6",
+		"svelte-check": "^4.3.4",
+		"typescript": "^5.9.3",
+		"vite": "^7.2.6"
+	}
 }

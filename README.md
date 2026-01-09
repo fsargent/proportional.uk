@@ -22,23 +22,87 @@ AMS+ is an improved version of the Additional Member System that combines:
 
 This system builds on the proven success of AMS in Scotland and Wales while addressing the limitation of single-choice constituency voting through approval voting, allowing voters to express genuine preferences for multiple candidates they trust.
 
-## Project Structure
+## Tech Stack
 
-The project is organized for maintainability:
+- **SvelteKit** - Full-stack framework with static site generation
+- **TypeScript** - Type-safe JavaScript
+- **Bun** - Fast JavaScript runtime and package manager
+
+## Getting Started
+
+### Prerequisites
+
+- [Bun](https://bun.sh/) (version 1.0 or higher)
+
+### Installation
+
+1. Clone the repo
+
+   ```sh
+   git clone https://github.com/fsargent/proportional.uk.git
+   cd proportional.uk
+   ```
+
+2. Install dependencies
+
+   ```sh
+   bun install
+   ```
+
+3. Start the development server
+
+   ```sh
+   bun run dev
+   ```
+
+The site will be available at `http://localhost:5173`.
+
+### Building for Production
+
+To create a static build for GitHub Pages:
+
+```sh
+bun run build
+```
+
+The static files will be generated in the `build` directory.
+
+### Preview the Production Build
+
+```sh
+bun run preview
+```
+
+## Project Structure
 
 ```
 proportional.uk/
-├── index.html          # Main HTML file
-├── css/
-│   └── style.css      # All styles and responsive design
-├── js/
-│   ├── config.js      # Configuration and constants
-│   ├── utils.js       # Utility functions
-│   ├── logger.js      # Logging utilities
-│   └── main.js        # Main application logic
-├── package.json        # Development dependencies
-└── README.md          # This file
+├── src/
+│   ├── lib/
+│   │   ├── components/     # Svelte components
+│   │   ├── config.ts       # Configuration and constants
+│   │   ├── utils.ts        # Utility functions
+│   │   ├── charts.ts       # Chart rendering utilities
+│   │   └── seat-allocation.ts  # Seat allocation algorithms
+│   ├── routes/
+│   │   ├── +layout.svelte  # Main layout
+│   │   ├── +layout.ts      # Layout configuration (prerender)
+│   │   └── +page.svelte    # Main page
+│   ├── app.css            # Global styles
+│   └── app.html           # HTML template
+├── static/                # Static assets
+├── .github/
+│   └── workflows/
+│       └── deploy.yml     # GitHub Actions deployment
+├── package.json           # Dependencies and scripts
+├── svelte.config.js       # SvelteKit configuration
+├── tsconfig.json          # TypeScript configuration
+└── vite.config.ts         # Vite configuration
 ```
+
+## Deployment
+
+The site is automatically deployed to GitHub Pages when changes are pushed to the `main` branch. The deployment is handled by GitHub Actions using the workflow defined in `.github/workflows/deploy.yml`.
 
 ## Features
 
@@ -47,82 +111,6 @@ proportional.uk/
 - **System Explanation**: Step-by-step breakdown of how AMS+ works
 - **Comparative Analysis**: AMS+ vs FPTP vs Traditional AMS
 - **Responsive Design**: Works on desktop and mobile devices
-
-## Getting Started
-
-To get a local copy up and running, follow these simple steps.
-
-### Prerequisites
-
-- Node.js (version 14 or higher)
-- npm
-
-### Installation
-
-1.  Clone the repo
-
-    ```sh
-    git clone https://github.com/fsargent/proportional.uk.git
-    cd proportional.uk
-    ```
-
-2.  Install dependencies
-
-    ```sh
-    npm install
-    ```
-
-3.  Start the development server
-    ```sh
-    npm run dev
-    ```
-
-The site will be available at `http://localhost:3000`.
-
-### Alternative: Manual Setup
-
-If you prefer not to use npm:
-
-1.  Install browser-sync globally
-
-    ```sh
-    npm install -g browser-sync
-    ```
-
-2.  Run the server
-    ```sh
-    browser-sync start --server --files "*.html, css/*.css, js/*.js"
-    ```
-
-## Development
-
-### Code Organization
-
-- **HTML**: Clean, semantic markup with no embedded JavaScript or CSS
-- **CSS**: Organized with CSS custom properties (variables) and responsive design
-- **JavaScript**: Modular ES6+ code for functionality
-
-### Key Files
-
-- **config.js**: Constants and configuration
-- **utils.js**: Helper and utility functions
-- **logger.js**: Logging utility functions
-- **main.js**: Application initialization and main functionality
-
-### Adding New Features
-
-1. Create new functionality in the appropriate module
-2. Export functions that need to be used elsewhere
-3. Import and use in the main.js or other modules as needed
-4. Add corresponding CSS styles in css/style.css
-
-### Browser Support
-
-The site uses modern JavaScript features and CSS. For production use, consider adding:
-
-- Babel for JavaScript transpilation
-- PostCSS for CSS processing
-- A bundler like Webpack or Vite
 
 ## Contributing
 
