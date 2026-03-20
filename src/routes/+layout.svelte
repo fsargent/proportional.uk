@@ -1,7 +1,10 @@
 <script lang="ts">
 	import '../app.css';
+	import { page } from '$app/state';
+	import { readingMode, setReadingMode } from '$lib/stores/navigation';
 
 	let { children } = $props();
+	const isHomePage = $derived(page.url.pathname === '/');
 </script>
 
 <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
@@ -41,10 +44,30 @@
 				</span>
 			</a>
 		</div>
-		<nav class="govuk-header__nav">
-			<a href="/" class="nav-link">Home</a>
-			<a href="/fptp-challenge" class="nav-link">FPTP Challenge</a>
-		</nav>
+		{#if isHomePage}
+			<div class="header-actions">
+				<div class="header-toggle" role="group" aria-label="Reading mode">
+					<button
+						type="button"
+						class="header-toggle__button"
+						class:is-active={$readingMode === 'pager'}
+						aria-pressed={$readingMode === 'pager'}
+						onclick={() => setReadingMode('pager')}
+					>
+						Guided Walkthrough
+					</button>
+					<button
+						type="button"
+						class="header-toggle__button"
+						class:is-active={$readingMode === 'all'}
+						aria-pressed={$readingMode === 'all'}
+						onclick={() => setReadingMode('all')}
+					>
+						View as One Page
+					</button>
+				</div>
+			</div>
+		{/if}
 	</div>
 </header>
 
@@ -59,17 +82,10 @@
 <footer class="site-footer">
 	<div class="footer-content">
 		<p class="footer-tagline">Better voting for a better democracy</p>
-		<p class="footer-links">
-			<a href="https://www.makevotesmatter.org.uk/" target="_blank" rel="noopener noreferrer"
-				>Make Votes Matter</a
-			>
-			·
-			<a href="https://www.electoral-reform.org.uk/" target="_blank" rel="noopener noreferrer"
-				>Electoral Reform Society</a
-			>
-			·
-			<a href="https://electionscience.org/" target="_blank" rel="noopener noreferrer"
-				>Center for Election Science</a
+		<p class="footer-credit">
+			Built by
+			<a href="https://felixsargent.com/" target="_blank" rel="noopener noreferrer"
+				>felixsargent.com</a
 			>
 		</p>
 	</div>
@@ -78,13 +94,13 @@
 <style>
 	.govuk-skip-link {
 		display: block;
-		padding: 12px 15px;
+		padding: 0.85rem 1rem;
 		margin: 0;
 		overflow: hidden;
-		background-color: #000;
-		color: #fff;
+		background-color: var(--text-dark);
+		color: var(--surface-color);
 		text-decoration: none;
-		font-size: 14px;
+		font-size: 0.95rem;
 		font-weight: 700;
 		position: absolute;
 		left: -9999px;
@@ -99,21 +115,22 @@
 	}
 
 	.govuk-header {
-		background-color: #1d70b8;
+		background: linear-gradient(180deg, var(--header-bg) 0%, var(--header-bg-strong) 100%);
 		border-bottom: none;
 		margin-bottom: 0;
 		width: 100%;
-		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
+		box-shadow: 0 10px 24px rgba(17, 38, 59, 0.12);
 	}
 
 	.govuk-header__container {
-		padding: 12px 15px;
+		padding: 0.95rem 1rem;
 		max-width: 1200px;
 		margin: 0 auto;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		min-height: 60px;
+		min-height: 4.5rem;
+		gap: 1rem;
 	}
 
 	.govuk-header__logo {
@@ -124,24 +141,25 @@
 	.govuk-header__link--homepage {
 		font-family: inherit;
 		font-weight: 700;
-		font-size: 18px;
+		font-size: 1.05rem;
 		line-height: 1.2;
-		color: #ffffff;
+		color: var(--surface-color);
 		text-decoration: none;
 		display: flex;
 		align-items: center;
 	}
 
 	.govuk-header__link--homepage:hover {
-		text-decoration: underline;
+		text-decoration: none;
+		opacity: 0.92;
 	}
 
 	.govuk-header__logotype-text {
-		font-size: 28px;
+		font-size: 1.6rem;
 		font-weight: 600;
-		letter-spacing: -0.5px;
+		letter-spacing: -0.03em;
 		line-height: 31px;
-		color: #ffffff;
+		color: var(--surface-color);
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -154,42 +172,82 @@
 		vertical-align: middle;
 	}
 
-	.govuk-header__nav {
+	.header-actions {
 		display: flex;
-		gap: 1.5rem;
+		align-items: center;
+		justify-content: flex-end;
+		margin-left: auto;
 	}
 
-	.nav-link {
-		color: white;
-		text-decoration: none;
-		font-weight: 500;
-		font-size: 1rem;
-		padding: 0.5rem 0;
-		border-bottom: 2px solid transparent;
-		transition: border-color 0.2s ease;
+	.header-toggle {
+		display: inline-flex;
+		flex-wrap: nowrap;
+		justify-content: flex-end;
+		gap: 0.2rem;
+		padding: 0.22rem;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.08);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 	}
 
-	.nav-link:hover {
-		border-bottom-color: white;
+	.header-toggle__button {
+		border: 1px solid transparent;
+		background: transparent;
+		color: rgba(255, 255, 255, 0.9);
+		font-weight: 600;
+		font-size: 0.98rem;
+		padding: 0.5rem 0.9rem;
+		border-radius: 999px;
+		font: inherit;
+		cursor: pointer;
+		transition:
+			background-color 0.2s ease,
+			color 0.2s ease,
+			border-color 0.2s ease,
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.header-toggle__button:hover {
+		background: rgba(255, 255, 255, 0.12);
+		color: var(--surface-color);
+		border-color: rgba(255, 255, 255, 0.14);
+	}
+
+	.header-toggle__button.is-active {
+		background: rgba(255, 255, 255, 0.96);
+		color: var(--header-bg-strong);
+		border-color: rgba(255, 255, 255, 0.92);
+		box-shadow: 0 6px 18px rgba(17, 38, 59, 0.16);
+	}
+
+	.header-toggle__button:focus-visible,
+	.govuk-header__link--homepage:focus-visible {
+		outline-color: rgba(255, 255, 255, 0.45);
+	}
+
+	.header-toggle__button:active {
+		transform: translateY(1px);
 	}
 
 	.govuk-main-wrapper {
 		display: block;
-		padding-top: 20px;
-		padding-bottom: 20px;
+		padding-top: 2rem;
+		padding-bottom: 1.25rem;
 	}
 
 	.govuk-width-container {
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 0 15px;
+		padding: 0 1rem;
 	}
 
 	.site-footer {
-		background: #f5f5f5;
-		border-top: 1px solid #ddd;
-		padding: 2rem 1rem;
-		margin-top: 3rem;
+		background: linear-gradient(180deg, #edf3f8 0%, #e7eef5 100%);
+		border-top: 1px solid var(--border-color);
+		padding: 1.85rem 1rem;
+		margin-top: 2rem;
 	}
 
 	.footer-content {
@@ -200,22 +258,23 @@
 
 	.footer-tagline {
 		margin: 0 0 1rem 0;
-		color: #0b0c0c;
+		color: var(--text-dark);
 		font-weight: 600;
 		font-size: 1.1rem;
 	}
 
-	.footer-links {
+	.footer-credit {
 		margin: 0;
-		font-size: 0.9rem;
+		font-size: 0.95rem;
+		color: var(--text-soft);
 	}
 
-	.footer-links a {
-		color: #1d70b8;
+	.footer-credit a {
+		color: var(--link-color);
 		text-decoration: none;
 	}
 
-	.footer-links a:hover {
+	.footer-credit a:hover {
 		text-decoration: underline;
 	}
 
@@ -223,7 +282,8 @@
 		.govuk-header__container {
 			flex-direction: column;
 			gap: 0.75rem;
-			padding: 1rem 15px;
+			padding: 1rem;
+			align-items: flex-start;
 		}
 
 		.govuk-header__link--homepage {
@@ -234,12 +294,20 @@
 			font-size: 1.25rem;
 		}
 
-		.govuk-header__nav {
-			gap: 1rem;
+		.header-actions {
+			width: 100%;
+			margin-left: 0;
+			justify-content: flex-start;
 		}
 
-		.nav-link {
-			font-size: 0.9rem;
+		.header-toggle {
+			width: 100%;
+			justify-content: flex-start;
+			flex-wrap: wrap;
+		}
+
+		.header-toggle__button {
+			font-size: 0.92rem;
 		}
 	}
 </style>

@@ -6,7 +6,8 @@
 	<h2 class="section-header">A Simpler Way to Express Your Vote</h2>
 
 	<p class="intro-text">
-		Whether you want a mixed system or fully proportional, there's a choice about
+		Whether you want the simplest local upgrade, a mixed system, or full proportionality, there's a
+		choice about
 		<em>how</em> voters mark their ballots. <strong>Approval voting</strong> offers a simpler alternative
 		to both "pick one" (FPTP) and ranked-choice systems.
 	</p>
@@ -101,12 +102,12 @@
 
 <style>
 	.rating-vs-ranking {
-		margin: 3rem 0;
+		margin: 0;
 	}
 
 	.intro-text {
 		font-size: 1.1rem;
-		line-height: 1.6;
+		line-height: 1.7;
 		max-width: 800px;
 		margin-bottom: 2rem;
 	}
@@ -119,20 +120,21 @@
 	}
 
 	.comparison-column {
-		background: white;
-		border: 2px solid #ddd;
-		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.94);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 		padding: 1.5rem;
+		box-shadow: var(--shadow-soft);
 	}
 
 	.comparison-column.rating {
-		border-color: #00703c;
-		background: linear-gradient(to bottom, #f0fff0 0%, white 100%);
+		border-color: rgba(29, 111, 66, 0.22);
+		background: linear-gradient(180deg, #f7fbf8 0%, #ffffff 100%);
 	}
 
 	.comparison-column.ranking {
-		border-color: #1d70b8;
-		background: linear-gradient(to bottom, #f0f8ff 0%, white 100%);
+		border-color: rgba(31, 95, 150, 0.22);
+		background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%);
 	}
 
 	.comparison-column h3 {
@@ -141,26 +143,27 @@
 	}
 
 	.comparison-column.rating h3 {
-		color: #00703c;
+		color: var(--success-color);
 	}
 
 	.comparison-column.ranking h3 {
-		color: #1d70b8;
+		color: var(--header-bg);
 	}
 
 	.ballot-demo {
-		background: #f9f9f9;
-		border: 1px solid #ddd;
-		border-radius: 4px;
+		background: var(--surface-emphasis);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-sm);
 		padding: 1rem;
 		margin-bottom: 1.5rem;
 	}
 
 	.ballot-instruction {
 		font-size: 0.9rem;
-		color: #555;
+		color: var(--text-soft);
 		margin-bottom: 0.75rem;
 		font-style: italic;
+		max-width: none;
 	}
 
 	.ballot-options {
@@ -174,16 +177,16 @@
 		align-items: center;
 		gap: 0.75rem;
 		padding: 0.5rem;
-		background: white;
-		border: 1px solid #ddd;
-		border-radius: 4px;
+		background: var(--surface-color);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-sm);
 		font-size: 0.95rem;
 	}
 
 	.checkbox {
 		width: 1.25rem;
 		height: 1.25rem;
-		border: 2px solid #555;
+		border: 2px solid var(--border-strong);
 		border-radius: 3px;
 		display: flex;
 		align-items: center;
@@ -195,14 +198,14 @@
 	}
 
 	.ballot-option.checked .checkbox {
-		background: #00703c;
-		border-color: #00703c;
+		background: var(--success-color);
+		border-color: var(--success-color);
 	}
 
 	.rank-box {
 		width: 1.5rem;
 		height: 1.5rem;
-		border: 2px solid #555;
+		border: 2px solid var(--border-strong);
 		border-radius: 3px;
 		display: flex;
 		align-items: center;
@@ -210,7 +213,7 @@
 		font-size: 0.85rem;
 		font-weight: bold;
 		flex-shrink: 0;
-		background: #f0f0f0;
+		background: var(--surface-muted);
 	}
 
 	.features {
@@ -221,29 +224,31 @@
 	.features li {
 		margin-bottom: 0.5rem;
 		line-height: 1.4;
-		color: #00703c;
+		color: var(--success-color);
 	}
 
 	.features.neutral li {
-		color: #1d70b8;
+		color: var(--header-bg);
 	}
 
 	.research-note {
 		margin-top: 2rem;
 		padding: 1.5rem;
-		background: #f5f5f5;
-		border-radius: 8px;
+		background: linear-gradient(180deg, #f9fbfd 0%, #eef4f9 100%);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 	}
 
 	.research-note h4 {
 		margin-top: 0;
 		margin-bottom: 0.75rem;
-		color: #0b0c0c;
+		color: var(--text-dark);
 	}
 
 	.research-note p {
 		margin: 0 0 1rem 0;
 		line-height: 1.6;
+		max-width: none;
 	}
 
 	.research-note p:last-child {

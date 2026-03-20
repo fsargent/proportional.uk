@@ -15,29 +15,37 @@
 
 <style>
 	.benefit-card {
-		background: white;
-		border: 2px solid #ddd;
-		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.92);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 		padding: 2rem;
-		transition: all 0.3s ease;
+		transition:
+			border-color 0.22s ease,
+			box-shadow 0.22s ease,
+			transform 0.22s ease,
+			background-color 0.22s ease;
+		box-shadow: var(--shadow-soft);
 	}
 
 	.benefit-card:hover {
-		border-color: #1d70b8;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		border-color: var(--border-strong);
+		background: var(--surface-color);
+		box-shadow: var(--shadow-strong);
 		transform: translateY(-2px);
 	}
 
 	.benefit-card h3 {
 		margin-top: 0;
-		color: #1d70b8;
+		color: var(--header-bg);
 		font-size: 1.25rem;
 		margin-bottom: 1rem;
+		line-height: 1.25;
 	}
 
 	.benefit-card p {
 		margin: 0;
-		color: #555;
-		line-height: 1.6;
+		color: var(--text-color);
+		line-height: 1.7;
+		max-width: none;
 	}
 </style>

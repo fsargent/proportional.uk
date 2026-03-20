@@ -131,14 +131,6 @@
 		>. You get the best of both worlds: local representation and proportional results.
 	</p>
 
-	<h3 class="subsection-header">Why AMS+?</h3>
-
-	<div class="benefits-grid">
-		{#each benefits as benefit}
-			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
-		{/each}
-	</div>
-
 	<h3 class="subsection-header">How You Vote</h3>
 
 	<div class="voting-guide">
@@ -152,17 +144,19 @@
 			</p>
 
 			<div class="ballot-example">
-				{#each constituencyCandidates as candidate}
+				{#each constituencyCandidates as candidate (candidate.id)}
 					<div class="candidate-item">
-						<input
-							type="checkbox"
-							id={candidate.id}
-							class="candidate-checkbox"
-							bind:checked={candidateSelections[candidate.id]}
-						/>
 						<label for={candidate.id}>
-							<div class="candidate-name">{candidate.name}</div>
-							<div class="candidate-party">{candidate.party}</div>
+							<input
+								type="checkbox"
+								id={candidate.id}
+								class="candidate-checkbox"
+								bind:checked={candidateSelections[candidate.id]}
+							/>
+							<div class="candidate-copy">
+								<div class="candidate-name">{candidate.name}</div>
+								<div class="candidate-party">{candidate.party}</div>
+							</div>
 						</label>
 					</div>
 				{/each}
@@ -179,10 +173,12 @@
 			</p>
 
 			<div class="ballot-example party-selection">
-				{#each parties as party}
+				{#each parties as party (party.id)}
 					<div class="party-item">
-						<input type="radio" id={party.id} name="ams-party-select" class="party-radio" />
-						<label for={party.id}>{party.name}</label>
+						<label for={party.id}>
+							<input type="radio" id={party.id} name="ams-party-select" class="party-radio" />
+							<span class="candidate-name">{party.name}</span>
+						</label>
 					</div>
 				{/each}
 			</div>
@@ -198,30 +194,38 @@
 			</p>
 
 			<div class="list-example">
-				{#each partyListCandidates as candidate}
+				{#each partyListCandidates as candidate (candidate.id)}
 					<div class="list-item">
-						<div class="list-info">
+						<label for={candidate.id} class="list-info">
 							<input
 								type="checkbox"
 								id={candidate.id}
 								class="list-checkbox"
 								bind:checked={listSelections[candidate.id]}
 							/>
-							<label for={candidate.id}>
+							<div class="candidate-copy">
 								<div class="candidate-name">{candidate.name}</div>
 								<div class="candidate-party">{candidate.party}</div>
-							</label>
-						</div>
+							</div>
+						</label>
 					</div>
 				{/each}
 			</div>
 		</div>
 	</div>
 
+	<h3 class="subsection-header">Why AMS+?</h3>
+
+	<div class="benefits-grid">
+		{#each benefits as benefit (benefit.title)}
+			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
+		{/each}
+	</div>
+
 	<h3 class="subsection-header">How It Works</h3>
 
 	<div class="process-steps">
-		{#each steps as step}
+		{#each steps as step (step.number)}
 			<StepCard number={step.number} title={step.title} description={step.description} />
 		{/each}
 	</div>
@@ -234,7 +238,7 @@
 	</p>
 
 	<div class="benefits-grid">
-		{#each foundationBenefits as benefit}
+		{#each foundationBenefits as benefit (benefit.title)}
 			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
 		{/each}
 	</div>
@@ -304,22 +308,22 @@
 
 <style>
 	.ams-plus-section {
-		margin: 3rem 0;
+		margin: 0;
 		padding-top: 1rem;
 	}
 
 	.intro-text {
 		font-size: 1.1rem;
-		line-height: 1.6;
+		line-height: 1.7;
 		max-width: 800px;
 	}
 
 	.subsection-header {
 		font-size: 1.4rem;
-		color: #0b0c0c;
+		color: var(--text-dark);
 		margin: 2.5rem 0 1.5rem 0;
 		padding-bottom: 0.5rem;
-		border-bottom: 2px solid #ddd;
+		border-bottom: 2px solid var(--border-color);
 	}
 
 	.voting-guide {
@@ -331,17 +335,18 @@
 	}
 
 	.voting-section {
-		background: #f9f9f9;
-		border: 1px solid #ddd;
-		border-radius: 8px;
+		background: linear-gradient(180deg, #f9fbfd 0%, #eef4f9 100%);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 		padding: 1.5rem;
 		display: flex;
 		flex-direction: column;
+		box-shadow: var(--shadow-soft);
 	}
 
 	.voting-section h4 {
 		margin-top: 0;
-		color: #0b0c0c;
+		color: var(--text-dark);
 		font-size: 1.2rem;
 		margin-bottom: 0.5rem;
 	}
@@ -349,11 +354,11 @@
 	.voting-section > p:first-of-type {
 		margin: 0 0 0.5rem 0;
 		font-weight: 600;
-		color: #1d70b8;
+		color: var(--header-bg);
 	}
 
 	.instruction {
-		color: #1d70b8;
+		color: var(--header-bg);
 		font-weight: 600;
 		font-size: 0.95rem;
 		margin-bottom: 1rem;
@@ -361,7 +366,7 @@
 
 	.explanation-text {
 		font-size: 0.9rem;
-		color: #555;
+		color: var(--text-color);
 		margin: 0 0 1rem 0;
 		min-height: 5rem;
 	}
@@ -378,16 +383,18 @@
 		display: flex;
 		align-items: center;
 		padding: 0.75rem;
-		background: white;
-		border: 1px solid #ddd;
-		border-radius: 4px;
-		transition: all 0.2s ease;
+		background: var(--surface-color);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-sm);
+		transition:
+			border-color 0.2s ease,
+			background-color 0.2s ease;
 	}
 
 	.candidate-item:hover,
 	.party-item:hover {
-		background: #f0f8f0;
-		border-color: #1d70b8;
+		background: #f7fbf8;
+		border-color: var(--border-strong);
 	}
 
 	.candidate-checkbox,
@@ -398,59 +405,34 @@
 		margin-right: 1rem;
 		cursor: pointer;
 		flex-shrink: 0;
+		accent-color: var(--header-bg);
 	}
 
 	.candidate-item label,
 	.party-item label {
 		cursor: pointer;
-		flex: 1;
 		margin: 0;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.candidate-copy {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		gap: 0.125rem;
 	}
 
 	.candidate-name {
 		font-weight: 600;
-		color: #0b0c0c;
+		color: var(--text-dark);
 	}
 
 	.candidate-party {
 		font-size: 0.85rem;
-		color: #555;
-	}
-
-	.list-example {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-		background: white;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		padding: 1rem;
-		flex-grow: 1;
-	}
-
-	.list-item {
-		display: flex;
-		align-items: center;
-		padding: 0.5rem 0;
-		border-bottom: 1px solid #eee;
-	}
-
-	.list-item:last-child {
-		border-bottom: none;
-	}
-
-	.list-info {
-		display: flex;
-		align-items: center;
-		flex: 1;
-		gap: 1rem;
-	}
-
-	.list-item label {
-		cursor: pointer;
-		display: flex;
-		flex-direction: column;
-		gap: 0.125rem;
+		color: var(--text-soft);
 	}
 
 	@media (max-width: 768px) {

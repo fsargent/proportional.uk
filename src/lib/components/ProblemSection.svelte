@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import BenefitCard from './BenefitCard.svelte';
 
 	const problems = [
@@ -52,7 +51,7 @@
 	</div>
 
 	<div class="benefits-grid">
-		{#each problems as problem}
+		{#each problems as problem (problem.title)}
 			<BenefitCard emoji={problem.emoji} title={problem.title} description={problem.description} />
 		{/each}
 	</div>
@@ -70,26 +69,21 @@
 		</p>
 	</div>
 
-	<div class="fptp-callout">
-		<p class="fptp-callout-title">
-			<strong>Want to see FPTP's problems in action?</strong>
-		</p>
-		<p class="fptp-callout-text">
-			<a href="{base}/fptp-challenge" class="fptp-callout-link">Try the FPTP Challenge →</a>
-			Test your intuition about vote shares vs. seat results.
-		</p>
-	</div>
 </section>
 
 <style>
 	.problem-section {
-		margin: 2rem 0;
+		margin: 0;
 	}
 
 	.intro-text {
 		font-size: 1.1rem;
-		line-height: 1.6;
+		line-height: 1.7;
 		max-width: 800px;
+	}
+
+	.benefits-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	.stat-highlight {
@@ -99,9 +93,10 @@
 		gap: 2rem;
 		margin: 2.5rem 0;
 		padding: 2rem;
-		background: linear-gradient(135deg, #fff5f5 0%, #fef5f5 100%);
-		border: 2px solid #d4351c;
-		border-radius: 12px;
+		background: linear-gradient(180deg, #fff8f6 0%, #fdf1ee 100%);
+		border: 1px solid rgba(185, 71, 44, 0.24);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
 	}
 
 	.stat-item {
@@ -114,27 +109,30 @@
 	.stat-number {
 		font-size: 3rem;
 		font-weight: 700;
-		color: #d4351c;
+		color: var(--danger-color);
 		line-height: 1;
 	}
 
 	.stat-label {
 		font-size: 0.95rem;
-		color: #555;
+		color: var(--text-soft);
 		text-align: center;
+		max-width: 14rem;
+		text-wrap: balance;
 	}
 
 	.stat-arrow {
 		font-size: 2rem;
-		color: #d4351c;
+		color: var(--danger-color);
 		font-weight: bold;
 	}
 
 	.source-note {
 		margin-top: 2rem;
 		padding: 1rem 1.5rem;
-		background: #f5f5f5;
-		border-radius: 4px;
+		background: linear-gradient(180deg, #f9fbfd 0%, #eef4f9 100%);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 		font-size: 0.95rem;
 	}
 
@@ -143,6 +141,10 @@
 	}
 
 	@media (max-width: 600px) {
+		.benefits-grid {
+			grid-template-columns: 1fr;
+		}
+
 		.stat-highlight {
 			flex-direction: column;
 			gap: 1rem;

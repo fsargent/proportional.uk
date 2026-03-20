@@ -18,29 +18,40 @@
 
 <style>
 	.faq-item {
-		background: white;
-		border: 1px solid #ddd;
-		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.94);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 		padding: 1.5rem;
-		transition: all 0.2s ease;
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.2s ease,
+			transform 0.2s ease;
+		box-shadow: var(--shadow-soft);
 	}
 
 	.faq-item:hover {
-		border-color: #1d70b8;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+		border-color: var(--border-strong);
+		box-shadow: var(--shadow-strong);
+		transform: translateY(-1px);
 	}
 
 	.faq-item h3 {
 		margin-top: 0;
-		color: #1d70b8;
+		color: var(--header-bg);
 		font-size: 1.1rem;
 		margin-bottom: 0.75rem;
 	}
 
+	.faq-content {
+		display: grid;
+		gap: 0.85rem;
+	}
+
 	.faq-content :global(p) {
 		margin: 0;
-		color: #555;
-		line-height: 1.6;
+		color: var(--text-color);
+		line-height: 1.7;
+		max-width: none;
 	}
 
 	.faq-content :global(ul) {
@@ -53,13 +64,13 @@
 	}
 
 	.faq-content :global(a) {
-		color: #005ea5;
+		color: var(--link-color);
 		text-decoration: none;
-		border-bottom: 1px solid rgba(0, 94, 165, 0.2);
+		border-bottom: 1px solid rgba(10, 92, 151, 0.2);
 	}
 
 	.faq-content :global(a:hover) {
-		color: #004d84;
-		border-bottom-color: rgba(0, 77, 132, 0.35);
+		color: var(--link-hover);
+		border-bottom-color: rgba(8, 74, 122, 0.35);
 	}
 </style>

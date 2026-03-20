@@ -1,13 +1,13 @@
 <script lang="ts">
-	// Component explaining why current reform proposals could be improved
+	// Component explaining why common voting-system proposals could be improved
 </script>
 
 <section class="ranking-problems">
 	<h2 class="section-header">Good Ideas, But We Can Do Better</h2>
 
 	<p class="intro-text">
-		Reformers often propose <strong>STV (Single Transferable Vote)</strong> or
-		<strong>MMP (Mixed Member Proportional)</strong>. Both are genuine improvements over FPTP—they deliver
+		<strong>STV (Single Transferable Vote)</strong> or
+		<strong>MMP (Mixed Member Proportional)</strong> are often proposed as reforms. Both are genuine improvements over FPTP—they deliver
 		proportional representation. But both could be made simpler and more effective by changing
 		<em>how</em> voters express their preferences.
 	</p>
@@ -107,12 +107,12 @@
 
 <style>
 	.ranking-problems {
-		margin: 3rem 0;
+		margin: 0;
 	}
 
 	.intro-text {
 		font-size: 1.1rem;
-		line-height: 1.6;
+		line-height: 1.7;
 		max-width: 800px;
 	}
 
@@ -124,10 +124,13 @@
 	}
 
 	.system-card {
-		background: white;
-		border: 2px solid #ddd;
-		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.94);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		box-shadow: var(--shadow-soft);
 	}
 
 	.system-header {
@@ -136,39 +139,40 @@
 	}
 
 	.system-header.positive {
-		background: linear-gradient(135deg, #e6f7e6 0%, #d4edda 100%);
-		border-bottom: 2px solid #c3e6c3;
+		background: linear-gradient(180deg, #eef8f1 0%, #e4f1e9 100%);
+		border-bottom: 1px solid rgba(29, 111, 66, 0.16);
 	}
 
 	.system-header h3 {
 		margin: 0;
-		color: #155724;
+		color: var(--success-color);
 		font-size: 1.1rem;
 	}
 
 	.system-praise {
 		padding: 1rem 1.5rem 0.5rem;
-		color: #155724;
+		color: #325541;
 		font-size: 0.95rem;
-		line-height: 1.5;
-		background: #f8fff8;
+		line-height: 1.6;
+		background: #f9fcfa;
 	}
 
 	.system-issue {
 		padding: 1rem 1.5rem;
-		background: #fff8f0;
-		border-top: 1px solid #ffeeba;
+		background: #fffaf5;
+		border-top: 1px solid rgba(185, 140, 58, 0.18);
+		flex: 1;
 	}
 
 	.system-issue h4 {
 		margin: 0 0 0.75rem 0;
-		color: #856404;
+		color: #815d18;
 		font-size: 1rem;
 	}
 
 	.system-issue p {
 		margin: 0 0 0.5rem 0;
-		color: #555;
+		color: var(--text-color);
 		font-size: 0.9rem;
 	}
 
@@ -180,7 +184,7 @@
 	.system-issue li {
 		margin-bottom: 0.5rem;
 		line-height: 1.4;
-		color: #555;
+		color: var(--text-color);
 		font-size: 0.9rem;
 	}
 
@@ -189,24 +193,26 @@
 	}
 
 	.improvement-box {
+		margin-top: auto;
 		padding: 1rem 1.5rem;
-		background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-		color: #0d47a1;
+		background: linear-gradient(180deg, #f2f7fb 0%, #e6eff7 100%);
+		color: var(--header-bg);
 		font-size: 0.95rem;
-		line-height: 1.5;
+		line-height: 1.6;
 	}
 
 	.key-insight {
 		margin-top: 2rem;
 		padding: 2rem;
-		background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
-		border: 2px solid #1d70b8;
-		border-radius: 8px;
+		background: linear-gradient(180deg, #f7fafc 0%, #edf3f8 100%);
+		border: 1px solid rgba(31, 95, 150, 0.18);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
 	}
 
 	.key-insight h3 {
 		margin-top: 0;
-		color: #1d70b8;
+		color: var(--header-bg);
 	}
 
 	.key-insight p {

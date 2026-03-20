@@ -91,14 +91,6 @@
 		fast, and produces genuinely proportional results.
 	</p>
 
-	<h3 class="subsection-header">Why Proportional Approval?</h3>
-
-	<div class="benefits-grid">
-		{#each benefits as benefit}
-			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
-		{/each}
-	</div>
-
 	<h3 class="subsection-header">How You Vote</h3>
 
 	<div class="voting-demo">
@@ -107,17 +99,19 @@
 			<p class="ballot-instruction">Tick all candidates you approve of:</p>
 
 			<div class="candidate-list">
-				{#each candidates as candidate}
+				{#each candidates as candidate (candidate.id)}
 					<div class="candidate-row">
-						<input
-							type="checkbox"
-							id={candidate.id}
-							class="candidate-checkbox"
-							bind:checked={selections[candidate.id]}
-						/>
 						<label for={candidate.id}>
-							<span class="candidate-name">{candidate.name}</span>
-							<span class="candidate-party">{candidate.party}</span>
+							<input
+								type="checkbox"
+								id={candidate.id}
+								class="candidate-checkbox"
+								bind:checked={selections[candidate.id]}
+							/>
+							<span class="candidate-copy">
+								<span class="candidate-name">{candidate.name}</span>
+								<span class="candidate-party">{candidate.party}</span>
+							</span>
 						</label>
 					</div>
 				{/each}
@@ -154,10 +148,18 @@
 		</div>
 	</div>
 
+	<h3 class="subsection-header">Why Proportional Approval?</h3>
+
+	<div class="benefits-grid">
+		{#each benefits as benefit (benefit.title)}
+			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
+		{/each}
+	</div>
+
 	<h3 class="subsection-header">How It Works</h3>
 
 	<div class="process-steps">
-		{#each steps as step}
+		{#each steps as step (step.number)}
 			<StepCard number={step.number} title={step.title} description={step.description} />
 		{/each}
 	</div>
@@ -244,7 +246,7 @@
 			<p>
 				Variations of proportional approval voting are used in some professional associations and
 				organizational elections. Sweden uses a form of approval voting for some elections. The
-				system is gaining academic and reform advocacy attention as a simpler alternative to STV.
+				system is gaining academic attention as a simpler alternative to STV.
 			</p>
 		</FAQItem>
 	</div>
@@ -264,22 +266,22 @@
 
 <style>
 	.proportional-approval-section {
-		margin: 3rem 0;
+		margin: 0;
 		padding-top: 1rem;
 	}
 
 	.intro-text {
 		font-size: 1.1rem;
-		line-height: 1.6;
+		line-height: 1.7;
 		max-width: 800px;
 	}
 
 	.subsection-header {
 		font-size: 1.4rem;
-		color: #0b0c0c;
+		color: var(--text-dark);
 		margin: 2.5rem 0 1.5rem 0;
 		padding-bottom: 0.5rem;
-		border-bottom: 2px solid #ddd;
+		border-bottom: 2px solid var(--border-color);
 	}
 
 	.voting-demo {
@@ -290,20 +292,21 @@
 	}
 
 	.ballot-panel {
-		background: #f9f9f9;
-		border: 2px solid #ddd;
-		border-radius: 8px;
+		background: linear-gradient(180deg, #f9fbfd 0%, #eef4f9 100%);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 		padding: 1.5rem;
+		box-shadow: var(--shadow-soft);
 	}
 
 	.ballot-panel h4 {
 		margin-top: 0;
 		margin-bottom: 0.5rem;
-		color: #0b0c0c;
+		color: var(--text-dark);
 	}
 
 	.ballot-instruction {
-		color: #1d70b8;
+		color: var(--header-bg);
 		font-weight: 600;
 		margin-bottom: 1rem;
 	}
@@ -318,15 +321,17 @@
 		display: flex;
 		align-items: center;
 		padding: 0.75rem;
-		background: white;
-		border: 1px solid #ddd;
-		border-radius: 4px;
-		transition: all 0.2s ease;
+		background: var(--surface-color);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-sm);
+		transition:
+			border-color 0.2s ease,
+			background-color 0.2s ease;
 	}
 
 	.candidate-row:hover {
-		background: #f0f8f0;
-		border-color: #1d70b8;
+		background: #f7fbf8;
+		border-color: var(--border-strong);
 	}
 
 	.candidate-checkbox {
@@ -334,48 +339,59 @@
 		height: 1.25rem;
 		margin-right: 1rem;
 		cursor: pointer;
+		accent-color: var(--header-bg);
 	}
 
 	.candidate-row label {
 		cursor: pointer;
+		width: 100%;
 		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.candidate-copy {
+		display: flex;
+		flex: 1;
 		flex-direction: column;
 		gap: 0.125rem;
 	}
 
 	.candidate-name {
 		font-weight: 600;
-		color: #0b0c0c;
+		color: var(--text-dark);
 	}
 
 	.candidate-party {
 		font-size: 0.85rem;
-		color: #666;
+		color: var(--text-soft);
 	}
 
 	.ballot-summary {
 		margin-top: 1rem;
 		padding: 1rem;
-		background: white;
-		border-radius: 4px;
+		background: var(--surface-color);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-sm);
 		text-align: center;
 	}
 
 	.ballot-summary p {
 		margin: 0;
-		color: #555;
+		color: var(--text-color);
 	}
 
 	.explanation-panel {
-		background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
-		border: 2px solid #1d70b8;
-		border-radius: 8px;
+		background: linear-gradient(180deg, #f7fafc 0%, #edf3f8 100%);
+		border: 1px solid rgba(31, 95, 150, 0.2);
+		border-radius: var(--radius-md);
 		padding: 1.5rem;
+		box-shadow: var(--shadow-soft);
 	}
 
 	.explanation-panel h4 {
 		margin-top: 0;
-		color: #1d70b8;
+		color: var(--header-bg);
 	}
 
 	.explanation-panel ol {
@@ -391,21 +407,24 @@
 	.key-point {
 		margin: 1rem 0 0 0;
 		padding: 0.75rem;
-		background: white;
-		border-radius: 4px;
+		background: var(--surface-color);
+		border: 1px solid rgba(31, 95, 150, 0.16);
+		border-radius: var(--radius-sm);
 		font-size: 0.95rem;
 	}
 
 	.reweighting-explainer {
 		margin: 2rem 0;
 		padding: 2rem;
-		background: #f5f5f5;
-		border-radius: 8px;
+		background: linear-gradient(180deg, #f9fbfd 0%, #eef4f9 100%);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-soft);
 	}
 
 	.reweighting-explainer h4 {
 		margin-top: 0;
-		color: #0b0c0c;
+		color: var(--text-dark);
 	}
 
 	.reweighting-explainer ul {

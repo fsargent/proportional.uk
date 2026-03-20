@@ -16,17 +16,22 @@
 
 <style>
 	.step-card {
-		background: white;
-		border: 2px solid #ddd;
-		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.92);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 		padding: 2rem;
 		text-align: center;
-		transition: all 0.3s ease;
+		transition:
+			border-color 0.22s ease,
+			box-shadow 0.22s ease,
+			transform 0.22s ease;
+		box-shadow: var(--shadow-soft);
 	}
 
 	.step-card:hover {
-		border-color: #1d70b8;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		border-color: var(--border-strong);
+		box-shadow: var(--shadow-strong);
+		transform: translateY(-2px);
 	}
 
 	.step-number {
@@ -35,8 +40,8 @@
 		justify-content: center;
 		width: 3rem;
 		height: 3rem;
-		background: #1d70b8;
-		color: white;
+		background: linear-gradient(180deg, var(--header-bg) 0%, var(--header-bg-strong) 100%);
+		color: var(--surface-color);
 		border-radius: 50%;
 		font-size: 1.5rem;
 		font-weight: bold;
@@ -45,14 +50,15 @@
 
 	.step-card h3 {
 		margin: 0 0 0.75rem 0;
-		color: #0b0c0c;
+		color: var(--text-dark);
 		font-size: 1.1rem;
 	}
 
 	.step-card p {
 		margin: 0;
-		color: #555;
+		color: var(--text-color);
 		font-size: 0.95rem;
-		line-height: 1.5;
+		line-height: 1.6;
+		max-width: none;
 	}
 </style>
