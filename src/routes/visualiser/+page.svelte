@@ -24,13 +24,34 @@
 		}
 	] as const;
 
-	let targetMembers = $state(4);
+	const groupingOptions = [1, 2, 3, 4, 5, 6, 8, 12, 20, 40, 80, 160, 400];
+	const reasonableRange = { min: 5, max: 12 };
+	const candidatesPerSeat = 4.5;
+
+	let groupingIndex = $state(groupingOptions.indexOf(8));
 	let currentSystem = $state<(typeof systemPresets)[number]['key']>('stv');
 
+	const targetMembers = $derived(groupingOptions[groupingIndex]);
 	const districts = $derived(buildDistricts(dataset.seats, targetMembers));
 	const metrics = $derived(calculateDistrictMetrics(districts, targetMembers, dataset.seatCount));
 	const currentPreset = $derived(
 		systemPresets.find((preset) => preset.key === currentSystem) ?? systemPresets[0]
+	);
+	const reasonableMinIndex = groupingOptions.findIndex((value) => value >= reasonableRange.min);
+	const reasonableMaxIndex = groupingOptions.findIndex((value) => value >= reasonableRange.max);
+	const reasonableStartPercent = $derived((reasonableMinIndex / (groupingOptions.length - 1)) * 100);
+	const reasonableWidthPercent = $derived(
+		((reasonableMaxIndex - reasonableMinIndex) / (groupingOptions.length - 1)) * 100
+	);
+	const estimatedCandidates = $derived(Math.round(targetMembers * candidatesPerSeat));
+	const practicalityLabel = $derived(
+		targetMembers <= 4
+			? 'Simple but not very proportional'
+			: targetMembers <= 12
+				? 'Reasonable practical range'
+				: targetMembers <= 32
+					? 'Heavy ballot, still arguable'
+					: 'Dangerous territory for STV ballot size'
 	);
 </script>
 
@@ -70,9 +91,31 @@
 				<span>Target members per grouped district</span>
 				<strong>{targetMembers}</strong>
 			</label>
-			<input id="targetMembers" type="range" min="1" max="7" step="1" bind:value={targetMembers} />
+			<div class="slider-shell">
+				<div
+					class="reasonable-band"
+					style:left={`${reasonableStartPercent}%`}
+					style:width={`${reasonableWidthPercent}%`}
+					aria-hidden="true"
+				></div>
+				<input
+					id="targetMembers"
+					type="range"
+					min="0"
+					max={groupingOptions.length - 1}
+					step="1"
+					bind:value={groupingIndex}
+				/>
+			</div>
 			<div class="scale-labels" aria-hidden="true">
-				<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+				{#each groupingOptions as option}
+					<span>{option}</span>
+				{/each}
+			</div>
+			<div class="practicality-panel" aria-live="polite">
+				<p><strong>Practicality:</strong> {practicalityLabel}</p>
+				<p><strong>Estimated candidates on ballot:</strong> ~{estimatedCandidates}</p>
+				<p class="reasonable-note">Green band = plausible STV district sizes for a real election.</p>
 			</div>
 		</div>
 
@@ -171,14 +214,56 @@
 		font-weight: 600;
 	}
 
+	.slider-shell {
+		position: relative;
+		padding: 0.2rem 0;
+	}
+
+	.reasonable-band {
+		position: absolute;
+		top: 50%;
+		height: 0.7rem;
+		transform: translateY(-50%);
+		border-radius: 999px;
+		background: linear-gradient(90deg, rgba(22, 163, 74, 0.22), rgba(22, 163, 74, 0.42));
+		border: 1px solid rgba(22, 163, 74, 0.38);
+		pointer-events: none;
+	}
+
 	.slider-panel input {
+		position: relative;
 		width: 100%;
+		background: transparent;
 	}
 
 	.scale-labels {
 		display: grid;
-		grid-template-columns: repeat(7, 1fr);
-		font-size: 0.85rem;
+		grid-template-columns: repeat(13, minmax(0, 1fr));
+		font-size: 0.78rem;
+		color: var(--text-soft);
+		gap: 0.2rem;
+	}
+
+	.scale-labels span {
+		text-align: center;
+		white-space: nowrap;
+	}
+
+	.practicality-panel {
+		display: grid;
+		gap: 0.2rem;
+		padding: 0.8rem 1rem;
+		border-radius: var(--radius-md);
+		background: rgba(255, 255, 255, 0.72);
+		border: 1px solid var(--border-color);
+	}
+
+	.practicality-panel p {
+		margin: 0;
+		font-size: 0.95rem;
+	}
+
+	.reasonable-note {
 		color: var(--text-soft);
 	}
 
