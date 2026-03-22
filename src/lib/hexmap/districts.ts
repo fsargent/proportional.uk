@@ -1,6 +1,11 @@
 import type { DistrictMetrics, HexDistrict, HexSeat, HexSeatWithNeighbours, Nation } from './types';
 import { oddRNeighbours } from './geometry';
 
+interface SeatGroup {
+	seats: HexSeatWithNeighbours[];
+	allowsBridgeFallback: boolean;
+}
+
 export function withNeighbours(seats: HexSeat[]): HexSeatWithNeighbours[] {
 	const idsByCoord = new Map(seats.map((seat) => [`${seat.q},${seat.r}`, seat.id]));
 
@@ -68,14 +73,14 @@ function scoreCandidate(
 }
 
 function bestRemainingByDistance(
-	allSeatsInNation: HexSeatWithNeighbours[],
+	allSeatsInGroup: HexSeatWithNeighbours[],
 	unassigned: Set<string>,
 	districtSeats: HexSeatWithNeighbours[]
 ): HexSeatWithNeighbours | undefined {
 	const centroidQ = average(districtSeats.map((seat) => seat.q));
 	const centroidR = average(districtSeats.map((seat) => seat.r));
 
-	return allSeatsInNation
+	return allSeatsInGroup
 		.filter((seat) => unassigned.has(seat.id))
 		.sort((a, b) => {
 			const distA = Math.hypot(a.q - centroidQ, a.r - centroidR);
@@ -84,12 +89,95 @@ function bestRemainingByDistance(
 		})[0];
 }
 
+function connectedSeatGroups(nationSeats: HexSeatWithNeighbours[], seatMap: Map<string, HexSeatWithNeighbours>): SeatGroup[] {
+	const unvisited = new Set(nationSeats.map((seat) => seat.id));
+	const groups: SeatGroup[] = [];
+
+	while (unvisited.size > 0) {
+		const startId = [...unvisited].sort()[0];
+		const stack = [startId];
+		const component: HexSeatWithNeighbours[] = [];
+		unvisited.delete(startId);
+
+		while (stack.length > 0) {
+			const seatId = stack.pop();
+			if (!seatId) continue;
+			const seat = seatMap.get(seatId);
+			if (!seat) continue;
+			component.push(seat);
+
+			const nextIds = seat.neighbours
+				.filter((neighbourId) => unvisited.has(neighbourId))
+				.sort();
+			for (const neighbourId of nextIds) {
+				unvisited.delete(neighbourId);
+				stack.push(neighbourId);
+			}
+		}
+
+		component.sort((a, b) => districtSortKey(a).localeCompare(districtSortKey(b)));
+		groups.push({ seats: component, allowsBridgeFallback: false });
+	}
+
+	return groups.sort(
+		(a, b) =>
+			b.seats.length - a.seats.length ||
+			districtSortKey(a.seats[0]).localeCompare(districtSortKey(b.seats[0]))
+	);
+}
+
+function groupDistance(a: SeatGroup, b: SeatGroup): number {
+	let bestDistance = Number.POSITIVE_INFINITY;
+	for (const seatA of a.seats) {
+		for (const seatB of b.seats) {
+			bestDistance = Math.min(bestDistance, Math.hypot(seatA.q - seatB.q, seatA.r - seatB.r));
+		}
+	}
+	return bestDistance;
+}
+
+function mergeBridgeGroups(groups: SeatGroup[], targetMembers: number): SeatGroup[] {
+	const minimumStandaloneSize = Math.max(1, targetMembers - 1);
+	const mergedGroups = groups.map((group) => ({ ...group, seats: [...group.seats] }));
+
+	while (mergedGroups.length > 1) {
+		const undersizedIndex = mergedGroups.findIndex((group) => group.seats.length < minimumStandaloneSize);
+		if (undersizedIndex === -1) break;
+
+		const source = mergedGroups[undersizedIndex];
+		let bestTargetIndex = -1;
+		let bestDistance = Number.POSITIVE_INFINITY;
+
+		for (let index = 0; index < mergedGroups.length; index++) {
+			if (index === undersizedIndex) continue;
+			const distance = groupDistance(source, mergedGroups[index]);
+			if (distance < bestDistance) {
+				bestDistance = distance;
+				bestTargetIndex = index;
+			}
+		}
+
+		if (bestTargetIndex === -1) break;
+
+		const target = mergedGroups[bestTargetIndex];
+		target.seats = [...target.seats, ...source.seats].sort((a, b) => districtSortKey(a).localeCompare(districtSortKey(b)));
+		target.allowsBridgeFallback = true;
+		mergedGroups.splice(undersizedIndex, 1);
+	}
+
+	return mergedGroups.sort(
+		(a, b) =>
+			districtSortKey(a.seats[0]).localeCompare(districtSortKey(b.seats[0])) || b.seats.length - a.seats.length
+	);
+}
+
 function growCompactDistrict(
 	seed: HexSeatWithNeighbours,
-	nationSeats: HexSeatWithNeighbours[],
+	groupSeats: HexSeatWithNeighbours[],
 	seatMap: Map<string, HexSeatWithNeighbours>,
 	unassigned: Set<string>,
-	targetMembers: number
+	targetMembers: number,
+	allowsBridgeFallback: boolean
 ): HexSeatWithNeighbours[] {
 	const districtSeats: HexSeatWithNeighbours[] = [seed];
 	const districtSeatIds = new Set<string>([seed.id]);
@@ -116,8 +204,8 @@ function growCompactDistrict(
 					a.q - b.q ||
 					a.name.localeCompare(b.name)
 			)[0];
-		} else {
-			candidate = bestRemainingByDistance(nationSeats, unassigned, districtSeats);
+		} else if (allowsBridgeFallback) {
+			candidate = bestRemainingByDistance(groupSeats, unassigned, districtSeats);
 		}
 
 		if (!candidate) break;
@@ -129,24 +217,31 @@ function growCompactDistrict(
 	return districtSeats;
 }
 
-function assignNationDistricts(
+function assignSeatGroupDistricts(
 	nation: Nation,
-	nationSeats: HexSeatWithNeighbours[],
+	seatGroup: SeatGroup,
 	seatMap: Map<string, HexSeatWithNeighbours>,
 	targetMembers: number,
 	startingDistrictNumber: number
 ): { districts: HexDistrict[]; nextDistrictNumber: number } {
-	const unassigned = new Set(nationSeats.map((seat) => seat.id));
+	const unassigned = new Set(seatGroup.seats.map((seat) => seat.id));
 	const districts: HexDistrict[] = [];
 	let districtNumber = startingDistrictNumber;
 
 	while (unassigned.size > 0) {
-		const remainingSeats = nationSeats.filter((seat) => unassigned.has(seat.id));
+		const remainingSeats = seatGroup.seats.filter((seat) => unassigned.has(seat.id));
 		const remainingCount = remainingSeats.length;
 		const desiredSize =
 			remainingCount <= targetMembers + 1 ? remainingCount : Math.max(1, Math.min(targetMembers, remainingCount));
 		const seed = pickSeed(remainingSeats);
-		const districtSeats = growCompactDistrict(seed, nationSeats, seatMap, unassigned, desiredSize);
+		const districtSeats = growCompactDistrict(
+			seed,
+			seatGroup.seats,
+			seatMap,
+			unassigned,
+			desiredSize,
+			seatGroup.allowsBridgeFallback
+		);
 
 		districts.push({
 			id: `${nation.toLowerCase().replace(/\s+/g, '-')}-${districtNumber}`,
@@ -156,6 +251,26 @@ function assignNationDistricts(
 			regionNames: [...new Set(districtSeats.map((seat) => seat.regionName))]
 		});
 		districtNumber++;
+	}
+
+	return { districts, nextDistrictNumber: districtNumber };
+}
+
+function assignNationDistricts(
+	nation: Nation,
+	nationSeats: HexSeatWithNeighbours[],
+	seatMap: Map<string, HexSeatWithNeighbours>,
+	targetMembers: number,
+	startingDistrictNumber: number
+): { districts: HexDistrict[]; nextDistrictNumber: number } {
+	const seatGroups = mergeBridgeGroups(connectedSeatGroups(nationSeats, seatMap), targetMembers);
+	const districts: HexDistrict[] = [];
+	let districtNumber = startingDistrictNumber;
+
+	for (const seatGroup of seatGroups) {
+		const result = assignSeatGroupDistricts(nation, seatGroup, seatMap, targetMembers, districtNumber);
+		districts.push(...result.districts);
+		districtNumber = result.nextDistrictNumber;
 	}
 
 	return { districts, nextDistrictNumber: districtNumber };

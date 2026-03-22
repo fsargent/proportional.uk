@@ -131,7 +131,7 @@
 		<ul>
 			<li>Loads a local canonical seat-level Westminster hex cartogram.</li>
 			<li>Derives seat adjacency directly from the hex grid.</li>
-			<li>Builds contiguous grouped districts inside nation boundaries.</li>
+			<li>Builds contiguous grouped districts inside nation boundaries, with island-only bridge exceptions when necessary.</li>
 			<li>Keeps the rendering layer reusable for later voting-system pages.</li>
 		</ul>
 		<p>
