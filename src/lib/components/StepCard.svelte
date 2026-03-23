@@ -16,7 +16,7 @@
 
 <style>
 	.step-card {
-		background: rgba(255, 255, 255, 0.92);
+		background: var(--surface-raised);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		padding: 2rem;
@@ -41,7 +41,7 @@
 		width: 3rem;
 		height: 3rem;
 		background: linear-gradient(180deg, var(--header-bg) 0%, var(--header-bg-strong) 100%);
-		color: var(--surface-color);
+		color: var(--text-inverse);
 		border-radius: 50%;
 		font-size: 1.5rem;
 		font-weight: bold;

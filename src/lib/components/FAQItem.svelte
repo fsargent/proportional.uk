@@ -18,7 +18,7 @@
 
 <style>
 	.faq-item {
-		background: rgba(255, 255, 255, 0.94);
+		background: var(--surface-raised);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		padding: 1.5rem;
@@ -37,7 +37,7 @@
 
 	.faq-item h3 {
 		margin-top: 0;
-		color: var(--header-bg);
+		color: var(--accent-text);
 		font-size: 1.1rem;
 		margin-bottom: 0.75rem;
 	}
@@ -66,11 +66,11 @@
 	.faq-content :global(a) {
 		color: var(--link-color);
 		text-decoration: none;
-		border-bottom: 1px solid rgba(10, 92, 151, 0.2);
+		border-bottom: 1px solid var(--focus-ring-soft);
 	}
 
 	.faq-content :global(a:hover) {
 		color: var(--link-hover);
-		border-bottom-color: rgba(8, 74, 122, 0.35);
+		border-bottom-color: var(--accent-border-strong);
 	}
 </style>

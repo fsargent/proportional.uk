@@ -124,7 +124,7 @@
 	}
 
 	.system-card {
-		background: rgba(255, 255, 255, 0.94);
+		background: var(--surface-raised);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		overflow: hidden;
@@ -139,8 +139,8 @@
 	}
 
 	.system-header.positive {
-		background: linear-gradient(180deg, #eef8f1 0%, #e4f1e9 100%);
-		border-bottom: 1px solid rgba(29, 111, 66, 0.16);
+		background: var(--surface-success-strong-gradient);
+		border-bottom: 1px solid var(--success-border);
 	}
 
 	.system-header h3 {
@@ -151,22 +151,22 @@
 
 	.system-praise {
 		padding: 1rem 1.5rem 0.5rem;
-		color: #325541;
+		color: var(--success-text);
 		font-size: 0.95rem;
 		line-height: 1.6;
-		background: #f9fcfa;
+		background: var(--success-tint);
 	}
 
 	.system-issue {
 		padding: 1rem 1.5rem;
-		background: #fffaf5;
-		border-top: 1px solid rgba(185, 140, 58, 0.18);
+		background: var(--warning-tint);
+		border-top: 1px solid var(--warning-border);
 		flex: 1;
 	}
 
 	.system-issue h4 {
 		margin: 0 0 0.75rem 0;
-		color: #815d18;
+		color: var(--warning-text);
 		font-size: 1rem;
 	}
 
@@ -195,8 +195,8 @@
 	.improvement-box {
 		margin-top: auto;
 		padding: 1rem 1.5rem;
-		background: linear-gradient(180deg, #f2f7fb 0%, #e6eff7 100%);
-		color: var(--header-bg);
+		background: var(--surface-accent-gradient);
+		color: var(--accent-text);
 		font-size: 0.95rem;
 		line-height: 1.6;
 	}
@@ -204,15 +204,15 @@
 	.key-insight {
 		margin-top: 2rem;
 		padding: 2rem;
-		background: linear-gradient(180deg, #f7fafc 0%, #edf3f8 100%);
-		border: 1px solid rgba(31, 95, 150, 0.18);
+		background: var(--surface-info-gradient);
+		border: 1px solid var(--accent-border);
 		border-radius: var(--radius-lg);
 		box-shadow: var(--shadow-soft);
 	}
 
 	.key-insight h3 {
 		margin-top: 0;
-		color: var(--header-bg);
+		color: var(--accent-text);
 	}
 
 	.key-insight p {

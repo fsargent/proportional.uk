@@ -43,7 +43,7 @@
 		padding: 1rem;
 		border-radius: var(--radius-md);
 		border: 1px solid var(--border-color);
-		background: rgba(255, 255, 255, 0.88);
+		background: var(--surface-panel);
 		box-shadow: var(--shadow-soft);
 	}
 

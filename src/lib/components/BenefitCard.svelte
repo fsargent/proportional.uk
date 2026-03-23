@@ -15,7 +15,7 @@
 
 <style>
 	.benefit-card {
-		background: rgba(255, 255, 255, 0.92);
+		background: var(--surface-raised);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		padding: 2rem;
@@ -36,7 +36,7 @@
 
 	.benefit-card h3 {
 		margin-top: 0;
-		color: var(--header-bg);
+		color: var(--accent-text);
 		font-size: 1.25rem;
 		margin-bottom: 1rem;
 		line-height: 1.25;

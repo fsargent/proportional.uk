@@ -187,7 +187,7 @@
 	}
 
 	.choice-card {
-		background: rgba(255, 255, 255, 0.94);
+		background: var(--surface-raised);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-lg);
 		padding: 2rem;
@@ -212,13 +212,13 @@
 	}
 
 	.choice-card.selected {
-		border-color: rgba(29, 111, 66, 0.4);
-		background: linear-gradient(180deg, #f7fbf8 0%, #eff7f2 100%);
+		border-color: var(--success-border-strong);
+		background: var(--surface-success-gradient);
 		box-shadow: 0 16px 34px rgba(29, 111, 66, 0.14);
 	}
 
 	.choice-card:focus-visible {
-		outline-color: rgba(10, 92, 151, 0.28);
+		outline-color: var(--focus-ring-soft);
 	}
 
 	.choice-kicker {
@@ -242,7 +242,7 @@
 	}
 
 	.choice-subtitle {
-		color: var(--header-bg);
+		color: var(--accent-text);
 		font-weight: 600;
 		margin: 0 0 1.5rem 0;
 		font-size: 1rem;
@@ -290,8 +290,8 @@
 		font-size: 1.1rem;
 		margin-top: 2rem;
 		padding: 1rem;
-		background: linear-gradient(180deg, #f7fbf8 0%, #edf7f1 100%);
-		border: 1px solid rgba(29, 111, 66, 0.18);
+		background: var(--surface-success-gradient);
+		border: 1px solid var(--success-border);
 		border-radius: var(--radius-md);
 	}
 

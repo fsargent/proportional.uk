@@ -335,7 +335,7 @@
 	}
 
 	.voting-section {
-		background: linear-gradient(180deg, #f9fbfd 0%, #eef4f9 100%);
+		background: var(--surface-subtle-gradient);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		padding: 1.5rem;
@@ -354,11 +354,11 @@
 	.voting-section > p:first-of-type {
 		margin: 0 0 0.5rem 0;
 		font-weight: 600;
-		color: var(--header-bg);
+		color: var(--accent-text);
 	}
 
 	.instruction {
-		color: var(--header-bg);
+		color: var(--accent-text);
 		font-weight: 600;
 		font-size: 0.95rem;
 		margin-bottom: 1rem;
@@ -393,7 +393,7 @@
 
 	.candidate-item:hover,
 	.party-item:hover {
-		background: #f7fbf8;
+		background: var(--field-hover);
 		border-color: var(--border-strong);
 	}
 

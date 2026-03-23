@@ -192,7 +192,7 @@
 		padding: 1rem;
 		border-radius: var(--radius-md);
 		border: 1px solid var(--border-color);
-		background: rgba(255, 255, 255, 0.72);
+		background: var(--surface-overlay);
 	}
 
 	.pie-figure {
@@ -211,7 +211,7 @@
 
 	path {
 		cursor: pointer;
-		stroke: rgba(255, 255, 255, 0.98);
+		stroke: var(--chart-slice-stroke);
 		stroke-width: 2;
 		transition:
 			transform 0.18s ease,
@@ -260,7 +260,7 @@
 		font-weight: 700;
 		letter-spacing: 0.04em;
 		text-transform: uppercase;
-		color: var(--header-bg);
+		color: var(--accent-text);
 	}
 
 	.detail-header h3 {
@@ -280,8 +280,8 @@
 		gap: 0.15rem;
 		padding: 0.8rem;
 		border-radius: var(--radius-sm);
-		background: rgba(255, 255, 255, 0.88);
-		border: 1px solid rgba(15, 23, 42, 0.08);
+		background: var(--surface-panel);
+		border: 1px solid var(--accent-border-soft);
 	}
 
 	.detail-label {
@@ -303,7 +303,7 @@
 	.clear-selection {
 		justify-self: start;
 		border: 1px solid var(--border-color);
-		background: white;
+		background: var(--surface-color);
 		border-radius: 999px;
 		padding: 0.55rem 0.9rem;
 		font: inherit;

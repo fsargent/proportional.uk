@@ -98,7 +98,7 @@
 		margin: 0;
 		overflow: hidden;
 		background-color: var(--text-dark);
-		color: var(--surface-color);
+		color: var(--text-inverse);
 		text-decoration: none;
 		font-size: 0.95rem;
 		font-weight: 700;
@@ -143,7 +143,7 @@
 		font-weight: 700;
 		font-size: 1.05rem;
 		line-height: 1.2;
-		color: var(--surface-color);
+		color: var(--text-inverse);
 		text-decoration: none;
 		display: flex;
 		align-items: center;
@@ -159,7 +159,7 @@
 		font-weight: 600;
 		letter-spacing: -0.03em;
 		line-height: 31px;
-		color: var(--surface-color);
+		color: var(--text-inverse);
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -211,7 +211,7 @@
 
 	.header-toggle__button:hover {
 		background: rgba(255, 255, 255, 0.12);
-		color: var(--surface-color);
+		color: var(--text-inverse);
 		border-color: rgba(255, 255, 255, 0.14);
 	}
 
@@ -244,7 +244,7 @@
 	}
 
 	.site-footer {
-		background: linear-gradient(180deg, #edf3f8 0%, #e7eef5 100%);
+		background: var(--footer-gradient);
 		border-top: 1px solid var(--border-color);
 		padding: 1.85rem 1rem;
 		margin-top: 2rem;

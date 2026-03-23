@@ -292,7 +292,7 @@
 	}
 
 	.ballot-panel {
-		background: linear-gradient(180deg, #f9fbfd 0%, #eef4f9 100%);
+		background: var(--surface-subtle-gradient);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		padding: 1.5rem;
@@ -306,7 +306,7 @@
 	}
 
 	.ballot-instruction {
-		color: var(--header-bg);
+		color: var(--accent-text);
 		font-weight: 600;
 		margin-bottom: 1rem;
 	}
@@ -330,7 +330,7 @@
 	}
 
 	.candidate-row:hover {
-		background: #f7fbf8;
+		background: var(--field-hover);
 		border-color: var(--border-strong);
 	}
 
@@ -382,8 +382,8 @@
 	}
 
 	.explanation-panel {
-		background: linear-gradient(180deg, #f7fafc 0%, #edf3f8 100%);
-		border: 1px solid rgba(31, 95, 150, 0.2);
+		background: var(--surface-info-gradient);
+		border: 1px solid var(--accent-border);
 		border-radius: var(--radius-md);
 		padding: 1.5rem;
 		box-shadow: var(--shadow-soft);
@@ -391,7 +391,7 @@
 
 	.explanation-panel h4 {
 		margin-top: 0;
-		color: var(--header-bg);
+		color: var(--accent-text);
 	}
 
 	.explanation-panel ol {
@@ -408,7 +408,7 @@
 		margin: 1rem 0 0 0;
 		padding: 0.75rem;
 		background: var(--surface-color);
-		border: 1px solid rgba(31, 95, 150, 0.16);
+		border: 1px solid var(--accent-border);
 		border-radius: var(--radius-sm);
 		font-size: 0.95rem;
 	}
@@ -416,7 +416,7 @@
 	.reweighting-explainer {
 		margin: 2rem 0;
 		padding: 2rem;
-		background: linear-gradient(180deg, #f9fbfd 0%, #eef4f9 100%);
+		background: var(--surface-subtle-gradient);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		box-shadow: var(--shadow-soft);

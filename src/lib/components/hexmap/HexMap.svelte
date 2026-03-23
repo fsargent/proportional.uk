@@ -121,7 +121,7 @@
 						points={seat.points}
 						fill={seat.color}
 						fill-opacity={seat.isDimmed ? '0.34' : seat.isHighlighted ? '0.95' : '0.86'}
-						stroke="rgba(255,255,255,0.14)"
+						stroke="var(--map-outline)"
 						stroke-width="0.45"
 					/>
 					{#if showSeatDots}
@@ -130,7 +130,7 @@
 							cx={seat.position.x}
 							cy={seat.position.y}
 							r={HEX_SIZE * 0.33}
-							fill="rgba(255,255,255,0.92)"
+							fill="var(--map-seat-dot)"
 						/>
 					{/if}
 					<title>{seat.display?.tooltipTitle ?? `${seat.name} — district ${seat.districtId}`}</title>
@@ -145,7 +145,7 @@
 						class:active={hoveredDistrictId === district.id}
 						class:dimmed={hoveredDistrictId !== null && hoveredDistrictId !== district.id}
 						d={pathData}
-						stroke="#000000"
+						stroke="var(--map-boundary)"
 						stroke-width={hoveredDistrictId === district.id ? '4.4' : '3.2'}
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -169,7 +169,12 @@
 					onclick={() => onDistrictClick?.(label.id)}
 					onkeydown={(event) => handleDistrictKeydown(event, label.id)}
 				>
-					<circle r="9.5" fill={hoveredDistrictId === label.id ? 'rgba(0,0,0,0.92)' : 'rgba(22,33,43,0.82)'} />
+					<circle
+						r="9.5"
+						fill={hoveredDistrictId === label.id
+							? 'var(--map-label-bg-active)'
+							: 'var(--map-label-bg)'}
+					/>
 					<text text-anchor="middle" dominant-baseline="central">{label.label}</text>
 				</g>
 			{/each}
@@ -181,7 +186,7 @@
 	.hex-map-frame {
 		border-radius: var(--radius-lg);
 		border: 1px solid var(--border-color);
-		background: linear-gradient(180deg, #234e73 0%, #183752 100%);
+		background: var(--map-frame-gradient);
 		padding: 1rem;
 		overflow: auto;
 		box-shadow: var(--shadow-strong);
@@ -232,7 +237,7 @@
 	}
 
 	.district-label text {
-		fill: white;
+		fill: var(--map-label-text);
 		font-size: 8.6px;
 		font-weight: 700;
 	}

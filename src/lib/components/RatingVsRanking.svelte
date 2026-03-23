@@ -120,7 +120,7 @@
 	}
 
 	.comparison-column {
-		background: rgba(255, 255, 255, 0.94);
+		background: var(--surface-raised);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		padding: 1.5rem;
@@ -128,13 +128,13 @@
 	}
 
 	.comparison-column.rating {
-		border-color: rgba(29, 111, 66, 0.22);
-		background: linear-gradient(180deg, #f7fbf8 0%, #ffffff 100%);
+		border-color: var(--success-border);
+		background: linear-gradient(180deg, var(--success-tint) 0%, var(--surface-color) 100%);
 	}
 
 	.comparison-column.ranking {
-		border-color: rgba(31, 95, 150, 0.22);
-		background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%);
+		border-color: var(--accent-border);
+		background: linear-gradient(180deg, var(--surface-emphasis) 0%, var(--surface-color) 100%);
 	}
 
 	.comparison-column h3 {
@@ -147,7 +147,7 @@
 	}
 
 	.comparison-column.ranking h3 {
-		color: var(--header-bg);
+		color: var(--accent-text);
 	}
 
 	.ballot-demo {
@@ -193,7 +193,7 @@
 		justify-content: center;
 		font-size: 0.75rem;
 		font-weight: bold;
-		color: white;
+		color: var(--text-inverse);
 		flex-shrink: 0;
 	}
 
@@ -228,13 +228,13 @@
 	}
 
 	.features.neutral li {
-		color: var(--header-bg);
+		color: var(--accent-text);
 	}
 
 	.research-note {
 		margin-top: 2rem;
 		padding: 1.5rem;
-		background: linear-gradient(180deg, #f9fbfd 0%, #eef4f9 100%);
+		background: var(--surface-subtle-gradient);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 	}

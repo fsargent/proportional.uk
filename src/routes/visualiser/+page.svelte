@@ -277,9 +277,9 @@
 		display: inline-flex;
 		padding: 0.4rem 0.75rem;
 		border-radius: 999px;
-		background: rgba(31, 95, 150, 0.08);
-		border: 1px solid rgba(31, 95, 150, 0.16);
-		color: var(--header-bg);
+		background: color-mix(in srgb, var(--header-bg) 12%, transparent);
+		border: 1px solid var(--accent-border);
+		color: var(--accent-text);
 		font-weight: 700;
 	}
 
@@ -298,7 +298,7 @@
 		padding: 1.25rem;
 		border-radius: var(--radius-lg);
 		border: 1px solid var(--border-color);
-		background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.95) 100%);
+		background: var(--surface-subtle-gradient);
 		box-shadow: var(--shadow-soft);
 	}
 
@@ -310,7 +310,7 @@
 
 	.view-toggle button {
 		border: 1px solid var(--border-color);
-		background: white;
+		background: var(--surface-color);
 		border-radius: 999px;
 		padding: 0.7rem 1rem;
 		font: inherit;
@@ -320,7 +320,7 @@
 
 	.view-toggle button.selected {
 		background: var(--header-bg);
-		color: white;
+		color: var(--text-inverse);
 		border-color: var(--header-bg);
 	}
 
@@ -414,18 +414,18 @@
 		margin-bottom: 0.9rem;
 		padding: 0.65rem 0.85rem;
 		border-radius: var(--radius-md);
-		background: rgba(31, 95, 150, 0.08);
-		border: 1px solid rgba(31, 95, 150, 0.16);
+		background: color-mix(in srgb, var(--header-bg) 12%, transparent);
+		border: 1px solid var(--accent-border);
 	}
 
 	.selection-banner p {
 		margin: 0;
-		color: var(--header-bg);
+		color: var(--accent-text);
 	}
 
 	.selection-clear {
 		border: 1px solid var(--border-color);
-		background: white;
+		background: var(--surface-color);
 		border-radius: 999px;
 		padding: 0.45rem 0.85rem;
 		font: inherit;

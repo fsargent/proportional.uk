@@ -93,8 +93,8 @@
 		gap: 2rem;
 		margin: 2.5rem 0;
 		padding: 2rem;
-		background: linear-gradient(180deg, #fff8f6 0%, #fdf1ee 100%);
-		border: 1px solid rgba(185, 71, 44, 0.24);
+		background: var(--surface-danger-gradient);
+		border: 1px solid var(--danger-border);
 		border-radius: var(--radius-lg);
 		box-shadow: var(--shadow-soft);
 	}
@@ -130,7 +130,7 @@
 	.source-note {
 		margin-top: 2rem;
 		padding: 1rem 1.5rem;
-		background: linear-gradient(180deg, #f9fbfd 0%, #eef4f9 100%);
+		background: var(--surface-subtle-gradient);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		font-size: 0.95rem;

@@ -354,10 +354,10 @@
 		align-items: center;
 		padding: 0.45rem 0.8rem;
 		margin: 0 0 1rem 0;
-		border: 1px solid rgba(31, 95, 150, 0.16);
+		border: 1px solid var(--accent-border);
 		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.75);
-		color: var(--header-bg);
+		background: var(--surface-overlay);
+		color: var(--accent-text);
 		font-size: 0.95rem;
 		font-weight: 700;
 		letter-spacing: 0.01em;
@@ -396,7 +396,7 @@
 
 	.pager-step-count {
 		margin: 0;
-		color: var(--header-bg);
+		color: var(--accent-text);
 		font-size: 0.9rem;
 		font-weight: 700;
 		letter-spacing: 0.05em;
@@ -427,7 +427,7 @@
 	.pager-button {
 		border: 1px solid transparent;
 		background: linear-gradient(180deg, var(--header-bg) 0%, var(--header-bg-strong) 100%);
-		color: var(--surface-color);
+		color: var(--text-inverse);
 		border-radius: 999px;
 		padding: 0.85rem 1.2rem;
 		font: inherit;
@@ -452,7 +452,7 @@
 
 	.pager-button-secondary {
 		border-color: var(--border-color);
-		background: rgba(255, 255, 255, 0.84);
+		background: var(--surface-panel);
 		color: var(--text-dark);
 	}
 
@@ -471,7 +471,7 @@
 	.no-selection-prompt {
 		text-align: center;
 		padding: 3rem 2rem;
-		background: linear-gradient(180deg, #fbfcfe 0%, #f1f5f9 100%);
+		background: var(--surface-info-gradient);
 		border: 1px dashed var(--border-strong);
 		border-radius: var(--radius-md);
 		margin: 0;
@@ -504,7 +504,7 @@
 
 	.cta-card {
 		display: block;
-		background: rgba(255, 255, 255, 0.88);
+		background: var(--surface-panel);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		padding: 1.6rem;
@@ -531,7 +531,7 @@
 
 	.cta-card h3 {
 		margin: 0 0 0.5rem 0;
-		color: var(--header-bg);
+		color: var(--accent-text);
 		font-size: 1.2rem;
 	}
 
@@ -543,7 +543,7 @@
 	}
 
 	.cta-card:focus-visible {
-		outline-color: rgba(10, 92, 151, 0.28);
+		outline-color: var(--focus-ring-soft);
 	}
 
 	@media (max-width: 768px) {

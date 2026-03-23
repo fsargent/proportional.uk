@@ -489,7 +489,7 @@
 		<a
 			href="https://www.makevotesmatter.org.uk/"
 			target="_blank"
-			style="color: var(--header-bg); font-weight: 600">Make Votes Matter</a
+			style="color: var(--accent-text); font-weight: 600">Make Votes Matter</a
 		>, a campaign for proportional representation.
 	</p>
 </div>

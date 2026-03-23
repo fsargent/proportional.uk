@@ -403,9 +403,9 @@
 		align-items: center;
 		padding: 0.45rem 0.85rem;
 		border-radius: 999px;
-		border: 1px solid rgba(31, 95, 150, 0.18);
-		background: rgba(255, 255, 255, 0.8);
-		color: var(--header-bg);
+		border: 1px solid var(--accent-border);
+		background: var(--surface-overlay);
+		color: var(--accent-text);
 		font-size: 0.92rem;
 		font-weight: 700;
 		letter-spacing: 0.03em;
@@ -421,7 +421,7 @@
 		max-width: 44rem;
 		padding: 1rem 1.15rem;
 		border-left: 4px solid var(--header-bg);
-		background: linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+		background: var(--surface-accent-gradient);
 		border-radius: 0 var(--radius-md) var(--radius-md) 0;
 	}
 
@@ -435,7 +435,7 @@
 		padding: 1.4rem;
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
-		background: rgba(255, 255, 255, 0.88);
+		background: var(--surface-panel);
 		box-shadow: var(--shadow-soft);
 	}
 
@@ -443,7 +443,7 @@
 		font-size: clamp(2rem, 4vw, 2.9rem);
 		font-weight: 700;
 		line-height: 1;
-		color: var(--header-bg);
+		color: var(--accent-text);
 		margin-bottom: 0.65rem;
 	}
 
@@ -469,7 +469,7 @@
 		padding: 1.5rem;
 		border-radius: var(--radius-md);
 		border: 1px solid var(--border-color);
-		background: rgba(255, 255, 255, 0.88);
+		background: var(--surface-panel);
 		box-shadow: var(--shadow-soft);
 	}
 
@@ -504,7 +504,7 @@
 		padding: 1.5rem;
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
-		background: rgba(255, 255, 255, 0.9);
+		background: var(--surface-panel);
 		box-shadow: var(--shadow-soft);
 	}
 
@@ -517,7 +517,7 @@
 		border-radius: 999px;
 		margin: 0 0 1rem 0;
 		background: linear-gradient(180deg, var(--header-bg) 0%, var(--header-bg-strong) 100%);
-		color: var(--surface-color);
+		color: var(--text-inverse);
 		font-weight: 700;
 	}
 
@@ -545,7 +545,7 @@
 		font-weight: 700;
 		letter-spacing: 0.05em;
 		text-transform: uppercase;
-		color: var(--header-bg);
+		color: var(--accent-text);
 	}
 
 	.ballot-paper {
@@ -554,8 +554,8 @@
 		margin: 1.25rem 0;
 		padding: 1rem;
 		border-radius: var(--radius-sm);
-		background: linear-gradient(180deg, #fbfdff 0%, #f1f6fb 100%);
-		border: 1px solid rgba(31, 95, 150, 0.12);
+		background: var(--surface-accent-gradient);
+		border: 1px solid var(--accent-border-soft);
 	}
 
 	.ballot-paper-scroll {
@@ -571,8 +571,8 @@
 		gap: 0.85rem;
 		padding: 0.85rem 0.9rem;
 		border-radius: 0.7rem;
-		background: rgba(255, 255, 255, 0.92);
-		border: 1px solid rgba(31, 95, 150, 0.12);
+		background: var(--surface-raised);
+		border: 1px solid var(--accent-border-soft);
 		cursor: pointer;
 		transition:
 			border-color 0.2s ease,
@@ -587,20 +587,20 @@
 	}
 
 	.ballot-row:hover {
-		border-color: rgba(31, 95, 150, 0.28);
-		background: rgba(255, 255, 255, 0.98);
+		border-color: var(--accent-border-strong);
+		background: var(--surface-color);
 		box-shadow: 0 8px 18px rgba(22, 33, 43, 0.06);
 		transform: translateY(-1px);
 	}
 
 	.ballot-row.selected {
-		border-color: rgba(31, 95, 150, 0.45);
-		background: linear-gradient(180deg, #f8fbff 0%, #eef5fb 100%);
+		border-color: var(--accent-border-strong);
+		background: var(--surface-accent-gradient);
 		box-shadow: 0 10px 20px rgba(22, 33, 43, 0.08);
 	}
 
 	.ballot-row:focus-within {
-		outline: 3px solid rgba(10, 92, 151, 0.2);
+		outline: 3px solid var(--focus-ring-soft);
 		outline-offset: 2px;
 	}
 
@@ -634,7 +634,7 @@
 	}
 
 	.change-panel.accent {
-		background: linear-gradient(180deg, #f8fbff 0%, #eef5fb 100%);
+		background: var(--surface-accent-gradient);
 	}
 
 	.section-intro {
@@ -664,7 +664,7 @@
 	.closing-section {
 		padding: 1.75rem;
 		border-radius: var(--radius-lg);
-		background: linear-gradient(180deg, #f9fbfd 0%, #edf4fa 100%);
+		background: var(--surface-subtle-gradient);
 		border: 1px solid var(--border-color);
 		box-shadow: var(--shadow-soft);
 	}
@@ -690,11 +690,11 @@
 
 	.primary-link {
 		background: linear-gradient(180deg, var(--header-bg) 0%, var(--header-bg-strong) 100%);
-		color: var(--surface-color);
+		color: var(--text-inverse);
 	}
 
 	.secondary-link {
-		background: rgba(255, 255, 255, 0.82);
+		background: var(--surface-overlay);
 		border-color: var(--border-color);
 		color: var(--text-dark);
 	}
