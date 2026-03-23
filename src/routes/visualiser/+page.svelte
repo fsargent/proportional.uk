@@ -1,89 +1,149 @@
 <script lang="ts">
-	import hexDataset from '$lib/data/uk-westminster-hexes.json';
-	import DistrictMetrics from '$lib/components/hexmap/DistrictMetrics.svelte';
 	import HexMap from '$lib/components/hexmap/HexMap.svelte';
+	import DistrictMetrics from '$lib/components/hexmap/DistrictMetrics.svelte';
+	import SharePieComparison from '$lib/components/SharePieComparison.svelte';
+	import { PARTY_META } from '$lib/config';
+	import hexDataset from '$lib/data/uk-westminster-hexes.json';
+	import resultsDataset from '$lib/data/ge2024-constituency-results.json';
 	import { buildDistricts, calculateDistrictMetrics } from '$lib/hexmap/districts';
 	import type { HexDataset } from '$lib/hexmap/types';
+	import type { ConstituencyResultsDataset } from '$lib/stv-sim';
+	import { partyLabel, simulateGroupedDistricts } from '$lib/stv-sim';
 
 	const dataset = hexDataset as HexDataset;
-	const systemPresets = [
-		{
-			key: 'stv',
-			label: 'STV',
-			description: 'Use district magnitude to redraw Westminster into multi-member constituencies.'
-		},
-		{
-			key: 'spav',
-			label: 'SPAV',
-			description: 'Use the same engine for larger proportional groupings or regional approval districts.'
-		},
-		{
-			key: 'ams-plus',
-			label: 'AMS+',
-			description: 'Keep the seat map stable and later add regional overlays on top of it.'
-		}
-	] as const;
-
+	const results = resultsDataset as unknown as ConstituencyResultsDataset;
 	const groupingOptions = [1, 2, 3, 4, 5, 6, 8, 12, 20, 40, 80, 160, 400];
 	const reasonableRange = { min: 5, max: 12 };
-	const candidatesPerSeat = 4.5;
 
 	let groupingIndex = $state(groupingOptions.indexOf(8));
-	let currentSystem = $state<(typeof systemPresets)[number]['key']>('stv');
+	let colourMode = $state<'groups' | 'seats'>('seats');
+	let hoveredDistrictId = $state<string | null>(null);
+	let selectedDistrictId = $state<string | null>(null);
 
 	const targetMembers = $derived(groupingOptions[groupingIndex]);
 	const districts = $derived(buildDistricts(dataset.seats, targetMembers));
 	const metrics = $derived(calculateDistrictMetrics(districts, targetMembers, dataset.seatCount));
-	const currentPreset = $derived(
-		systemPresets.find((preset) => preset.key === currentSystem) ?? systemPresets[0]
-	);
+	const simulation = $derived(simulateGroupedDistricts(districts, dataset.seats, results));
 	const reasonableMinIndex = groupingOptions.findIndex((value) => value >= reasonableRange.min);
 	const reasonableMaxIndex = groupingOptions.findIndex((value) => value >= reasonableRange.max);
 	const reasonableStartPercent = $derived((reasonableMinIndex / (groupingOptions.length - 1)) * 100);
 	const reasonableWidthPercent = $derived(
 		((reasonableMaxIndex - reasonableMinIndex) / (groupingOptions.length - 1)) * 100
 	);
-	const estimatedCandidates = $derived(Math.round(targetMembers * candidatesPerSeat));
 	const practicalityLabel = $derived(
 		targetMembers <= 4
-			? 'Simple but not very proportional'
+			? 'Simple groupings, but limited proportionality'
 			: targetMembers <= 12
-				? 'Reasonable practical range'
+				? 'Common working range for local multi member districts'
 				: targetMembers <= 32
-					? 'Heavy ballot, still arguable'
-					: 'Dangerous territory for STV ballot size'
+					? 'Stronger proportionality, but heavier local districts'
+					: 'Very large districts with weak local connection'
 	);
+	const partyColour = (party: string | null) => {
+		if (!party) return '#64748b';
+		return PARTY_META[party]?.color ?? '#64748b';
+	};
+	const activeDistrictId = $derived(selectedDistrictId ?? hoveredDistrictId);
+	const districtMap = $derived(new Map(simulation.districts.map((district) => [district.id, district])));
+	const districtDisplay = $derived(
+		Object.fromEntries(
+			districts.map((district) => {
+				const sim = districtMap.get(district.id);
+				const winningLine = sim
+					? Object.entries(sim.seatAllocation)
+							.filter(([, seats]) => seats > 0)
+							.sort((a, b) => b[1] - a[1])
+							.map(([party, seats]) => `${partyLabel(party)} ${seats}`)
+							.join(' · ')
+					: 'No illustrative winners';
+				const constituencyList = district.seatIds
+					.map((seatId) => dataset.seats.find((seat) => seat.id === seatId)?.name ?? seatId)
+					.slice(0, 8)
+					.join(', ');
+				return [
+					district.id,
+					{
+						id: district.id,
+						label: String(district.memberCount),
+						tooltipTitle: `${district.id} · ${district.memberCount} members`,
+						tooltipLines: [
+							winningLine,
+							`Candidates on ballot: ~${sim?.candidateCount ?? 0}`,
+							`Made of: ${constituencyList}${district.seatIds.length > 8 ? '…' : ''}`
+						]
+					}
+				];
+			})
+		)
+	);
+	const seatDisplay = $derived(
+		Object.fromEntries(
+			districts.flatMap((district) => {
+				const sim = districtMap.get(district.id);
+				const winners = sim?.seatWinners ?? [];
+				return district.seatIds.map((seatId, index) => {
+					const party = colourMode === 'seats' ? winners[index] ?? sim?.leadingParty ?? null : null;
+					return [seatId, { fill: party ? partyColour(party) : undefined }];
+				});
+			})
+		)
+	);
+	const hoveredDistrict = $derived(activeDistrictId ? districtMap.get(activeDistrictId) ?? null : null);
+
+	function handleDistrictHover(districtId: string) {
+		if (selectedDistrictId !== null) {
+			return;
+		}
+
+		hoveredDistrictId = districtId;
+	}
+
+	function handleDistrictLeave() {
+		if (selectedDistrictId !== null) {
+			return;
+		}
+
+		hoveredDistrictId = null;
+	}
+
+	function handleDistrictClick(districtId: string) {
+		if (selectedDistrictId === districtId) {
+			selectedDistrictId = null;
+			hoveredDistrictId = null;
+			return;
+		}
+
+		selectedDistrictId = districtId;
+		hoveredDistrictId = districtId;
+	}
 </script>
 
 <svelte:head>
-	<title>UK Hex District Visualiser</title>
+	<title>Multi-Member District Visualiser</title>
 	<meta
 		name="description"
-		content="Interactive UK Westminster hex cartogram visualiser for experimenting with district size and future voting-system pages."
+		content="Explore how grouped Westminster constituencies behave as multi-member districts, and how district size changes scale, proportionality, and ballot pressure."
 	/>
 </svelte:head>
 
-<section class="visualiser-page">
+<section class="mmd-page">
 	<div class="hero-block">
-		<p class="eyebrow">Reusable map foundation</p>
-		<h1>UK Hex District Visualiser</h1>
+		<p class="eyebrow">Multi-member district demonstrator</p>
+		<h1>How district size reshapes Westminster</h1>
 		<p class="intro">
-			This is the shared map engine for future STV, SPAV, and AMS+ explainers. One hex equals one
-			Westminster constituency; the controls below change only how those seats are grouped.
+			This page groups current Westminster constituencies into larger multi-member districts, then
+			shows how district size changes local scale, party balance, and ballot pressure.
 		</p>
 	</div>
 
 	<div class="control-panel">
-		<div class="preset-group" role="tablist" aria-label="Visualiser mode">
-			{#each systemPresets as preset (preset.key)}
-				<button
-					type="button"
-					class:selected={currentSystem === preset.key}
-					onclick={() => (currentSystem = preset.key)}
-				>
-					{preset.label}
-				</button>
-			{/each}
+		<div class="view-toggle" role="group" aria-label="Map colouring mode">
+			<button type="button" class:selected={colourMode === 'seats'} onclick={() => (colourMode = 'seats')}>
+				Illustrative seat colours
+			</button>
+			<button type="button" class:selected={colourMode === 'groups'} onclick={() => (colourMode = 'groups')}>
+				Grouping colours
+			</button>
 		</div>
 
 		<div class="slider-panel">
@@ -108,47 +168,109 @@
 				/>
 			</div>
 			<div class="scale-labels" aria-hidden="true">
-				{#each groupingOptions as option}
+				{#each groupingOptions as option (option)}
 					<span>{option}</span>
 				{/each}
 			</div>
-			<div class="practicality-panel" aria-live="polite">
-				<p><strong>Practicality:</strong> {practicalityLabel}</p>
-				<p><strong>Estimated candidates on ballot:</strong> ~{estimatedCandidates}</p>
-				<p class="reasonable-note">Green band = plausible STV district sizes for a real election.</p>
-			</div>
 		</div>
 
-		<p class="mode-description">{currentPreset.description}</p>
+		<div class="summary-strip">
+			<p><strong>Practicality:</strong> {practicalityLabel}</p>
+			<p><strong>Avg candidates on ballot:</strong> ~{simulation.estimatedCandidatesPerBallot.toFixed(0)}</p>
+			<p><strong>Illustrative Gallagher:</strong> {simulation.gallagher.toFixed(1)}</p>
+			<p><strong>Illustrative Loosemore-Hanby:</strong> {simulation.loosemoreHanby.toFixed(1)}</p>
+		</div>
+
+		<p class="summary-note">
+			Green band marks a common working range for local multi-member districts. The seat split shown
+			here is illustrative rather than a final count for any specific voting method.
+		</p>
 	</div>
 
-	<HexMap seats={dataset.seats} {districts} title="UK Westminster hex map with grouped districts" />
+	<div class="map-and-tooltip">
+		<HexMap
+			seats={dataset.seats}
+			{districts}
+			title="Grouped UK district map for multi-member district demonstration"
+			{districtDisplay}
+			{seatDisplay}
+			hoveredDistrictId={activeDistrictId}
+			onDistrictHover={handleDistrictHover}
+			onDistrictClick={handleDistrictClick}
+			onDistrictLeave={handleDistrictLeave}
+			showSeatDots={colourMode === 'groups'}
+		/>
+
+		<div class="tooltip-card">
+			{#if hoveredDistrict}
+				<h2>{hoveredDistrict.id}</h2>
+				{#if selectedDistrictId === hoveredDistrict.id}
+					<div class="selection-banner">
+						<p><strong>Selected district</strong></p>
+						<button type="button" class="selection-clear" onclick={() => handleDistrictClick(hoveredDistrict.id)}>
+							Clear selection
+						</button>
+					</div>
+				{/if}
+				<p>
+					<strong>Illustrative seat split:</strong>
+					{Object.entries(hoveredDistrict.seatAllocation)
+						.filter(([, seats]) => seats > 0)
+						.sort((a, b) => b[1] - a[1])
+						.map(([party, seats]) => `${partyLabel(party)} ${seats}`)
+						.join(' · ')}
+				</p>
+				<p><strong>Members:</strong> {hoveredDistrict.memberCount}</p>
+				<p><strong>Estimated candidates:</strong> ~{hoveredDistrict.candidateCount}</p>
+				<p><strong>Constituencies inside:</strong></p>
+				<ul>
+					{#each districts.find((district) => district.id === hoveredDistrict.id)?.seatIds ?? [] as seatId (seatId)}
+						<li>{dataset.seats.find((seat) => seat.id === seatId)?.name ?? seatId}</li>
+					{/each}
+				</ul>
+			{:else}
+				<h2>Hover or click a district</h2>
+				<p>
+					Move over a grouped district to preview it, or click to keep it selected while you read
+					its illustrative seat balance.
+				</p>
+			{/if}
+		</div>
+	</div>
 
 	<DistrictMetrics {metrics} />
 
-	<section class="notes">
-		<h2 class="section-header">What this MVP does</h2>
-		<ul>
-			<li>Loads a local canonical seat-level Westminster hex cartogram.</li>
-			<li>Derives seat adjacency directly from the hex grid.</li>
-			<li>Builds contiguous grouped districts inside nation boundaries, with island-only bridge exceptions when necessary.</li>
-			<li>Keeps the rendering layer reusable for later voting-system pages.</li>
-		</ul>
-		<p>
-			It is deliberately a structural visualiser first. Exact electoral modelling comes later.
-		</p>
+	<section class="results-grid">
+		<div class="result-card">
+			<h2 class="section-header">Illustrative seat outcome</h2>
+			<SharePieComparison parties={simulation.nationalPartyTotals} />
+		</div>
+	</section>
+
+	<section class="assumptions-row">
+		<div class="result-card">
+			<h2 class="section-header">What this demonstrator assumes</h2>
+			<ul>
+				<li>The map starts from the canonical 2023 Open Innovations Westminster hex layout, then groups those constituencies into larger multi-member districts.</li>
+				<li>The district lines shown here are generated by an algorithm. Their exact boundaries are not the point; they are illustrative, meant to help imagine what multi-member district England could look like without changing the size of Parliament. Later versions may let people draw their own boundaries.</li>
+				<li>Current constituency vote totals are summed into each grouped district.</li>
+				<li>Seats are shown using a simple proportional benchmark, included here only to give a rough comparison.</li>
+				<li>Different multi member district methods can share the same district map while using different ballots and counts.</li>
+				<li>This page isolates the district-size question before method-specific counting rules are added.</li>
+			</ul>
+		</div>
 	</section>
 </section>
 
 <style>
-	.visualiser-page {
+	.mmd-page {
 		display: grid;
 		gap: 1.75rem;
 		padding-bottom: 2rem;
 	}
 
 	.hero-block {
-		max-width: 52rem;
+		max-width: 54rem;
 	}
 
 	.eyebrow {
@@ -167,26 +289,26 @@
 
 	.intro {
 		font-size: 1.1rem;
-		max-width: 48rem;
+		max-width: 50rem;
 	}
 
-	.control-panel {
-		display: grid;
-		gap: 1rem;
+	.control-panel,
+	.result-card,
+	.tooltip-card {
 		padding: 1.25rem;
 		border-radius: var(--radius-lg);
 		border: 1px solid var(--border-color);
-		background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(241,245,249,0.95) 100%);
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.95) 100%);
 		box-shadow: var(--shadow-soft);
 	}
 
-	.preset-group {
+	.view-toggle {
 		display: flex;
 		gap: 0.65rem;
 		flex-wrap: wrap;
 	}
 
-	.preset-group button {
+	.view-toggle button {
 		border: 1px solid var(--border-color);
 		background: white;
 		border-radius: 999px;
@@ -196,10 +318,16 @@
 		cursor: pointer;
 	}
 
-	.preset-group button.selected {
+	.view-toggle button.selected {
 		background: var(--header-bg);
 		color: white;
 		border-color: var(--header-bg);
+	}
+
+	.summary-strip p,
+	.result-card ul,
+	.summary-note {
+		margin: 0;
 	}
 
 	.slider-panel {
@@ -249,34 +377,85 @@
 		white-space: nowrap;
 	}
 
-	.practicality-panel {
+	.summary-strip {
 		display: grid;
-		gap: 0.2rem;
-		padding: 0.8rem 1rem;
-		border-radius: var(--radius-md);
-		background: rgba(255, 255, 255, 0.72);
-		border: 1px solid var(--border-color);
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		gap: 0.75rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--border-color);
 	}
 
-	.practicality-panel p {
-		margin: 0;
+	.summary-note {
+		color: var(--text-soft);
 		font-size: 0.95rem;
 	}
 
-	.reasonable-note {
-		color: var(--text-soft);
+	.map-and-tooltip {
+		display: grid;
+		gap: 1rem;
+		align-items: start;
 	}
 
-	.mode-description {
+	.tooltip-card h2 {
+		margin-top: 0;
+		margin-bottom: 0.75rem;
+	}
+
+	.result-card .section-header {
+		margin: 0 0 1rem 0;
+		padding-bottom: 0.7rem;
+	}
+
+	.selection-banner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: 0.9rem;
+		padding: 0.65rem 0.85rem;
+		border-radius: var(--radius-md);
+		background: rgba(31, 95, 150, 0.08);
+		border: 1px solid rgba(31, 95, 150, 0.16);
+	}
+
+	.selection-banner p {
 		margin: 0;
-		color: var(--text-soft);
+		color: var(--header-bg);
 	}
 
-	.notes {
-		max-width: 48rem;
+	.selection-clear {
+		border: 1px solid var(--border-color);
+		background: white;
+		border-radius: 999px;
+		padding: 0.45rem 0.85rem;
+		font: inherit;
+		font-weight: 600;
+		cursor: pointer;
 	}
 
-	.notes ul {
-		margin: 0.75rem 0 1rem;
+	.tooltip-card ul {
+		margin-top: 0.5rem;
+		max-height: 18rem;
+		overflow: auto;
 	}
+
+	.results-grid {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.assumptions-row {
+		display: grid;
+	}
+
+	@media (min-width: 960px) {
+		.map-and-tooltip {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.results-grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
 </style>

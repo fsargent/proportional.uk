@@ -24,6 +24,7 @@
 		seatDisplay = {},
 		hoveredDistrictId = null,
 		onDistrictHover,
+		onDistrictClick,
 		onDistrictLeave,
 		showSeatDots = true
 	}: {
@@ -34,6 +35,7 @@
 		seatDisplay?: Record<string, SeatDisplay>;
 		hoveredDistrictId?: string | null;
 		onDistrictHover?: (districtId: string) => void;
+		onDistrictClick?: (districtId: string) => void;
 		onDistrictLeave?: () => void;
 		showSeatDots?: boolean;
 	} = $props();
@@ -87,6 +89,15 @@
 		})
 	);
 	const districtContours = $derived(buildDistrictContours(seats, districts));
+
+	function handleDistrictKeydown(event: KeyboardEvent, districtId: string) {
+		if (event.key !== 'Enter' && event.key !== ' ') {
+			return;
+		}
+
+		event.preventDefault();
+		onDistrictClick?.(districtId);
+	}
 </script>
 
 <div class="hex-map-frame">
@@ -94,7 +105,16 @@
 		<title>{title}</title>
 		{#each renderedSeats as seat (seat.id)}
 			{#if seat.position}
-				<g onmouseenter={() => onDistrictHover?.(seat.districtId)} onmouseleave={() => onDistrictLeave?.()}>
+				<g
+					role="button"
+					tabindex="0"
+					aria-label={seat.display?.tooltipTitle ?? `${seat.name} — district ${seat.districtId}`}
+					class="district-hit-area"
+					onmouseenter={() => onDistrictHover?.(seat.districtId)}
+					onmouseleave={() => onDistrictLeave?.()}
+					onclick={() => onDistrictClick?.(seat.districtId)}
+					onkeydown={(event) => handleDistrictKeydown(event, seat.districtId)}
+				>
 					<polygon
 						class:dimmed={seat.isDimmed}
 						class:highlighted={seat.isHighlighted}
@@ -130,8 +150,6 @@
 						stroke-linecap="round"
 						stroke-linejoin="round"
 						fill="none"
-						onmouseenter={() => onDistrictHover?.(district.id)}
-						onmouseleave={() => onDistrictLeave?.()}
 					/>
 				{/each}
 			{/each}
@@ -140,11 +158,16 @@
 		{#if districts.length <= 180}
 			{#each districtLabels as label (label.id)}
 				<g
+					role="button"
+					tabindex="0"
+					aria-label={`District ${label.id}`}
 					class="district-label"
 					class:dimmed={hoveredDistrictId !== null && hoveredDistrictId !== label.id}
 					transform={`translate(${label.x}, ${label.y})`}
 					onmouseenter={() => onDistrictHover?.(label.id)}
 					onmouseleave={() => onDistrictLeave?.()}
+					onclick={() => onDistrictClick?.(label.id)}
+					onkeydown={(event) => handleDistrictKeydown(event, label.id)}
 				>
 					<circle r="9.5" fill={hoveredDistrictId === label.id ? 'rgba(0,0,0,0.92)' : 'rgba(22,33,43,0.82)'} />
 					<text text-anchor="middle" dominant-baseline="central">{label.label}</text>
@@ -152,13 +175,6 @@
 			{/each}
 		{/if}
 	</svg>
-</div>
-
-<div class="map-caption">
-	<p>
-		Each hex is one Westminster constituency from the canonical 2023 Open Innovations layout. The
-		current grouping layer redraws those seats into multi-member districts.
-	</p>
 </div>
 
 <style>
@@ -203,25 +219,21 @@
 	.district-boundaries path {
 		vector-effect: non-scaling-stroke;
 		filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.08));
+		pointer-events: none;
 	}
 
 	.district-boundaries path.active {
 		filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.26));
 	}
 
+	.district-hit-area,
+	.district-label {
+		cursor: pointer;
+	}
+
 	.district-label text {
 		fill: white;
 		font-size: 8.6px;
 		font-weight: 700;
-	}
-
-	.map-caption {
-		margin-top: 0.9rem;
-	}
-
-	.map-caption p {
-		margin: 0;
-		font-size: 0.95rem;
-		color: var(--text-soft);
 	}
 </style>
