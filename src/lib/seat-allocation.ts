@@ -76,7 +76,8 @@ export interface AllocationResult {
 }
 
 /**
- * Allocate seats using simple highest-averages method (D'Hondt)
+ * Allocate seats using Sainte-Laguë (Webster) highest-averages method.
+ * Divisors: 1, 3, 5, 7, … (i.e. 2d − 1) — more proportional than D'Hondt.
  */
 export function allocateSeatsFairShare(
 	votesByParty: Record<string, number>,
@@ -87,7 +88,7 @@ export function allocateSeatsFairShare(
 		const v = votesByParty[party];
 		if (v > 0) {
 			for (let d = 1; d <= totalSeats; d++) {
-				quotients.push({ party, q: v / d });
+				quotients.push({ party, q: v / (2 * d - 1) });
 			}
 		}
 	});

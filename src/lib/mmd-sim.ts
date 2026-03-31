@@ -69,12 +69,12 @@ export function partyLabel(key: string): string {
 	return PARTY_LABELS[key] ?? key;
 }
 
-export function allocateDhondt(votesByParty: Record<string, number>, seats: number): Record<string, number> {
+export function allocateSainteLague(votesByParty: Record<string, number>, seats: number): Record<string, number> {
 	const quotients: Array<{ party: string; value: number }> = [];
 	for (const [party, votes] of Object.entries(votesByParty)) {
 		if (votes <= 0 || party === 'speaker') continue;
-		for (let divisor = 1; divisor <= seats; divisor++) {
-			quotients.push({ party, value: votes / divisor });
+		for (let d = 1; d <= seats; d++) {
+			quotients.push({ party, value: votes / (2 * d - 1) });
 		}
 	}
 	quotients.sort((a, b) => b.value - a.value);
@@ -109,7 +109,7 @@ export function simulateGroupedDistricts(
 			}
 		}
 
-		const seatAllocation = allocateDhondt(partyVotes, district.memberCount);
+		const seatAllocation = allocateSainteLague(partyVotes, district.memberCount);
 		const winningParties = Object.entries(seatAllocation)
 			.filter(([, seats]) => seats > 0)
 			.sort((a, b) => b[1] - a[1] || (partyVotes[b[0]] ?? 0) - (partyVotes[a[0]] ?? 0))
