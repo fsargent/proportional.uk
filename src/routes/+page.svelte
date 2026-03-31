@@ -2,8 +2,11 @@
 	import { tick } from 'svelte';
 	import { readingMode, selectedSystem, type ReadingMode } from '$lib/stores/navigation';
 	import ProblemSection from '$lib/components/ProblemSection.svelte';
+	import CriteriaFrame from '$lib/components/CriteriaFrame.svelte';
+	import UKPRBridge from '$lib/components/UKPRBridge.svelte';
 	import RankingProblems from '$lib/components/RankingProblems.svelte';
 	import RatingVsRanking from '$lib/components/RatingVsRanking.svelte';
+	import ComparisonMatrix from '$lib/components/ComparisonMatrix.svelte';
 	import SystemChoice from '$lib/components/SystemChoice.svelte';
 	import SingleWinnerApprovalSection from '$lib/components/SingleWinnerApprovalSection.svelte';
 	import AMSPlusSection from '$lib/components/AMSPlusSection.svelte';
@@ -137,10 +140,14 @@
 			and voters are forced to vote tactically. There are better ways.
 		</p>
 		<p class="hero-intro">
-			This site explores three approval-based voting options, beginning with the proportional models
-			and ending with the simplest local upgrade, without the complexity of ranked-choice voting.
+			This site explores three approval-based voting options, beginning from the familiar UK PR debate
+			and asking where approval ballots can make reform fairer, simpler, and easier to implement.
 		</p>
 	</div>
+
+	<CriteriaFrame />
+
+	<UKPRBridge />
 {/if}
 
 {#if $readingMode === 'pager'}
@@ -151,13 +158,20 @@
 
 		<div class="pager-stage">
 			{#if currentStepIndex === 0}
-				<ProblemSection />
+				<div class="stage-stack">
+					<CriteriaFrame />
+					<UKPRBridge />
+					<ProblemSection />
+				</div>
 			{:else if currentStepIndex === 1}
 				<RankingProblems />
 			{:else if currentStepIndex === 2}
 				<RatingVsRanking />
 			{:else if currentStepIndex === 3}
-				<SystemChoice autoScroll={false} />
+				<div class="stage-stack">
+					<ComparisonMatrix />
+					<SystemChoice autoScroll={false} />
+				</div>
 			{:else if currentStepIndex === 4}
 				<div id="system-details" class="system-details">
 					{#if currentChoice === 'single-winner-approval'}
@@ -254,6 +268,10 @@
 	</section>
 {:else}
 	<div class="guided-flow">
+		<CriteriaFrame />
+
+		<UKPRBridge />
+
 		<!-- Section 1: The Problem -->
 		<ProblemSection />
 
@@ -264,6 +282,8 @@
 		<RatingVsRanking />
 
 		<div class="decision-step">
+			<ComparisonMatrix />
+
 			<!-- Section 4: Choose Your Path -->
 			<SystemChoice />
 
@@ -405,6 +425,11 @@
 
 	.pager-stage {
 		min-height: 0;
+	}
+
+	.stage-stack {
+		display: grid;
+		gap: clamp(3rem, 5vw, 4rem);
 	}
 
 	.pager-shell :global(.section-header) {

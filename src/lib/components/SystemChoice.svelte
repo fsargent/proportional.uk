@@ -38,8 +38,8 @@
 
 	<p class="intro-text">
 		All three options below use <strong>approval voting</strong> instead of ranking. The main choice
-		is whether you want full proportionality, a mixed proportional system that keeps local MPs, or
-		the simplest local upgrade from FPTP.
+		is whether you want a coalition-ready route to proportionality now, a longer-term multi-member
+		approval model, or the simplest local upgrade from FPTP.
 	</p>
 
 	<div class="choice-grid">
@@ -50,7 +50,7 @@
 			aria-pressed={currentChoice === 'proportional-approval'}
 			onclick={() => selectSystem('proportional-approval')}
 		>
-			<p class="choice-kicker">Most proportional option</p>
+			<p class="choice-kicker">Longer-term proportional end-state</p>
 			<div class="choice-icon">📊</div>
 			<h3>Proportional Approval</h3>
 			<p class="choice-subtitle">Fully Proportional</p>
@@ -70,12 +70,12 @@
 				</div>
 				<div class="feature">
 					<span class="feature-icon">✓</span>
-					<span>No wasted votes at all</span>
+					<span>Multi-member approval ballot</span>
 				</div>
 			</div>
 
 			<div class="choice-tradeoffs">
-				<p><strong>Trade-off:</strong> No single local MP, but regional candidates</p>
+				<p><strong>Trade-off:</strong> Requires multi-member districts and a bigger transition than AMS+</p>
 			</div>
 		</button>
 
@@ -86,7 +86,7 @@
 			aria-pressed={currentChoice === 'ams-plus'}
 			onclick={() => selectSystem('ams-plus')}
 		>
-			<p class="choice-kicker">Best mixed model</p>
+			<p class="choice-kicker">Nearest-term full PR route</p>
 			<div class="choice-icon">🏛️</div>
 			<h3>AMS+ (Approval-MMP)</h3>
 			<p class="choice-subtitle">Local + Proportional</p>
@@ -111,7 +111,7 @@
 			</div>
 
 			<div class="choice-tradeoffs">
-				<p><strong>Trade-off:</strong> Slightly less proportional, but maintains local link</p>
+				<p><strong>Trade-off:</strong> Slightly less proportional than large-district PR, but easiest to fit UK reform politics</p>
 			</div>
 		</button>
 
@@ -122,7 +122,7 @@
 			aria-pressed={currentChoice === 'single-winner-approval'}
 			onclick={() => selectSystem('single-winner-approval')}
 		>
-			<p class="choice-kicker">Simplest local upgrade</p>
+			<p class="choice-kicker">Fastest ballot reform</p>
 			<div class="choice-icon">🗳️</div>
 			<h3>Single-Winner Approval</h3>
 			<p class="choice-subtitle">Local + Simple</p>

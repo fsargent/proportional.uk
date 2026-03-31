@@ -6,10 +6,11 @@
 	<h2 class="section-header">Good Ideas, But We Can Do Better</h2>
 
 	<p class="intro-text">
-		<strong>STV (Single Transferable Vote)</strong> or
-		<strong>MMP (Mixed Member Proportional)</strong> are often proposed as reforms. Both are genuine improvements over FPTP—they deliver
-		proportional representation. But both could be made simpler and more effective by changing
-		<em>how</em> voters express their preferences.
+		<strong>STV (Single Transferable Vote)</strong>,
+		<strong>AMS/MMP (Mixed Member Proportional)</strong>, and open-list approaches are all serious
+		reform options. They improve on FPTP because they take proportionality seriously. The argument
+		here is not that they fail, but that some of their avoidable friction sits in <em>how</em>
+		voters express preferences.
 	</p>
 
 	<div class="systems-grid">
@@ -23,28 +24,30 @@
 			</p>
 
 			<div class="system-issue">
-				<h4>⚠️ But It Uses Ranked-Choice Voting</h4>
-				<p>The ranking aspect creates unnecessary complexity:</p>
+				<h4>⚠️ Its Main Trade-off Is Ranked Complexity</h4>
+				<p>That does not make STV a bad system. It does mean reformers should weigh real costs:</p>
 				<ul>
 					<li>
-						<strong>Cognitive burden:</strong> Ranking 10+ candidates requires knowledge voters often
-						don't have
+						<strong>Long ballots:</strong> Ranking 10+ candidates asks more of voters than a simple
+						approval mark
 					</li>
 					<li>
-						<strong>Ballot errors:</strong> Higher spoilage rates from skipped or duplicate rankings
+						<strong>Ballot errors:</strong> Ranked ballots can create more spoilage from skipped or
+						duplicate numbers
 					</li>
 					<li>
-						<strong>Slow counting:</strong> Complex transfer calculations can take days
+						<strong>Slow counting:</strong> Transfer calculations are harder to explain and can take days
 					</li>
 					<li>
-						<strong>Strategic voting:</strong> "Later-no-harm" concerns can discourage honest ranking
+						<strong>Strategic pressure:</strong> Ranking rules can still create tactical anxieties and
+						debate over count mechanics
 					</li>
 				</ul>
 			</div>
 
 			<div class="improvement-box">
-				<strong>The fix:</strong> Replace ranking with approval voting. Same proportional outcome,
-				simpler ballot, faster count.
+				<strong>Approval-based response:</strong> Keep the multi-member proportional ambition, but ask
+				voters to approve acceptable candidates instead of ranking them.
 			</div>
 		</div>
 
@@ -58,8 +61,8 @@
 			</p>
 
 			<div class="system-issue">
-				<h4>⚠️ But Constituencies Still Use FPTP</h4>
-				<p>The local vote keeps all of FPTP's problems:</p>
+				<h4>⚠️ Its Main Trade-off Is The Local Ballot</h4>
+				<p>Standard AMS/MMP often keeps a single-choice constituency contest, which means:</p>
 				<ul>
 					<li>
 						<strong>Tactical voting:</strong> You still can't vote for your favourite if they might
@@ -76,31 +79,32 @@
 			</div>
 
 			<div class="improvement-box">
-				<strong>The fix:</strong> Replace FPTP constituencies with approval voting. Keep the proportional
-				list, fix the local vote.
+				<strong>Approval-based response:</strong> Keep the mixed-member structure, but replace the local
+				FPTP ballot with approval voting.
 			</div>
 		</div>
 	</div>
 
 	<div class="key-insight">
-		<h3>🎯 The Core Issue: How We Express Preferences</h3>
+		<h3>🎯 The Core Issue: How Voters Express Support</h3>
 		<p>
-			Both STV and MMP deliver proportional representation—that's good! The problem is the
-			<em>voting method</em> used to express preferences:
+			The core approval-voting claim is compatible with coalition politics: proportionality is good,
+			but the <em>ballot interface</em> still matters.
 		</p>
 		<ul>
 			<li>
-				<strong>FPTP</strong> forces you to pick just one candidate, even if you'd be happy with several
+				<strong>FPTP-style local ballots</strong> force you to pick just one candidate, even if you'd be
+				happy with several
 			</li>
 			<li>
-				<strong>Ranked-choice</strong> asks you to order all candidates, even when you don't have clear
-				preferences beyond your top few
+				<strong>Ranked ballots</strong> ask you to order candidates even when many are simply
+				"acceptable" or "not acceptable"
 			</li>
 		</ul>
 		<p>
 			<strong>Approval voting</strong> is simpler: just mark which candidates you find acceptable. No
-			forced ranking. No single-choice restrictions. And it works with both mixed systems (like AMS+)
-			and fully proportional systems.
+			forced ranking. No single-choice restriction. And it can sit inside both mixed systems (like
+			AMS+) and fully proportional multi-member systems.
 		</p>
 	</div>
 </section>

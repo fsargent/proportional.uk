@@ -76,6 +76,18 @@
 		electoral change the UK could make.
 	</p>
 
+	<div class="implementation-frame">
+		<div class="implementation-card">
+			<p class="implementation-label">Fastest to implement</p>
+			<h3>A near-term ballot reform even without immediate PR consensus</h3>
+			<p>
+				This option keeps the current Westminster map, one-seat constituencies, and the basic count
+				administration. That makes it the easiest approval reform to legislate and explain, even though
+				it does not solve nationwide proportionality on its own.
+			</p>
+		</div>
+	</div>
+
 	<h3 class="subsection-header">How You Vote</h3>
 
 	<div class="voting-demo">
@@ -222,6 +234,32 @@
 		font-size: 1.1rem;
 		line-height: 1.7;
 		max-width: 800px;
+	}
+
+	.implementation-frame {
+		margin: 2rem 0 0;
+		padding: 1.5rem;
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--accent-border);
+		background: var(--surface-info-gradient);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.implementation-card h3 {
+		margin: 0 0 0.45rem 0;
+	}
+
+	.implementation-label {
+		margin: 0 0 0.35rem 0;
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--accent-text);
+	}
+
+	.implementation-card p:last-child {
+		margin: 0;
 	}
 
 	.subsection-header {
