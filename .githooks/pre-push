@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+
+echo "[pre-push] Running checks..."
+npm run check
+
+echo "[pre-push] Building project..."
+npm run build
+
+echo "[pre-push] OK"

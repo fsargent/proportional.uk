@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PARTY_META } from '$lib/config';
-	import type { PartyTotals } from '$lib/stv-sim';
-	import { partyLabel } from '$lib/stv-sim';
+	import type { PartyTotals } from '$lib/mmd-sim';
+	import { partyLabel } from '$lib/mmd-sim';
 
 	interface Props {
 		parties: PartyTotals[];
