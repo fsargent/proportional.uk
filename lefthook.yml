@@ -1,0 +1,7 @@
+pre-push:
+  parallel: false
+  commands:
+    check:
+      run: npm run check
+    build:
+      run: npm run build

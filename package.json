@@ -7,7 +7,7 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''; if [ -d .git ] || git rev-parse --git-dir >/dev/null 2>&1; then git config core.hooksPath .githooks; fi",
+		"prepare": "svelte-kit sync || echo ''; lefthook install --reset-hooks-path",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
@@ -15,6 +15,7 @@
 		"@sveltejs/adapter-static": "^3.0.0",
 		"@sveltejs/kit": "^2.49.1",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
+		"lefthook": "^2.1.4",
 		"svelte": "^5.45.6",
 		"svelte-check": "^4.3.4",
 		"typescript": "^5.9.3",
