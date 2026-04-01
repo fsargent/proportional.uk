@@ -26,11 +26,12 @@
 <section class="criteria-frame" aria-labelledby="criteria-frame-title">
 	<div class="criteria-intro">
 		<p class="kicker">Criteria for reform</p>
-		<h2 id="criteria-frame-title" class="section-header">What this site is trying to optimise</h2>
+		<h2 id="criteria-frame-title" class="section-header">What matters in a good reform</h2>
 		<p>
-			This argument is not just “approval voting is neat.” The test is whether a Westminster reform can
-			improve fairness, strengthen voter power, keep a workable local link, stay legible on the ballot,
-			and fit the politics of UK reform.
+			Once you see the glitch, the obvious next question is: what should a better system actually do?
+			A good reform has to clear a few tests at once. It should make seats fairer, give voters more
+			real power, preserve a workable local link, stay legible on the ballot, and fit the politics of
+			how reform could actually happen in the UK.
 		</p>
 	</div>
 

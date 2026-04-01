@@ -3,14 +3,14 @@
 </script>
 
 <section class="ranking-problems">
-	<h2 class="section-header">Good Ideas, But We Can Do Better</h2>
+	<h2 class="section-header">Serious reforms still make ballot choices</h2>
 
 	<p class="intro-text">
-		<strong>STV (Single Transferable Vote)</strong>,
-		<strong>AMS/MMP (Mixed Member Proportional)</strong>, and open-list approaches are all serious
-		reform options. They improve on FPTP because they take proportionality seriously. The argument
-		here is not that they fail, but that some of their avoidable friction sits in <em>how</em>
-		voters express preferences.
+		Once you move beyond FPTP, the next question is not just how proportional you want the result to
+		be. It is also what you are asking voters to do on the ballot. <strong>STV</strong>,
+		<strong>AMS/MMP</strong>, and open-list systems are all serious reform options. But they each make a
+		different choice about how voters express support, and that choice shapes how simple, legible, and
+		forgiving the system feels in practice.
 	</p>
 
 	<div class="systems-grid">
@@ -26,6 +26,31 @@
 			<div class="system-issue">
 				<h4>⚠️ Its Main Trade-off Is Ranked Complexity</h4>
 				<p>That does not make STV a bad system. It does mean reformers should weigh real costs:</p>
+				<div class="ballot-demo">
+					<p class="ballot-instruction">An STV-style ballot asks you to rank candidates in order:</p>
+					<div class="ballot-options">
+						<div class="ballot-option">
+							<span class="rank-box">1</span>
+							<span>Candidate A</span>
+						</div>
+						<div class="ballot-option">
+							<span class="rank-box">4</span>
+							<span>Candidate B</span>
+						</div>
+						<div class="ballot-option">
+							<span class="rank-box">?</span>
+							<span>Candidate C</span>
+						</div>
+						<div class="ballot-option">
+							<span class="rank-box">2</span>
+							<span>Candidate D</span>
+						</div>
+						<div class="ballot-option">
+							<span class="rank-box">3</span>
+							<span>Candidate E</span>
+						</div>
+					</div>
+				</div>
 				<ul>
 					<li>
 						<strong>Long ballots:</strong> Ranking 10+ candidates asks more of voters than a simple
@@ -46,8 +71,8 @@
 			</div>
 
 			<div class="improvement-box">
-				<strong>Approval-based response:</strong> Keep the multi-member proportional ambition, but ask
-				voters to approve acceptable candidates instead of ranking them.
+				<strong>A simpler alternative:</strong> Keep the multi-member proportional ambition, but let
+				voters support every acceptable candidate instead of forcing a full ranking.
 			</div>
 		</div>
 
@@ -79,8 +104,8 @@
 			</div>
 
 			<div class="improvement-box">
-				<strong>Approval-based response:</strong> Keep the mixed-member structure, but replace the local
-				FPTP ballot with approval voting.
+				<strong>A simpler alternative:</strong> Keep the mixed-member structure, but replace the local
+				FPTP ballot with a ballot that lets voters support every acceptable candidate.
 			</div>
 		</div>
 	</div>
@@ -88,8 +113,8 @@
 	<div class="key-insight">
 		<h3>🎯 The Core Issue: How Voters Express Support</h3>
 		<p>
-			The core approval-voting claim is compatible with coalition politics: proportionality is good,
-			but the <em>ballot interface</em> still matters.
+			The important point here is simple: proportionality matters, but the <em>ballot interface</em>
+			matters too.
 		</p>
 		<ul>
 			<li>
@@ -102,9 +127,9 @@
 			</li>
 		</ul>
 		<p>
-			<strong>Approval voting</strong> is simpler: just mark which candidates you find acceptable. No
-			forced ranking. No single-choice restriction. And it can sit inside both mixed systems (like
-			AMS+) and fully proportional multi-member systems.
+			So before asking which proportional family is best, it helps to ask a more basic question: what if
+			the ballot simply let voters support every acceptable candidate? That is the idea we introduce in
+			the next section.
 		</p>
 	</div>
 </section>

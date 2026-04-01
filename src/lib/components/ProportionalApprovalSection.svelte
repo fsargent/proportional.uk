@@ -86,16 +86,19 @@
 	<h2 class="section-header">Proportional Approval Voting</h2>
 
 	<p class="intro-text">
-		<strong>Proportional Approval</strong> (technically: Sequential Proportional Approval Voting) is
-		a fully proportional system that uses approval voting to elect multiple candidates. It's simple,
-		fast, and produces genuinely proportional results. In UK terms, it is best understood as a
-		longer-term multi-member destination rather than the most immediate Westminster reform package.
+		This is the full version of the idea: a genuinely proportional Parliament built from approval
+		ballots in multi-member districts. Technically, this is a form of Sequential Proportional Approval
+		Voting.
+	</p>
+	<p class="intro-text">
+		It is probably not the first reform Westminster would adopt. But it is the cleanest way to carry
+		the simple ballot idea all the way through to a fully proportional result.
 	</p>
 
 	<div class="implementation-frame">
 		<div class="implementation-card">
 			<p class="implementation-label">Strategic role in UK reform</p>
-			<h3>A compelling end-state once multi-member districts are politically live</h3>
+			<h3>If Britain wanted the cleanest fully proportional version</h3>
 			<p>
 				Proportional Approval is the cleanest way to keep the approval-voting thesis all the way
 				through to a fully proportional Parliament. The main implementation hurdle is not the ballot

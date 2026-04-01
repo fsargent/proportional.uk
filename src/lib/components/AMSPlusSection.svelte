@@ -119,23 +119,23 @@
 	<h2 class="section-header">The Additional Member System Plus (AMS+)</h2>
 
 	<p class="intro-text">
-		AMS+ takes the proven
+		This is the most straightforward proportional version of the idea. Start with the
 		<a
 			href="https://en.wikipedia.org/wiki/Additional_member_system"
 			target="_blank"
 			rel="noopener noreferrer">Additional Member System</a
 		>
-		used in Scotland and Wales, and improves it by replacing "pick one" constituency voting with
-		<a href="https://en.wikipedia.org/wiki/Approval_voting" target="_blank" rel="noopener noreferrer"
-			>approval voting</a
-		>. You get the best of both worlds: local representation, proportional results, and a reform path
-		that already looks recognisable in UK politics.
+		already used in Scotland and Wales, then swap out the local “pick one” ballot for approval voting.
+	</p>
+	<p class="intro-text">
+		You keep local MPs. You keep proportional top-up seats. But the constituency vote stops forcing
+		people into the old FPTP squeeze.
 	</p>
 
 	<div class="implementation-frame">
 		<div class="implementation-card">
 			<p class="implementation-label">Best fit in UK reform politics</p>
-			<h3>Nearer-term coalition route to proportionality</h3>
+			<h3>If Britain wanted proportionality without a giant leap</h3>
 			<p>
 				If Westminster reformers want a proposal that can speak to Labour, Liberal Democrat, Green,
 				and softer constitutional audiences at the same time, AMS+ is the clearest approval-based fit.

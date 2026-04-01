@@ -1,0 +1,24 @@
+You are working in the proportional.uk repo on branch feat/coalition-pass.
+
+Goal: implement a coalition-legible, implementation-aware content pass influenced by a UK PR policy paper, while preserving the site's approval-voting thesis.
+
+Please inspect the site structure and make a focused, shippable set of content/UI changes. Priorities:
+1. Add an explicit criteria frame near the top (fairness, voter power/accountability, local connection, simplicity, implementability).
+2. Add a short bridge section acknowledging UK-familiar PR options (STV, AMS/MMP, List PR) and positioning this site as building from that conversation rather than ignoring it.
+3. Strengthen the implementation / transition framing in the system sections, especially highlighting which options are nearer-term vs longer-term and how they could fit UK reform politics.
+4. Add a comparison matrix or concise comparison section that includes familiar systems (at least STV, AMS/MMP, open-list PR) alongside the approval-based proposals. Be fair-minded, not dismissive.
+5. Soften any overly sectarian anti-STV language into a tradeoff-based critique. Keep the substantive argument about complexity, but make it coalition-safe and intellectually fair.
+6. Where relevant, tie the visualiser / district-size discussion more clearly to district magnitude, local authority / stable boundary practicality, and Sainte-Lague rather than D'Hondt.
+
+Constraints:
+- Do not remove the core approval-voting argument.
+- Keep the changes coherent and actually integrated into the current narrative rather than bolting on random text.
+- Build on existing Svelte components/pages where practical; create small new components if helpful.
+- Run npm run check and npm run build.
+- Commit your changes on feat/coalition-pass with a clear commit message.
+- Push the branch to origin.
+
+If you discover branch-preview setup in the repo, mention it in your final summary; otherwise note that current deployment is main-only GitHub Pages.
+
+When completely finished, run this command to notify me:
+openclaw system event --text "Done: coalition-legible site pass implemented on feat/coalition-pass and pushed" --mode now

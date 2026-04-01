@@ -54,11 +54,11 @@
 </script>
 
 <section class="comparison-matrix" aria-labelledby="comparison-matrix-title">
-	<h2 id="comparison-matrix-title" class="section-header">How the main reform options compare</h2>
+	<h2 id="comparison-matrix-title" class="section-header">How the main reform combinations compare</h2>
 	<p class="intro-text">
-		The real question is not whether familiar PR models are “wrong.” It is how their trade-offs compare
-		with approval-based variants on fairness, local accountability, ballot complexity, and political
-		implementability.
+		Now that the pieces are on the table, the named systems are easier to read. Each one combines a
+		ballot type, a district structure, and a way of allocating seats. The question is not which brand
+		name sounds nicest. It is which combination best fits Westminster.
 	</p>
 
 	<div class="matrix-scroll">

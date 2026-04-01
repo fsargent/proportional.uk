@@ -1,10 +1,6 @@
 <script lang="ts">
 	import '../app.css';
-	import { page } from '$app/state';
-	import { readingMode, setReadingMode } from '$lib/stores/navigation';
-
 	let { children } = $props();
-	const isHomePage = $derived(page.url.pathname === '/');
 </script>
 
 <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
@@ -44,30 +40,7 @@
 				</span>
 			</a>
 		</div>
-		{#if isHomePage}
-			<div class="header-actions">
-				<div class="header-toggle" role="group" aria-label="Reading mode">
-					<button
-						type="button"
-						class="header-toggle__button"
-						class:is-active={$readingMode === 'pager'}
-						aria-pressed={$readingMode === 'pager'}
-						onclick={() => setReadingMode('pager')}
-					>
-						Guided Walkthrough
-					</button>
-					<button
-						type="button"
-						class="header-toggle__button"
-						class:is-active={$readingMode === 'all'}
-						aria-pressed={$readingMode === 'all'}
-						onclick={() => setReadingMode('all')}
-					>
-						View as One Page
-					</button>
-				</div>
-			</div>
-		{/if}
+
 	</div>
 </header>
 
@@ -172,63 +145,8 @@
 		vertical-align: middle;
 	}
 
-	.header-actions {
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		margin-left: auto;
-	}
-
-	.header-toggle {
-		display: inline-flex;
-		flex-wrap: nowrap;
-		justify-content: flex-end;
-		gap: 0.2rem;
-		padding: 0.22rem;
-		border: 1px solid rgba(255, 255, 255, 0.18);
-		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.08);
-		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-	}
-
-	.header-toggle__button {
-		border: 1px solid transparent;
-		background: transparent;
-		color: rgba(255, 255, 255, 0.9);
-		font-weight: 600;
-		font-size: 0.98rem;
-		padding: 0.5rem 0.9rem;
-		border-radius: 999px;
-		font: inherit;
-		cursor: pointer;
-		transition:
-			background-color 0.2s ease,
-			color 0.2s ease,
-			border-color 0.2s ease,
-			transform 0.2s ease,
-			box-shadow 0.2s ease;
-	}
-
-	.header-toggle__button:hover {
-		background: rgba(255, 255, 255, 0.12);
-		color: var(--text-inverse);
-		border-color: rgba(255, 255, 255, 0.14);
-	}
-
-	.header-toggle__button.is-active {
-		background: rgba(255, 255, 255, 0.96);
-		color: var(--header-bg-strong);
-		border-color: rgba(255, 255, 255, 0.92);
-		box-shadow: 0 6px 18px rgba(17, 38, 59, 0.16);
-	}
-
-	.header-toggle__button:focus-visible,
 	.govuk-header__link--homepage:focus-visible {
 		outline-color: rgba(255, 255, 255, 0.45);
-	}
-
-	.header-toggle__button:active {
-		transform: translateY(1px);
 	}
 
 	.govuk-main-wrapper {
@@ -292,22 +210,6 @@
 
 		.govuk-header__logotype-text {
 			font-size: 1.25rem;
-		}
-
-		.header-actions {
-			width: 100%;
-			margin-left: 0;
-			justify-content: flex-start;
-		}
-
-		.header-toggle {
-			width: 100%;
-			justify-content: flex-start;
-			flex-wrap: wrap;
-		}
-
-		.header-toggle__button {
-			font-size: 0.92rem;
 		}
 	}
 </style>

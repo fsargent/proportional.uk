@@ -1,170 +1,76 @@
 <script lang="ts">
-	import { selectedSystem, type VotingSystem } from '$lib/stores/navigation';
-
-	interface Props {
-		autoScroll?: boolean;
-	}
-
-	let { autoScroll = true }: Props = $props();
-
-	function selectSystem(system: VotingSystem) {
-		selectedSystem.set(system);
-
-		if (!autoScroll) {
-			return;
+	const cards = [
+		{
+			href: '/proportional-approval',
+			kicker: 'The cleanest fully proportional version',
+			icon: '📊',
+			title: 'Proportional Approval',
+			subtitle: 'Fully Proportional',
+			features: ['Maximum proportionality', 'One simple ballot', 'Every vote counts equally', 'Multi-member approval ballot'],
+			tradeoff: 'Requires multi-member districts and a bigger transition than AMS+'
+		},
+		{
+			href: '/ams-plus',
+			kicker: 'The easiest proportional route from here',
+			icon: '🏛️',
+			title: 'AMS+ (Approval-MMP)',
+			subtitle: 'Local + Proportional',
+			features: ['Keep your local constituency MP', 'Two ballots: local approval + party list', 'Builds on proven Scottish/Welsh system', 'Proportional top-up seats'],
+			tradeoff: 'Slightly less proportional than large-district PR, but easiest to fit UK reform politics'
+		},
+		{
+			href: '/single-winner-approval',
+			kicker: 'The smallest change with the biggest ballot fix',
+			icon: '🗳️',
+			title: 'Single-Winner Approval',
+			subtitle: 'Local + Simple',
+			features: ['Keep one local MP per constituency', 'One ballot with one simple instruction', 'Reduces tactical voting and spoiler pressure', 'Likely the easiest UK-wide change to implement'],
+			tradeoff: 'Fairer local elections, but not proportional nationwide'
+		},
+		{
+			href: '/stv',
+			kicker: 'The key comparator in UK reform politics',
+			icon: '🧮',
+			title: 'STV',
+			subtitle: 'Ranked + Multi-member',
+			features: ['Well-known PR option', 'Candidate-centred', 'Needs multi-member districts', 'Ranked ballot and transfer count'],
+			tradeoff: 'Strong proportional system, but more demanding ballot and count'
 		}
-
-		// Respect reduced-motion preferences when guiding people to the chosen section.
-		setTimeout(() => {
-			const detailsSection = document.getElementById('system-details');
-			if (detailsSection) {
-				const prefersReducedMotion =
-					typeof window !== 'undefined' &&
-					window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-				detailsSection.scrollIntoView({
-					behavior: prefersReducedMotion ? 'auto' : 'smooth',
-					block: 'start'
-				});
-			}
-		}, 100);
-	}
-
-	let currentChoice = $derived($selectedSystem);
+	] as const;
 </script>
 
 <section class="system-choice">
-	<h2 class="section-header">Choose the Better Fit</h2>
+	<h2 class="section-header">Four methods worth understanding</h2>
 
 	<p class="intro-text">
-		All three options below use <strong>approval voting</strong> instead of ranking. The main choice
-		is whether you want a coalition-ready route to proportionality now, a longer-term multi-member
-		approval model, or the simplest local upgrade from FPTP.
+		Three of these are approval-based reform paths for Britain. The fourth is STV, the most important
+		ranked multi-member comparator in UK reform politics. Together they make the trade space much easier
+		to see.
 	</p>
 
 	<div class="choice-grid">
-		<button
-			type="button"
-			class="choice-card"
-			class:selected={currentChoice === 'proportional-approval'}
-			aria-pressed={currentChoice === 'proportional-approval'}
-			onclick={() => selectSystem('proportional-approval')}
-		>
-			<p class="choice-kicker">Longer-term proportional end-state</p>
-			<div class="choice-icon">📊</div>
-			<h3>Proportional Approval</h3>
-			<p class="choice-subtitle">Fully Proportional</p>
-
-			<div class="choice-features">
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>Maximum proportionality</span>
+		{#each cards as card (card.href)}
+			<a href={card.href} class="choice-card link-card">
+				<p class="choice-kicker">{card.kicker}</p>
+				<div class="choice-icon">{card.icon}</div>
+				<h3>{card.title}</h3>
+				<p class="choice-subtitle">{card.subtitle}</p>
+				<div class="choice-features">
+					{#each card.features as feature}
+						<div class="feature">
+							<span class="feature-icon">✓</span>
+							<span>{feature}</span>
+						</div>
+					{/each}
 				</div>
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>One simple ballot</span>
+				<div class="choice-tradeoffs">
+					<p><strong>Trade-off:</strong> {card.tradeoff}</p>
 				</div>
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>Every vote counts equally</span>
-				</div>
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>Multi-member approval ballot</span>
-				</div>
-			</div>
-
-			<div class="choice-tradeoffs">
-				<p><strong>Trade-off:</strong> Requires multi-member districts and a bigger transition than AMS+</p>
-			</div>
-		</button>
-
-		<button
-			type="button"
-			class="choice-card"
-			class:selected={currentChoice === 'ams-plus'}
-			aria-pressed={currentChoice === 'ams-plus'}
-			onclick={() => selectSystem('ams-plus')}
-		>
-			<p class="choice-kicker">Nearest-term full PR route</p>
-			<div class="choice-icon">🏛️</div>
-			<h3>AMS+ (Approval-MMP)</h3>
-			<p class="choice-subtitle">Local + Proportional</p>
-
-			<div class="choice-features">
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>Keep your local constituency MP</span>
-				</div>
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>Two ballots: local approval + party list</span>
-				</div>
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>Builds on proven Scottish/Welsh system</span>
-				</div>
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>Proportional top-up seats</span>
-				</div>
-			</div>
-
-			<div class="choice-tradeoffs">
-				<p><strong>Trade-off:</strong> Slightly less proportional than large-district PR, but easiest to fit UK reform politics</p>
-			</div>
-		</button>
-
-		<button
-			type="button"
-			class="choice-card"
-			class:selected={currentChoice === 'single-winner-approval'}
-			aria-pressed={currentChoice === 'single-winner-approval'}
-			onclick={() => selectSystem('single-winner-approval')}
-		>
-			<p class="choice-kicker">Fastest ballot reform</p>
-			<div class="choice-icon">🗳️</div>
-			<h3>Single-Winner Approval</h3>
-			<p class="choice-subtitle">Local + Simple</p>
-
-			<div class="choice-features">
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>Keep one local MP per constituency</span>
-				</div>
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>One ballot with one simple instruction</span>
-				</div>
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>Reduces tactical voting and spoiler pressure</span>
-				</div>
-				<div class="feature">
-					<span class="feature-icon">✓</span>
-					<span>Likely the easiest UK-wide change to implement</span>
-				</div>
-			</div>
-
-			<div class="choice-tradeoffs">
-				<p><strong>Trade-off:</strong> Fairer local elections, but not proportional nationwide</p>
-			</div>
-		</button>
+			</a>
+		{/each}
 	</div>
 
-	{#if currentChoice}
-		<p class="selection-indicator">
-			Scroll down to learn more about <strong
-				>{currentChoice === 'single-winner-approval'
-					? 'Single-Winner Approval'
-					: currentChoice === 'ams-plus'
-						? 'AMS+'
-						: 'Proportional Approval'}</strong
-			>
-		</p>
-	{:else}
-		<p class="prompt-text">Click a card above to explore that system in detail</p>
-	{/if}
+	<p class="prompt-text">Open any card to get the full explanation on its own page.</p>
 </section>
 
 <style>
@@ -191,7 +97,6 @@
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-lg);
 		padding: 2rem;
-		cursor: pointer;
 		transition:
 			border-color 0.22s ease,
 			box-shadow 0.22s ease,
@@ -211,14 +116,13 @@
 		transform: translateY(-2px);
 	}
 
-	.choice-card.selected {
-		border-color: var(--success-border-strong);
-		background: var(--surface-success-gradient);
-		box-shadow: 0 16px 34px rgba(29, 111, 66, 0.14);
-	}
-
 	.choice-card:focus-visible {
 		outline-color: var(--focus-ring-soft);
+	}
+
+	.link-card {
+		text-decoration: none;
+		color: inherit;
 	}
 
 	.choice-kicker {
@@ -282,17 +186,6 @@
 		margin: 0;
 		font-size: 0.9rem;
 		color: var(--text-soft);
-	}
-
-	.selection-indicator {
-		text-align: center;
-		color: var(--success-color);
-		font-size: 1.1rem;
-		margin-top: 2rem;
-		padding: 1rem;
-		background: var(--surface-success-gradient);
-		border: 1px solid var(--success-border);
-		border-radius: var(--radius-md);
 	}
 
 	.prompt-text {
