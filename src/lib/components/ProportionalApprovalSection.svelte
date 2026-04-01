@@ -86,10 +86,41 @@
 	<h2 class="section-header">Proportional Approval Voting</h2>
 
 	<p class="intro-text">
-		<strong>Proportional Approval</strong> (technically: Sequential Proportional Approval Voting) is
-		a fully proportional system that uses approval voting to elect multiple candidates. It's simple,
-		fast, and produces genuinely proportional results.
+		This is the full version of the idea: a genuinely proportional Parliament built from approval
+		ballots in multi-member districts. Technically, this is a form of Sequential Proportional Approval
+		Voting.
 	</p>
+	<p class="intro-text">
+		It is probably not the first reform Westminster would adopt. But it is the cleanest way to carry
+		the simple ballot idea all the way through to a fully proportional result.
+	</p>
+
+	<div class="implementation-frame">
+		<div class="implementation-card">
+			<p class="implementation-label">Strategic role in UK reform</p>
+			<h3>If Britain wanted the cleanest fully proportional version</h3>
+			<p>
+				Proportional Approval is the cleanest way to keep the approval-voting thesis all the way
+				through to a fully proportional Parliament. The main implementation hurdle is not the ballot
+				instruction, which is simple, but the move to multi-member districts and the boundary work that
+				comes with them.
+			</p>
+		</div>
+		<div class="implementation-grid">
+			<div>
+				<h4>Near-term use</h4>
+				<p>Best advanced alongside district-magnitude planning, visualisation work, and wider public argument about regional representation.</p>
+			</div>
+			<div>
+				<h4>Boundary logic</h4>
+				<p>Use stable building blocks such as groups of constituencies, local authority clusters, and recognisable county or city regions.</p>
+			</div>
+			<div>
+				<h4>Counting benchmark</h4>
+				<p>For rough UK comparisons, Sainte-Lague is a better benchmark than D'Hondt because it is less biased toward the largest parties.</p>
+			</div>
+		</div>
+	</div>
 
 	<h3 class="subsection-header">How You Vote</h3>
 
@@ -164,6 +195,34 @@
 		{/each}
 	</div>
 
+	<h3 class="subsection-header">Transition and District Design</h3>
+
+	<div class="implementation-grid detail-grid">
+		<div class="detail-card">
+			<h4>District magnitude matters</h4>
+			<p>
+				Proportional Approval works best in districts large enough to reflect the UK’s real party
+				pluralism. Very small districts behave more like majoritarian contests; medium sizes are the
+				practical sweet spot.
+			</p>
+		</div>
+		<div class="detail-card">
+			<h4>Use practical geographies</h4>
+			<p>
+				A UK rollout would not need to invent geography from nothing. It could group present
+				constituencies into stable multi-member units aligned where possible with local-authority or
+				combined-authority footprints.
+			</p>
+		</div>
+		<div class="detail-card">
+			<h4>Fit reform sequencing</h4>
+			<p>
+				If Westminster wins PR first through AMS/MMP, Proportional Approval can still serve as the
+				next-step argument for simplifying ballots and moving to a cleaner multi-member model later.
+			</p>
+		</div>
+	</div>
+
 	<div class="reweighting-explainer">
 		<h4>📐 The Reweighting Mechanism</h4>
 		<p>
@@ -224,21 +283,23 @@
 
 		<FAQItem question="How is this different from STV?">
 			<p>
-				Both are proportional multi-winner systems, but they differ fundamentally:
+				Both are proportional multi-winner systems, and both deserve to be taken seriously. The main
+				difference is how they ask voters to express support:
 			</p>
 			<ul>
 				<li>
-					<strong>STV:</strong> You rank candidates. Votes transfer based on elimination order. Complex
-					counting takes days.
+					<strong>STV:</strong> You rank candidates. Votes transfer through quotas and eliminations,
+					which can be slower to count and harder to explain.
 				</li>
 				<li>
 					<strong>Proportional Approval:</strong> You approve candidates. Votes are reweighted after
-					each seat. Simple counting gives results quickly.
+					each seat. The ballot is simpler even though the proportional logic is still real.
 				</li>
 			</ul>
 			<p>
-				Proportional Approval avoids STV's non-monotonicity problems and is much simpler to
-				understand and count.
+				So the critique here is trade-off based, not sectarian: STV has a strong pedigree, but
+				Proportional Approval keeps the same proportional ambition with a more legible voter
+				experience.
 			</p>
 		</FAQItem>
 
@@ -255,7 +316,8 @@
 		<h3>🎯 The Bottom Line</h3>
 		<p>
 			Proportional Approval gives you the simplicity of approval voting with the fairness of
-			proportional representation. No complex rankings, no strategic voting, no wasted votes.
+			proportional representation. It is the strongest approval-based case for a fully proportional
+			Westminster, especially once multi-member district reform is politically achievable.
 		</p>
 		<p>
 			<strong>Your job is simple:</strong> tick all the candidates you'd be happy to have represent you.
@@ -274,6 +336,56 @@
 		font-size: 1.1rem;
 		line-height: 1.7;
 		max-width: 800px;
+	}
+
+	.implementation-frame {
+		margin: 2rem 0 0;
+		padding: 1.5rem;
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--accent-border);
+		background: var(--surface-info-gradient);
+		box-shadow: var(--shadow-soft);
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.implementation-card h3,
+	.implementation-grid h4,
+	.detail-card h4 {
+		margin: 0 0 0.45rem 0;
+	}
+
+	.implementation-label {
+		margin: 0 0 0.35rem 0;
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--accent-text);
+	}
+
+	.implementation-card p,
+	.implementation-grid p,
+	.detail-card p {
+		margin: 0;
+	}
+
+	.implementation-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.implementation-grid > div,
+	.detail-card {
+		padding: 1rem;
+		border-radius: var(--radius-md);
+		border: 1px solid var(--border-color);
+		background: var(--surface-color);
+	}
+
+	.detail-grid {
+		margin-top: 1.5rem;
 	}
 
 	.subsection-header {
@@ -439,6 +551,10 @@
 
 	@media (max-width: 768px) {
 		.voting-demo {
+			grid-template-columns: 1fr;
+		}
+
+		.implementation-grid {
 			grid-template-columns: 1fr;
 		}
 	}

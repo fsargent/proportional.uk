@@ -30,12 +30,17 @@
 </script>
 
 <section class="problem-section">
-	<h2 class="section-header">The Problem: Westminster Elections Are Broken</h2>
+	<h2 class="section-header">The glitch in Westminster elections</h2>
 
 	<p class="intro-text">
-		The UK uses <strong>First Past the Post (FPTP)</strong> for Westminster elections—a system designed
-		in the 19th century for two-party politics. In a multi-party democracy, it produces results that
-		don't reflect what voters actually want.
+		The odd thing about <strong>First Past the Post (FPTP)</strong> is that it can make perfectly normal
+		voter behaviour produce weird results. You can end up with millions of wasted votes, giant seat
+		bonuses for one party, safe seats where almost nobody gets campaigned to, and constant pressure to
+		vote against the side you fear rather than for the side you actually like.
+	</p>
+	<p class="intro-text">
+		Those are not four separate problems. They are four symptoms of the same design choice: a ballot
+		that lets each voter make just one mark in a multi-party democracy.
 	</p>
 
 	<div class="stat-highlight">

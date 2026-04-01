@@ -69,12 +69,26 @@
 	<h2 class="section-header">Single-Winner Approval Voting</h2>
 
 	<p class="intro-text">
-		<strong>Single-Winner Approval Voting</strong> keeps the UK’s familiar single-member
-		constituencies, but replaces “pick one” voting with a simple rule: approve every candidate you
-		find acceptable. It is not a proportional system, but it is still a serious option for
-		Westminster: it solves vote-splitting, rewards broad support, and is likely the simplest
-		electoral change the UK could make.
+		This is the smallest version of the idea. Keep one MP per constituency, keep the familiar map, but
+		replace “pick one” with a simpler instruction: approve every candidate you would genuinely be happy
+		to elect.
 	</p>
+	<p class="intro-text">
+		It does not make Westminster proportional. What it does do is remove vote-splitting, reduce the
+		tactical squeeze, and make it easier for broadly acceptable candidates to win.
+	</p>
+
+	<div class="implementation-frame">
+		<div class="implementation-card">
+			<p class="implementation-label">Fastest to implement</p>
+			<h3>If Britain wanted the quickest ballot fix</h3>
+			<p>
+				This option keeps the current Westminster map, one-seat constituencies, and the basic count
+				administration. That makes it the easiest approval reform to legislate and explain, even though
+				it does not solve nationwide proportionality on its own.
+			</p>
+		</div>
+	</div>
 
 	<h3 class="subsection-header">How You Vote</h3>
 
@@ -222,6 +236,32 @@
 		font-size: 1.1rem;
 		line-height: 1.7;
 		max-width: 800px;
+	}
+
+	.implementation-frame {
+		margin: 2rem 0 0;
+		padding: 1.5rem;
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--accent-border);
+		background: var(--surface-info-gradient);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.implementation-card h3 {
+		margin: 0 0 0.45rem 0;
+	}
+
+	.implementation-label {
+		margin: 0 0 0.35rem 0;
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--accent-text);
+	}
+
+	.implementation-card p:last-child {
+		margin: 0;
 	}
 
 	.subsection-header {

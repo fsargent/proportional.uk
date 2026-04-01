@@ -119,17 +119,45 @@
 	<h2 class="section-header">The Additional Member System Plus (AMS+)</h2>
 
 	<p class="intro-text">
-		AMS+ takes the proven
+		This is the most straightforward proportional version of the idea. Start with the
 		<a
 			href="https://en.wikipedia.org/wiki/Additional_member_system"
 			target="_blank"
 			rel="noopener noreferrer">Additional Member System</a
 		>
-		used in Scotland and Wales, and improves it by replacing "pick one" constituency voting with
-		<a href="https://en.wikipedia.org/wiki/Approval_voting" target="_blank" rel="noopener noreferrer"
-			>approval voting</a
-		>. You get the best of both worlds: local representation and proportional results.
+		already used in Scotland and Wales, then swap out the local “pick one” ballot for approval voting.
 	</p>
+	<p class="intro-text">
+		You keep local MPs. You keep proportional top-up seats. But the constituency vote stops forcing
+		people into the old FPTP squeeze.
+	</p>
+
+	<div class="implementation-frame">
+		<div class="implementation-card">
+			<p class="implementation-label">Best fit in UK reform politics</p>
+			<h3>If Britain wanted proportionality without a giant leap</h3>
+			<p>
+				If Westminster reformers want a proposal that can speak to Labour, Liberal Democrat, Green,
+				and softer constitutional audiences at the same time, AMS+ is the clearest approval-based fit.
+				It reuses a structure voters in Scotland and Wales already know and changes the least while
+				still delivering PR.
+			</p>
+		</div>
+		<div class="implementation-grid">
+			<div>
+				<h4>What stays familiar</h4>
+				<p>Single-member constituencies, regional top-up seats, and an assembly-wide proportional outcome.</p>
+			</div>
+			<div>
+				<h4>What changes</h4>
+				<p>The local vote becomes “approve all acceptable candidates,” removing the FPTP squeeze from the constituency tier.</p>
+			</div>
+			<div>
+				<h4>Why it matters politically</h4>
+				<p>It offers a Westminster PR package that feels evolutionary rather than institutionally alien.</p>
+			</div>
+		</div>
+	</div>
 
 	<h3 class="subsection-header">How You Vote</h3>
 
@@ -230,6 +258,34 @@
 		{/each}
 	</div>
 
+	<h3 class="subsection-header">Transition and Implementation</h3>
+
+	<div class="implementation-grid detail-grid">
+		<div class="detail-card">
+			<h4>Stage 1: Westminster-ready PR model</h4>
+			<p>
+				Keep existing constituencies for the local tier, then add proportional regional correction
+				seats using a standard allocation rule. This is institutionally close to systems the UK already
+				administers.
+			</p>
+		</div>
+		<div class="detail-card">
+			<h4>Stage 2: Improve list design</h4>
+			<p>
+				Regional lists can stay simple at first, then become more voter-shaped over time through open
+				lists or approval within party lists if reform coalitions want a second step.
+			</p>
+		</div>
+		<div class="detail-card">
+			<h4>Counting rule</h4>
+			<p>
+				Use a fair top-up formula such as <strong>Sainte-Lague</strong> rather than defaulting to
+				D'Hondt, because the UK is a multi-party system where small differences in divisor choice can
+				matter.
+			</p>
+		</div>
+	</div>
+
 	<h3 class="subsection-header">The Foundation: AMS in Scotland and Wales</h3>
 
 	<p>
@@ -278,16 +334,18 @@
 		<FAQItem question="What's the Difference Between AMS and MMP?">
 			<p>
 				<strong>AMS</strong> and <strong>MMP (Mixed Member Proportional)</strong> are closely related.
-				Both use two votes—one for a local candidate, one for a party list. The main difference is how
-				proportionality is calculated, but both work better with approval voting for the local seat.
+				Both use two votes, usually one for a local candidate and one for a party list. The labels vary
+				by country and by how strongly the top-up tier restores proportionality, but the strategic case
+				for AMS+ is the same: keep the mixed-member structure and improve the local ballot.
 			</p>
 		</FAQItem>
 
 		<FAQItem question="How Does AMS+ Compare with STV?">
 			<p>
-				AMS+ uses simple approval voting (tick all acceptable candidates) and maintains
-				single-member constituencies. STV requires ranking candidates and uses larger multi-member
-				constituencies. AMS+ is simpler to vote, faster to count, and preserves the local MP link.
+				Both are defensible PR systems. STV gives voters more candidate ordering power inside
+				multi-member districts, while AMS+ keeps a clearer single-member local link and a simpler local
+				ballot. The argument for AMS+ is not that STV is illegitimate, but that it is easier to explain,
+				easier to count, and likely easier to assemble into a broad Westminster reform coalition.
 			</p>
 		</FAQItem>
 	</div>
@@ -296,8 +354,8 @@
 		<h3>🎯 The Bottom Line</h3>
 		<p>
 			AMS+ builds on 25+ years of proven success in Scotland and Wales, but with a crucial
-			improvement: approval voting for constituency seats. You get local representation AND
-			proportional results.
+			improvement: approval voting for constituency seats. If the UK wants a credible near-term route
+			to PR that still preserves familiar institutions, this is the strongest approval-based proposal.
 		</p>
 		<p>
 			<strong>Remember:</strong> With AMS+, you're not forced to choose just one candidate—you approve
@@ -316,6 +374,56 @@
 		font-size: 1.1rem;
 		line-height: 1.7;
 		max-width: 800px;
+	}
+
+	.implementation-frame {
+		margin: 2rem 0 0;
+		padding: 1.5rem;
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--accent-border);
+		background: var(--surface-info-gradient);
+		box-shadow: var(--shadow-soft);
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.implementation-card h3,
+	.detail-card h4,
+	.implementation-grid h4 {
+		margin: 0 0 0.45rem 0;
+	}
+
+	.implementation-label {
+		margin: 0 0 0.35rem 0;
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--accent-text);
+	}
+
+	.implementation-card p,
+	.implementation-grid p,
+	.detail-card p {
+		margin: 0;
+	}
+
+	.implementation-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.implementation-grid > div,
+	.detail-card {
+		padding: 1rem;
+		border-radius: var(--radius-md);
+		border: 1px solid var(--border-color);
+		background: var(--surface-color);
+	}
+
+	.detail-grid {
+		margin-top: 1.5rem;
 	}
 
 	.subsection-header {
@@ -437,6 +545,10 @@
 
 	@media (max-width: 768px) {
 		.voting-guide {
+			grid-template-columns: 1fr;
+		}
+
+		.implementation-grid {
 			grid-template-columns: 1fr;
 		}
 

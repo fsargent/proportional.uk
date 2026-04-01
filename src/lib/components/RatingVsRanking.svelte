@@ -3,16 +3,18 @@
 </script>
 
 <section class="rating-vs-ranking">
-	<h2 class="section-header">A Simpler Way to Express Your Vote</h2>
+	<h2 class="section-header">A surprisingly simple ballot idea</h2>
 
 	<p class="intro-text">
-		Whether you want the simplest local upgrade, a mixed system, or full proportionality, there's a
-		choice about
-		<em>how</em> voters mark their ballots. <strong>Approval voting</strong> offers a simpler alternative
-		to both "pick one" (FPTP) and ranked-choice systems.
+		Here is the whole idea. Instead of forcing voters to pick just one candidate, or rank everybody in
+		order, you let them mark every candidate they would genuinely be happy to support.
+	</p>
+	<p class="intro-text">
+		That is <strong>approval voting</strong>. It sounds almost too simple at first, but it turns out to be
+		a useful building block for both local elections and proportional systems.
 	</p>
 
-	<div class="comparison-table">
+	<div class="comparison-table single-column">
 		<div class="comparison-column rating">
 			<h3>✓ Approval Voting</h3>
 			<div class="ballot-demo">
@@ -48,54 +50,18 @@
 				<li>Finds consensus: winners have broad support</li>
 			</ul>
 		</div>
-
-		<div class="comparison-column ranking">
-			<h3>Ranked-Choice Voting</h3>
-			<div class="ballot-demo">
-				<p class="ballot-instruction">Rank all candidates in order (1st, 2nd, 3rd...):</p>
-				<div class="ballot-options">
-					<div class="ballot-option">
-						<span class="rank-box">1</span>
-						<span>Candidate A</span>
-					</div>
-					<div class="ballot-option">
-						<span class="rank-box">4</span>
-						<span>Candidate B</span>
-					</div>
-					<div class="ballot-option">
-						<span class="rank-box">?</span>
-						<span>Candidate C</span>
-					</div>
-					<div class="ballot-option">
-						<span class="rank-box">2</span>
-						<span>Candidate D</span>
-					</div>
-					<div class="ballot-option">
-						<span class="rank-box">3</span>
-						<span>Candidate E</span>
-					</div>
-				</div>
-			</div>
-			<ul class="features neutral">
-				<li>Expressive: full preference order</li>
-				<li>Complex counting: multi-round elimination</li>
-				<li>More errors: duplicate/skipped ranks</li>
-				<li>Some strategy: ranking unfamiliar candidates</li>
-				<li>Used in STV systems worldwide</li>
-			</ul>
-		</div>
 	</div>
 
 	<div class="research-note">
-		<h4>Why We Prefer Approval</h4>
+		<h4>Why this matters</h4>
 		<p>
-			Both methods are improvements over FPTP's "pick one" restriction. But approval voting is
-			easier for voters, faster to count, and has lower ballot spoilage rates. For most voters,
-			the question isn't "who is my 7th choice?" but simply "who do I find acceptable?"
+			A lot of voters do not have a full ordered list in their heads. They may have one favourite, a few
+			acceptable options, and a few they definitely do not want. Approval ballots fit that mental model
+			better than either FPTP or long rankings.
 		</p>
 		<p>
-			<strong>The key insight:</strong> You don't need to rank to achieve proportionality. Approval
-			voting can power both single-winner elections and proportional multi-winner systems.
+			<strong>The useful twist:</strong> you do not need ranking to get beyond FPTP. Approval ballots can
+			work in simple local elections, mixed systems, and fully proportional multi-member systems too.
 		</p>
 	</div>
 </section>
@@ -119,6 +85,10 @@
 		margin: 2rem 0;
 	}
 
+	.comparison-table.single-column {
+		grid-template-columns: minmax(0, 760px);
+	}
+
 	.comparison-column {
 		background: var(--surface-raised);
 		border: 1px solid var(--border-color);
@@ -132,11 +102,6 @@
 		background: linear-gradient(180deg, var(--success-tint) 0%, var(--surface-color) 100%);
 	}
 
-	.comparison-column.ranking {
-		border-color: var(--accent-border);
-		background: linear-gradient(180deg, var(--surface-emphasis) 0%, var(--surface-color) 100%);
-	}
-
 	.comparison-column h3 {
 		margin-top: 0;
 		margin-bottom: 1rem;
@@ -144,10 +109,6 @@
 
 	.comparison-column.rating h3 {
 		color: var(--success-color);
-	}
-
-	.comparison-column.ranking h3 {
-		color: var(--accent-text);
 	}
 
 	.ballot-demo {
@@ -202,19 +163,6 @@
 		border-color: var(--success-color);
 	}
 
-	.rank-box {
-		width: 1.5rem;
-		height: 1.5rem;
-		border: 2px solid var(--border-strong);
-		border-radius: 3px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 0.85rem;
-		font-weight: bold;
-		flex-shrink: 0;
-		background: var(--surface-muted);
-	}
 
 	.features {
 		margin: 0;
@@ -227,9 +175,6 @@
 		color: var(--success-color);
 	}
 
-	.features.neutral li {
-		color: var(--accent-text);
-	}
 
 	.research-note {
 		margin-top: 2rem;

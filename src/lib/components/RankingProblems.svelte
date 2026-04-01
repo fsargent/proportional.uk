@@ -3,13 +3,14 @@
 </script>
 
 <section class="ranking-problems">
-	<h2 class="section-header">Good Ideas, But We Can Do Better</h2>
+	<h2 class="section-header">Serious reforms still make ballot choices</h2>
 
 	<p class="intro-text">
-		<strong>STV (Single Transferable Vote)</strong> or
-		<strong>MMP (Mixed Member Proportional)</strong> are often proposed as reforms. Both are genuine improvements over FPTP—they deliver
-		proportional representation. But both could be made simpler and more effective by changing
-		<em>how</em> voters express their preferences.
+		Once you move beyond FPTP, the next question is not just how proportional you want the result to
+		be. It is also what you are asking voters to do on the ballot. <strong>STV</strong>,
+		<strong>AMS/MMP</strong>, and open-list systems are all serious reform options. But they each make a
+		different choice about how voters express support, and that choice shapes how simple, legible, and
+		forgiving the system feels in practice.
 	</p>
 
 	<div class="systems-grid">
@@ -23,28 +24,55 @@
 			</p>
 
 			<div class="system-issue">
-				<h4>⚠️ But It Uses Ranked-Choice Voting</h4>
-				<p>The ranking aspect creates unnecessary complexity:</p>
+				<h4>⚠️ Its Main Trade-off Is Ranked Complexity</h4>
+				<p>That does not make STV a bad system. It does mean reformers should weigh real costs:</p>
+				<div class="ballot-demo">
+					<p class="ballot-instruction">An STV-style ballot asks you to rank candidates in order:</p>
+					<div class="ballot-options">
+						<div class="ballot-option">
+							<span class="rank-box">1</span>
+							<span>Candidate A</span>
+						</div>
+						<div class="ballot-option">
+							<span class="rank-box">4</span>
+							<span>Candidate B</span>
+						</div>
+						<div class="ballot-option">
+							<span class="rank-box">?</span>
+							<span>Candidate C</span>
+						</div>
+						<div class="ballot-option">
+							<span class="rank-box">2</span>
+							<span>Candidate D</span>
+						</div>
+						<div class="ballot-option">
+							<span class="rank-box">3</span>
+							<span>Candidate E</span>
+						</div>
+					</div>
+				</div>
 				<ul>
 					<li>
-						<strong>Cognitive burden:</strong> Ranking 10+ candidates requires knowledge voters often
-						don't have
+						<strong>Long ballots:</strong> Ranking 10+ candidates asks more of voters than a simple
+						approval mark
 					</li>
 					<li>
-						<strong>Ballot errors:</strong> Higher spoilage rates from skipped or duplicate rankings
+						<strong>Ballot errors:</strong> Ranked ballots can create more spoilage from skipped or
+						duplicate numbers
 					</li>
 					<li>
-						<strong>Slow counting:</strong> Complex transfer calculations can take days
+						<strong>Slow counting:</strong> Transfer calculations are harder to explain and can take days
 					</li>
 					<li>
-						<strong>Strategic voting:</strong> "Later-no-harm" concerns can discourage honest ranking
+						<strong>Strategic pressure:</strong> Ranking rules can still create tactical anxieties and
+						debate over count mechanics
 					</li>
 				</ul>
 			</div>
 
 			<div class="improvement-box">
-				<strong>The fix:</strong> Replace ranking with approval voting. Same proportional outcome,
-				simpler ballot, faster count.
+				<strong>A simpler alternative:</strong> Keep the multi-member proportional ambition, but let
+				voters support every acceptable candidate instead of forcing a full ranking.
 			</div>
 		</div>
 
@@ -58,8 +86,8 @@
 			</p>
 
 			<div class="system-issue">
-				<h4>⚠️ But Constituencies Still Use FPTP</h4>
-				<p>The local vote keeps all of FPTP's problems:</p>
+				<h4>⚠️ Its Main Trade-off Is The Local Ballot</h4>
+				<p>Standard AMS/MMP often keeps a single-choice constituency contest, which means:</p>
 				<ul>
 					<li>
 						<strong>Tactical voting:</strong> You still can't vote for your favourite if they might
@@ -76,31 +104,32 @@
 			</div>
 
 			<div class="improvement-box">
-				<strong>The fix:</strong> Replace FPTP constituencies with approval voting. Keep the proportional
-				list, fix the local vote.
+				<strong>A simpler alternative:</strong> Keep the mixed-member structure, but replace the local
+				FPTP ballot with a ballot that lets voters support every acceptable candidate.
 			</div>
 		</div>
 	</div>
 
 	<div class="key-insight">
-		<h3>🎯 The Core Issue: How We Express Preferences</h3>
+		<h3>🎯 The Core Issue: How Voters Express Support</h3>
 		<p>
-			Both STV and MMP deliver proportional representation—that's good! The problem is the
-			<em>voting method</em> used to express preferences:
+			The important point here is simple: proportionality matters, but the <em>ballot interface</em>
+			matters too.
 		</p>
 		<ul>
 			<li>
-				<strong>FPTP</strong> forces you to pick just one candidate, even if you'd be happy with several
+				<strong>FPTP-style local ballots</strong> force you to pick just one candidate, even if you'd be
+				happy with several
 			</li>
 			<li>
-				<strong>Ranked-choice</strong> asks you to order all candidates, even when you don't have clear
-				preferences beyond your top few
+				<strong>Ranked ballots</strong> ask you to order candidates even when many are simply
+				"acceptable" or "not acceptable"
 			</li>
 		</ul>
 		<p>
-			<strong>Approval voting</strong> is simpler: just mark which candidates you find acceptable. No
-			forced ranking. No single-choice restrictions. And it works with both mixed systems (like AMS+)
-			and fully proportional systems.
+			So before asking which proportional family is best, it helps to ask a more basic question: what if
+			the ballot simply let voters support every acceptable candidate? That is the idea we introduce in
+			the next section.
 		</p>
 	</div>
 </section>
