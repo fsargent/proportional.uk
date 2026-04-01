@@ -69,11 +69,4 @@
 		background: var(--surface-accent-gradient);
 	}
 	.method-card h3 { margin-top: 0; }
-	.note {
-		margin: 0;
-		padding: 1rem 1.2rem;
-		border-radius: var(--radius-md);
-		background: var(--surface-subtle-gradient);
-		border: 1px solid var(--border-color);
-	}
 </style>
