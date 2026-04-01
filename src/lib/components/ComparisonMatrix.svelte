@@ -29,6 +29,16 @@
 			implementation: 'Practical if reformers want simple proportionality first'
 		},
 		{
+			name: 'Single-Winner Approval',
+			href: '/single-winner-approval',
+			family: 'Approval-based majoritarian',
+			fairness: 'Better local legitimacy, but not proportional nationwide',
+			localLink: 'Keeps one MP per constituency',
+			ballot: 'Approve any acceptable candidates',
+			counting: 'Very simple; just total approvals',
+			implementation: 'Smallest possible Westminster ballot reform and easiest to legislate quickly'
+		},
+		{
 			name: 'AMS+',
 			href: '/ams-plus',
 			family: 'Approval-based mixed PR',
