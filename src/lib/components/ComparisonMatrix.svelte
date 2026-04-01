@@ -90,14 +90,7 @@
 		</table>
 	</div>
 
-	<div class="matrix-notes">
-		{#each systems as system (system.name)}
-			<article class="matrix-note">
-				<h3>{system.name}</h3>
-				<p>{system.note}</p>
-			</article>
-		{/each}
-	</div>
+
 </section>
 
 <style>
@@ -144,26 +137,5 @@
 		border-bottom: 0;
 	}
 
-	.matrix-notes {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-		gap: 1rem;
-	}
 
-	.matrix-note {
-		padding: 1rem 1.1rem;
-		border-radius: var(--radius-md);
-		border: 1px solid var(--border-color);
-		background: var(--surface-subtle-gradient);
-	}
-
-	.matrix-note h3 {
-		margin: 0 0 0.35rem 0;
-		font-size: 1rem;
-	}
-
-	.matrix-note p {
-		margin: 0;
-		font-size: 0.95rem;
-	}
 </style>
