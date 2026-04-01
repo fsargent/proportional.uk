@@ -25,7 +25,7 @@
 		<a href="/proportional-approval">Compare with Proportional Approval →</a>
 	</nav>
 
-	<RankingProblems />
+	<RankingProblems showMMP={false} />
 
 	<section class="page-section">
 		<h2 class="section-header">Where STV sits in the design space</h2>

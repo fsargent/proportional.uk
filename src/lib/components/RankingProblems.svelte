@@ -1,5 +1,10 @@
 <script lang="ts">
 	// Component explaining why common voting-system proposals could be improved
+	interface Props {
+		showMMP?: boolean;
+	}
+
+	let { showMMP = true }: Props = $props();
 </script>
 
 <section class="ranking-problems">
@@ -76,38 +81,40 @@
 			</div>
 		</div>
 
-		<div class="system-card">
-			<div class="system-header positive">
-				<h3>✓ MMP Gets Proportionality Right</h3>
-			</div>
-			<p class="system-praise">
-				MMP uses party lists to ensure overall proportional representation. It's used in Germany,
-				New Zealand, and (as AMS) in Scotland and Wales.
-			</p>
+		{#if showMMP}
+			<div class="system-card">
+				<div class="system-header positive">
+					<h3>✓ MMP Gets Proportionality Right</h3>
+				</div>
+				<p class="system-praise">
+					MMP uses party lists to ensure overall proportional representation. It's used in Germany,
+					New Zealand, and (as AMS) in Scotland and Wales.
+				</p>
 
-			<div class="system-issue">
-				<h4>⚠️ Its Main Trade-off Is The Local Ballot</h4>
-				<p>Standard AMS/MMP often keeps a single-choice constituency contest, which means:</p>
-				<ul>
-					<li>
-						<strong>Tactical voting:</strong> You still can't vote for your favourite if they might
-						"split the vote"
-					</li>
-					<li>
-						<strong>Wasted votes:</strong> In safe constituencies, the local vote still doesn't matter
-					</li>
-					<li>
-						<strong>Negative campaigning:</strong> Candidates still win by attacking opponents rather
-						than building support
-					</li>
-				</ul>
-			</div>
+				<div class="system-issue">
+					<h4>⚠️ Its Main Trade-off Is The Local Ballot</h4>
+					<p>Standard AMS/MMP often keeps a single-choice constituency contest, which means:</p>
+					<ul>
+						<li>
+							<strong>Tactical voting:</strong> You still can't vote for your favourite if they might
+							"split the vote"
+						</li>
+						<li>
+							<strong>Wasted votes:</strong> In safe constituencies, the local vote still doesn't matter
+						</li>
+						<li>
+							<strong>Negative campaigning:</strong> Candidates still win by attacking opponents rather
+							than building support
+						</li>
+					</ul>
+				</div>
 
-			<div class="improvement-box">
-				<strong>A simpler alternative:</strong> Keep the mixed-member structure, but replace the local
-				FPTP ballot with a ballot that lets voters support every acceptable candidate.
+				<div class="improvement-box">
+					<strong>A simpler alternative:</strong> Keep the mixed-member structure, but replace the local
+					FPTP ballot with a ballot that lets voters support every acceptable candidate.
+				</div>
 			</div>
-		</div>
+		{/if}
 	</div>
 
 	<div class="key-insight">
