@@ -8,7 +8,6 @@
 	import DistrictShapeSection from '$lib/components/DistrictShapeSection.svelte';
 	import AllocationOverviewSection from '$lib/components/AllocationOverviewSection.svelte';
 	import ComparisonMatrix from '$lib/components/ComparisonMatrix.svelte';
-	import SystemChoice from '$lib/components/SystemChoice.svelte';
 	import MMDVisualiserSection from '$lib/components/MMDVisualiserSection.svelte';
 </script>
 
@@ -53,8 +52,6 @@
 
 	<div class="decision-step">
 		<ComparisonMatrix />
-
-		<SystemChoice />
 	</div>
 
 	<MMDVisualiserSection />
