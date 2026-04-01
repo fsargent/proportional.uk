@@ -8,8 +8,7 @@
 			localLink: 'Multi-member local districts',
 			ballot: 'Rank candidates',
 			counting: 'Transfer count; slower to explain and verify',
-			implementation: 'Established PR option; needs district redesign',
-			note: 'Serious and legitimate PR option. Main trade-off is ranked complexity, not proportional intent.'
+			implementation: 'Established PR option; needs district redesign'
 		},
 		{
 			name: 'AMS / MMP',
@@ -18,8 +17,7 @@
 			localLink: 'Single-member seats plus regional members',
 			ballot: 'Usually one local candidate vote plus one party vote',
 			counting: 'Moderate; familiar in devolved UK politics',
-			implementation: 'Near-term Westminster PR route because UK voters already know the structure',
-			note: 'Strong bridge reform for coalition politics, especially if the local ballot is improved.'
+			implementation: 'Near-term Westminster PR route because UK voters already know the structure'
 		},
 		{
 			name: 'Open-list PR',
@@ -28,8 +26,7 @@
 			localLink: 'Regional rather than single-constituency',
 			ballot: 'Vote for a party and optionally candidates on that list',
 			counting: 'Straightforward with stable district magnitudes',
-			implementation: 'Practical if reformers want simple proportionality first',
-			note: 'Fair and legible, though more party-mediated than candidate-centred systems.'
+			implementation: 'Practical if reformers want simple proportionality first'
 		},
 		{
 			name: 'AMS+',
@@ -39,8 +36,7 @@
 			localLink: 'Keeps constituency MPs plus regional correction',
 			ballot: 'Approve local candidates; choose a party list',
 			counting: 'Simpler local count than standard AMS',
-			implementation: 'Most coalition-ready approval reform because it builds directly on AMS/MMP',
-			note: 'Best fit if the UK wants proportionality soon without abandoning familiar institutions.'
+			implementation: 'Most coalition-ready approval reform because it builds directly on AMS/MMP'
 		},
 		{
 			name: 'Proportional Approval',
@@ -50,8 +46,7 @@
 			localLink: 'Regional or multi-member district link',
 			ballot: 'Approve acceptable candidates',
 			counting: 'Reweighting is simpler than STV transfers, but still new to Westminster',
-			implementation: 'Longer-term end-state once multi-member district design is politically live',
-			note: 'Keeps the core approval thesis while offering a fully proportional destination.'
+			implementation: 'Longer-term end-state once multi-member district design is politically live'
 		}
 	];
 </script>
