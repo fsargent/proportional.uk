@@ -31,9 +31,6 @@
 		</article>
 	</div>
 
-	<p class="note">
-		For rough UK district comparisons, <strong>Sainte-Laguë</strong> is often a better benchmark than D’Hondt because it is less generous to the largest parties.
-	</p>
 </section>
 
 <style>
