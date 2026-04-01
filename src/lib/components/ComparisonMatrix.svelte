@@ -2,6 +2,7 @@
 	const systems = [
 		{
 			name: 'STV',
+			href: '/stv',
 			family: 'Candidate-centred PR',
 			fairness: 'High in sensible district magnitudes',
 			localLink: 'Multi-member local districts',
@@ -32,6 +33,7 @@
 		},
 		{
 			name: 'AMS+',
+			href: '/ams-plus',
 			family: 'Approval-based mixed PR',
 			fairness: 'High, with stronger local voter choice',
 			localLink: 'Keeps constituency MPs plus regional correction',
@@ -42,6 +44,7 @@
 		},
 		{
 			name: 'Proportional Approval',
+			href: '/proportional-approval',
 			family: 'Approval-based multi-member PR',
 			fairness: 'Very high',
 			localLink: 'Regional or multi-member district link',
@@ -77,7 +80,13 @@
 			<tbody>
 				{#each systems as system (system.name)}
 					<tr>
-						<th scope="row">{system.name}</th>
+						<th scope="row">
+							{#if system.href}
+								<a href={system.href} class="system-link">{system.name}</a>
+							{:else}
+								{system.name}
+							{/if}
+						</th>
 						<td>{system.family}</td>
 						<td>{system.fairness}</td>
 						<td>{system.localLink}</td>
@@ -130,6 +139,16 @@
 	tbody th {
 		font-size: 1rem;
 		color: var(--text-dark);
+	}
+
+	.system-link {
+		color: var(--link-color);
+		text-decoration: none;
+		font-weight: 700;
+	}
+
+	.system-link:hover {
+		text-decoration: underline;
 	}
 
 	tbody tr:last-child th,
