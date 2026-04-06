@@ -50,6 +50,15 @@
 
 	<AllocationOverviewSection />
 
+	<section class="finder-bridge" aria-labelledby="finder-bridge-title">
+		<h2 id="finder-bridge-title" class="section-header">Not sure which system fits your priorities?</h2>
+		<p>
+			Use the System Finder to test your preferences — local MPs, ballot style, simplicity, and
+			overall fairness — and see which options match.
+		</p>
+		<a href="/system-finder" class="finder-link">Open the System Finder →</a>
+	</section>
+
 	<div class="decision-step">
 		<ComparisonMatrix />
 	</div>
@@ -169,6 +178,42 @@
 		line-height: 1.7;
 	}
 
+	.finder-bridge {
+		background: var(--surface-panel);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-soft);
+		padding: clamp(1.25rem, 2.2vw, 1.8rem);
+	}
+
+	.finder-bridge p {
+		margin: 0 0 1rem 0;
+		line-height: 1.65;
+		max-width: 50rem;
+	}
+
+	.finder-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.62rem 0.95rem;
+		border: 1px solid var(--accent-border-strong);
+		border-radius: 999px;
+		background: var(--surface-overlay);
+		color: var(--link-color);
+		text-decoration: none;
+		font-weight: 700;
+	}
+
+	.finder-link:hover {
+		text-decoration: none;
+		border-color: var(--link-color);
+		background: var(--surface-color);
+	}
+
+	.finder-link:focus-visible {
+		outline-color: var(--focus-ring-soft);
+	}
 
 	.cta-section {
 		margin: 0;
