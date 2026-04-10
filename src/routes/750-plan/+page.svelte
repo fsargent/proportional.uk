@@ -162,7 +162,6 @@
 
 <section class="proposal-page">
 	<div class="hero">
-		<p class="eyebrow">Proposal</p>
 		<h1>Keep the 650 constituency seats. Add 100 national seats.</h1>
 		<p class="lede">
 			This plan leaves every existing constituency untouched, adds a national tier of 100 seats,
@@ -396,20 +395,6 @@
 	.hero {
 		max-width: 52rem;
 		padding-top: 0.75rem;
-	}
-
-	.eyebrow {
-		display: inline-flex;
-		align-items: center;
-		padding: 0.45rem 0.85rem;
-		border-radius: 999px;
-		border: 1px solid var(--accent-border);
-		background: var(--surface-overlay);
-		color: var(--accent-text);
-		font-size: 0.92rem;
-		font-weight: 700;
-		letter-spacing: 0.03em;
-		text-transform: uppercase;
 	}
 
 	.lede {

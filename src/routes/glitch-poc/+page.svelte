@@ -51,7 +51,6 @@
 
 <div class="page">
 	<section class="intro">
-		<p class="eyebrow">Proof of Concept</p>
 		<h1>Glitch Teaser</h1>
 		<p class="lede">
 			Two art directions for a 15-second vertical social video built in HTML, CSS and GSAP.
@@ -66,7 +65,6 @@
 
 	<section class="variant-row">
 		<div class="variant-meta">
-			<p class="eyebrow">Variant A</p>
 			<h2>Dark Glitch / Signal Noise</h2>
 			<p class="desc">
 				Stark type, acid highlights, signal red, noisy texture, hard transitions.
@@ -96,7 +94,6 @@
 
 	<section class="variant-row">
 		<div class="variant-meta">
-			<p class="eyebrow pink">Variant B</p>
 			<h2>Graphic Realism / Prototype</h2>
 			<p class="desc">
 				Brighter, sleeker, neon-glitch. More like concept-art than a dark political ad.
@@ -150,17 +147,6 @@
 
 	.page { display: grid; gap: 2.5rem; color: #f3f5fa; }
 	.intro { max-width: 54rem; }
-
-	.eyebrow {
-		margin: 0 0 0.5rem;
-		text-transform: uppercase;
-		letter-spacing: 0.16em;
-		font-size: 0.78rem;
-		font-weight: 800;
-		color: #ecff6d;
-	}
-
-	.eyebrow.pink { color: #ff5f7f; }
 
 	.page h1 {
 		margin: 0 0 0.75rem;

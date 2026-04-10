@@ -20,7 +20,6 @@
 
 <div class="page">
 	<section class="intro">
-		<p class="eyebrow">Variant B</p>
 		<h1>Graphic Realism / Prototype Treatment</h1>
 		<p class="lede">
 			Same core idea. Different art direction: brighter, sleeker, neon-glitch, more like a
@@ -52,15 +51,6 @@
 
 	.page { display: grid; gap: 2rem; color: #1f2230; }
 	.intro { max-width: 54rem; }
-
-	.eyebrow {
-		margin: 0 0 0.5rem;
-		text-transform: uppercase;
-		letter-spacing: 0.16em;
-		font-size: 0.78rem;
-		font-weight: 700;
-		color: #ff5f7f;
-	}
 
 	h1 {
 		margin: 0 0 0.75rem;

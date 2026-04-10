@@ -128,7 +128,6 @@
 
 <section class="mmd-page">
 	<div class="hero-block">
-		<p class="eyebrow">Multi-member district demonstrator</p>
 		<h1>How district size reshapes Westminster</h1>
 	<p class="intro">
 			This page groups current Westminster constituencies into larger multi-member districts, then
@@ -274,16 +273,6 @@
 
 	.hero-block {
 		max-width: 54rem;
-	}
-
-	.eyebrow {
-		display: inline-flex;
-		padding: 0.4rem 0.75rem;
-		border-radius: 999px;
-		background: color-mix(in srgb, var(--header-bg) 12%, transparent);
-		border: 1px solid var(--accent-border);
-		color: var(--accent-text);
-		font-weight: 700;
 	}
 
 	.hero-block h1 {

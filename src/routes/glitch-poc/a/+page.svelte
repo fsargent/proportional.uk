@@ -37,7 +37,6 @@
 
 <div class="page">
 	<section class="intro">
-		<p class="eyebrow">Variant A</p>
 		<h1>Dark Glitch / Signal Noise</h1>
 		<p class="lede">
 			Stark type, acid highlights, signal red, noisy texture, and hard transitions.
@@ -85,15 +84,6 @@
 
 	.page { display: grid; gap: 2rem; color: #f3f5fa; }
 	.intro { max-width: 54rem; }
-
-	.eyebrow {
-		margin: 0 0 0.5rem;
-		text-transform: uppercase;
-		letter-spacing: 0.16em;
-		font-size: 0.78rem;
-		font-weight: 800;
-		color: #ecff6d;
-	}
 
 	h1 {
 		margin: 0 0 0.75rem;

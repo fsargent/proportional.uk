@@ -91,7 +91,6 @@
 </svelte:head>
 
 <section class="method-page">
-	<p class="eyebrow">Serious comparator</p>
 	<h1>STV: proportional, local, and more demanding on the ballot</h1>
 	<p class="lede">
 		STV is one of the strongest and most important reform options in British politics. If Westminster ever
@@ -240,7 +239,6 @@
 
 <style>
 	.method-page { display:grid; gap:2rem; }
-	.eyebrow { margin:0; color:var(--accent-text); font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
 	.lede { max-width: 52rem; font-size: 1.1rem; line-height: 1.7; margin: 0; }
 	.method-links { display:flex; flex-wrap:wrap; gap:1rem; }
 	.method-links a { color: var(--link-color); text-decoration:none; font-weight:600; }

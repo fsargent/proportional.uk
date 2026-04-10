@@ -8,7 +8,6 @@
 </svelte:head>
 
 <section class="method-page">
-	<p class="eyebrow">Interactive tool</p>
 	<h1>Which voting system fits your preferences?</h1>
 	<p class="lede">
 		There's no single "best" electoral system — it depends on what you value. Answer a few
