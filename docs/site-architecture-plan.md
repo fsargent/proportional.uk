@@ -1,6 +1,7 @@
 # Proportional.uk Revised Site Architecture Plan
 
 ## Core principle
+
 Teach readers that electoral systems are built from three layers:
 
 1. **How voters mark the ballot**
@@ -45,18 +46,21 @@ This reduces branching confusion and makes it easier to compare named systems as
    - Matrix comparing systems as combinations of ballot + district + allocation.
 
 10. **Three ways this could work in Britain**
-   - Single-Winner Approval
-   - AMS+
-   - Proportional Approval
+
+- Single-Winner Approval
+- AMS+
+- Proportional Approval
 
 11. **Explore multi-member districts in practice**
-   - Wire in the visualiser as a deeper dive.
-   - Present it as a shared structural explainer, not a fourth system.
+
+- Wire in the visualiser as a deeper dive.
+- Present it as a shared structural explainer, not a fourth system.
 
 12. **Make it real / Take action**
-   - Join Make Votes Matter
-   - Find allies and local groups
-   - Write to your MP supporting a commission on electoral reform
+
+- Join Make Votes Matter
+- Find allies and local groups
+- Write to your MP supporting a commission on electoral reform
 
 ## Key framing rules
 

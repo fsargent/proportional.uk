@@ -27,13 +27,16 @@ Maximum score: 100 points (10 elections × 10 points)
 ## Key Features
 
 ### 1. Fun CSS Animations
+
 - Smooth slide-in animations when loading challenges
 - Interactive slider with smooth transitions
 - Feedback animations that draw attention to results
 - Responsive design that works on mobile and desktop
 
 ### 2. Election Data
+
 Covers 10 historically significant elections:
+
 - **2024**: Starmer's record-low vote share win (33.7%)
 - **2019**: Johnson's landslide (43.6%)
 - **2017**: May's lost majority (-16 seats)
@@ -46,7 +49,9 @@ Covers 10 historically significant elections:
 - **1983**: Thatcher's landslide (42.4%)
 
 ### 3. Educational Insights
+
 After completing the challenge, players receive:
+
 - Overall score and percentage
 - Performance statistics
 - Best and worst guesses
@@ -67,11 +72,13 @@ proportional.uk/
 ## Technical Implementation
 
 ### HTML (`fptp-challenge.html`)
+
 - GOV.UK design consistency
 - Semantic structure for accessibility
 - Two main stages: challenge and results
 
 ### CSS (`fptp-challenge.css`)
+
 - Modern animations using keyframes
 - CSS Grid and Flexbox for responsive layout
 - Smooth transitions and hover effects
@@ -79,6 +86,7 @@ proportional.uk/
 - Custom CSS variables for consistency
 
 ### JavaScript (`fptp-challenge.js`)
+
 - Object-oriented game class
 - State management for game progression
 - Dynamic HTML rendering based on state
@@ -118,9 +126,9 @@ The FPTP Challenge is linked from the main AMS+ page (`index.html`) with a promi
 ## Future Enhancements
 
 Possible additions:
+
 - Difficulty levels (easy/hard vote share ranges)
 - Multiplayer/competitive modes
 - Additional elections from other countries
 - Detailed historical context for each election
 - Share results functionality
-

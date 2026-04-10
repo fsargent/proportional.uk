@@ -5,12 +5,14 @@ A single-page site advocating for approval-based electoral reform in the United 
 ## What This Site Covers
 
 ### The Problem
+
 - Why FPTP (First Past the Post) is failing UK democracy
-- How millions of votes are wasted in "safe seats"  
+- How millions of votes are wasted in "safe seats"
 - The disconnect between vote share and seat allocation
 - Why voters are forced into tactical voting
 
 ### Why Not STV or Ranked-Choice?
+
 - Problems with ranking-based systems (complexity, non-monotonicity, slow counting)
 - Why rating (approval) is simpler and more robust than ranking
 - Academic research on ballot error rates and voter understanding
@@ -18,14 +20,18 @@ A single-page site advocating for approval-based electoral reform in the United 
 ### Two Solutions
 
 #### AMS+ (Approval-MMP)
+
 An improved version of the Additional Member System already used in Scotland and Wales:
+
 - Two ballots: constituency approval voting + party list vote
 - Keeps local constituency MPs
 - Proportional top-up from party lists
 - Builds on proven, familiar systems
 
 #### Proportional Approval
+
 A fully proportional system using Sequential Proportional Approval Voting (SPAV):
+
 - One simple ballot: approve any candidates you like
 - Maximum proportionality
 - No geographic constituencies (regional multi-member)
@@ -76,6 +82,7 @@ proportional.uk/
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (version 18 or higher)
 - npm or bun
 

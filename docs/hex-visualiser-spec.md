@@ -38,7 +38,7 @@ Why this source:
 ## Runtime data model
 
 ```ts
-export type Nation = 'England' | 'Scotland' | 'Wales' | 'Northern Ireland';
+export type Nation = "England" | "Scotland" | "Wales" | "Northern Ireland";
 
 export interface HexSeat {
   id: string;

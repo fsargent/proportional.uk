@@ -270,7 +270,8 @@ class FPTPChallenge {
     const differenceDisplay = document.getElementById("differenceDisplay");
     if (differenceDisplay) {
       if (difference === 0) {
-        differenceDisplay.innerHTML = '<p class="difference-text neutral">Same as seat share</p>';
+        differenceDisplay.innerHTML =
+          '<p class="difference-text neutral">Same as seat share</p>';
       } else if (difference < 0) {
         differenceDisplay.innerHTML = `<p class="difference-text below">${Math.abs(difference)}% below seat share</p>`;
       } else {
@@ -375,7 +376,8 @@ class FPTPChallenge {
 
     // Animate marker appearance
     setTimeout(() => {
-      marker.style.transition = "opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)";
+      marker.style.transition =
+        "opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)";
       marker.style.opacity = "1";
       marker.style.transform = "translateX(-50%) scale(1)";
 
@@ -438,7 +440,10 @@ class FPTPChallenge {
           const rect = resultsElement.getBoundingClientRect();
           const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
           if (!isVisible) {
-            resultsElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            resultsElement.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+            });
           }
         }
       }, 100);
