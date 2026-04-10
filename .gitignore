@@ -23,6 +23,9 @@ bun.lockb
 .DS_Store
 Thumbs.db
 
+# Video exports
+output/
+
 # Logs
 *.log
 npm-debug.log*
