@@ -2,6 +2,12 @@
 	import { onMount } from 'svelte';
 	import GlitchSpotA from '$lib/components/glitch/GlitchSpotA.svelte';
 	import GlitchSpotB from '$lib/components/glitch/GlitchSpotB.svelte';
+	import GlitchSpotC from '$lib/components/glitch/GlitchSpotC.svelte';
+	import GlitchSpotD from '$lib/components/glitch/GlitchSpotD.svelte';
+	import GlitchSpotE from '$lib/components/glitch/GlitchSpotE.svelte';
+	import GlitchSpotF from '$lib/components/glitch/GlitchSpotF.svelte';
+	import GlitchSpotG from '$lib/components/glitch/GlitchSpotG.svelte';
+	import GlitchSpotH from '$lib/components/glitch/GlitchSpotH.svelte';
 
 	type ManifestEntry = {
 		file: string;
@@ -33,13 +39,15 @@
 			minute: '2-digit'
 		});
 	}
+
+
 </script>
 
 <svelte:head>
-	<title>Glitch Spot Proof of Concept • Proportional.uk</title>
+	<title>Glitch Spot Variants • Proportional.uk</title>
 	<meta
 		name="description"
-		content="15-second vertical HTML/CSS/GSAP proof of concept for a glitch-style proportional representation social video."
+		content="Eight variations of a 15-second vertical glitch-style social video for electoral reform messaging."
 	/>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
@@ -51,72 +59,90 @@
 
 <div class="page">
 	<section class="intro">
-		<h1>Glitch Teaser</h1>
+		<h1>Glitch Teaser Variants</h1>
 		<p class="lede">
-			Two art directions for a 15-second vertical social video built in HTML, CSS and GSAP.
-			Same campaign message, different visual mood. Both are exportable to MP4 via the video pipeline.
+			Eight art directions for a 15-second vertical social video. Same four-scene template
+			(hook, diagnosis, patch, close), different copy and imagery combinations.
+			Variants C–H use emotive background images from the ERS archive and polling-tested phrases.
 		</p>
-		<ul class="specs">
-			<li>Format: 9:16 social video</li>
-			<li>Length target: roughly 15 seconds</li>
-			<li>Approach: reusable template — each spot is just copy + colour changes</li>
-		</ul>
-	</section>
-
-	<section class="variant-row">
-		<div class="variant-meta">
-			<h2>Dark Glitch / Signal Noise</h2>
-			<p class="desc">
-				Stark type, acid highlights, signal red, noisy texture, hard transitions.
-				Closer to a political campaign spot.
-			</p>
-			<a href="/glitch-poc/a" class="link">View full page &rarr;</a>
-		</div>
-		<div class="previews" class:has-video={!!manifest?.a}>
-			{#if manifest?.a}
-				<details class="preview-toggle" open>
-					<summary>Exported video <span class="export-info">{formatDate(manifest.a.exportedAt)} · {manifest.a.fps}fps</span></summary>
-					<div class="video-wrap dark">
-						<video src={manifest.a.file} autoplay loop muted playsinline>
-							<track kind="captions" />
-						</video>
-					</div>
-				</details>
-			{/if}
-			<details class="preview-toggle" open>
-				<summary>Live animation</summary>
-				<div class="phone-shell dark">
-					<GlitchSpotA />
-				</div>
-			</details>
+		<div class="legend">
+			<span class="legend-chip dark-chip">Dark mode</span>
+			<span class="legend-chip light-chip">Light mode</span>
+			<span class="legend-chip image-chip">+ Background imagery</span>
 		</div>
 	</section>
 
-	<section class="variant-row">
-		<div class="variant-meta">
-			<h2>Graphic Realism / Prototype</h2>
-			<p class="desc">
-				Brighter, sleeker, neon-glitch. More like concept-art than a dark political ad.
-			</p>
-			<a href="/glitch-poc/b" class="link pink">View full page &rarr;</a>
+	<section class="variant-grid">
+		<div class="variant-card">
+			<div class="variant-header">
+				<h2>A — Dark Glitch / Signal Noise</h2>
+				<p class="desc">Stark type, acid highlights, signal red, noisy texture, hard transitions. The original dark political campaign spot.</p>
+				<a href="/glitch-poc/a" class="link">View full page &rarr;</a>
+			</div>
+			<div class="phone-shell dark"><GlitchSpotA /></div>
 		</div>
-		<div class="previews" class:has-video={!!manifest?.b}>
-			{#if manifest?.b}
-				<details class="preview-toggle" open>
-					<summary>Exported video <span class="export-info">{formatDate(manifest.b.exportedAt)} · {manifest.b.fps}fps</span></summary>
-					<div class="video-wrap light">
-						<video src={manifest.b.file} autoplay loop muted playsinline>
-							<track kind="captions" />
-						</video>
-					</div>
-				</details>
-			{/if}
-			<details class="preview-toggle" open>
-				<summary>Live animation</summary>
-				<div class="phone-shell light">
-					<GlitchSpotB />
-				</div>
-			</details>
+
+		<div class="variant-card">
+			<div class="variant-header">
+				<h2>B — Graphic Realism / Prototype</h2>
+				<p class="desc">Brighter, sleeker, neon-glitch. The original light concept-art direction.</p>
+				<a href="/glitch-poc/b" class="link pink">View full page &rarr;</a>
+			</div>
+			<div class="phone-shell light"><GlitchSpotB /></div>
+		</div>
+
+		<div class="variant-card">
+			<div class="variant-header">
+				<h2>C — Reform Stats + "One Rule For Them"</h2>
+				<p class="desc">"28% of votes, 60% of MPs — make it make sense." Uses the Boris/One Rule image as background. Dark mode with emotive imagery.</p>
+				<p class="polling-tag">Polling phrases: Reform stat (28%/60%) · "The maths are simple" · "Fairer votes = better representation"</p>
+			</div>
+			<div class="phone-shell dark"><GlitchSpotC /></div>
+		</div>
+
+		<div class="variant-card">
+			<div class="variant-header">
+				<h2>D — Old Playbook + Veterans</h2>
+				<p class="desc">"The Old Playbook Is Failing. It's Time for a Rewrite." Veteran/poppy imagery layered behind the glitch. Patriotic emotional weight.</p>
+				<p class="polling-tag">Polling phrases: "Old Playbook Is Failing" · "We've Done It Before" · "When people believe their vote matters"</p>
+			</div>
+			<div class="phone-shell dark"><GlitchSpotD /></div>
+		</div>
+
+		<div class="variant-card">
+			<div class="variant-header">
+				<h2>E — System Works For Them + Bouncer</h2>
+				<p class="desc">"The System Works for Them. Let's Make It Work for Us." The bouncer/no-voice image behind a closed-club message.</p>
+				<p class="polling-tag">Polling phrases: "System Works for Them" · "Politics is a closed club" · "System's Rigged" · "Take Back Control"</p>
+			</div>
+			<div class="phone-shell dark"><GlitchSpotE /></div>
+		</div>
+
+		<div class="variant-card">
+			<div class="variant-header">
+				<h2>F — Votes Matter + Poppies (Light)</h2>
+				<p class="desc">"When People Believe, They Show Up." Light mode with poppy field and veteran imagery blended through.</p>
+				<p class="polling-tag">Polling phrases: "When people believe their vote matters" · "Higher turnouts" · "Vote shouldn't depend on where you live"</p>
+			</div>
+			<div class="phone-shell light"><GlitchSpotF /></div>
+		</div>
+
+		<div class="variant-card">
+			<div class="variant-header">
+				<h2>G — 22 Million Votes + They Lied</h2>
+				<p class="desc">"22 Million Votes Didn't Count." Hard-hitting stat opener with bouncer and Boris imagery. Dark confrontational tone.</p>
+				<p class="polling-tag">Polling phrases: "22 million votes" · "They Told You Voting Was Enough. They Lied" · "Changing the Game"</p>
+			</div>
+			<div class="phone-shell dark"><GlitchSpotG /></div>
+		</div>
+
+		<div class="variant-card">
+			<div class="variant-header">
+				<h2>H — 35% of Your Wages (Light)</h2>
+				<p class="desc">"You Wouldn't Accept 35% of Your Wages — Why Accept It in Your Vote?" Light mode with One Rule imagery. Personal, relatable hook.</p>
+				<p class="polling-tag">Polling phrases: "35% of your wages" · "Value of your vote depends on where you live" · "Fairer votes = better representation"</p>
+			</div>
+			<div class="phone-shell light"><GlitchSpotH /></div>
 		</div>
 	</section>
 
@@ -124,16 +150,30 @@
 		<h2>Template Structure</h2>
 		<ul>
 			<li><strong>Hook scene</strong> — problem / distortion / glitch</li>
-			<li><strong>Diagnosis scene</strong> — one insight or stat</li>
+			<li><strong>Diagnosis scene</strong> — one stat or emotional insight</li>
 			<li><strong>Patch scene</strong> — reform / answer / mechanism</li>
 			<li><strong>Close scene</strong> — call to action</li>
 		</ul>
 
+		<h3>Background Images</h3>
+		<p>
+			Variants C–H layer emotive ERS archive images behind each scene. Images fade in with
+			the scene transition and sit behind the text at reduced opacity with blend modes
+			(luminosity for dark, multiply for light) so they reinforce the message without
+			competing with readability.
+		</p>
+
+		<h3>Polling Copy</h3>
+		<p>
+			Copy is drawn from A/B-tested polling phrases ranked by win rate. The top performers
+			are distributed across variants so each spot leads with a different angle — stats,
+			fairness, personal cost, or institutional critique.
+		</p>
+
 		<h3>Video Export</h3>
 		<p>
 			Run <code>bun run export:video</code> with the dev server running.
-			Videos are written to <code>static/video/</code> with timestamped filenames
-			and appear here automatically.
+			Videos are written to <code>static/video/</code> with timestamped filenames.
 		</p>
 	</section>
 </div>
@@ -167,36 +207,85 @@
 		color: rgba(243, 245, 250, 0.82);
 	}
 
-	.specs {
-		margin: 1rem 0 0;
-		padding-left: 1.1rem;
-		color: rgba(243, 245, 250, 0.85);
-		line-height: 1.7;
+	.legend {
+		display: flex;
+		gap: 0.5rem;
+		margin-top: 1rem;
+		flex-wrap: wrap;
 	}
 
-	.variant-row {
+	.legend-chip {
+		padding: 0.25rem 0.6rem;
+		border-radius: 999px;
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.dark-chip {
+		background: rgba(255,255,255,0.08);
+		color: rgba(243,245,250,0.7);
+		border: 1px solid rgba(255,255,255,0.12);
+	}
+
+	.light-chip {
+		background: rgba(255,255,255,0.15);
+		color: rgba(243,245,250,0.85);
+		border: 1px solid rgba(255,255,255,0.2);
+	}
+
+	.image-chip {
+		background: rgba(236,255,109,0.12);
+		color: #ecff6d;
+		border: 1px solid rgba(236,255,109,0.25);
+	}
+
+	.variant-grid {
 		display: grid;
-		gap: 1.5rem;
+		grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+		gap: 2rem;
 	}
 
-	.variant-meta h2 {
-		margin: 0.2rem 0 0.5rem;
-		font-size: clamp(1.4rem, 3.5vw, 2rem);
-		letter-spacing: -0.03em;
-		color: #f7f9ff;
+	.variant-card {
+		display: grid;
+		gap: 1rem;
+		padding: 1.25rem;
+		border-radius: 1.25rem;
+		background: rgba(255,255,255,0.03);
+		border: 1px solid rgba(255,255,255,0.08);
+		transition: border-color 0.2s;
+	}
+
+	.variant-card:hover {
+		border-color: rgba(255,255,255,0.16);
+	}
+
+	.variant-header h2 {
+		margin: 0 0 0.4rem;
+		font-size: 1.15rem;
+		letter-spacing: -0.02em;
 	}
 
 	.desc {
 		margin: 0;
-		font-size: 0.95rem;
-		line-height: 1.55;
-		color: rgba(243, 245, 250, 0.78);
+		font-size: 0.88rem;
+		line-height: 1.5;
+		color: rgba(243, 245, 250, 0.72);
+	}
+
+	.polling-tag {
+		margin: 0.4rem 0 0;
+		font-size: 0.75rem;
+		line-height: 1.45;
+		color: rgba(236,255,109,0.65);
+		font-style: italic;
 	}
 
 	.link {
 		display: inline-block;
-		margin-top: 0.6rem;
-		font-size: 0.85rem;
+		margin-top: 0.5rem;
+		font-size: 0.8rem;
 		font-weight: 600;
 		letter-spacing: 0.04em;
 		color: #ecff6d;
@@ -206,70 +295,12 @@
 	.link.pink { color: #ff5f7f; }
 	.link:hover { text-decoration: underline; }
 
-	.previews {
-		display: grid;
-		grid-template-columns: minmax(0, 320px);
-		gap: 1.5rem;
-		justify-content: center;
-	}
-
-	.previews.has-video {
-		grid-template-columns: repeat(2, minmax(0, 320px));
-	}
-
-	.preview-toggle {
-		border: 1px solid rgba(255, 255, 255, 0.08);
-		border-radius: 1rem;
-		overflow: hidden;
-	}
-
-	.preview-toggle summary {
-		padding: 0.5rem 0.75rem;
-		font-size: 0.72rem;
-		font-weight: 600;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: rgba(243, 245, 250, 0.55);
-		cursor: pointer;
-		user-select: none;
-	}
-
-	.preview-toggle summary:hover {
-		color: rgba(243, 245, 250, 0.85);
-	}
-
-	.export-info {
-		font-weight: 400;
-		letter-spacing: 0.02em;
-		text-transform: none;
-		color: rgba(243, 245, 250, 0.38);
-	}
-
-	.video-wrap {
-		border-radius: 1.75rem;
-		overflow: hidden;
-		backdrop-filter: blur(12px);
-	}
-
-	.video-wrap.dark {
-		background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
-		box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
-	}
-
-	.video-wrap.light {
-		background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.28));
-		box-shadow: 0 24px 80px rgba(83, 58, 111, 0.16);
-	}
-
-	.video-wrap video {
-		display: block;
-		width: 100%;
-		border-radius: 1.75rem;
-	}
-
 	.phone-shell {
 		border-radius: 1.5rem;
 		overflow: hidden;
+		width: 100%;
+		max-width: 320px;
+		margin: 0 auto;
 	}
 
 	.notes-section {
@@ -307,8 +338,8 @@
 	}
 
 	@media (max-width: 720px) {
-		.previews.has-video {
-			grid-template-columns: minmax(0, 320px);
+		.variant-grid {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
