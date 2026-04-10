@@ -25,7 +25,6 @@
 
 <section class="criteria-frame" aria-labelledby="criteria-frame-title">
 	<div class="criteria-intro">
-		<p class="kicker">Criteria for reform</p>
 		<h2 id="criteria-frame-title" class="section-header">What matters in a good reform</h2>
 		<p>
 			Once you see the glitch, the obvious next question is: what should a better system actually do?
@@ -49,24 +48,6 @@
 	.criteria-frame {
 		display: grid;
 		gap: 1.5rem;
-	}
-
-	.criteria-intro {
-		max-width: 54rem;
-	}
-
-	.kicker {
-		display: inline-flex;
-		margin: 0 0 0.9rem 0;
-		padding: 0.38rem 0.75rem;
-		border-radius: 999px;
-		background: var(--surface-overlay);
-		border: 1px solid var(--accent-border);
-		color: var(--accent-text);
-		font-size: 0.9rem;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
 	}
 
 	.criteria-grid {

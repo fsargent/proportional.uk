@@ -60,7 +60,7 @@
 			<p class="footer-tagline">Better voting for a better democracy</p>
 			<p class="footer-credit">
 				Built by
-				<a href="https://felixsargent.com/" target="_blank" rel="noopener noreferrer">felixsargent.com</a>
+				<a href="https://felixsargent.com/" target="_blank" rel="noopener noreferrer">Felix Sargent</a>
 			</p>
 		</div>
 	</footer>

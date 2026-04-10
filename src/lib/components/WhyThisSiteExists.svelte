@@ -1,6 +1,5 @@
 <section class="why-section" aria-labelledby="why-title">
 	<div class="why-copy">
-		<p class="kicker">Why this site exists</p>
 		<h2 id="why-title" class="section-header">Britain may be closer to electoral reform than it has been in a generation</h2>
 
 		<p>
@@ -69,7 +68,7 @@
 			I am not arguing that Britain should import an American model. I am arguing that Britain should
 			take seriously a possibility that has been mostly absent from its own reform debates. If and when
 			a commission on electoral reform is convened, I want approval-based systems to be on the table
-			— evaluated honestly alongside STV, AMS, and list PR, not dismissed because they were never
+			— evaluated honestly alongside the Single Transferable Vote, the Additional Member System, and list proportional representation, not dismissed because they were never
 			considered.
 		</p>
 		<p>
@@ -85,27 +84,9 @@
 		gap: 1.8rem;
 	}
 
-	.why-copy {
-		max-width: 54rem;
-	}
-
 	.why-copy p, .why-highlight p {
 		font-size: 1.05rem;
 		line-height: 1.7;
-	}
-
-	.kicker {
-		display: inline-flex;
-		margin: 0 0 0.9rem 0;
-		padding: 0.38rem 0.75rem;
-		border-radius: 999px;
-		background: var(--surface-overlay);
-		border: 1px solid var(--accent-border);
-		color: var(--accent-text);
-		font-size: 0.9rem;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
 	}
 
 	.why-highlight {
@@ -113,7 +94,6 @@
 		border-radius: var(--radius-lg);
 		border: 1px solid var(--warning-border);
 		background: var(--surface-warning-gradient, var(--surface-subtle-gradient));
-		max-width: 54rem;
 	}
 
 	.why-highlight h3 {
@@ -126,7 +106,6 @@
 		border: 1px solid var(--border-color);
 		background: var(--surface-raised);
 		box-shadow: var(--shadow-soft);
-		max-width: 54rem;
 	}
 
 	.author-note h3 {

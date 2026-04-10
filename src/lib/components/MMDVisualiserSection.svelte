@@ -1,6 +1,5 @@
 <section class="mmd-visualiser-section" aria-labelledby="mmd-visualiser-title">
 	<div class="copy">
-		<p class="kicker">Deeper dive</p>
 		<h2 id="mmd-visualiser-title" class="section-header">Explore multi-member districts in practice</h2>
 		<p class="intro-text">
 			If you want to understand STV or fully proportional approval systems, you eventually have to ask a
@@ -34,19 +33,6 @@
 <style>
 	.mmd-visualiser-section { display: grid; gap: 1.5rem; }
 	.copy { max-width: 54rem; }
-	.kicker {
-		display: inline-flex;
-		margin: 0 0 0.9rem 0;
-		padding: 0.38rem 0.75rem;
-		border-radius: 999px;
-		background: var(--surface-overlay);
-		border: 1px solid var(--accent-border);
-		color: var(--accent-text);
-		font-size: 0.9rem;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-	}
 	.visualiser-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));

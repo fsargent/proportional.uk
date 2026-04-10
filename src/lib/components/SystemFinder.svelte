@@ -21,7 +21,7 @@
 
 	const systems: System[] = [
 		{
-			name: 'STV',
+			name: 'Single Transferable Vote',
 			href: '/stv',
 			description:
 				'Voters rank candidates in multi-member districts. Seats are filled using a quota and transfer system.',
@@ -32,7 +32,7 @@
 			needsParliamentResize: false
 		},
 		{
-			name: 'AMS / MMP',
+			name: 'Additional Member System',
 			href: '/ams-plus',
 			description:
 				'Keep your local MP, add a second vote for a party. Top-up seats make the overall result proportional.',
@@ -43,10 +43,10 @@
 			needsParliamentResize: 'helps'
 		},
 		{
-			name: 'AMS+ (Approval-based mixed)',
-			href: '/ams-plus',
-			description:
-				'Like AMS but with approval voting for your local MP. Keeps the constituency link and adds proportionality.',
+		name: 'Approval-Based Mixed System',
+		href: '/ams-plus',
+		description:
+			'Like the Additional Member System but with approval voting for your local MP. Keeps the constituency link and adds proportionality.',
 			singleMemberOnly: true,
 			needsSecondBallot: true,
 			twoClassMPs: true,
@@ -54,7 +54,7 @@
 			needsParliamentResize: 'helps'
 		},
 		{
-			name: 'Open-list PR',
+			name: 'Open-List Proportional Representation',
 			description:
 				"Vote for a party and optionally for specific candidates on that party's list. Seats allocated proportionally in larger regional districts.",
 			singleMemberOnly: false,
@@ -75,7 +75,7 @@
 			needsParliamentResize: false
 		},
 		{
-			name: 'Proportional Approval (SPAV)',
+			name: 'Proportional Approval Voting',
 			href: '/proportional-approval',
 			description:
 				'Vote for as many candidates as you like in multi-member districts. A reweighting method ensures proportional results.',
@@ -272,7 +272,7 @@
 				</label>
 				<label class:selected={q4 === 'one-vote'}>
 					<input type="radio" name="q4" value="one-vote" bind:group={q4} />
-					One vote is fine — just make it count more fairly
+					You should only be able to support one candidate and their party
 				</label>
 				<label class:selected={q4 === 'no-pref'}>
 					<input type="radio" name="q4" value="no-pref" bind:group={q4} />
@@ -322,7 +322,7 @@
 	</div>
 
 	<div class="results">
-		<h2>Results</h2>
+		<h3 class="results-heading">Results</h3>
 		{#if results.length === 0}
 			<div class="no-results">
 				<p>No systems match all your preferences. Try relaxing some of your answers.</p>
@@ -331,13 +331,13 @@
 			<div class="results-grid">
 				{#each results as system}
 					<div class="result-card">
-						<h3>
+						<h4 class="result-name">
 							{#if system.href}
 								<a href={system.href}>{system.name}</a>
 							{:else}
 								{system.name}
 							{/if}
-						</h3>
+						</h4>
 						<p class="description">{system.description}</p>
 						{#if matchNotes(system).length > 0}
 							<ul class="match-notes">
@@ -358,34 +358,33 @@
 
 <style>
 	.system-finder {
-		max-width: 52rem;
-		margin: 0 auto;
+		display: grid;
+		gap: 1.5rem;
 	}
 
 	.questions {
-		display: flex;
-		flex-direction: column;
-		gap: 1.25rem;
-		margin-bottom: 2rem;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+		gap: 1rem;
 	}
 
 	.question-card {
-		background: var(--surface-panel);
+		background: var(--surface-subtle-gradient);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
-		padding: 1.5rem;
+		padding: 1.25rem;
 		box-shadow: var(--shadow-soft);
 	}
 
 	.question-card h3 {
 		color: var(--text-dark);
 		font-size: 1.05rem;
-		margin: 0 0 1rem;
+		margin: 0 0 0.75rem;
 		line-height: 1.4;
 	}
 
 	.helper {
-		margin: -0.35rem 0 0.8rem 0;
+		margin: -0.25rem 0 0.75rem 0;
 		font-size: 0.9rem;
 		color: var(--text-soft);
 	}
@@ -393,16 +392,16 @@
 	.options {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 0.4rem;
 	}
 
 	.options label {
 		display: flex;
 		align-items: flex-start;
 		gap: 0.6rem;
-		padding: 0.65rem 0.85rem;
+		padding: 0.55rem 0.75rem;
 		border: 1px solid var(--border-color);
-		border-radius: 0.5rem;
+		border-radius: var(--radius-sm);
 		cursor: pointer;
 		color: var(--text-color);
 		font-size: 0.95rem;
@@ -427,69 +426,75 @@
 		accent-color: var(--accent-text);
 	}
 
-	.checkbox-options label {
-		padding-right: 1rem;
-	}
-
 	.controls {
-		text-align: right;
-		margin-bottom: 2rem;
+		display: flex;
+		justify-content: flex-end;
 	}
 
 	.reset-btn {
 		background: var(--surface-muted);
 		border: 1px solid var(--border-color);
-		border-radius: 0.5rem;
+		border-radius: var(--radius-sm);
 		padding: 0.5rem 1.2rem;
 		color: var(--text-color);
 		cursor: pointer;
 		font-size: 0.9rem;
-		transition: background 0.15s;
+		font-weight: 500;
+		transition: background 0.15s, border-color 0.15s;
 	}
 
 	.reset-btn:hover {
 		background: var(--surface-color);
+		border-color: var(--border-strong);
 	}
 
-	.results h2 {
+	.results-heading {
 		color: var(--text-dark);
-		font-size: 1.4rem;
-		margin: 0 0 1rem;
+		font-size: 1.35rem;
+		margin: 0.5rem 0 1rem;
+		line-height: 1.2;
 	}
 
 	.results-grid {
 		display: grid;
+		grid-template-columns: 1fr;
 		gap: 1rem;
 	}
 
 	.result-card {
-		background: var(--surface-color);
+		background: var(--surface-subtle-gradient);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
-		padding: 1.5rem;
+		padding: 1.25rem;
 		box-shadow: var(--shadow-soft);
+		transition: border-color 0.2s, box-shadow 0.2s;
 	}
 
-	.result-card h3 {
+	.result-card:hover {
+		border-color: var(--border-strong);
+		box-shadow: var(--shadow-strong);
+	}
+
+	.result-name {
 		margin: 0 0 0.5rem;
-		font-size: 1.15rem;
+		font-size: 1.1rem;
 		color: var(--text-dark);
 	}
 
-	.result-card h3 a {
+	.result-name a {
 		color: var(--link-color);
 		text-decoration: none;
 	}
 
-	.result-card h3 a:hover {
+	.result-name a:hover {
 		text-decoration: underline;
 	}
 
 	.description {
 		color: var(--text-color);
 		margin: 0 0 0.75rem;
-		line-height: 1.5;
-		font-size: 0.95rem;
+		line-height: 1.6;
+		font-size: 0.96rem;
 	}
 
 	.match-notes {
@@ -510,7 +515,7 @@
 		color: var(--link-color);
 		font-size: 0.9rem;
 		text-decoration: none;
-		font-weight: 500;
+		font-weight: 600;
 	}
 
 	.learn-more:hover {
@@ -519,6 +524,7 @@
 
 	.no-results {
 		background: var(--surface-muted);
+		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		padding: 2rem;
 		text-align: center;
@@ -529,9 +535,9 @@
 		margin: 0;
 	}
 
-	@media (min-width: 640px) {
-		.results-grid {
-			grid-template-columns: repeat(2, 1fr);
+	@media (max-width: 768px) {
+		.questions {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>

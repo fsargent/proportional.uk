@@ -1,26 +1,19 @@
 <script lang="ts">
-	import WhyThisSiteExists from '$lib/components/WhyThisSiteExists.svelte';
 	import ProblemSection from '$lib/components/ProblemSection.svelte';
+	import WhyThisSiteExists from '$lib/components/WhyThisSiteExists.svelte';
 	import CriteriaFrame from '$lib/components/CriteriaFrame.svelte';
-	import UKPRBridge from '$lib/components/UKPRBridge.svelte';
-	import RankingProblems from '$lib/components/RankingProblems.svelte';
-	import RatingVsRanking from '$lib/components/RatingVsRanking.svelte';
-	import DistrictShapeSection from '$lib/components/DistrictShapeSection.svelte';
-	import AllocationOverviewSection from '$lib/components/AllocationOverviewSection.svelte';
-	import ComparisonMatrix from '$lib/components/ComparisonMatrix.svelte';
-	import MMDVisualiserSection from '$lib/components/MMDVisualiserSection.svelte';
+	import SystemFinder from '$lib/components/SystemFinder.svelte';
 </script>
 
 <svelte:head>
 	<title>An Unconsidered Path for UK Electoral Reform</title>
 	<meta
 		name="description"
-		content="Britain's reform debate has overlooked approval-based voting systems. This site maps the case for putting them on the table alongside STV, AMS, and list PR."
+		content="Britain's reform debate has overlooked approval-based voting systems. This site maps the case for putting them on the table alongside the Single Transferable Vote, the Additional Member System, and list proportional representation."
 	/>
 </svelte:head>
 
 <div class="hero-section">
-	<p class="hero-eyebrow">A better way to think about Westminster elections</p>
 	<h1>Westminster keeps producing the same kind of mess</h1>
 	<p class="hero-subtitle">
 		Votes pile up where they change nothing. Parties obsess over a handful of marginals. Voters are
@@ -40,30 +33,14 @@
 
 	<CriteriaFrame />
 
-	<UKPRBridge />
-
-	<RankingProblems />
-
-	<RatingVsRanking />
-
-	<DistrictShapeSection />
-
-	<AllocationOverviewSection />
-
-	<section class="finder-bridge" aria-labelledby="finder-bridge-title">
-		<h2 id="finder-bridge-title" class="section-header">Not sure which system fits your priorities?</h2>
-		<p>
-			Use the System Finder to test your preferences — local MPs, ballot style, simplicity, and
-			overall fairness — and see which options match.
+	<section class="finder-embedded" aria-labelledby="finder-embedded-title">
+		<h2 id="finder-embedded-title" class="section-header">Find the system that fits your priorities</h2>
+		<p class="finder-intro">
+			Answer a few questions about what matters to you — local MPs, ballot style, simplicity,
+			fairness — and see which systems match.
 		</p>
-		<a href="/system-finder" class="finder-link">Open the System Finder →</a>
+		<SystemFinder />
 	</section>
-
-	<div class="decision-step">
-		<ComparisonMatrix />
-	</div>
-
-	<MMDVisualiserSection />
 
 	<section class="cta-section">
 		<h2 class="section-header">What happens next</h2>
@@ -72,11 +49,32 @@
 			The point of this site is not to declare a winner. It is to make sure that when Britain next
 			seriously considers electoral reform, the options on the table include approval-based systems
 			— not because they are perfect, but because they have been overlooked and they deserve honest
-			evaluation alongside STV, AMS, and list PR.
+			evaluation alongside the Single Transferable Vote, the Additional Member System, and list proportional representation.
 		</p>
 		<p>
-			If you think that matters, the most useful things you can do are practical:
+			There is now a concrete way to push for that. Open Britain is calling for an independent
+			National Commission on Electoral Reform — a formal, evidence-based review of how Britain
+			elects its MPs. Over 10,000 people have already signed.
 		</p>
+
+		<a
+			href="https://www.open-britain.co.uk/ncer"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="cta-primary"
+		>
+			<div class="cta-primary-content">
+				<h3>Sign the petition for a National Commission on Electoral Reform</h3>
+				<p>
+					Parliament should establish an independent commission to assess whether First Past the Post
+					is still fit for purpose — and if not, what should replace it. This is the single most
+					useful thing you can do right now.
+				</p>
+				<span class="cta-primary-action">Sign the petition at open-britain.co.uk →</span>
+			</div>
+		</a>
+
+		<p class="also-useful">Also worth your time:</p>
 
 		<div class="cta-grid">
 			<a
@@ -85,9 +83,8 @@
 				rel="noopener noreferrer"
 				class="cta-card"
 			>
-				<div class="cta-icon">🗳️</div>
-				<h3>Join Make Votes Matter</h3>
-				<p>The main UK campaign for proportional representation. They are building the coalition that makes reform politically unavoidable.</p>
+				<h3>Make Votes Matter</h3>
+				<p>The main UK campaign for proportional representation. Building the coalition that makes reform politically unavoidable.</p>
 			</a>
 
 			<a
@@ -96,9 +93,8 @@
 				rel="noopener noreferrer"
 				class="cta-card"
 			>
-				<div class="cta-icon">📚</div>
 				<h3>Electoral Reform Society</h3>
-				<p>Research, events, and the institutional memory of a century of reform advocacy. A good place to understand the landscape.</p>
+				<p>Research, events, and the institutional memory of a century of reform advocacy.</p>
 			</a>
 
 			<a
@@ -107,9 +103,8 @@
 				rel="noopener noreferrer"
 				class="cta-card"
 			>
-				<div class="cta-icon">✉️</div>
 				<h3>Write to your MP</h3>
-				<p>Ask them to support a serious commission on electoral reform — one that evaluates a genuinely wide range of systems, including approval-based options.</p>
+				<p>Ask them to support a commission on electoral reform that evaluates a genuinely wide range of systems.</p>
 			</a>
 
 			<a
@@ -118,9 +113,8 @@
 				rel="noopener noreferrer"
 				class="cta-card"
 			>
-				<div class="cta-icon">🔬</div>
 				<h3>Center for Election Science</h3>
-				<p>The US organisation behind real-world approval voting campaigns. Their research and implementation experience is directly relevant.</p>
+				<p>The US organisation behind real-world approval voting campaigns. Directly relevant research and experience.</p>
 			</a>
 		</div>
 	</section>
@@ -130,7 +124,6 @@
 	.hero-section {
 		padding: 2.5rem 0 3.5rem 0;
 		margin-bottom: 2rem;
-		max-width: 48rem;
 	}
 
 	.guided-flow {
@@ -138,23 +131,11 @@
 		gap: clamp(4rem, 7vw, 5.5rem);
 	}
 
-	.decision-step {
-		display: grid;
-		gap: clamp(2rem, 4vw, 3rem);
-	}
-
-	.hero-eyebrow {
-		display: inline-flex;
-		align-items: center;
-		padding: 0.45rem 0.8rem;
-		margin: 0 0 1rem 0;
-		border: 1px solid var(--accent-border);
-		border-radius: 999px;
-		background: var(--surface-overlay);
-		color: var(--accent-text);
-		font-size: 0.95rem;
-		font-weight: 700;
-		letter-spacing: 0.01em;
+	.finder-intro {
+		font-size: 1.1rem;
+		line-height: 1.7;
+		margin: 0 0 1.5rem 0;
+		color: var(--text-color);
 	}
 
 	.hero-section h1 {
@@ -165,7 +146,6 @@
 		font-size: clamp(1.2rem, 1.65vw, 1.5rem);
 		color: var(--danger-color);
 		font-weight: 600;
-		max-width: 42rem;
 		margin: 0 0 1rem 0;
 		line-height: 1.45;
 	}
@@ -173,47 +153,10 @@
 	.hero-intro {
 		font-size: 1.1rem;
 		color: var(--text-color);
-		max-width: 40rem;
 		margin: 0;
 		line-height: 1.7;
 	}
 
-	.finder-bridge {
-		background: var(--surface-panel);
-		border: 1px solid var(--border-color);
-		border-radius: var(--radius-md);
-		box-shadow: var(--shadow-soft);
-		padding: clamp(1.25rem, 2.2vw, 1.8rem);
-	}
-
-	.finder-bridge p {
-		margin: 0 0 1rem 0;
-		line-height: 1.65;
-		max-width: 50rem;
-	}
-
-	.finder-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.4rem;
-		padding: 0.62rem 0.95rem;
-		border: 1px solid var(--accent-border-strong);
-		border-radius: 999px;
-		background: var(--surface-overlay);
-		color: var(--link-color);
-		text-decoration: none;
-		font-weight: 700;
-	}
-
-	.finder-link:hover {
-		text-decoration: none;
-		border-color: var(--link-color);
-		background: var(--surface-color);
-	}
-
-	.finder-link:focus-visible {
-		outline-color: var(--focus-ring-soft);
-	}
 
 	.cta-section {
 		margin: 0;
@@ -223,15 +166,67 @@
 	.cta-section > p {
 		font-size: 1.1rem;
 		line-height: 1.7;
-		max-width: 700px;
-		margin-bottom: 2rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.cta-primary {
+		display: block;
+		margin: 1.5rem 0;
+		padding: 1.6rem;
+		background: var(--surface-accent-gradient);
+		border: 2px solid var(--accent-border-strong);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		box-shadow: var(--shadow-soft);
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	.cta-primary:hover {
+		border-color: var(--link-color);
+		box-shadow: var(--shadow-strong);
+		transform: translateY(-2px);
+	}
+
+	.cta-primary h3 {
+		margin: 0 0 0.6rem 0;
+		color: var(--accent-text);
+		font-size: 1.25rem;
+		line-height: 1.3;
+	}
+
+	.cta-primary p {
+		margin: 0 0 1rem 0;
+		color: var(--text-color);
+		font-size: 1.05rem;
+		line-height: 1.65;
+	}
+
+	.cta-primary-action {
+		display: inline-block;
+		color: var(--link-color);
+		font-weight: 700;
+		font-size: 1rem;
+	}
+
+	.cta-primary:focus-visible {
+		outline-color: var(--focus-ring-soft);
+	}
+
+	.also-useful {
+		font-size: 1rem;
+		font-weight: 600;
+		color: var(--text-soft);
+		margin: 2rem 0 0 0;
 	}
 
 	.cta-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 1.5rem;
-		margin: 2rem 0 0.75rem 0;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1rem;
+		margin: 1rem 0 0.75rem 0;
 	}
 
 	.cta-card {
@@ -239,39 +234,30 @@
 		background: var(--surface-panel);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
-		padding: 1.6rem;
+		padding: 1.25rem;
 		text-decoration: none;
 		transition:
-			border-color 0.22s ease,
-			box-shadow 0.22s ease,
-			transform 0.22s ease,
-			background-color 0.22s ease;
+			border-color 0.2s ease,
+			box-shadow 0.2s ease;
 		box-shadow: var(--shadow-soft);
 	}
 
 	.cta-card:hover {
 		border-color: var(--border-strong);
-		background: var(--surface-color);
 		box-shadow: var(--shadow-strong);
-		transform: translateY(-2px);
-	}
-
-	.cta-icon {
-		font-size: 2.2rem;
-		margin-bottom: 0.85rem;
 	}
 
 	.cta-card h3 {
-		margin: 0 0 0.5rem 0;
+		margin: 0 0 0.4rem 0;
 		color: var(--accent-text);
-		font-size: 1.2rem;
+		font-size: 1.05rem;
 	}
 
 	.cta-card p {
 		margin: 0;
 		color: var(--text-color);
-		font-size: 0.95rem;
-		line-height: 1.6;
+		font-size: 0.92rem;
+		line-height: 1.55;
 	}
 
 	.cta-card:focus-visible {

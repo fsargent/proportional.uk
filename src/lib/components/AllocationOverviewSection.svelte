@@ -1,6 +1,5 @@
 <section class="allocation-overview" aria-labelledby="allocation-overview-title">
 	<div class="copy">
-		<p class="kicker">And one more layer</p>
 		<h2 id="allocation-overview-title" class="section-header">How seats get turned out of ballots</h2>
 		<p class="intro-text">
 			Once you know the ballot and the district shape, you still need a rule for turning votes into
@@ -39,19 +38,6 @@
 		gap: 1.5rem;
 	}
 	.copy { max-width: 54rem; }
-	.kicker {
-		display: inline-flex;
-		margin: 0 0 0.9rem 0;
-		padding: 0.38rem 0.75rem;
-		border-radius: 999px;
-		background: var(--surface-overlay);
-		border: 1px solid var(--accent-border);
-		color: var(--accent-text);
-		font-size: 0.9rem;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-	}
 	.method-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

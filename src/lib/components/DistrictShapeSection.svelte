@@ -1,6 +1,5 @@
 <section class="district-shape" aria-labelledby="district-shape-title">
 	<div class="section-copy">
-		<p class="kicker">The other big choice</p>
 		<h2 id="district-shape-title" class="section-header">Single-member or multi-member?</h2>
 		<p class="intro-text">
 			Once you know what the ballot should let voters say, the next question is how many seats each
@@ -67,20 +66,6 @@
 
 	.section-copy {
 		max-width: 54rem;
-	}
-
-	.kicker {
-		display: inline-flex;
-		margin: 0 0 0.9rem 0;
-		padding: 0.38rem 0.75rem;
-		border-radius: 999px;
-		background: var(--surface-overlay);
-		border: 1px solid var(--accent-border);
-		color: var(--accent-text);
-		font-size: 0.9rem;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
 	}
 
 	.shape-grid {
