@@ -1,5 +1,6 @@
 <script lang="ts">
 	import RankingProblems from '$lib/components/RankingProblems.svelte';
+	import MMDVisualiserSection from '$lib/components/MMDVisualiserSection.svelte';
 
 	type Candidate = {
 		id: string;
@@ -44,16 +45,7 @@
 	const rankChoices = [1, 2, 3, 4, 5];
 	let rankings = $state<Record<string, number | null>>({});
 
-	function assignedCandidate(rank: number) {
-		return candidates.find((candidate) => rankings[candidate.id] === rank);
-	}
-
 	function setRank(candidateId: string, rank: number) {
-		const currentHolder = assignedCandidate(rank);
-		if (currentHolder && currentHolder.id !== candidateId) {
-			rankings[currentHolder.id] = null;
-		}
-
 		rankings[candidateId] = rankings[candidateId] === rank ? null : rank;
 	}
 
@@ -69,32 +61,47 @@
 
 	const rankedCount = $derived(rankedCandidates.length);
 	const nextRank = $derived(rankedCount < candidates.length ? rankedCount + 1 : null);
+	const rankUsage = $derived(
+		rankChoices.map((rank) => ({
+			rank,
+			candidates: candidates.filter((candidate) => rankings[candidate.id] === rank)
+		}))
+	);
+	const duplicatedRanks = $derived(rankUsage.filter(({ candidates }) => candidates.length > 1));
+	const hasDuplicateRanks = $derived(duplicatedRanks.length > 0);
 	const hasGaps = $derived(
 		rankedCount > 0 &&
 			rankChoices
 				.slice(0, rankedCount)
 				.some((rank) => !candidates.some((candidate) => rankings[candidate.id] === rank))
 	);
+	const ballotHasError = $derived(hasGaps || hasDuplicateRanks);
 
-	const firstChoice = $derived(rankedCandidates[0] ?? null);
-	const secondChoice = $derived(rankedCandidates[1] ?? null);
+	const firstChoice = $derived(
+		hasDuplicateRanks || hasGaps ? null : rankedCandidates.find((candidate) => rankings[candidate.id] === 1) ?? null
+	);
+	const secondChoice = $derived(
+		hasDuplicateRanks || hasGaps ? null : rankedCandidates.find((candidate) => rankings[candidate.id] === 2) ?? null
+	);
 	const transferPreview = $derived(
-		firstChoice && secondChoice
-			? `If ${firstChoice.name} is eliminated or elected with surplus, your vote can continue to ${secondChoice.name}.`
-			: 'Add a second preference to see how transfers continue your ballot if your first choice cannot use your full vote.'
+		ballotHasError
+			? 'This ballot currently contains an error. In an STV count, equal rankings or broken numbering can cause the ballot to stop counting once the problem is reached, depending on the election rules.'
+			: firstChoice && secondChoice
+				? `If ${firstChoice.name} is eliminated or elected with surplus, your vote can continue to ${secondChoice.name}.`
+				: 'Add a second preference to see how transfers continue your ballot if your first choice cannot use your full vote.'
 	);
 </script>
 
 <svelte:head>
-	<title>STV for the UK</title>
-	<meta name="description" content="Understand STV, its strengths, its tradeoffs, and how it compares with approval-based multi-member systems." />
+	<title>Single Transferable Vote for the UK</title>
+	<meta name="description" content="Understand Single Transferable Vote, its strengths, its tradeoffs, and how it compares with approval-based multi-member systems." />
 </svelte:head>
 
 <section class="method-page">
-	<h1>STV: proportional, local, and more demanding on the ballot</h1>
+	<h1>Single Transferable Vote: proportional, local, and more demanding on the ballot</h1>
 	<p class="lede">
-		STV is one of the strongest and most important reform options in British politics. If Westminster ever
-		moves to multi-member districts, STV will be one of the first systems many reformers reach for.
+		Single Transferable Vote, usually shortened to STV, is one of the best-known proportional reform options in British politics. If Westminster ever
+		moves to multi-member districts, Single Transferable Vote will be one of the first systems many reformers and commentators reach for.
 	</p>
 	<p class="lede">
 		Its big strength is clear: it offers proportional representation without closed lists. Its big tradeoff
@@ -109,9 +116,9 @@
 
 	<section class="interactive-section" aria-labelledby="stv-demo-title">
 		<div class="section-copy">
-			<h2 id="stv-demo-title" class="section-header">Try an STV ballot</h2>
+			<h2 id="stv-demo-title" class="section-header">Try a Single Transferable Vote ballot</h2>
 			<p class="intro-text">
-				An STV ballot asks you to put candidates in order: 1 for your favourite, 2 for your next choice,
+				A Single Transferable Vote ballot asks you to put candidates in order: 1 for your favourite, 2 for your next choice,
 				and so on. That is perfectly workable, but it is a meaningfully bigger ask than simply ticking every
 				candidate you find acceptable.
 			</p>
@@ -180,6 +187,11 @@
 								2, 3, 4 without skipping.
 							</p>
 						{/if}
+						{#if hasDuplicateRanks}
+							<p class="warning-text">
+								Your current ballot gives the same rank to more than one candidate.
+							</p>
+						{/if}
 					</div>
 
 					<div class="ordered-preferences">
@@ -200,6 +212,34 @@
 					<p>{transferPreview}</p>
 				</div>
 
+				{#if ballotHasError}
+					<div class="explanation-card warning-card">
+						<h4>How the error would be treated</h4>
+						{#if hasDuplicateRanks}
+							<p>
+								If two candidates are given the same ranking, the ballot becomes ambiguous at that point.
+								Different STV rule sets handle this differently, but the usual effect is that the ballot is
+								counted up to the last clear preference, then stops transferring once the tie is reached.
+							</p>
+						{/if}
+						{#if hasGaps}
+							<p>
+								If rankings skip a number, some rule sets continue from the next available preference while
+								others may treat the later part of the ballot as exhausted. The safe version is always a
+								clean 1, 2, 3, 4 sequence.
+							</p>
+						{/if}
+						<ul>
+							{#each duplicatedRanks as duplicated}
+								<li>
+									Rank <strong>{duplicated.rank}</strong> is currently shared by
+									{duplicated.candidates.map((candidate) => candidate.name).join(' and ')}.
+								</li>
+							{/each}
+						</ul>
+					</div>
+				{/if}
+
 				<div class="explanation-card subtle">
 					<h4>Why this is more demanding</h4>
 					<ul>
@@ -213,6 +253,15 @@
 	</section>
 
 	<RankingProblems showMMP={false} />
+
+	<section class="page-section">
+		<MMDVisualiserSection
+			title="Why multi-member districts matter for STV"
+			introText="STV only becomes proportional because several seats are filled in the same contest. That makes district magnitude one of the most important design choices in the whole system."
+			bodyText="Use the live visualiser below to see what different multi-member district sizes look like in a Westminster setting, and how that changes the balance between local link and meaningful proportionality."
+			initialMagnitude={5}
+		/>
+	</section>
 
 	<section class="page-section">
 		<h2 class="section-header">Where STV sits in the design space</h2>
@@ -323,6 +372,10 @@
 	.explanation-card.subtle {
 		background:var(--surface-subtle-gradient);
 		border-color:var(--border-color);
+	}
+	.explanation-card.warning-card {
+		background: color-mix(in srgb, var(--warning-bg, #fff4d6) 65%, white);
+		border-color: color-mix(in srgb, var(--warning-text, #a15c00) 35%, var(--border-color));
 	}
 	.explanation-card h4 { margin:.1rem 0 .5rem 0; }
 	.explanation-card p, .explanation-card ul { margin:0; }
