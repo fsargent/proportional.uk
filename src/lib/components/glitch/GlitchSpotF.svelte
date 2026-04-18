@@ -112,10 +112,11 @@
 	<div class="scene scene-2">
 		<img class="bg-image" src="/images/glitch/ERS_Veteran_Asset_002.png" alt="" aria-hidden="true" />
 		<div class="stat-card">
-			<div class="stat-line">DIFFERENT</div>
-			<div class="stat-line">SYSTEMS</div>
-			<div class="stat-line accent">HIGHER</div>
-			<div class="stat-line accent">TURNOUTS</div>
+			<div class="tiny">HIGHER TURNOUTS</div>
+			<div class="stat-line">COUNTRIES WITH</div>
+			<div class="stat-line quiet">DIFFERENT SYSTEMS</div>
+			<div class="stat-line accent">HAVE HIGHER TURNOUTS</div>
+			<div class="stat-kicker">Because votes matter.</div>
 		</div>
 		<div class="seat-stack">
 			{#each Array(10) as _, i}
@@ -126,11 +127,10 @@
 
 	<div class="scene scene-3">
 		<img class="bg-image" src="/images/glitch/ERS_Veteran_Asset_003.png" alt="" aria-hidden="true" />
-		<div class="fix-line">YOUR VOTE</div>
-		<div class="fix-line accent">SHOULDN'T DEPEND</div>
-		<div class="fix-line">ON WHERE YOU LIVE</div>
+		<div class="fix-line">WOULDN'T YOU</div>
+		<div class="fix-line accent">LIKE A SYSTEM</div>
 		<div class="proto-box">
-			<div class="tiny">A FAIRER SYSTEM</div>
+			<div class="proto-label">WHERE YOUR VOTE DIDN'T DEPEND ON WHERE YOU LIVE</div>
 			<div class="proto-grid">
 				{#each Array(12) as _, i}
 					<div class="cell"></div>
@@ -263,6 +263,17 @@
 		color: #161927;
 	}
 
+	.stat-line.quiet { color: rgba(22,25,39,0.55); }
+
+	.stat-kicker {
+		margin-top: 0.9rem;
+		font-size: 1rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		color: rgba(22,25,39,0.72);
+	}
+
 	.seat-stack {
 		position: absolute;
 		right: 1.2rem;
@@ -290,6 +301,15 @@
 		letter-spacing: -0.06em;
 		text-transform: uppercase;
 		color: #161927;
+	}
+
+	.proto-label {
+		font-size: 0.92rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: #161927;
+		line-height: 1.3;
 	}
 
 	.proto-box {
