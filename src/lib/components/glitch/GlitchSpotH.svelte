@@ -111,10 +111,11 @@
 	<div class="scene scene-2">
 		<img class="bg-image" src="/images/glitch/One_rule_for_them_1080.png" alt="" aria-hidden="true" />
 		<div class="stat-card">
-			<div class="stat-line">YOUR VOTE'S</div>
-			<div class="stat-line">VALUE</div>
+			<div class="stat-line">THE VALUE OF</div>
+			<div class="stat-line">YOUR VOTE</div>
 			<div class="stat-line accent">DEPENDS ON</div>
 			<div class="stat-line accent">WHERE YOU LIVE</div>
+			<div class="stat-kicker">That's not fair.</div>
 		</div>
 	</div>
 
@@ -123,7 +124,7 @@
 		<div class="fix-line">LET'S CHANGE</div>
 		<div class="fix-line accent">THE SYSTEM</div>
 		<div class="proto-box">
-			<div class="tiny">FAIRER REPRESENTATION</div>
+			<div class="proto-label">FAIRER VOTES = BETTER REPRESENTATION</div>
 			<div class="proto-grid">
 				{#each Array(12) as _, i}
 					<div class="cell"></div>
@@ -206,7 +207,7 @@
 		opacity: 0.22;
 	}
 
-	.tiny, .brand {
+	.brand {
 		font-size: 0.72rem;
 		letter-spacing: 0.17em;
 		text-transform: uppercase;
@@ -247,13 +248,22 @@
 	}
 
 	.stat-line {
-		margin-top: 0.85rem;
-		font-size: clamp(1.55rem, 8vw, 2.8rem);
+		margin-top: 0.35rem;
+		font-size: clamp(1.35rem, 7vw, 2.4rem);
 		line-height: 0.94;
 		font-weight: 700;
 		letter-spacing: -0.06em;
 		text-transform: uppercase;
 		color: #161927;
+	}
+
+	.stat-kicker {
+		margin-top: 0.9rem;
+		font-size: 1rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		color: rgba(22,25,39,0.72);
 	}
 
 	.fix-line {
@@ -264,6 +274,15 @@
 		letter-spacing: -0.06em;
 		text-transform: uppercase;
 		color: #161927;
+	}
+
+	.proto-label {
+		font-size: 0.92rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: #161927;
+		line-height: 1.3;
 	}
 
 	.proto-box {
