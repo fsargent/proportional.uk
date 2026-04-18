@@ -300,6 +300,11 @@ li {
   font-weight: 700;
 }
 
+/* Home page: grid gap carries section separation; drop h2 top margin so it does not stack */
+.content .guided-flow h2.section-header {
+  margin-top: 0;
+}
+
 /* Grid layouts */
 .benefits-grid {
   display: grid;

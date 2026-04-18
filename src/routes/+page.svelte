@@ -122,13 +122,13 @@
 
 <style>
 	.hero-section {
-		padding: 2.5rem 0 3.5rem 0;
-		margin-bottom: 2rem;
+		padding: 2.25rem 0 2.75rem 0;
+		margin-bottom: 1.25rem;
 	}
 
 	.guided-flow {
 		display: grid;
-		gap: clamp(4rem, 7vw, 5.5rem);
+		gap: clamp(2.25rem, 4vw, 3.25rem);
 	}
 
 	.finder-intro {
