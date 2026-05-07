@@ -20,7 +20,8 @@
 			implementation: 'Near-term Westminster PR route because UK voters already know the structure'
 		},
 		{
-			name: 'Open-list PR',
+			name: 'List PR',
+			href: '/party-list',
 			family: 'List PR',
 			fairness: 'High',
 			localLink: 'Regional rather than single-constituency',

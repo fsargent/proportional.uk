@@ -9,17 +9,13 @@
   --surface-overlay: rgba(255, 255, 255, 0.75);
   --surface-muted: #eef3f8;
   --surface-emphasis: #f9fbfd;
-  --surface-subtle-gradient: linear-gradient(180deg, #f9fbfd 0%, #eef4f9 100%);
-  --surface-info-gradient: linear-gradient(180deg, #f7fafc 0%, #edf3f8 100%);
-  --surface-accent-gradient: linear-gradient(180deg, #f8fbff 0%, #eef5fb 100%);
-  --surface-success-gradient: linear-gradient(180deg, #f7fbf8 0%, #edf7f1 100%);
-  --surface-success-strong-gradient: linear-gradient(
-    180deg,
-    #eef8f1 0%,
-    #e4f1e9 100%
-  );
-  --surface-danger-gradient: linear-gradient(180deg, #fff8f6 0%, #fdf1ee 100%);
-  --surface-warning-gradient: linear-gradient(180deg, #fffaf5 0%, #fff4e8 100%);
+  --surface-subtle-gradient: #ffffff;
+  --surface-info-gradient: #ffffff;
+  --surface-accent-gradient: #ffffff;
+  --surface-success-gradient: #ffffff;
+  --surface-success-strong-gradient: #ffffff;
+  --surface-danger-gradient: #ffffff;
+  --surface-warning-gradient: #ffffff;
   --success-tint: #f9fcfa;
   --warning-tint: #fffaf5;
   --text-dark: #16212b;
@@ -82,37 +78,13 @@
     --surface-overlay: rgba(21, 32, 43, 0.78);
     --surface-muted: #203140;
     --surface-emphasis: #1d2d3a;
-    --surface-subtle-gradient: linear-gradient(
-      180deg,
-      #1c2b38 0%,
-      #16222d 100%
-    );
-    --surface-info-gradient: linear-gradient(180deg, #1a2936 0%, #15212c 100%);
-    --surface-accent-gradient: linear-gradient(
-      180deg,
-      #1a2b39 0%,
-      #14222e 100%
-    );
-    --surface-success-gradient: linear-gradient(
-      180deg,
-      #162920 0%,
-      #12231c 100%
-    );
-    --surface-success-strong-gradient: linear-gradient(
-      180deg,
-      #183226 0%,
-      #13291f 100%
-    );
-    --surface-danger-gradient: linear-gradient(
-      180deg,
-      #301d1a 0%,
-      #251614 100%
-    );
-    --surface-warning-gradient: linear-gradient(
-      180deg,
-      #31261a 0%,
-      #271f15 100%
-    );
+    --surface-subtle-gradient: var(--surface-color);
+    --surface-info-gradient: var(--surface-color);
+    --surface-accent-gradient: var(--surface-color);
+    --surface-success-gradient: var(--surface-color);
+    --surface-success-strong-gradient: var(--surface-color);
+    --surface-danger-gradient: var(--surface-color);
+    --surface-warning-gradient: var(--surface-color);
     --success-tint: #182920;
     --warning-tint: #2a2117;
     --text-dark: #ecf3f8;

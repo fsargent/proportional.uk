@@ -54,7 +54,8 @@
 			needsParliamentResize: 'helps'
 		},
 		{
-			name: 'Open-list PR',
+			name: 'List PR',
+			href: '/party-list',
 			description:
 				"Vote for a party and optionally for specific candidates on that party's list. Seats allocated proportionally in larger regional districts.",
 			singleMemberOnly: false,
