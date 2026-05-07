@@ -1,6 +1,7 @@
 <script lang="ts">
 	import StepCard from './StepCard.svelte';
 	import FAQItem from './FAQItem.svelte';
+	import MethodSection from './MethodSection.svelte';
 
 	const steps = [
 		{
@@ -24,9 +25,7 @@
 	];
 </script>
 
-<!-- How it works -->
-<section>
-	<h2 class="section-header">How First Past the Post works</h2>
+<MethodSection slot="mechanics">
 	<p>
 		The UK is divided into 650 constituencies, each electing one Member of Parliament. On
 		election day, every voter marks one candidate. The candidate who receives more votes than
@@ -39,11 +38,8 @@
 			<StepCard number={step.number} title={step.title} description={step.description} />
 		{/each}
 	</div>
-</section>
 
-<!-- Why it was designed this way -->
-<section>
-	<h2 class="section-header">Why Britain uses this system</h2>
+	<h3>Why Britain uses this system</h3>
 	<p>
 		First Past the Post evolved when British politics was a contest between two parties. In a
 		two-party system, the candidate with the most votes almost always has majority support, and
@@ -56,74 +52,10 @@
 		the national mood into a workable parliamentary majority. The problems that now dominate
 		the reform debate became visible only as the party system fragmented.
 	</p>
-</section>
+</MethodSection>
 
-<!-- What goes wrong -->
-<section>
-	<h2 class="section-header">What goes wrong with more than two parties</h2>
-	<p>
-		In 2024, seven parties won seats in the House of Commons, and several more received
-		significant vote shares. First Past the Post was not built for this. The more parties
-		compete, the more its structural distortions show up.
-	</p>
-	<div class="problem-cards">
-		<article class="problem-card">
-			<h3>Wasted votes</h3>
-			<p>
-				In 2024, roughly 14.8 million votes — more than a third of all votes cast — went to
-				losing candidates and had zero effect on the composition of Parliament. In safe seats,
-				voting for either the incumbent or the opposition is functionally meaningless.
-			</p>
-		</article>
-		<article class="problem-card">
-			<h3>Seats do not match votes</h3>
-			<p>
-				Labour won 63% of seats with 34% of the vote. Reform UK won 14% of the vote but just
-				0.8% of seats. The relationship between how people vote and what Parliament looks like
-				is increasingly arbitrary.
-			</p>
-		</article>
-		<article class="problem-card">
-			<h3>Tactical voting</h3>
-			<p>
-				Millions of voters mark a candidate who is not their first choice, because supporting
-				their actual preference would "let the other side in." This is a rational response to
-				the system, not voter ignorance — and it means Parliament never sees what voters
-				actually want.
-			</p>
-		</article>
-		<article class="problem-card">
-			<h3>Safe seats</h3>
-			<p>
-				Most constituencies have not changed hands in decades. Parties concentrate resources
-				on the small number of marginals that might swing, ignoring voters in seats that are
-				already decided. Roughly two-thirds of voters live in constituencies where the result
-				is a foregone conclusion.
-			</p>
-		</article>
-		<article class="problem-card">
-			<h3>Vote splitting</h3>
-			<p>
-				When two similar parties compete, they split the vote of their shared support base and
-				both lose to a candidate that most voters in the constituency would have rejected. This
-				is why parties spend so much energy on "don't vote for them, vote for us" messaging
-				rather than policy.
-			</p>
-		</article>
-		<article class="problem-card">
-			<h3>Manufactured majorities</h3>
-			<p>
-				A party can win a commanding parliamentary majority with a relatively small share of
-				the national vote, if that vote is distributed efficiently across marginal seats. This
-				gives the winning party far more power than its level of public support justifies.
-			</p>
-		</article>
-	</div>
-</section>
-
-<!-- The 2024 election -->
-<section>
-	<h2 class="section-header">The 2024 election in numbers</h2>
+<MethodSection slot="worked-example">
+	<h3>The 2024 election in numbers</h3>
 	<p>
 		The 2024 General Election produced one of the most disproportionate results in British
 		history. It is a useful case study for understanding how First Past the Post behaves under
@@ -185,11 +117,9 @@
 		seats. Under any proportional system, the composition of Parliament would have looked
 		fundamentally different.
 	</p>
-</section>
+</MethodSection>
 
-<!-- What defenders say -->
-<section>
-	<h2 class="section-header">The case for keeping it</h2>
+<MethodSection slot="strengths">
 	<div class="argument-cards">
 		<article class="argument-card">
 			<h3>Simplicity</h3>
@@ -224,21 +154,80 @@
 			</p>
 		</article>
 	</div>
-</section>
+</MethodSection>
 
-<!-- What critics say -->
-<section>
-	<h2 class="section-header">The case against</h2>
+<MethodSection slot="tradeoffs">
+	<h3>What goes wrong with more than two parties</h3>
+	<p>
+		In 2024, seven parties won seats in the House of Commons, and several more received
+		significant vote shares. First Past the Post was not built for this. The more parties
+		compete, the more its structural distortions show up.
+	</p>
+	<div class="problem-cards">
+		<article class="problem-card">
+			<h4>Wasted votes</h4>
+			<p>
+				In 2024, roughly 14.8 million votes — more than a third of all votes cast — went to
+				losing candidates and had zero effect on the composition of Parliament. In safe seats,
+				voting for either the incumbent or the opposition is functionally meaningless.
+			</p>
+		</article>
+		<article class="problem-card">
+			<h4>Seats do not match votes</h4>
+			<p>
+				Labour won 63% of seats with 34% of the vote. Reform UK won 14% of the vote but just
+				0.8% of seats. The relationship between how people vote and what Parliament looks like
+				is increasingly arbitrary.
+			</p>
+		</article>
+		<article class="problem-card">
+			<h4>Tactical voting</h4>
+			<p>
+				Millions of voters mark a candidate who is not their first choice, because supporting
+				their actual preference would "let the other side in." This is a rational response to
+				the system, not voter ignorance — and it means Parliament never sees what voters
+				actually want.
+			</p>
+		</article>
+		<article class="problem-card">
+			<h4>Safe seats</h4>
+			<p>
+				Most constituencies have not changed hands in decades. Parties concentrate resources
+				on the small number of marginals that might swing, ignoring voters in seats that are
+				already decided. Roughly two-thirds of voters live in constituencies where the result
+				is a foregone conclusion.
+			</p>
+		</article>
+		<article class="problem-card">
+			<h4>Vote splitting</h4>
+			<p>
+				When two similar parties compete, they split the vote of their shared support base and
+				both lose to a candidate that most voters in the constituency would have rejected. This
+				is why parties spend so much energy on "don't vote for them, vote for us" messaging
+				rather than policy.
+			</p>
+		</article>
+		<article class="problem-card">
+			<h4>Manufactured majorities</h4>
+			<p>
+				A party can win a commanding parliamentary majority with a relatively small share of
+				the national vote, if that vote is distributed efficiently across marginal seats. This
+				gives the winning party far more power than its level of public support justifies.
+			</p>
+		</article>
+	</div>
+
+	<h3>The case against</h3>
 	<div class="argument-cards">
 		<article class="argument-card">
-			<h3>Most voters are unrepresented</h3>
+			<h4>Most voters are unrepresented</h4>
 			<p>
 				In 2024, over half of all votes had no bearing on the result. When most voters'
 				preferences are discarded, the resulting Parliament does not reflect the country.
 			</p>
 		</article>
 		<article class="argument-card">
-			<h3>It distorts incentives</h3>
+			<h4>It distorts incentives</h4>
 			<p>
 				Parties optimise for marginal seats rather than broad support. Policies are shaped by
 				what plays well in a few dozen swing constituencies, not by what the country as a
@@ -246,7 +235,7 @@
 			</p>
 		</article>
 		<article class="argument-card">
-			<h3>It suppresses new parties</h3>
+			<h4>It suppresses new parties</h4>
 			<p>
 				A new party needs to win concentrated local pluralities to gain seats. Broad national
 				support spread evenly across constituencies translates into very few or zero seats,
@@ -254,7 +243,7 @@
 			</p>
 		</article>
 		<article class="argument-card">
-			<h3>Majority rule is increasingly fictional</h3>
+			<h4>Majority rule is increasingly fictional</h4>
 			<p>
 				The argument for decisive majorities rests on the assumption that the winning party
 				has broad public backing. When a party can win a supermajority with a third of the
@@ -262,11 +251,11 @@
 			</p>
 		</article>
 	</div>
-</section>
+</MethodSection>
 
-<!-- Compared to alternatives -->
-<section>
-	<h2 class="section-header">How it compares to the alternatives on this site</h2>
+<!-- spine-slot:where-used absent: needs research -->
+
+<MethodSection slot="compares">
 	<div class="comparison-cards">
 		<article class="comparison-card">
 			<h3>vs Approval Voting</h3>
@@ -301,11 +290,9 @@
 			</p>
 		</article>
 	</div>
-</section>
+</MethodSection>
 
-<!-- FAQ -->
-<section>
-	<h2 class="section-header">Common questions</h2>
+<MethodSection slot="faq">
 	<div class="faq-section">
 		<FAQItem question="Does First Past the Post always produce strong governments?">
 			<p>
@@ -357,20 +344,17 @@
 			</p>
 		</FAQItem>
 	</div>
-</section>
+</MethodSection>
+
+<!-- spine-slot:bottom-line absent: editorial-slant pass owns this -->
 
 <style>
-	section {
-		display: grid;
-		gap: 1rem;
-	}
-
-	section > p {
+	:global(.method-section) > p {
 		font-size: 1.05rem;
 		line-height: 1.7;
 	}
 
-	section :global(.process-steps) {
+	:global(.method-section) .process-steps {
 		grid-template-columns: 1fr;
 	}
 
@@ -392,8 +376,9 @@
 		box-shadow: var(--shadow-soft);
 	}
 
-	.problem-card h3,
+	.problem-card h4,
 	.argument-card h3,
+	.argument-card h4,
 	.comparison-card h3 {
 		margin: 0 0 0.5rem;
 		color: var(--accent-text);

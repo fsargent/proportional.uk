@@ -1,6 +1,7 @@
 <script lang="ts">
 	import StepCard from './StepCard.svelte';
 	import FAQItem from './FAQItem.svelte';
+	import MethodSection from './MethodSection.svelte';
 
 	const steps = [
 		{
@@ -79,13 +80,6 @@
 		{ country: 'Netherlands', threshold: '0.67%', notes: 'Effectively one seat\'s worth of votes' }
 	];
 
-	type DivisorStep = {
-		divisor: number;
-		partyA: number;
-		partyB: number;
-		partyC: number;
-	};
-
 	const exampleVotes = { A: 10000, B: 8000, C: 3000 };
 	const seatsToAllocate = 5;
 
@@ -133,9 +127,7 @@
 	const slSeats = countSeats(slResults);
 </script>
 
-<!-- How it works -->
-<section>
-	<h2 class="section-header">How party-list proportional representation works</h2>
+<MethodSection slot="mechanics">
 	<p>
 		The core idea is straightforward: voters choose a party, and seats in parliament are divided
 		in proportion to how many votes each party received. A party that wins 30% of the vote gets
@@ -148,11 +140,8 @@
 			<StepCard number={step.number} title={step.title} description={step.description} />
 		{/each}
 	</div>
-</section>
 
-<!-- Open vs Closed vs Flexible -->
-<section>
-	<h2 class="section-header">Open, closed, and flexible lists</h2>
+	<h3>Open, closed, and flexible lists</h3>
 	<p>
 		The biggest practical difference between party-list systems is how much control voters have
 		over which candidates actually take the seats their party wins. This ranges from none at all
@@ -162,7 +151,7 @@
 	<div class="list-comparison">
 		{#each listTypes as listType (listType.name)}
 			<article class="list-card">
-				<h3>{listType.name}</h3>
+				<h4>{listType.name}</h4>
 				<div class="list-meta">
 					<span class="meta-tag">Voter power: {listType.voterPower}</span>
 					<span class="meta-tag">Party control: {listType.partyControl}</span>
@@ -172,11 +161,8 @@
 			</article>
 		{/each}
 	</div>
-</section>
 
-<!-- Electoral thresholds -->
-<section>
-	<h2 class="section-header">Electoral thresholds</h2>
+	<h3>Electoral thresholds</h3>
 	<p>
 		Most party-list systems set a minimum vote share that a party must reach before it qualifies
 		for any seats. The purpose is to prevent extreme fragmentation — a parliament with dozens of
@@ -210,11 +196,8 @@
 		There is no objectively correct number — it depends on how much a country values broad
 		representation versus governmental stability.
 	</p>
-</section>
 
-<!-- Seat allocation methods -->
-<section>
-	<h2 class="section-header">How votes become seats: allocation methods</h2>
+	<h3>How votes become seats: allocation methods</h3>
 	<p>
 		Once you know each party's vote total, you need a formula to convert those totals into a
 		specific number of seats. The three most common approaches are D'Hondt, Sainte-Laguë, and
@@ -224,7 +207,7 @@
 
 	<div class="method-cards">
 		<article class="method-card">
-			<h3>D'Hondt</h3>
+			<h4>D'Hondt</h4>
 			<p class="method-aka">Also called the Jefferson method</p>
 			<p>
 				Divide each party's vote total by 1, then 2, then 3, and so on. The highest quotients
@@ -235,7 +218,7 @@
 		</article>
 
 		<article class="method-card">
-			<h3>Sainte-Laguë</h3>
+			<h4>Sainte-Laguë</h4>
 			<p class="method-aka">Also called the Webster method</p>
 			<p>
 				Divide each party's vote total by 1, then 3, then 5, then 7, and so on (the odd numbers).
@@ -246,7 +229,7 @@
 		</article>
 
 		<article class="method-card">
-			<h3>Largest Remainder</h3>
+			<h4>Largest Remainder</h4>
 			<p class="method-aka">Using the Hare quota</p>
 			<p>
 				Divide total votes by total seats to get a quota. Each party gets one seat per full quota
@@ -256,11 +239,9 @@
 			<p class="method-used">Used in: Italy (historically), Hong Kong, Colombia, Tunisia</p>
 		</article>
 	</div>
-</section>
+</MethodSection>
 
-<!-- Worked example -->
-<section>
-	<h2 class="section-header">Worked example: D'Hondt vs Sainte-Laguë</h2>
+<MethodSection slot="worked-example" customTitle="Worked example: D'Hondt vs Sainte-Laguë">
 	<p>
 		Consider three parties competing for {seatsToAllocate} seats. Party A received {exampleVotes.A.toLocaleString()} votes,
 		Party B received {exampleVotes.B.toLocaleString()}, and Party C received {exampleVotes.C.toLocaleString()}.
@@ -325,11 +306,51 @@
 		large parties get from early-round quotients. Neither is wrong; they reflect different
 		priorities about how to handle the rounding problem.
 	</p>
-</section>
+</MethodSection>
 
-<!-- Where it is used -->
-<section>
-	<h2 class="section-header">Where party-list systems are used</h2>
+<MethodSection slot="strengths">
+	<div class="tradeoff-grid">
+		<article class="tradeoff-card">
+			<h3>Strong proportionality</h3>
+			<p>
+				Party-list systems produce some of the most proportional results of any electoral method.
+				Seats closely track votes, which means fewer wasted votes and less distortion than
+				single-member systems.
+			</p>
+		</article>
+		<article class="tradeoff-card">
+			<h3>Simpler than ranking</h3>
+			<p>
+				The ballot is straightforward — pick a party, and in open-list variants, mark a preferred
+				candidate. There is no need to rank multiple candidates in order, which reduces ballot
+				complexity and counting time.
+			</p>
+		</article>
+	</div>
+</MethodSection>
+
+<MethodSection slot="tradeoffs">
+	<div class="tradeoff-grid">
+		<article class="tradeoff-card">
+			<h3>Weaker local link</h3>
+			<p>
+				Because districts are large (or nationwide), voters typically do not have a single
+				identifiable local representative. This is the most common criticism in countries like
+				the UK that value the constituency link.
+			</p>
+		</article>
+		<article class="tradeoff-card">
+			<h3>Party control varies</h3>
+			<p>
+				Closed lists give party leadership significant power over who enters parliament. Open and
+				flexible lists shift that power toward voters, but at the cost of more complex ballots and
+				intra-party competition.
+			</p>
+		</article>
+	</div>
+</MethodSection>
+
+<MethodSection slot="where-used" customTitle="Where party-list systems are used">
 	<p>
 		Party-list proportional representation is the most widely used electoral system in the world.
 		Most European democracies use some variant, as do many countries in Latin America, Africa, and
@@ -362,50 +383,11 @@
 			</p>
 		</article>
 	</div>
-</section>
+</MethodSection>
 
-<!-- Trade-offs -->
-<section>
-	<h2 class="section-header">Key trade-offs</h2>
-	<div class="tradeoff-grid">
-		<article class="tradeoff-card">
-			<h3>Strong proportionality</h3>
-			<p>
-				Party-list systems produce some of the most proportional results of any electoral method.
-				Seats closely track votes, which means fewer wasted votes and less distortion than
-				single-member systems.
-			</p>
-		</article>
-		<article class="tradeoff-card">
-			<h3>Weaker local link</h3>
-			<p>
-				Because districts are large (or nationwide), voters typically do not have a single
-				identifiable local representative. This is the most common criticism in countries like
-				the UK that value the constituency link.
-			</p>
-		</article>
-		<article class="tradeoff-card">
-			<h3>Party control varies</h3>
-			<p>
-				Closed lists give party leadership significant power over who enters parliament. Open and
-				flexible lists shift that power toward voters, but at the cost of more complex ballots and
-				intra-party competition.
-			</p>
-		</article>
-		<article class="tradeoff-card">
-			<h3>Simpler than ranking</h3>
-			<p>
-				The ballot is straightforward — pick a party, and in open-list variants, mark a preferred
-				candidate. There is no need to rank multiple candidates in order, which reduces ballot
-				complexity and counting time.
-			</p>
-		</article>
-	</div>
-</section>
+<!-- spine-slot:compares absent: cross-method comparison currently in FAQ; deferred to comparison-block work -->
 
-<!-- FAQ -->
-<section>
-	<h2 class="section-header">Common questions</h2>
+<MethodSection slot="faq">
 	<div class="faq-section">
 		<FAQItem question="Do I lose my local MP?">
 			<p>
@@ -456,20 +438,17 @@
 			</p>
 		</FAQItem>
 	</div>
-</section>
+</MethodSection>
+
+<!-- spine-slot:bottom-line absent: editorial-slant pass owns this -->
 
 <style>
-	section {
-		display: grid;
-		gap: 1rem;
-	}
-
-	section > p {
+	:global(.method-section) > p {
 		font-size: 1.05rem;
 		line-height: 1.7;
 	}
 
-	section :global(.process-steps) {
+	:global(.method-section) .process-steps {
 		grid-template-columns: 1fr;
 	}
 
@@ -487,7 +466,7 @@
 		box-shadow: var(--shadow-soft);
 	}
 
-	.list-card h3 {
+	.list-card h4 {
 		margin: 0 0 0.5rem;
 		color: var(--text-dark);
 		font-size: 1.15rem;
@@ -577,7 +556,7 @@
 		box-shadow: var(--shadow-soft);
 	}
 
-	.method-card h3 {
+	.method-card h4 {
 		margin: 0 0 0.25rem;
 		color: var(--text-dark);
 		font-size: 1.15rem;

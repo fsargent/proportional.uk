@@ -1,6 +1,5 @@
 <script lang="ts">
 	import AMSPlusSection from '$lib/components/AMSPlusSection.svelte';
-	import AMSVariantSection from '$lib/components/AMSVariantSection.svelte';
 </script>
 
 <svelte:head>
@@ -20,7 +19,6 @@
 		<a href="/stv">Read the STV page</a>
 		<a href="/proportional-approval">See the fully proportional version →</a>
 	</nav>
-	<AMSVariantSection />
 	<AMSPlusSection />
 </section>
 

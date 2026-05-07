@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ProportionalApprovalSection from '$lib/components/ProportionalApprovalSection.svelte';
-	import MMDVisualiserSection from '$lib/components/MMDVisualiserSection.svelte';
 </script>
 
 <svelte:head>
@@ -21,15 +20,6 @@
 		<a href="/visualiser">Open district visualiser →</a>
 	</nav>
 	<ProportionalApprovalSection />
-
-	<section class="page-section">
-		<MMDVisualiserSection
-			title="Why multi-member districts matter for proportional approval"
-			introText="Proportional Approval keeps the ballot simple, but it still depends on multi-member districts. That is where proportionality actually happens."
-			bodyText="Use the live visualiser below to see what kind of district sizes would make this method work well in practice, and where the method starts to behave more or less proportionally."
-			initialMagnitude={7}
-		/>
-	</section>
 </section>
 
 <style>
@@ -38,5 +28,4 @@
 	.method-links { display:flex; flex-wrap:wrap; gap:1rem; }
 	.method-links a { color: var(--link-color); text-decoration:none; font-weight:600; }
 	.method-links a:hover { text-decoration:underline; }
-	.page-section { display:grid; gap:1rem; }
 </style>

@@ -2,6 +2,7 @@
 	import BenefitCard from './BenefitCard.svelte';
 	import StepCard from './StepCard.svelte';
 	import FAQItem from './FAQItem.svelte';
+	import MethodSection from './MethodSection.svelte';
 
 	const benefits = [
 		{
@@ -65,9 +66,7 @@
 	const approvedCount = $derived(Object.values(selections).filter(Boolean).length);
 </script>
 
-<section class="single-winner-approval-section" id="single-winner-approval-details">
-	<h2 class="section-header">Single-Winner Approval Voting</h2>
-
+<MethodSection slot="mechanics">
 	<p class="intro-text">
 		This is the smallest version of the idea. Keep one MP per constituency, keep the familiar map, but
 		replace “pick one” with a simpler instruction: approve every candidate you would genuinely be happy
@@ -77,18 +76,6 @@
 		It does not make Westminster proportional. What it does do is remove vote-splitting, reduce the
 		tactical squeeze, and make it easier for broadly acceptable candidates to win.
 	</p>
-
-	<div class="implementation-frame">
-		<div class="implementation-card">
-			<p class="implementation-label">Fastest to implement</p>
-			<h3>If Britain wanted the quickest ballot fix</h3>
-			<p>
-				This option keeps the current Westminster map, one-seat constituencies, and the basic count
-				administration. That makes it the easiest approval reform to legislate and explain, even though
-				it does not solve nationwide proportionality on its own.
-			</p>
-		</div>
-	</div>
 
 	<h3 class="subsection-header">How You Vote</h3>
 
@@ -143,14 +130,6 @@
 		</div>
 	</div>
 
-	<h3 class="subsection-header">Why Consider It?</h3>
-
-	<div class="benefits-grid">
-		{#each benefits as benefit (benefit.title)}
-			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
-		{/each}
-	</div>
-
 	<h3 class="subsection-header">How It Works</h3>
 
 	<div class="process-steps">
@@ -158,9 +137,37 @@
 			<StepCard number={step.number} title={step.title} description={step.description} />
 		{/each}
 	</div>
+</MethodSection>
 
-	<h3 class="subsection-header">Common Questions</h3>
+<!-- spine-slot:worked-example absent: no dedicated worked example -->
 
+<MethodSection slot="strengths">
+	<div class="implementation-frame">
+		<div class="implementation-card">
+			<p class="implementation-label">Fastest to implement</p>
+			<h3>If Britain wanted the quickest ballot fix</h3>
+			<p>
+				This option keeps the current Westminster map, one-seat constituencies, and the basic count
+				administration. That makes it the easiest approval reform to legislate and explain, even though
+				it does not solve nationwide proportionality on its own.
+			</p>
+		</div>
+	</div>
+
+	<h3 class="subsection-header">Why Consider It?</h3>
+
+	<div class="benefits-grid">
+		{#each benefits as benefit (benefit.title)}
+			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
+		{/each}
+	</div>
+</MethodSection>
+
+<!-- spine-slot:tradeoffs absent: trade-offs currently folded into FAQ; pending dedicated section -->
+<!-- spine-slot:where-used absent: needs research -->
+<!-- spine-slot:compares absent: deferred to comparison-block work -->
+
+<MethodSection slot="faq">
 	<div class="faq-section">
 		<FAQItem question="Can it still work well if it isn't proportional?">
 			<p>
@@ -212,26 +219,20 @@
 			</p>
 		</FAQItem>
 	</div>
+</MethodSection>
 
-	<div class="key-takeaway">
-		<h3>🎯 The Bottom Line</h3>
-		<p>
-			Single-Winner Approval Voting is a viable Westminster system in its own right: simple to run,
-			strong against vote-splitting, and well suited to electing broadly acceptable MPs.
-		</p>
-		<p>
-			<strong>If the goal is effective local representation and sound policy:</strong> keep local MPs,
-			change the ballot, and elect candidates who can command support well beyond a narrow base.
-		</p>
-	</div>
-</section>
+<MethodSection slot="bottom-line" customTitle="🎯 The Bottom Line">
+	<p>
+		Single-Winner Approval Voting is a viable Westminster system in its own right: simple to run,
+		strong against vote-splitting, and well suited to electing broadly acceptable MPs.
+	</p>
+	<p>
+		<strong>If the goal is effective local representation and sound policy:</strong> keep local MPs,
+		change the ballot, and elect candidates who can command support well beyond a narrow base.
+	</p>
+</MethodSection>
 
 <style>
-	.single-winner-approval-section {
-		margin: 0;
-		padding-top: 1rem;
-	}
-
 	.intro-text {
 		font-size: 1.1rem;
 		line-height: 1.7;
@@ -239,7 +240,7 @@
 	}
 
 	.implementation-frame {
-		margin: 2rem 0 0;
+		margin: 0;
 		padding: 1.5rem;
 		border-radius: var(--radius-lg);
 		border: 1px solid var(--accent-border);
@@ -267,7 +268,7 @@
 	.subsection-header {
 		font-size: 1.4rem;
 		color: var(--text-dark);
-		margin: 2.5rem 0 1.5rem 0;
+		margin: 1.5rem 0 1rem 0;
 		padding-bottom: 0.5rem;
 		border-bottom: 2px solid var(--border-color);
 	}
@@ -276,7 +277,7 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 2rem;
-		margin: 2rem 0;
+		margin: 1rem 0;
 	}
 
 	.ballot-panel {

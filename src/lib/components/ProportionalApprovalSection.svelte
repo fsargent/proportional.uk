@@ -2,6 +2,8 @@
 	import BenefitCard from './BenefitCard.svelte';
 	import StepCard from './StepCard.svelte';
 	import FAQItem from './FAQItem.svelte';
+	import MethodSection from './MethodSection.svelte';
+	import MMDVisualiserSection from './MMDVisualiserSection.svelte';
 
 	const benefits = [
 		{
@@ -82,9 +84,7 @@
 	const approvedCount = $derived(Object.values(selections).filter(Boolean).length);
 </script>
 
-<section class="proportional-approval-section" id="proportional-approval-details">
-	<h2 class="section-header">Proportional Approval Voting</h2>
-
+<MethodSection slot="mechanics">
 	<p class="intro-text">
 		This is the full version of the idea: a genuinely proportional Parliament built from approval
 		ballots in multi-member districts. Technically, this is a form of Sequential Proportional Approval
@@ -94,33 +94,6 @@
 		It is probably not the first reform Westminster would adopt. But it is the cleanest way to carry
 		the simple ballot idea all the way through to a fully proportional result.
 	</p>
-
-	<div class="implementation-frame">
-		<div class="implementation-card">
-			<p class="implementation-label">Strategic role in UK reform</p>
-			<h3>If Britain wanted the cleanest fully proportional version</h3>
-			<p>
-				Proportional Approval is the cleanest way to keep the approval-voting thesis all the way
-				through to a fully proportional Parliament. The main implementation hurdle is not the ballot
-				instruction, which is simple, but the move to multi-member districts and the boundary work that
-				comes with them.
-			</p>
-		</div>
-		<div class="implementation-grid">
-			<div>
-				<h4>Near-term use</h4>
-				<p>Best advanced alongside district-magnitude planning, visualisation work, and wider public argument about regional representation.</p>
-			</div>
-			<div>
-				<h4>Boundary logic</h4>
-				<p>Use stable building blocks such as groups of constituencies, local authority clusters, and recognisable county or city regions.</p>
-			</div>
-			<div>
-				<h4>Counting benchmark</h4>
-				<p>For rough UK comparisons, Sainte-Lague is a better benchmark than D'Hondt because it is less biased toward the largest parties.</p>
-			</div>
-		</div>
-	</div>
 
 	<h3 class="subsection-header">How You Vote</h3>
 
@@ -179,14 +152,6 @@
 		</div>
 	</div>
 
-	<h3 class="subsection-header">Why Proportional Approval?</h3>
-
-	<div class="benefits-grid">
-		{#each benefits as benefit (benefit.title)}
-			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
-		{/each}
-	</div>
-
 	<h3 class="subsection-header">How It Works</h3>
 
 	<div class="process-steps">
@@ -194,9 +159,77 @@
 			<StepCard number={step.number} title={step.title} description={step.description} />
 		{/each}
 	</div>
+</MethodSection>
 
-	<h3 class="subsection-header">Transition and District Design</h3>
+<MethodSection slot="worked-example">
+	<div class="reweighting-explainer">
+		<h4>📐 The Reweighting Mechanism</h4>
+		<p>
+			The key to proportionality is how voter weights are adjusted after each seat is filled. When a
+			candidate you approved wins:
+		</p>
+		<ul>
+			<li>
+				Your ballot weight decreases (because you've successfully elected someone who represents
+				you)
+			</li>
+			<li>Voters who haven't elected anyone yet keep their full weight</li>
+			<li>
+				This means the next round favours candidates supported by currently-unrepresented voters
+			</li>
+		</ul>
+		<p>
+			The result: if 30% of voters approve only Green candidates, Greens will win approximately 30%
+			of seats—even if other candidates have higher raw approval counts.
+		</p>
+	</div>
 
+	<MMDVisualiserSection
+		title="Why multi-member districts matter for proportional approval"
+		introText="Proportional Approval keeps the ballot simple, but it still depends on multi-member districts. That is where proportionality actually happens."
+		bodyText="Use the live visualiser below to see what kind of district sizes would make this method work well in practice, and where the method starts to behave more or less proportionally."
+		initialMagnitude={7}
+	/>
+</MethodSection>
+
+<MethodSection slot="strengths">
+	<div class="implementation-frame">
+		<div class="implementation-card">
+			<p class="implementation-label">Strategic role in UK reform</p>
+			<h3>If Britain wanted the cleanest fully proportional version</h3>
+			<p>
+				Proportional Approval is the cleanest way to keep the approval-voting thesis all the way
+				through to a fully proportional Parliament. The main implementation hurdle is not the ballot
+				instruction, which is simple, but the move to multi-member districts and the boundary work that
+				comes with them.
+			</p>
+		</div>
+		<div class="implementation-grid">
+			<div>
+				<h4>Near-term use</h4>
+				<p>Best advanced alongside district-magnitude planning, visualisation work, and wider public argument about regional representation.</p>
+			</div>
+			<div>
+				<h4>Boundary logic</h4>
+				<p>Use stable building blocks such as groups of constituencies, local authority clusters, and recognisable county or city regions.</p>
+			</div>
+			<div>
+				<h4>Counting benchmark</h4>
+				<p>For rough UK comparisons, Sainte-Lague is a better benchmark than D'Hondt because it is less biased toward the largest parties.</p>
+			</div>
+		</div>
+	</div>
+
+	<h3 class="subsection-header">Why Proportional Approval?</h3>
+
+	<div class="benefits-grid">
+		{#each benefits as benefit (benefit.title)}
+			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
+		{/each}
+	</div>
+</MethodSection>
+
+<MethodSection slot="tradeoffs" customTitle="Transition and District Design">
 	<div class="implementation-grid detail-grid">
 		<div class="detail-card">
 			<h4>District magnitude matters</h4>
@@ -222,31 +255,12 @@
 			</p>
 		</div>
 	</div>
+</MethodSection>
 
-	<div class="reweighting-explainer">
-		<h4>📐 The Reweighting Mechanism</h4>
-		<p>
-			The key to proportionality is how voter weights are adjusted after each seat is filled. When a
-			candidate you approved wins:
-		</p>
-		<ul>
-			<li>
-				Your ballot weight decreases (because you've successfully elected someone who represents
-				you)
-			</li>
-			<li>Voters who haven't elected anyone yet keep their full weight</li>
-			<li>
-				This means the next round favours candidates supported by currently-unrepresented voters
-			</li>
-		</ul>
-		<p>
-			The result: if 30% of voters approve only Green candidates, Greens will win approximately 30%
-			of seats—even if other candidates have higher raw approval counts.
-		</p>
-	</div>
+<!-- spine-slot:where-used absent: needs research -->
+<!-- spine-slot:compares absent: cross-method comparisons currently in FAQ; deferred to comparison-block work -->
 
-	<h3 class="subsection-header">Common Questions</h3>
-
+<MethodSection slot="faq">
 	<div class="faq-section">
 		<FAQItem question="Isn't this just approval voting for multi-winner elections?">
 			<p>
@@ -311,27 +325,21 @@
 			</p>
 		</FAQItem>
 	</div>
+</MethodSection>
 
-	<div class="key-takeaway">
-		<h3>🎯 The Bottom Line</h3>
-		<p>
-			Proportional Approval gives you the simplicity of approval voting with the fairness of
-			proportional representation. It is the strongest approval-based case for a fully proportional
-			Westminster, especially once multi-member district reform is politically achievable.
-		</p>
-		<p>
-			<strong>Your job is simple:</strong> tick all the candidates you'd be happy to have represent you.
-			The system does the rest.
-		</p>
-	</div>
-</section>
+<MethodSection slot="bottom-line" customTitle="🎯 The Bottom Line">
+	<p>
+		Proportional Approval gives you the simplicity of approval voting with the fairness of
+		proportional representation. It is the strongest approval-based case for a fully proportional
+		Westminster, especially once multi-member district reform is politically achievable.
+	</p>
+	<p>
+		<strong>Your job is simple:</strong> tick all the candidates you'd be happy to have represent you.
+		The system does the rest.
+	</p>
+</MethodSection>
 
 <style>
-	.proportional-approval-section {
-		margin: 0;
-		padding-top: 1rem;
-	}
-
 	.intro-text {
 		font-size: 1.1rem;
 		line-height: 1.7;
@@ -339,7 +347,7 @@
 	}
 
 	.implementation-frame {
-		margin: 2rem 0 0;
+		margin: 0;
 		padding: 1.5rem;
 		border-radius: var(--radius-lg);
 		border: 1px solid var(--accent-border);
@@ -385,13 +393,13 @@
 	}
 
 	.detail-grid {
-		margin-top: 1.5rem;
+		margin-top: 0;
 	}
 
 	.subsection-header {
 		font-size: 1.4rem;
 		color: var(--text-dark);
-		margin: 2.5rem 0 1.5rem 0;
+		margin: 1.5rem 0 1rem 0;
 		padding-bottom: 0.5rem;
 		border-bottom: 2px solid var(--border-color);
 	}
@@ -400,7 +408,7 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 2rem;
-		margin: 2rem 0;
+		margin: 1rem 0;
 	}
 
 	.ballot-panel {
@@ -526,7 +534,7 @@
 	}
 
 	.reweighting-explainer {
-		margin: 2rem 0;
+		margin: 0 0 1rem 0;
 		padding: 2rem;
 		background: var(--surface-subtle-gradient);
 		border: 1px solid var(--border-color);

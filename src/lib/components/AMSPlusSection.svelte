@@ -2,6 +2,10 @@
 	import BenefitCard from './BenefitCard.svelte';
 	import StepCard from './StepCard.svelte';
 	import FAQItem from './FAQItem.svelte';
+	import MethodSection from './MethodSection.svelte';
+
+	type Variant = 'compensatory' | 'parallel';
+	let variant = $state<Variant>('compensatory');
 
 	const benefits = [
 		{
@@ -115,9 +119,7 @@
 	let listSelections = $state<Record<string, boolean>>({});
 </script>
 
-<section class="ams-plus-section" id="ams-plus-details">
-	<h2 class="section-header">The Additional Member System Plus (AMS+)</h2>
-
+<MethodSection slot="mechanics">
 	<p class="intro-text">
 		This is the most straightforward proportional version of the idea. Start with the
 		<a
@@ -131,33 +133,6 @@
 		You keep local MPs. You keep proportional top-up seats. But the constituency vote stops forcing
 		people into the old FPTP squeeze.
 	</p>
-
-	<div class="implementation-frame">
-		<div class="implementation-card">
-			<p class="implementation-label">Best fit in UK reform politics</p>
-			<h3>If Britain wanted proportionality without a giant leap</h3>
-			<p>
-				If Westminster reformers want a proposal that can speak to Labour, Liberal Democrat, Green,
-				and softer constitutional audiences at the same time, AMS+ is the clearest approval-based fit.
-				It reuses a structure voters in Scotland and Wales already know and changes the least while
-				still delivering PR.
-			</p>
-		</div>
-		<div class="implementation-grid">
-			<div>
-				<h4>What stays familiar</h4>
-				<p>Single-member constituencies, regional top-up seats, and an assembly-wide proportional outcome.</p>
-			</div>
-			<div>
-				<h4>What changes</h4>
-				<p>The local vote becomes “approve all acceptable candidates,” removing the FPTP squeeze from the constituency tier.</p>
-			</div>
-			<div>
-				<h4>Why it matters politically</h4>
-				<p>It offers a Westminster PR package that feels evolutionary rather than institutionally alien.</p>
-			</div>
-		</div>
-	</div>
 
 	<h3 class="subsection-header">How You Vote</h3>
 
@@ -242,14 +217,6 @@
 		</div>
 	</div>
 
-	<h3 class="subsection-header">Why AMS+?</h3>
-
-	<div class="benefits-grid">
-		{#each benefits as benefit (benefit.title)}
-			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
-		{/each}
-	</div>
-
 	<h3 class="subsection-header">How It Works</h3>
 
 	<div class="process-steps">
@@ -257,6 +224,98 @@
 			<StepCard number={step.number} title={step.title} description={step.description} />
 		{/each}
 	</div>
+</MethodSection>
+
+<!-- spine-slot:worked-example absent: no dedicated worked example -->
+
+<MethodSection slot="strengths">
+	<div class="implementation-frame">
+		<div class="implementation-card">
+			<p class="implementation-label">Best fit in UK reform politics</p>
+			<h3>If Britain wanted proportionality without a giant leap</h3>
+			<p>
+				If Westminster reformers want a proposal that can speak to Labour, Liberal Democrat, Green,
+				and softer constitutional audiences at the same time, AMS+ is the clearest approval-based fit.
+				It reuses a structure voters in Scotland and Wales already know and changes the least while
+				still delivering PR.
+			</p>
+		</div>
+		<div class="implementation-grid">
+			<div>
+				<h4>What stays familiar</h4>
+				<p>Single-member constituencies, regional top-up seats, and an assembly-wide proportional outcome.</p>
+			</div>
+			<div>
+				<h4>What changes</h4>
+				<p>The local vote becomes “approve all acceptable candidates,” removing the FPTP squeeze from the constituency tier.</p>
+			</div>
+			<div>
+				<h4>Why it matters politically</h4>
+				<p>It offers a Westminster PR package that feels evolutionary rather than institutionally alien.</p>
+			</div>
+		</div>
+	</div>
+
+	<h3 class="subsection-header">Why AMS+?</h3>
+
+	<div class="benefits-grid">
+		{#each benefits as benefit (benefit.title)}
+			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
+		{/each}
+	</div>
+</MethodSection>
+
+<MethodSection slot="tradeoffs">
+	<h3 class="subsection-header">Two valid ways to build the list tier</h3>
+	<p class="intro-text">
+		Mixed systems do not all use the regional tier in the same way. Some use it to correct the failed
+		proportionality of the constituency tier. Others simply add a fixed block of proportional seats on
+		top. Both are real, valid design choices.
+	</p>
+
+	<div class="variant-toggle" role="tablist" aria-label="AMS variant choice">
+		<button type="button" role="tab" aria-selected={variant === 'compensatory'} class:selected={variant === 'compensatory'} onclick={() => (variant = 'compensatory')}>
+			Compensatory top-up
+		</button>
+		<button type="button" role="tab" aria-selected={variant === 'parallel'} class:selected={variant === 'parallel'} onclick={() => (variant = 'parallel')}>
+			Fixed parallel/add-on list tier
+		</button>
+	</div>
+
+	{#if variant === 'compensatory'}
+		<div class="variant-card">
+			<h4>Compensatory top-up (classic MMP / stronger AMS)</h4>
+			<p>
+				Here the regional seats are used to <strong>balance out the disproportionality</strong> created by the
+				constituency results. If a party wins fewer constituency seats than its vote share deserves, it gets
+				more list seats. If it wins many constituency seats already, it gets fewer or none.
+			</p>
+			<ul>
+				<li>Best if the goal is chamber-wide proportionality</li>
+				<li>Closest to German and New Zealand-style MMP logic</li>
+				<li>The strongest fit for an approval-based “AMS+” if proportionality is the main goal</li>
+			</ul>
+		</div>
+	{:else}
+		<div class="variant-card">
+			<h4>Fixed parallel / add-on list tier</h4>
+			<p>
+				Here the regional seats are allocated proportionally, but they do <strong>not fully compensate</strong>
+				for the local tier. You keep a fixed number of constituency seats and a fixed number of list seats,
+				then run both in parallel.
+			</p>
+			<ul>
+				<li>Best if the goal is a mixed system that is more proportional without being fully compensatory</li>
+				<li>Closer to the logic used in systems such as Japan’s parallel structure</li>
+				<li>Still a valid approval-based design if reformers want a softer step away from FPTP</li>
+			</ul>
+		</div>
+	{/if}
+
+	<p class="variant-note">
+		<strong>Bottom line:</strong> the approval innovation sits in the <em>local ballot</em>. Whether the list tier is
+		fully compensatory or only partly balancing is a separate design choice.
+	</p>
 
 	<h3 class="subsection-header">Transition and Implementation</h3>
 
@@ -285,9 +344,9 @@
 			</p>
 		</div>
 	</div>
+</MethodSection>
 
-	<h3 class="subsection-header">The Foundation: AMS in Scotland and Wales</h3>
-
+<MethodSection slot="where-used" customTitle="The Foundation: AMS in Scotland and Wales">
 	<p>
 		AMS isn't theoretical. It's been successfully used for elections in Scotland and Wales since
 		1999, proving it works in practice.
@@ -298,9 +357,11 @@
 			<BenefitCard emoji={benefit.emoji} title={benefit.title} description={benefit.description} />
 		{/each}
 	</div>
+</MethodSection>
 
-	<h3 class="subsection-header">Common Questions</h3>
+<!-- spine-slot:compares absent: cross-method comparisons currently in FAQ; deferred to comparison-block work -->
 
+<MethodSection slot="faq">
 	<div class="faq-section">
 		<FAQItem question="Won't approval voting in constituencies be confusing?">
 			<p>
@@ -349,27 +410,21 @@
 			</p>
 		</FAQItem>
 	</div>
+</MethodSection>
 
-	<div class="key-takeaway">
-		<h3>🎯 The Bottom Line</h3>
-		<p>
-			AMS+ builds on 25+ years of proven success in Scotland and Wales, but with a crucial
-			improvement: approval voting for constituency seats. If the UK wants a credible near-term route
-			to PR that still preserves familiar institutions, this is the strongest approval-based proposal.
-		</p>
-		<p>
-			<strong>Remember:</strong> With AMS+, you're not forced to choose just one candidate—you approve
-			all the candidates you trust.
-		</p>
-	</div>
-</section>
+<MethodSection slot="bottom-line" customTitle="🎯 The Bottom Line">
+	<p>
+		AMS+ builds on 25+ years of proven success in Scotland and Wales, but with a crucial
+		improvement: approval voting for constituency seats. If the UK wants a credible near-term route
+		to PR that still preserves familiar institutions, this is the strongest approval-based proposal.
+	</p>
+	<p>
+		<strong>Remember:</strong> With AMS+, you're not forced to choose just one candidate—you approve
+		all the candidates you trust.
+	</p>
+</MethodSection>
 
 <style>
-	.ams-plus-section {
-		margin: 0;
-		padding-top: 1rem;
-	}
-
 	.intro-text {
 		font-size: 1.1rem;
 		line-height: 1.7;
@@ -377,7 +432,7 @@
 	}
 
 	.implementation-frame {
-		margin: 2rem 0 0;
+		margin: 0;
 		padding: 1.5rem;
 		border-radius: var(--radius-lg);
 		border: 1px solid var(--accent-border);
@@ -423,13 +478,13 @@
 	}
 
 	.detail-grid {
-		margin-top: 1.5rem;
+		margin-top: 1rem;
 	}
 
 	.subsection-header {
 		font-size: 1.4rem;
 		color: var(--text-dark);
-		margin: 2.5rem 0 1.5rem 0;
+		margin: 1.5rem 0 1rem 0;
 		padding-bottom: 0.5rem;
 		border-bottom: 2px solid var(--border-color);
 	}
@@ -438,7 +493,7 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 2rem;
-		margin: 2rem 0;
+		margin: 1rem 0;
 		align-items: start;
 	}
 
@@ -541,6 +596,49 @@
 	.candidate-party {
 		font-size: 0.85rem;
 		color: var(--text-soft);
+	}
+
+	.variant-toggle {
+		display: inline-flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+	.variant-toggle button {
+		border: 1px solid var(--border-color);
+		background: var(--surface-panel);
+		color: var(--text-dark);
+		padding: 0.75rem 1rem;
+		border-radius: 999px;
+		font: inherit;
+		font-weight: 600;
+		cursor: pointer;
+	}
+	.variant-toggle button.selected {
+		background: linear-gradient(180deg, var(--header-bg) 0%, var(--header-bg-strong) 100%);
+		color: var(--text-inverse);
+		border-color: transparent;
+	}
+	.variant-card,
+	.variant-note {
+		padding: 1.2rem 1.3rem;
+		border-radius: var(--radius-md);
+		border: 1px solid var(--border-color);
+		background: var(--surface-raised);
+		box-shadow: var(--shadow-soft);
+	}
+	.variant-card h4 {
+		margin-top: 0;
+	}
+	.variant-card ul {
+		margin: 0.8rem 0 0 0;
+		padding-left: 1.25rem;
+	}
+	.variant-card li {
+		margin-bottom: 0.5rem;
+		line-height: 1.45;
+	}
+	.variant-note {
+		background: var(--surface-subtle-gradient);
 	}
 
 	@media (max-width: 768px) {
