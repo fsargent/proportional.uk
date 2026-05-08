@@ -395,7 +395,7 @@
 		<FAQItem question="How Does AMS+ Compare with STV?">
 			<p>
 				Both are defensible PR systems. STV gives voters more candidate ordering power inside
-				multi-member districts, while AMS+ keeps a clearer single-member local link and a simpler local
+				<a href="/visualiser">multi-member districts</a>, while AMS+ keeps a clearer single-member local link and a simpler local
 				ballot. The argument for AMS+ is not that STV is illegitimate, but that it is easier to explain,
 				easier to count, and likely easier to assemble into a broad Westminster reform coalition.
 			</p>

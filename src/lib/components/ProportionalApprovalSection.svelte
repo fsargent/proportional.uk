@@ -87,7 +87,7 @@
 <MethodSection slot="mechanics">
 	<p class="intro-text">
 		This is the full version of the idea: a genuinely proportional Parliament built from approval
-		ballots in multi-member districts. Technically, this is a form of Sequential Proportional Approval
+		ballots in <a href="/visualiser">multi-member districts</a>. Technically, this is a form of Sequential Proportional Approval
 		Voting.
 	</p>
 	<p class="intro-text">
@@ -200,7 +200,7 @@
 			<p>
 				Proportional Approval is the cleanest way to keep the approval-voting thesis all the way
 				through to a fully proportional Parliament. The main implementation hurdle is not the ballot
-				instruction, which is simple, but the move to multi-member districts and the boundary work that
+				instruction, which is simple, but the move to <a href="/visualiser">multi-member districts</a> and the boundary work that
 				comes with them.
 			</p>
 		</div>
@@ -331,7 +331,7 @@
 	<p>
 		Proportional Approval gives you the simplicity of approval voting with the fairness of
 		proportional representation. It is the strongest approval-based case for a fully proportional
-		Westminster, especially once multi-member district reform is politically achievable.
+		Westminster, especially once <a href="/visualiser">multi-member district</a> reform is politically achievable.
 	</p>
 	<p>
 		<strong>Your job is simple:</strong> tick all the candidates you'd be happy to have represent you.

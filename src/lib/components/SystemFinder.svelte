@@ -29,7 +29,7 @@
 		{
 			methodId: 'stv',
 			description:
-				'Voters rank candidates in multi-member districts. Seats are filled using a quota and transfer system.',
+				'Voters rank candidates in <a href="/visualiser">multi-member districts</a>. Seats are filled using a quota and transfer system.',
 			singleMemberOnly: false,
 			needsSecondBallot: false,
 			twoClassMPs: false,
@@ -83,7 +83,7 @@
 		{
 			methodId: 'proportional-approval',
 			description:
-				'Vote for as many candidates as you like in multi-member districts. A reweighting method ensures proportional results.',
+				'Vote for as many candidates as you like in <a href="/visualiser">multi-member districts</a>. A reweighting method ensures proportional results.',
 			singleMemberOnly: false,
 			needsSecondBallot: false,
 			twoClassMPs: false,
@@ -376,7 +376,8 @@
 								{name}
 							{/if}
 						</h3>
-						<p class="description">{system.description}</p>
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -- descriptions are author-controlled and only contain anchor tags -->
+					<p class="description">{@html system.description}</p>
 						{#if matchNotes(system).length > 0}
 							<ul class="match-notes">
 								{#each matchNotes(system) as note}

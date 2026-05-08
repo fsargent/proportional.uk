@@ -18,7 +18,7 @@
 		{
 			title: 'Westminster would need new boundaries',
 			body:
-				"Every existing UK constituency is single-member. Adopting STV means stitching them into multi-member districts and pushing the result through a Boundary Commission process — a years-long, politically charged exercise that has historically derailed even modest reforms. AMS-style proposals avoid most of this work."
+				'Every existing UK constituency is single-member. Adopting STV means stitching them into <a href="/visualiser">multi-member districts</a> and pushing the result through a Boundary Commission process — a years-long, politically charged exercise that has historically derailed even modest reforms. AMS-style proposals avoid most of this work.'
 		},
 		{
 			title: 'Strategic effects do not disappear',
@@ -102,7 +102,8 @@
 			{#each tradeoffs as t (t.title)}
 				<article class="tradeoff-card">
 					<h4>{t.title}</h4>
-					<p>{t.body}</p>
+					<!-- eslint-disable-next-line svelte/no-at-html-tags -- bodies are author-controlled and only contain anchor tags -->
+					<p>{@html t.body}</p>
 				</article>
 			{/each}
 		</div>

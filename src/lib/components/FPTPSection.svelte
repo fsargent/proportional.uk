@@ -121,7 +121,7 @@
 			<p>
 				Each area has one identifiable MP. Voters know who represents them and can hold that
 				person directly accountable. This connection is weaker or absent in systems with
-				larger multi-member districts.
+				larger <a href="/visualiser">multi-member districts</a>.
 			</p>
 		</article>
 		<article class="argument-card">
@@ -255,7 +255,7 @@
 		<article class="comparison-card">
 			<h3>vs the Single Transferable Vote</h3>
 			<p>
-				The Single Transferable Vote uses larger multi-member districts where voters rank
+				The Single Transferable Vote uses larger <a href="/visualiser">multi-member districts</a> where voters rank
 				candidates. It produces proportional results while preserving a direct link between
 				voters and individual candidates — but it is more complex to count.
 			</p>

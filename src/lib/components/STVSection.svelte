@@ -21,7 +21,7 @@
 		</article>
 		<article class="summary-card">
 			<h3>Districts</h3>
-			<p>Needs multi-member districts, which means district magnitude and geography matter a lot.</p>
+			<p>Needs <a href="/visualiser">multi-member districts</a>, which means district magnitude and geography matter a lot.</p>
 		</article>
 		<article class="summary-card">
 			<h3>Allocation</h3>
