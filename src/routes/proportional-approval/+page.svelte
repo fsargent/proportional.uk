@@ -12,35 +12,37 @@
 </svelte:head>
 
 <section class="method-page">
-	<header class="page-header">
-		<h1>Proportional Approval: the cleanest fully proportional version</h1>
-		<p class="lede">
-			If you want to carry the simple approval ballot all the way through to a proportional Parliament,
-			this is the destination. The price is not ballot complexity. It is the move to multi-member
-			districts and the design choices that come with them.
-		</p>
-		<JustChanged destination="proportional-approval" />
-		<ComposeBadgeRow method="proportional-approval" />
-	</header>
-	<div class="page-grid">
-		<aside class="rail">
-			<MethodNav current="proportional-approval" />
-		</aside>
-		<div class="page-body">
-			<ProportionalApprovalSection />
-			<SiblingStrip method="proportional-approval" />
-		</div>
+	<aside class="rail">
+		<MethodNav current="proportional-approval" />
+	</aside>
+	<div class="page-body">
+		<header class="page-header">
+			<h1>Proportional Approval: the cleanest fully proportional version</h1>
+			<p class="lede">
+				If you want to carry the simple approval ballot all the way through to a proportional Parliament,
+				this is the destination. The price is not ballot complexity. It is the move to multi-member
+				districts and the design choices that come with them.
+			</p>
+			<JustChanged destination="proportional-approval" />
+			<ComposeBadgeRow method="proportional-approval" />
+		</header>
+		<ProportionalApprovalSection />
+		<SiblingStrip method="proportional-approval" />
 	</div>
 </section>
 
 <style>
 	.method-page { display: grid; gap: 2rem; }
+	.page-body { display: grid; gap: 2rem; min-width: 0; }
 	.page-header { display: grid; gap: 1rem; }
 	.lede { max-width: 52rem; font-size: 1.1rem; line-height: 1.7; margin: 0; }
-	.page-grid { display: grid; gap: 1.5rem; }
-	.page-body { display: grid; gap: 2rem; min-width: 0; }
-	@media (min-width: 1024px) {
-		.page-grid { grid-template-columns: 16rem minmax(0, 1fr); align-items: start; }
+
+	@media (min-width: 1500px) {
+		.method-page {
+			grid-template-columns: 16rem minmax(0, 1fr);
+			column-gap: 2rem;
+			align-items: start;
+		}
 		.rail { position: sticky; top: 1rem; }
 	}
 </style>

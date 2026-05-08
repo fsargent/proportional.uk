@@ -15,36 +15,38 @@
 </svelte:head>
 
 <section class="method-page">
-	<header class="page-header">
-		<h1>Party-List Proportional Representation</h1>
-		<p class="lede">
-			Party-list systems are the most common form of proportional representation worldwide. Voters
-			choose a party, seats are divided in proportion to each party's vote share, and the details —
-			open or closed lists, thresholds, allocation formulas — determine how much power voters have
-			over which candidates actually take those seats.
-		</p>
-		<JustChanged destination="party-list" />
-		<ComposeBadgeRow method="party-list" />
-	</header>
-	<div class="page-grid">
-		<aside class="rail">
-			<MethodNav current="party-list" />
-		</aside>
-		<div class="page-body">
-			<PartyListSection />
-			<SiblingStrip method="party-list" />
-		</div>
+	<aside class="rail">
+		<MethodNav current="party-list" />
+	</aside>
+	<div class="page-body">
+		<header class="page-header">
+			<h1>Party-List Proportional Representation</h1>
+			<p class="lede">
+				Party-list systems are the most common form of proportional representation worldwide. Voters
+				choose a party, seats are divided in proportion to each party's vote share, and the details —
+				open or closed lists, thresholds, allocation formulas — determine how much power voters have
+				over which candidates actually take those seats.
+			</p>
+			<JustChanged destination="party-list" />
+			<ComposeBadgeRow method="party-list" />
+		</header>
+		<PartyListSection />
+		<SiblingStrip method="party-list" />
 	</div>
 </section>
 
 <style>
 	.method-page { display: grid; gap: 2rem; }
+	.page-body { display: grid; gap: 2rem; min-width: 0; }
 	.page-header { display: grid; gap: 1rem; }
 	.lede { font-size: 1.1rem; line-height: 1.7; margin: 0; }
-	.page-grid { display: grid; gap: 1.5rem; }
-	.page-body { display: grid; gap: 2rem; min-width: 0; }
-	@media (min-width: 1024px) {
-		.page-grid { grid-template-columns: 16rem minmax(0, 1fr); align-items: start; }
+
+	@media (min-width: 1500px) {
+		.method-page {
+			grid-template-columns: 16rem minmax(0, 1fr);
+			column-gap: 2rem;
+			align-items: start;
+		}
 		.rail { position: sticky; top: 1rem; }
 	}
 </style>

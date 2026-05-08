@@ -1,8 +1,14 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/state';
+	import { METHODS } from '$lib/data/methods';
 	let { children } = $props();
 	const isGlitchPage = $derived(page.url.pathname.startsWith('/glitch-poc'));
+	// Method pages get a wider container on >=1500px viewports so the left rail
+	// can sit beside (not inside) the article reading column. Normalise trailing
+	// slashes since SvelteKit may serve either form.
+	const methodRoutes = new Set(Object.values(METHODS).map((m) => m.route));
+	const isMethodPage = $derived(methodRoutes.has(page.url.pathname.replace(/\/$/, '')));
 </script>
 
 <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
@@ -47,7 +53,11 @@
 {/if}
 
 <main id="main-content" class:govuk-main-wrapper={!isGlitchPage} class="main-shell">
-	<div class:govuk-width-container={!isGlitchPage} class:glitch-width-container={isGlitchPage}>
+	<div
+		class:govuk-width-container={!isGlitchPage && !isMethodPage}
+		class:method-width-container={isMethodPage}
+		class:glitch-width-container={isGlitchPage}
+	>
 		<div class="content">
 			{@render children()}
 		</div>
@@ -164,6 +174,20 @@
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 0 1rem;
+	}
+
+	/* Method pages: same 1200px reading width below 1500px viewport, expands to
+	   1500px above so the left rail can sit outside the article column. */
+	.method-width-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 1rem;
+	}
+
+	@media (min-width: 1500px) {
+		.method-width-container {
+			max-width: 1500px;
+		}
 	}
 
 	.glitch-width-container {
