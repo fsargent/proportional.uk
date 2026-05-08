@@ -54,46 +54,46 @@
 				<tr>
 					<th>Party</th>
 					<th>Vote share</th>
-					<th>Seats</th>
 					<th>Seat share</th>
+					<th>Seats</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>Labour</td>
 					<td>33.7%</td>
-					<td>411</td>
 					<td class="highlight">63.2%</td>
+					<td>411</td>
 				</tr>
 				<tr>
 					<td>Conservative</td>
 					<td>23.7%</td>
-					<td>121</td>
 					<td>18.6%</td>
+					<td>121</td>
 				</tr>
 				<tr>
 					<td>Reform UK</td>
 					<td>14.3%</td>
-					<td>5</td>
 					<td class="highlight">0.8%</td>
+					<td>5</td>
 				</tr>
 				<tr>
 					<td>Liberal Democrats</td>
 					<td>12.2%</td>
-					<td>72</td>
 					<td>11.1%</td>
+					<td>72</td>
 				</tr>
 				<tr>
 					<td>Green</td>
 					<td>6.8%</td>
-					<td>4</td>
 					<td class="highlight">0.6%</td>
+					<td>4</td>
 				</tr>
 				<tr>
 					<td>SNP</td>
 					<td>2.5%</td>
-					<td>9</td>
 					<td>1.4%</td>
+					<td>9</td>
 				</tr>
 			</tbody>
 		</table>
@@ -418,6 +418,6 @@
 
 	.stats-table .highlight {
 		font-weight: 700;
-		color: var(--accent-text);
+		color: var(--danger-color);
 	}
 </style>
