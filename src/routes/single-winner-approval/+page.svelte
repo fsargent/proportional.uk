@@ -31,17 +31,19 @@
 </section>
 
 <style>
-	.method-page { display: grid; gap: 2rem; }
+	.method-page { display: grid; gap: 2rem; max-width: 54rem; margin: 0 auto; }
 	.page-body { display: grid; gap: 2rem; min-width: 0; }
 	.page-header { display: grid; gap: 1rem; }
-	.lede { max-width: 52rem; font-size: 1.1rem; line-height: 1.7; margin: 0; }
+	.lede { font-size: 1.1rem; line-height: 1.7; margin: 0; }
 
-	@media (min-width: 1500px) {
+	@media (min-width: 1280px) {
 		.method-page {
-			grid-template-columns: 16rem minmax(0, 1fr);
+			max-width: none;
+			grid-template-columns: minmax(16rem, 1fr) minmax(0, 54rem) minmax(0, 1fr);
 			column-gap: 2rem;
 			align-items: start;
 		}
-		.rail { position: sticky; top: 1rem; }
+		.rail { grid-column: 1; justify-self: end; width: 16rem; position: sticky; top: 1rem; }
+		.page-body { grid-column: 2; }
 	}
 </style>

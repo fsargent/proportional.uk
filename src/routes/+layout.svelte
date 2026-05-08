@@ -176,18 +176,19 @@
 		padding: 0 1rem;
 	}
 
-	/* Method pages: same 1200px reading width below 1500px viewport, expands to
-	   1500px above so the left rail can sit outside the article column. */
+	/* Method pages span the full viewport (minus padding) so the page-level
+	   3-column grid can put the rail in the actual viewport margin, not inside
+	   the article reading column. */
 	.method-width-container {
-		max-width: 1200px;
-		margin: 0 auto;
+		max-width: none;
+		margin: 0;
 		padding: 0 1rem;
 	}
 
-	@media (min-width: 1500px) {
-		.method-width-container {
-			max-width: 1500px;
-		}
+	/* Override the 54rem cap that .content normally applies — the method-page
+	   handles its own width via a centred grid. */
+	.method-width-container :global(.content) {
+		max-width: none;
 	}
 
 	.glitch-width-container {
