@@ -366,8 +366,8 @@
 			</p>
 			<ul>
 				<li>
-					<strong>STV:</strong> You rank candidates. Votes transfer through quotas and eliminations,
-					which can be slower to count and harder to explain.
+					<strong><a href="/stv">STV</a>:</strong> You rank candidates. Votes transfer through
+					quotas and eliminations, which can be slower to count and harder to explain.
 				</li>
 				<li>
 					<strong>Proportional Approval:</strong> You approve candidates. Votes are reweighted after
@@ -375,9 +375,9 @@
 				</li>
 			</ul>
 			<p>
-				So the critique here is trade-off based, not sectarian: STV has a strong pedigree, but
-				Proportional Approval keeps the same proportional ambition with a more legible voter
-				experience.
+				So the critique here is trade-off based, not sectarian: <a href="/stv">STV</a> has a strong
+				pedigree, but Proportional Approval keeps the same proportional ambition with a more
+				legible voter experience.
 			</p>
 		</FAQItem>
 
@@ -385,7 +385,7 @@
 			<p>
 				Variations of proportional approval voting are used in some professional associations and
 				organizational elections. Sweden uses a form of approval voting for some elections. The
-				system is gaining academic attention as a simpler alternative to STV.
+				system is gaining academic attention as a simpler alternative to <a href="/stv">STV</a>.
 			</p>
 		</FAQItem>
 	</div>
