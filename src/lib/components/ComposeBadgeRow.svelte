@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { METHODS, type MethodId } from '$lib/data/methods';
 	import {
 		AXIS_LABEL,
@@ -6,6 +7,7 @@
 		SWAP_AXES,
 		swaps,
 		type AxisSwap,
+		type SwapAxis,
 		type SwapOption
 	} from '$lib/data/atom-graph';
 
@@ -16,6 +18,14 @@
 
 	const source = $derived(METHODS[method]);
 	const data = $derived(swaps(method));
+
+	// Highlight the axis the user just swapped, if they arrived via ?swap=axis.
+	const swapParam = $derived(page.url.searchParams.get('swap'));
+	const highlightedAxis = $derived<SwapAxis | null>(
+		swapParam && (SWAP_AXES as readonly string[]).includes(swapParam)
+			? (swapParam as SwapAxis)
+			: null
+	);
 
 	function swapHref(opt: SwapOption): string {
 		if (!opt.method) return '';
@@ -35,7 +45,7 @@
 		{#each SWAP_AXES as axis (axis)}
 			{@const swap: AxisSwap = data[axis]}
 			<li class="badge-cell">
-				<details class="badge">
+				<details class="badge" class:badge-highlighted={highlightedAxis === axis}>
 					<summary>
 						<span class="axis-label">{AXIS_LABEL[axis]}</span>
 						<span class="axis-value">{ATOM_VALUE_LABEL[swap.currentValue]}</span>
@@ -124,6 +134,12 @@
 		border-radius: var(--radius-sm);
 		background: var(--surface-emphasis);
 		overflow: hidden;
+		transition: border-color 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.badge-highlighted {
+		border-color: var(--accent-border-strong);
+		box-shadow: 0 0 0 2px var(--focus-ring-soft);
 	}
 
 	.badge summary {

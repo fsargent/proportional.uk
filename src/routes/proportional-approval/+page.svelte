@@ -3,6 +3,7 @@
 	import MethodNav from '$lib/components/MethodNav.svelte';
 	import ComposeBadgeRow from '$lib/components/ComposeBadgeRow.svelte';
 	import SiblingStrip from '$lib/components/SiblingStrip.svelte';
+	import JustChanged from '$lib/components/JustChanged.svelte';
 </script>
 
 <svelte:head>
@@ -11,19 +12,35 @@
 </svelte:head>
 
 <section class="method-page">
-	<h1>Proportional Approval: the cleanest fully proportional version</h1>
-	<p class="lede">
-		If you want to carry the simple approval ballot all the way through to a proportional Parliament,
-		this is the destination. The price is not ballot complexity. It is the move to multi-member
-		districts and the design choices that come with them.
-	</p>
-	<ComposeBadgeRow method="proportional-approval" />
-	<MethodNav current="proportional-approval" />
-	<ProportionalApprovalSection />
-	<SiblingStrip method="proportional-approval" />
+	<header class="page-header">
+		<h1>Proportional Approval: the cleanest fully proportional version</h1>
+		<p class="lede">
+			If you want to carry the simple approval ballot all the way through to a proportional Parliament,
+			this is the destination. The price is not ballot complexity. It is the move to multi-member
+			districts and the design choices that come with them.
+		</p>
+		<JustChanged destination="proportional-approval" />
+		<ComposeBadgeRow method="proportional-approval" />
+	</header>
+	<div class="page-grid">
+		<aside class="rail">
+			<MethodNav current="proportional-approval" />
+		</aside>
+		<div class="page-body">
+			<ProportionalApprovalSection />
+			<SiblingStrip method="proportional-approval" />
+		</div>
+	</div>
 </section>
 
 <style>
-	.method-page { display:grid; gap:2rem; }
+	.method-page { display: grid; gap: 2rem; }
+	.page-header { display: grid; gap: 1rem; }
 	.lede { max-width: 52rem; font-size: 1.1rem; line-height: 1.7; margin: 0; }
+	.page-grid { display: grid; gap: 1.5rem; }
+	.page-body { display: grid; gap: 2rem; min-width: 0; }
+	@media (min-width: 1024px) {
+		.page-grid { grid-template-columns: 16rem minmax(0, 1fr); align-items: start; }
+		.rail { position: sticky; top: 1rem; }
+	}
 </style>
