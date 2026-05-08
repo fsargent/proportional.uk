@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { METHODS, type MethodId } from '$lib/data/methods';
+
 	type BallotType = 'ranking' | 'approval' | 'party-list' | 'one-vote';
 	type ValueKey =
 		| 'vote-helps-win'
@@ -9,7 +11,11 @@
 		| 'simple-ballot';
 
 	type System = {
-		name: string;
+		/** When set, name and href derive from METHODS. */
+		methodId?: MethodId;
+		/** Fallback name when no methodId (e.g. the vanilla AMS reference row). */
+		name?: string;
+		/** Fallback href when no methodId. */
 		href?: string;
 		description: string;
 		singleMemberOnly: boolean;
@@ -21,8 +27,7 @@
 
 	const systems: System[] = [
 		{
-			name: 'Single Transferable Vote',
-			href: '/stv',
+			methodId: 'stv',
 			description:
 				'Voters rank candidates in multi-member districts. Seats are filled using a quota and transfer system.',
 			singleMemberOnly: false,
@@ -32,6 +37,9 @@
 			needsParliamentResize: false
 		},
 		{
+			// Reference row — vanilla AMS / MMP isn't a separate METHODS entry.
+			// The href steers readers to the AMS+ page since that's the closest
+			// dedicated explainer on this site.
 			name: 'Additional Member System / Mixed-Member Proportional',
 			href: '/ams-plus',
 			description:
@@ -43,8 +51,7 @@
 			needsParliamentResize: 'helps'
 		},
 		{
-			name: 'AMS+ (approval-based mixed-member system)',
-			href: '/ams-plus',
+			methodId: 'ams-plus',
 			description:
 				'Like the Additional Member System but with approval voting for your local Member of Parliament. Keeps the constituency link and adds proportionality.',
 			singleMemberOnly: true,
@@ -54,8 +61,7 @@
 			needsParliamentResize: 'helps'
 		},
 		{
-			name: 'List Proportional Representation',
-			href: '/party-list',
+			methodId: 'party-list',
 			description:
 				"Vote for a party and optionally for specific candidates on that party's list. Seats allocated proportionally in larger regional districts.",
 			singleMemberOnly: false,
@@ -65,8 +71,7 @@
 			needsParliamentResize: false
 		},
 		{
-			name: 'Single-Winner Approval',
-			href: '/single-winner-approval',
+			methodId: 'single-winner-approval',
 			description:
 				'Keep one Member of Parliament per constituency, but vote for as many candidates as you like. The most approved candidate wins.',
 			singleMemberOnly: true,
@@ -76,8 +81,7 @@
 			needsParliamentResize: false
 		},
 		{
-			name: 'Proportional Approval',
-			href: '/proportional-approval',
+			methodId: 'proportional-approval',
 			description:
 				'Vote for as many candidates as you like in multi-member districts. A reweighting method ensures proportional results.',
 			singleMemberOnly: false,
@@ -87,6 +91,13 @@
 			needsParliamentResize: false
 		}
 	];
+
+	function systemName(s: System): string {
+		return s.methodId ? METHODS[s.methodId].name : (s.name ?? '');
+	}
+	function systemHref(s: System): string | undefined {
+		return s.methodId ? METHODS[s.methodId].route : s.href;
+	}
 
 	const valueOptions: { key: ValueKey; label: string }[] = [
 		{ key: 'vote-helps-win', label: "My vote should help decide who wins, even if my first choice can't" },
@@ -135,13 +146,14 @@
 					score += 1;
 			}
 			if (v === 'proportional') {
-				if (system.name !== 'Single-Winner Approval') score += 2;
+				if (system.methodId !== 'single-winner-approval') score += 2;
 			}
 			if (v === 'broad-local-support') {
 				if (system.ballotType === 'approval' || system.singleMemberOnly) score += 1;
 			}
 			if (v === 'decisive-government') {
-				if (system.name === 'Single-Winner Approval' || system.ballotType === 'one-vote') score += 2;
+				if (system.methodId === 'single-winner-approval' || system.ballotType === 'one-vote')
+					score += 2;
 			}
 			if (v === 'candidate-choice') {
 				if (system.ballotType === 'approval' || system.ballotType === 'ranking') score += 2;
@@ -354,12 +366,14 @@
 		{:else}
 			<div class="results-grid">
 				{#each results as system}
+					{@const name = systemName(system)}
+					{@const href = systemHref(system)}
 					<div class="result-card">
 						<h3>
-							{#if system.href}
-								<a href={system.href}>{system.name}</a>
+							{#if href}
+								<a {href}>{name}</a>
 							{:else}
-								{system.name}
+								{name}
 							{/if}
 						</h3>
 						<p class="description">{system.description}</p>
@@ -370,8 +384,8 @@
 								{/each}
 							</ul>
 						{/if}
-						{#if system.href}
-							<a href={system.href} class="learn-more">Learn more →</a>
+						{#if href}
+							<a {href} class="learn-more">Learn more →</a>
 						{/if}
 					</div>
 				{/each}

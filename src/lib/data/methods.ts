@@ -47,6 +47,9 @@ export interface Method {
 	tags: string[];
 	votingMachineCompatibility: VotingMachineCompatibility;
 	proportionality: Proportionality;
+	/** Optional Mermaid `flowchart` source for the counting process. Rendered in
+	 * the MethodSection "worked-example" slot when present. */
+	flowchart?: string;
 }
 
 export const METHODS: Readonly<Record<MethodId, Method>> = {
@@ -180,7 +183,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 	},
 	'party-list': {
 		id: 'party-list',
-		name: 'List PR',
+		name: 'List Proportional Representation',
 		character: 'the party-line',
 		family: 'single-mark',
 		atoms: {
