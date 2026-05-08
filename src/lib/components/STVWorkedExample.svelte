@@ -647,15 +647,15 @@
 		stroke: var(--header-bg-strong);
 	}
 	.node-question {
-		fill: #fffaf0;
+		fill: var(--warning-tint);
 		stroke: var(--warning-border);
 	}
 	.node-loop {
-		fill: #eef4fa;
+		fill: var(--surface-muted);
 		stroke: var(--accent-border-strong);
 	}
 	.node-end {
-		fill: #f0f7f1;
+		fill: var(--highlight-bg);
 		stroke: var(--success-border-strong);
 	}
 	.node-text {
@@ -708,7 +708,6 @@
 
 	svg {
 		display: block;
-		color-scheme: light;
 	}
 
 	.round-label {

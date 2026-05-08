@@ -658,7 +658,6 @@
 		max-width: 600px;
 		height: auto;
 		margin: 0 auto;
-		color-scheme: light;
 	}
 
 	.pa-algorithm .node {
@@ -671,11 +670,11 @@
 		stroke: var(--header-bg-strong);
 	}
 	.pa-algorithm .node-loop {
-		fill: #eef4fa;
+		fill: var(--surface-muted);
 		stroke: var(--accent-border-strong);
 	}
 	.pa-algorithm .node-end {
-		fill: #f0f7f1;
+		fill: var(--highlight-bg);
 		stroke: var(--success-border-strong);
 	}
 	.pa-algorithm .node-text {
