@@ -34,6 +34,36 @@
 </script>
 
 <div class="stv-tradeoffs">
+	<aside class="av-referendum">
+		<h3>The UK has already voted on ranking — and said no</h3>
+		<p>
+			In May 2011, voters were asked whether to replace First Past the Post with the
+			<a
+				href="https://en.wikipedia.org/wiki/2011_United_Kingdom_Alternative_Vote_referendum"
+				target="_blank"
+				rel="noopener noreferrer">Alternative Vote</a
+			>
+			— a single-winner ranked ballot, the simplest version of "rank candidates" that exists. It
+			was rejected
+			<strong>67.9% to 32.1%</strong>
+			in a national referendum. Turnout was 42%.
+		</p>
+		<p>
+			This is the strongest political objection to STV in the UK, and it is not abstract. The
+			country has been asked, recently, whether ranking candidates is acceptable — and the
+			answer was a landslide no, with "too complicated" the dominant message of the Yes side's
+			defeat. Any STV campaign would have to win that argument back, against opponents who can
+			simply point to 2011.
+		</p>
+		<p>
+			This matters most when a simpler proportional alternative exists. <a href="/proportional-approval">Proportional
+			Approval</a> uses a tick-box ballot that asks no more of voters than today's, and reaches
+			the same proportional Parliament. The case for STV has to be made not just against the
+			status quo, but against an approval-based path that has none of ranking's political
+			baggage.
+		</p>
+	</aside>
+
 	<section class="lead">
 		<h3>Ranked complexity is the real cost</h3>
 		<p>
@@ -83,6 +113,34 @@
 	.stv-tradeoffs {
 		display: grid;
 		gap: 2rem;
+	}
+
+	.av-referendum {
+		display: grid;
+		gap: 0.75rem;
+		padding: 1.25rem 1.5rem;
+		border: 1px solid var(--danger-border);
+		border-left-width: 4px;
+		border-left-color: var(--danger-color);
+		border-radius: var(--radius-md);
+		background: var(--surface-emphasis);
+	}
+
+	.av-referendum h3 {
+		margin: 0;
+		font-size: 1.2rem;
+		color: var(--text-dark);
+	}
+
+	.av-referendum p {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: var(--text-color);
+	}
+
+	.av-referendum a {
+		color: var(--link-color);
 	}
 
 	.lead {
