@@ -21,7 +21,7 @@
 
 	const systems: System[] = [
 		{
-			name: 'STV',
+			name: 'Single Transferable Vote',
 			href: '/stv',
 			description:
 				'Voters rank candidates in multi-member districts. Seats are filled using a quota and transfer system.',
@@ -32,10 +32,10 @@
 			needsParliamentResize: false
 		},
 		{
-			name: 'AMS / MMP',
+			name: 'Additional Member System / Mixed-Member Proportional',
 			href: '/ams-plus',
 			description:
-				'Keep your local MP, add a second vote for a party. Top-up seats make the overall result proportional.',
+				'Keep your local Member of Parliament, add a second vote for a party. Top-up seats make the overall result proportional.',
 			singleMemberOnly: true,
 			needsSecondBallot: true,
 			twoClassMPs: true,
@@ -43,10 +43,10 @@
 			needsParliamentResize: 'helps'
 		},
 		{
-			name: 'AMS+ (Approval-based mixed)',
+			name: 'AMS+ (approval-based mixed-member system)',
 			href: '/ams-plus',
 			description:
-				'Like AMS but with approval voting for your local MP. Keeps the constituency link and adds proportionality.',
+				'Like the Additional Member System but with approval voting for your local Member of Parliament. Keeps the constituency link and adds proportionality.',
 			singleMemberOnly: true,
 			needsSecondBallot: true,
 			twoClassMPs: true,
@@ -54,7 +54,7 @@
 			needsParliamentResize: 'helps'
 		},
 		{
-			name: 'List PR',
+			name: 'List Proportional Representation',
 			href: '/party-list',
 			description:
 				"Vote for a party and optionally for specific candidates on that party's list. Seats allocated proportionally in larger regional districts.",
@@ -68,7 +68,7 @@
 			name: 'Single-Winner Approval',
 			href: '/single-winner-approval',
 			description:
-				'Keep one MP per constituency, but vote for as many candidates as you like. The most approved candidate wins.',
+				'Keep one Member of Parliament per constituency, but vote for as many candidates as you like. The most approved candidate wins.',
 			singleMemberOnly: true,
 			needsSecondBallot: false,
 			twoClassMPs: false,
@@ -76,7 +76,7 @@
 			needsParliamentResize: false
 		},
 		{
-			name: 'Proportional Approval (SPAV)',
+			name: 'Proportional Approval',
 			href: '/proportional-approval',
 			description:
 				'Vote for as many candidates as you like in multi-member districts. A reweighting method ensures proportional results.',
@@ -193,15 +193,15 @@
 		if (q1 === 'sharing' && !system.singleMemberOnly) notes.push('✓ Uses multi-member districts');
 		if (q2 === 'two-votes' && system.needsSecondBallot) notes.push('✓ Uses a two-vote ballot');
 		if (q2 === 'one-ballot' && !system.needsSecondBallot) notes.push('✓ Single ballot');
-		if (q3 === 'same-way' && !system.twoClassMPs) notes.push('✓ All MPs elected the same way');
+		if (q3 === 'same-way' && !system.twoClassMPs) notes.push('✓ All Members of Parliament elected the same way');
 		if (q3 === 'fine' && system.twoClassMPs)
-			notes.push('✓ Mixes constituency and list MPs for fairness');
+			notes.push('✓ Mixes constituency and list Members of Parliament for fairness');
 		if (q4.length > 0 && q4.some((option) => matchesBallotPreference(system, option))) {
 			notes.push('✓ Matches your ballot preferences');
 		}
-		if (q5 === 'keep-650' && system.needsParliamentResize === false) notes.push('✓ Works with 650 MPs');
+		if (q5 === 'keep-650' && system.needsParliamentResize === false) notes.push('✓ Works with 650 Members of Parliament');
 		if (q5 === 'keep-650' && system.needsParliamentResize !== false)
-			notes.push('⚠ Works better with a different number of MPs');
+			notes.push('⚠ Works better with a different number of Members of Parliament');
 		if (values.length) notes.push(`✓ Matches ${valueScore(system)} of your selected priority points`);
 		return notes;
 	}
