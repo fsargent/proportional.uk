@@ -78,6 +78,16 @@
 			twoClassMPs: false,
 			ballotType: 'approval',
 			needsParliamentResize: false
+		},
+		{
+			methodId: 'fptp',
+			description:
+				'Mark one candidate. Whoever gets the most votes in each constituency wins the seat. The current Westminster system, listed here for comparison.',
+			singleMemberOnly: true,
+			needsSecondBallot: false,
+			twoClassMPs: false,
+			ballotType: 'one-vote',
+			needsParliamentResize: false
 		}
 	];
 
@@ -135,10 +145,13 @@
 					score += 1;
 			}
 			if (v === 'proportional') {
-				if (system.methodId !== 'single-winner-approval') score += 2;
+				if (system.methodId !== 'single-winner-approval' && system.methodId !== 'fptp') score += 2;
 			}
 			if (v === 'broad-local-support') {
-				if (system.ballotType === 'approval' || system.singleMemberOnly) score += 1;
+				// Approval ballots elect the broadly-acceptable candidate; FPTP's
+				// plurality winners can have narrow support, so don't bonus by
+				// singleMemberOnly alone.
+				if (system.ballotType === 'approval') score += 1;
 			}
 			if (v === 'decisive-government') {
 				if (system.methodId === 'single-winner-approval' || system.ballotType === 'one-vote')
