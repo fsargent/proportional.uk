@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ProportionalApprovalSection from '$lib/components/ProportionalApprovalSection.svelte';
+	import MethodNav from '$lib/components/MethodNav.svelte';
 </script>
 
 <svelte:head>
@@ -14,18 +15,11 @@
 		this is the destination. The price is not ballot complexity. It is the move to multi-member
 		districts and the design choices that come with them.
 	</p>
-	<nav class="method-links" aria-label="Method links">
-		<a href="/">← Back to overview</a>
-		<a href="/stv">Compare with STV</a>
-		<a href="/visualiser">Open district visualiser →</a>
-	</nav>
+	<MethodNav current="proportional-approval" />
 	<ProportionalApprovalSection />
 </section>
 
 <style>
 	.method-page { display:grid; gap:2rem; }
 	.lede { max-width: 52rem; font-size: 1.1rem; line-height: 1.7; margin: 0; }
-	.method-links { display:flex; flex-wrap:wrap; gap:1rem; }
-	.method-links a { color: var(--link-color); text-decoration:none; font-weight:600; }
-	.method-links a:hover { text-decoration:underline; }
 </style>

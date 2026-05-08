@@ -1,8 +1,8 @@
 <script lang="ts">
 	import MethodSection from './MethodSection.svelte';
 	import STVBallotDemo from './STVBallotDemo.svelte';
-	import RankingProblems from './RankingProblems.svelte';
-	import MMDVisualiserSection from './MMDVisualiserSection.svelte';
+	import STVWorkedExample from './STVWorkedExample.svelte';
+	import STVTradeoffs from './STVTradeoffs.svelte';
 </script>
 
 <MethodSection slot="mechanics">
@@ -10,12 +10,7 @@
 </MethodSection>
 
 <MethodSection slot="worked-example">
-	<MMDVisualiserSection
-		title="Why multi-member districts matter for STV"
-		introText="STV only becomes proportional because several seats are filled in the same contest. That makes district magnitude one of the most important design choices in the whole system."
-		bodyText="Use the live visualiser below to see what different multi-member district sizes look like in a Westminster setting, and how that changes the balance between local link and meaningful proportionality."
-		initialMagnitude={5}
-	/>
+	<STVWorkedExample />
 </MethodSection>
 
 <MethodSection slot="strengths" customTitle="Where STV sits in the design space">
@@ -40,7 +35,7 @@
 </MethodSection>
 
 <MethodSection slot="tradeoffs">
-	<RankingProblems showMMP={false} />
+	<STVTradeoffs />
 </MethodSection>
 
 <!-- spine-slot:where-used absent: needs research -->

@@ -1,34 +1,6 @@
 <script lang="ts">
-	import StepCard from './StepCard.svelte';
 	import FAQItem from './FAQItem.svelte';
 	import MethodSection from './MethodSection.svelte';
-
-	const steps = [
-		{
-			number: 1,
-			title: 'Vote for a Party',
-			description:
-				'Each voter picks a party. In open-list systems, voters can also mark preferred candidates within that party.'
-		},
-		{
-			number: 2,
-			title: 'Count the Votes',
-			description:
-				'Total votes for each party are tallied nationally or regionally, depending on the country.'
-		},
-		{
-			number: 3,
-			title: 'Allocate Seats',
-			description:
-				'A mathematical formula (such as D\'Hondt or Sainte-Laguë) converts each party\'s vote share into a number of seats.'
-		},
-		{
-			number: 4,
-			title: 'Fill the Seats',
-			description:
-				'Candidates take their seats in the order determined by the list — either the party\'s ranking (closed) or the voters\' preferences (open).'
-		}
-	];
 
 	type ListType = {
 		name: string;
@@ -135,10 +107,77 @@
 		questions: how much say voters get over which candidates fill those seats, what minimum vote
 		share a party needs to qualify, and which formula is used to convert votes into seat numbers.
 	</p>
-	<div class="process-steps">
-		{#each steps as step (step.number)}
-			<StepCard number={step.number} title={step.title} description={step.description} />
-		{/each}
+
+	<p class="ballot-intro">
+		The ballot itself looks different depending on which kind of list system is in use. Two
+		typical examples — same election, two ballot styles — make the difference concrete:
+	</p>
+
+	<div class="ballot-pair">
+		<article class="ballot-mock">
+			<header class="ballot-header">
+				<h3>Closed-list ballot</h3>
+				<p class="ballot-meta">e.g. Israel, Spain, South Africa</p>
+			</header>
+			<div class="ballot-body">
+				<p class="ballot-instruction">Mark <strong>one party</strong></p>
+				<ul class="ballot-options">
+					<li><span class="check check-square"></span><span>Labour</span></li>
+					<li><span class="check check-square checked"></span><span>Liberal Democrats</span></li>
+					<li><span class="check check-square"></span><span>Conservative</span></li>
+					<li><span class="check check-square"></span><span>Green</span></li>
+					<li><span class="check check-square"></span><span>Reform UK</span></li>
+				</ul>
+			</div>
+			<footer class="ballot-footnote">
+				Your vote sets each party's share of the seats. Whoever the party put at the top of its
+				list takes the seats it wins, in that order.
+			</footer>
+		</article>
+
+		<article class="ballot-mock">
+			<header class="ballot-header">
+				<h3>Open-list ballot</h3>
+				<p class="ballot-meta">e.g. Finland, Brazil, Poland</p>
+			</header>
+			<div class="ballot-body">
+				<p class="ballot-instruction">
+					Mark <strong>one candidate</strong>. Your vote also counts for that candidate's party.
+				</p>
+				<div class="party-block">
+					<h4>Labour</h4>
+					<ul class="ballot-options">
+						<li><span class="check check-circle"></span><span>Sarah Johnson</span></li>
+						<li><span class="check check-circle"></span><span>James Mitchell</span></li>
+						<li><span class="check check-circle"></span><span>Aisha Patel</span></li>
+					</ul>
+				</div>
+				<div class="party-block">
+					<h4>Liberal Democrats</h4>
+					<ul class="ballot-options">
+						<li><span class="check check-circle"></span><span>Tom Wright</span></li>
+						<li><span class="check check-circle checked"></span><span>Priya Sharma</span></li>
+					</ul>
+				</div>
+				<div class="party-block">
+					<h4>Conservative</h4>
+					<ul class="ballot-options">
+						<li><span class="check check-circle"></span><span>Emma Williams</span></li>
+						<li><span class="check check-circle"></span><span>Robert Davies</span></li>
+					</ul>
+				</div>
+				<div class="party-block">
+					<h4>Green</h4>
+					<ul class="ballot-options">
+						<li><span class="check check-circle"></span><span>Daniel Okoro</span></li>
+					</ul>
+				</div>
+			</div>
+			<footer class="ballot-footnote">
+				Your vote counts for the party total <em>and</em> lifts that candidate up the party's list,
+				so personal popularity changes who actually wins seats.
+			</footer>
+		</article>
 	</div>
 
 	<h3>Open, closed, and flexible lists</h3>
@@ -448,8 +487,180 @@
 		line-height: 1.7;
 	}
 
-	:global(.method-section) .process-steps {
-		grid-template-columns: 1fr;
+	.ballot-intro {
+		margin: 0;
+		color: var(--text-color);
+	}
+
+	.ballot-pair {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.25rem;
+	}
+
+	.ballot-mock {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		background: #fffdf7;
+		border: 1px solid var(--border-strong);
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-soft);
+		overflow: hidden;
+		font-family: 'Times New Roman', Times, serif;
+	}
+
+	.ballot-header {
+		padding: 0.85rem 1.1rem 0.6rem;
+		border-bottom: 2px solid var(--text-dark);
+	}
+
+	.ballot-header h3 {
+		margin: 0;
+		font-family: ui-sans-serif, system-ui, sans-serif;
+		font-size: 1rem;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--text-dark);
+	}
+
+	.ballot-meta {
+		margin: 0.2rem 0 0;
+		font-family: ui-sans-serif, system-ui, sans-serif;
+		font-size: 0.78rem;
+		color: var(--text-soft);
+		font-style: italic;
+	}
+
+	.ballot-body {
+		padding: 0.9rem 1.1rem;
+		flex: 1;
+	}
+
+	.ballot-instruction {
+		margin: 0 0 0.85rem;
+		font-family: ui-sans-serif, system-ui, sans-serif;
+		font-size: 0.88rem;
+		color: var(--text-color);
+	}
+
+	.ballot-options {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.ballot-options li {
+		display: flex;
+		align-items: center;
+		gap: 0.7rem;
+		font-size: 1rem;
+		color: var(--text-dark);
+		margin: 0;
+	}
+
+	.check {
+		display: inline-block;
+		width: 1.05rem;
+		height: 1.05rem;
+		border: 1.5px solid var(--text-dark);
+		flex-shrink: 0;
+		position: relative;
+	}
+
+	.check-circle {
+		border-radius: 999px;
+	}
+
+	.check.checked::after {
+		content: '✓';
+		position: absolute;
+		inset: 0;
+		display: grid;
+		place-items: center;
+		font-family: ui-sans-serif, system-ui, sans-serif;
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: var(--text-dark);
+		line-height: 1;
+	}
+
+	.party-block {
+		margin-top: 0.85rem;
+	}
+
+	.party-block:first-child {
+		margin-top: 0;
+	}
+
+	.party-block h4 {
+		margin: 0 0 0.4rem;
+		padding-bottom: 0.25rem;
+		font-family: ui-sans-serif, system-ui, sans-serif;
+		font-size: 0.92rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: var(--text-dark);
+		border-bottom: 1px solid var(--border-color);
+	}
+
+	.party-block .ballot-options li {
+		font-size: 0.95rem;
+		padding-left: 0.4rem;
+	}
+
+	.ballot-footnote {
+		padding: 0.75rem 1.1rem 0.95rem;
+		border-top: 1px solid var(--border-color);
+		font-family: ui-sans-serif, system-ui, sans-serif;
+		font-size: 0.85rem;
+		line-height: 1.55;
+		color: var(--text-soft);
+		background: var(--surface-color);
+	}
+
+	.ballot-footnote em {
+		font-style: italic;
+		color: var(--text-color);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.ballot-mock {
+			background: #f4f1e8;
+			color: #1a1f25;
+		}
+		.ballot-mock h3,
+		.ballot-mock h4,
+		.ballot-options li {
+			color: #1a1f25;
+		}
+		.ballot-meta,
+		.ballot-instruction {
+			color: #4b5b69;
+		}
+		.check {
+			border-color: #1a1f25;
+		}
+		.check.checked::after {
+			color: #1a1f25;
+		}
+		.ballot-footnote {
+			background: #ece8de;
+			color: #4b5b69;
+			border-top-color: #c8c2b3;
+		}
+		.party-block h4 {
+			border-bottom-color: #c8c2b3;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.ballot-pair {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	.list-comparison {

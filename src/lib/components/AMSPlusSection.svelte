@@ -107,16 +107,7 @@
 		{ id: 'ams-party-reform', name: 'Reform UK' }
 	];
 
-	const partyListCandidates = [
-		{ id: 'ams-list-1', name: 'Rebecca Foster', party: 'Selected Party' },
-		{ id: 'ams-list-2', name: 'Thomas Wright', party: 'Selected Party' },
-		{ id: 'ams-list-3', name: 'Priya Sharma', party: 'Selected Party' },
-		{ id: 'ams-list-4', name: "Michael O'Brien", party: 'Selected Party' },
-		{ id: 'ams-list-5', name: 'Lisa Martinez', party: 'Selected Party' }
-	];
-
 	let candidateSelections = $state<Record<string, boolean>>({});
-	let listSelections = $state<Record<string, boolean>>({});
 </script>
 
 <MethodSection slot="mechanics">
@@ -187,34 +178,6 @@
 			</div>
 		</div>
 
-		<div class="voting-section">
-			<h4>Party List Approval</h4>
-			<p><strong>Approve candidates from your chosen party</strong></p>
-			<p class="instruction">✓ APPROVE as many candidates as you wish from this party's list</p>
-			<p class="explanation-text">
-				<strong>What this does:</strong> Optionally approve party list candidates. The list order will
-				reflect voter approval.
-			</p>
-
-			<div class="list-example">
-				{#each partyListCandidates as candidate (candidate.id)}
-					<div class="list-item">
-						<label for={candidate.id} class="list-info">
-							<input
-								type="checkbox"
-								id={candidate.id}
-								class="list-checkbox"
-								bind:checked={listSelections[candidate.id]}
-							/>
-							<div class="candidate-copy">
-								<div class="candidate-name">{candidate.name}</div>
-								<div class="candidate-party">{candidate.party}</div>
-							</div>
-						</label>
-					</div>
-				{/each}
-			</div>
-		</div>
 	</div>
 
 	<h3 class="subsection-header">How It Works</h3>
@@ -491,7 +454,7 @@
 
 	.voting-guide {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		gap: 2rem;
 		margin: 1rem 0;
 		align-items: start;
@@ -561,8 +524,7 @@
 	}
 
 	.candidate-checkbox,
-	.party-radio,
-	.list-checkbox {
+	.party-radio {
 		width: 1.25rem;
 		height: 1.25rem;
 		margin-right: 1rem;

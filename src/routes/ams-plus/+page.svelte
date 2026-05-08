@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AMSPlusSection from '$lib/components/AMSPlusSection.svelte';
+	import MethodNav from '$lib/components/MethodNav.svelte';
 </script>
 
 <svelte:head>
@@ -14,18 +15,11 @@
 		local FPTP ballot with approval voting. That makes it the clearest near-term approval-based route to
 		Westminster proportionality.
 	</p>
-	<nav class="method-links" aria-label="Method links">
-		<a href="/">← Back to overview</a>
-		<a href="/stv">Read the STV page</a>
-		<a href="/proportional-approval">See the fully proportional version →</a>
-	</nav>
+	<MethodNav current="ams-plus" />
 	<AMSPlusSection />
 </section>
 
 <style>
 	.method-page { display:grid; gap:2rem; }
 	.lede { max-width: 52rem; font-size: 1.1rem; line-height: 1.7; margin: 0; }
-	.method-links { display:flex; flex-wrap:wrap; gap:1rem; }
-	.method-links a { color: var(--link-color); text-decoration:none; font-weight:600; }
-	.method-links a:hover { text-decoration:underline; }
 </style>
