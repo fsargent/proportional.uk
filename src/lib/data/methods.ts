@@ -1,5 +1,5 @@
 export type BallotAtom = 'single-mark' | 'approval' | 'ranked' | 'score';
-export type DistrictAtom = 'single-member' | 'multi-member' | 'hybrid';
+export type DistrictAtom = 'single-member' | 'multi-member' | 'hybrid' | 'national';
 export type AllocationAtom =
 	| 'plurality'
 	| 'transfer'
@@ -188,7 +188,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 		family: 'single-mark',
 		atoms: {
 			ballot: 'single-mark',
-			district: 'multi-member',
+			district: 'national',
 			allocation: 'divisor'
 		},
 		route: '/party-list',

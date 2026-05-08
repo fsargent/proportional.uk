@@ -18,6 +18,7 @@ export const ATOM_VALUE_LABEL: Record<string, string> = {
 	'single-member': 'single-member',
 	'multi-member': 'multi-member',
 	hybrid: 'hybrid',
+	national: 'national',
 	plurality: 'plurality',
 	transfer: 'transfer',
 	reweighting: 'reweighting',
