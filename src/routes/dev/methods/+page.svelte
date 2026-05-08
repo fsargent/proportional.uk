@@ -18,7 +18,7 @@
 		<p class="counts">
 			{rows.length} methods · multi-member: {rows.filter((m) => m.atoms.district === 'multi-member')
 				.length} · approval-family: {rows.filter((m) => m.family === 'approval').length} ·
-			proportional: {rows.filter((m) => m.isProportional).length}
+			proportional: {rows.filter((m) => m.proportionality === 'full').length}
 		</p>
 	</header>
 
@@ -85,10 +85,7 @@
 				</dd>
 
 				<dt>Proportionality</dt>
-				<dd>
-					isProportional: <code>{m.isProportional}</code> · isSemiProportional:
-					<code>{m.isSemiProportional}</code>
-				</dd>
+				<dd><code>{m.proportionality}</code></dd>
 			</dl>
 		</article>
 	{/each}

@@ -9,6 +9,8 @@ export type AllocationAtom =
 
 export type MethodFamily = 'approval' | 'ranked' | 'mixed' | 'single-mark';
 
+export type Proportionality = 'none' | 'semi' | 'full';
+
 export type MethodId =
 	| 'fptp'
 	| 'stv'
@@ -44,11 +46,10 @@ export interface Method {
 	usedBy: UsedByChip[];
 	tags: string[];
 	votingMachineCompatibility: VotingMachineCompatibility;
-	isProportional: boolean;
-	isSemiProportional: boolean;
+	proportionality: Proportionality;
 }
 
-export const METHODS: Record<MethodId, Method> = {
+export const METHODS: Readonly<Record<MethodId, Method>> = {
 	fptp: {
 		id: 'fptp',
 		name: 'First Past the Post',
@@ -75,8 +76,7 @@ export const METHODS: Record<MethodId, Method> = {
 			existingMachines: true,
 			note: 'Already the UK default; no equipment change required.'
 		},
-		isProportional: false,
-		isSemiProportional: false
+		proportionality: 'none'
 	},
 	stv: {
 		id: 'stv',
@@ -104,8 +104,7 @@ export const METHODS: Record<MethodId, Method> = {
 			existingMachines: false,
 			note: 'Needs ranked-ballot capable equipment.'
 		},
-		isProportional: true,
-		isSemiProportional: false
+		proportionality: 'full'
 	},
 	'single-winner-approval': {
 		id: 'single-winner-approval',
@@ -131,8 +130,7 @@ export const METHODS: Record<MethodId, Method> = {
 			existingMachines: true,
 			note: 'Same paper ballot; voters simply tick more than one box.'
 		},
-		isProportional: false,
-		isSemiProportional: false
+		proportionality: 'none'
 	},
 	'ams-plus': {
 		id: 'ams-plus',
@@ -155,8 +153,7 @@ export const METHODS: Record<MethodId, Method> = {
 			existingMachines: true,
 			note: 'Standard paper; counting blends approval totals with party-vote allocation.'
 		},
-		isProportional: true,
-		isSemiProportional: false
+		proportionality: 'full'
 	},
 	'proportional-approval': {
 		id: 'proportional-approval',
@@ -179,8 +176,7 @@ export const METHODS: Record<MethodId, Method> = {
 			existingMachines: true,
 			note: 'Paper ballot identical to single-winner approval; reweighting happens at count stage.'
 		},
-		isProportional: true,
-		isSemiProportional: false
+		proportionality: 'full'
 	},
 	'party-list': {
 		id: 'party-list',
@@ -208,7 +204,6 @@ export const METHODS: Record<MethodId, Method> = {
 			existingMachines: true,
 			note: "Standard paper ballot; counts use d'Hondt or Sainte-Laguë divisors."
 		},
-		isProportional: true,
-		isSemiProportional: false
+		proportionality: 'full'
 	}
 };
