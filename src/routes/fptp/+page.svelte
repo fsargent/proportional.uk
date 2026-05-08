@@ -3,7 +3,6 @@
 	import MethodNav from '$lib/components/MethodNav.svelte';
 	import ComposeBadgeRow from '$lib/components/ComposeBadgeRow.svelte';
 	import SiblingStrip from '$lib/components/SiblingStrip.svelte';
-	import JustChanged from '$lib/components/JustChanged.svelte';
 </script>
 
 <svelte:head>
@@ -26,7 +25,6 @@
 				for centuries. One candidate wins each constituency, and you get one vote. That simplicity
 				comes with trade-offs that grow more visible as the number of parties increases.
 			</p>
-			<JustChanged destination="fptp" />
 			<ComposeBadgeRow method="fptp" />
 		</header>
 		<FPTPSection />

@@ -3,7 +3,6 @@
 	import MethodNav from '$lib/components/MethodNav.svelte';
 	import ComposeBadgeRow from '$lib/components/ComposeBadgeRow.svelte';
 	import SiblingStrip from '$lib/components/SiblingStrip.svelte';
-	import JustChanged from '$lib/components/JustChanged.svelte';
 </script>
 
 <svelte:head>
@@ -23,7 +22,6 @@
 				this is the destination. The price is not ballot complexity. It is the move to multi-member
 				districts and the design choices that come with them.
 			</p>
-			<JustChanged destination="proportional-approval" />
 			<ComposeBadgeRow method="proportional-approval" />
 		</header>
 		<ProportionalApprovalSection />

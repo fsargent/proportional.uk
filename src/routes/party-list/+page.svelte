@@ -3,7 +3,6 @@
 	import MethodNav from '$lib/components/MethodNav.svelte';
 	import ComposeBadgeRow from '$lib/components/ComposeBadgeRow.svelte';
 	import SiblingStrip from '$lib/components/SiblingStrip.svelte';
-	import JustChanged from '$lib/components/JustChanged.svelte';
 </script>
 
 <svelte:head>
@@ -27,7 +26,6 @@
 				open or closed lists, thresholds, allocation formulas — determine how much power voters have
 				over which candidates actually take those seats.
 			</p>
-			<JustChanged destination="party-list" />
 			<ComposeBadgeRow method="party-list" />
 		</header>
 		<PartyListSection />
