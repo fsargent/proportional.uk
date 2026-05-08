@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { dev } from '$app/environment';
 	import { METHODS, type Method } from '$lib/data/methods';
 
 	const rows: Method[] = Object.values(METHODS);
@@ -9,6 +10,15 @@
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
+{#if !dev}
+	<main class="not-available">
+		<h1>Not available</h1>
+		<p>
+			This dev preview is bundled out of production. Run <code>npm run dev</code> locally to see
+			the METHODS data inspector.
+		</p>
+	</main>
+{:else}
 <main>
 	<header>
 		<h1>METHODS data preview</h1>
@@ -90,8 +100,36 @@
 		</article>
 	{/each}
 </main>
+{/if}
 
 <style>
+	.not-available {
+		max-width: 40rem;
+		margin: 4rem auto;
+		padding: 2rem;
+		text-align: center;
+		font-family:
+			ui-sans-serif,
+			system-ui,
+			-apple-system,
+			sans-serif;
+	}
+	.not-available h1 {
+		margin: 0 0 0.75rem;
+		font-size: 1.5rem;
+	}
+	.not-available p {
+		margin: 0;
+		color: #555;
+		line-height: 1.6;
+	}
+	.not-available :global(code) {
+		background: #f3f3f3;
+		padding: 0.05rem 0.35rem;
+		border-radius: 3px;
+		font-size: 0.9em;
+		font-family: ui-monospace, SFMono-Regular, monospace;
+	}
 	main {
 		max-width: 960px;
 		margin: 0 auto;
