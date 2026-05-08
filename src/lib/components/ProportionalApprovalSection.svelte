@@ -3,7 +3,6 @@
 	import StepCard from './StepCard.svelte';
 	import FAQItem from './FAQItem.svelte';
 	import MethodSection from './MethodSection.svelte';
-	import MMDVisualiserSection from './MMDVisualiserSection.svelte';
 
 	const benefits = [
 		{
@@ -162,6 +161,77 @@
 </MethodSection>
 
 <MethodSection slot="worked-example">
+	<figure class="pa-algorithm" aria-labelledby="pa-algorithm-caption">
+		<figcaption id="pa-algorithm-caption" class="caption">
+			<strong>The algorithm.</strong> Top-to-bottom, single entry, single exit (read like Drakon).
+			Elect the highest weighted approval total, reweight every ballot that helped, repeat until
+			seats are full.
+		</figcaption>
+
+		<div class="flowchart-wrap">
+			<svg viewBox="0 0 600 620" role="img" aria-label="Drakon flowchart of the Proportional Approval count algorithm">
+				<defs>
+					<marker id="pa-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+						<path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" />
+					</marker>
+				</defs>
+
+				<!-- Header (Title) -->
+				<rect class="node node-title" x="180" y="16" width="220" height="56" rx="28" />
+				<text class="node-text node-text-title" x="290" y="44">Count a Proportional Approval election</text>
+
+				<!-- Action: Tally + initial weights -->
+				<rect class="node" x="180" y="96" width="220" height="66" />
+				<text class="node-text" x="290" y="120">Count approvals per candidate</text>
+				<text class="node-text node-text-sub" x="290" y="140">every ballot starts with weight 1</text>
+
+				<!-- Loop header -->
+				<rect class="node node-loop" x="180" y="186" width="220" height="56" rx="28" />
+				<text class="node-text node-text-loop" x="208" y="214">↻</text>
+				<text class="node-text" x="298" y="214">While seats remain</text>
+
+				<!-- Action: Elect -->
+				<rect class="node" x="180" y="266" width="220" height="66" />
+				<text class="node-text" x="290" y="290">Elect highest weighted total</text>
+				<text class="node-text node-text-sub" x="290" y="310">sum of weights × approvals</text>
+
+				<!-- Action: Reweight -->
+				<rect class="node" x="180" y="356" width="220" height="76" />
+				<text class="node-text" x="290" y="378">Reweight ballots that approved them</text>
+				<text class="node-text node-text-mono" x="290" y="400">w = 1 ÷ (1 + elected on ballot)</text>
+
+				<!-- Loop end -->
+				<rect class="node node-loop" x="220" y="456" width="140" height="44" rx="22" />
+				<text class="node-text node-text-loop" x="240" y="478">↺</text>
+				<text class="node-text node-text-sub" x="300" y="478">end loop</text>
+
+				<!-- End node -->
+				<rect class="node node-end" x="180" y="524" width="220" height="56" rx="28" />
+				<text class="node-text node-text-end" x="290" y="552">All seats filled</text>
+
+				<!-- Connectors -->
+				<line class="flow" x1="290" y1="72" x2="290" y2="96" />
+				<line class="flow" x1="290" y1="162" x2="290" y2="186" />
+				<line class="flow" x1="290" y1="242" x2="290" y2="266" />
+				<line class="flow" x1="290" y1="332" x2="290" y2="356" />
+				<line class="flow" x1="290" y1="432" x2="290" y2="456" />
+				<line class="flow" x1="290" y1="500" x2="290" y2="524" />
+
+				<!-- Loop-back arrow (left gutter) -->
+				<line class="flow loop" x1="220" y1="478" x2="60" y2="478" />
+				<line class="flow loop" x1="60" y1="478" x2="60" y2="214" />
+				<line class="flow loop" x1="60" y1="214" x2="180" y2="214" marker-end="url(#pa-arrow)" />
+				<text class="flow-label loop-label" x="46" y="346" transform="rotate(-90 46 346)">next seat</text>
+
+				<!-- Loop EXIT (right gutter) -->
+				<line class="flow" x1="400" y1="214" x2="540" y2="214" />
+				<text class="flow-label" x="412" y="208">exit when no seats remain</text>
+				<line class="flow" x1="540" y1="214" x2="540" y2="552" />
+				<line class="flow" x1="540" y1="552" x2="400" y2="552" marker-end="url(#pa-arrow)" />
+			</svg>
+		</div>
+	</figure>
+
 	<div class="reweighting-explainer">
 		<h4>📐 The Reweighting Mechanism</h4>
 		<p>
@@ -184,12 +254,6 @@
 		</p>
 	</div>
 
-	<MMDVisualiserSection
-		title="Why multi-member districts matter for proportional approval"
-		introText="Proportional Approval keeps the ballot simple, but it still depends on multi-member districts. That is where proportionality actually happens."
-		bodyText="Use the live visualiser below to see what kind of district sizes would make this method work well in practice, and where the method starts to behave more or less proportionally."
-		initialMagnitude={7}
-	/>
 </MethodSection>
 
 <MethodSection slot="strengths">
@@ -565,5 +629,100 @@
 		.implementation-grid {
 			grid-template-columns: 1fr;
 		}
+	}
+
+	/* SPAV algorithm flowchart — same Drakon-style language as STV's. */
+	.pa-algorithm {
+		margin: 0 0 1.5rem 0;
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.pa-algorithm .caption {
+		font-size: 0.95rem;
+		line-height: 1.55;
+		color: var(--text-color);
+	}
+
+	.pa-algorithm .flowchart-wrap {
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		background: var(--surface-color);
+		padding: 0.75rem;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.pa-algorithm .flowchart-wrap svg {
+		display: block;
+		width: 100%;
+		max-width: 600px;
+		height: auto;
+		margin: 0 auto;
+		color-scheme: light;
+	}
+
+	.pa-algorithm .node {
+		fill: var(--surface-raised);
+		stroke: var(--border-strong);
+		stroke-width: 1.5;
+	}
+	.pa-algorithm .node-title {
+		fill: var(--header-bg);
+		stroke: var(--header-bg-strong);
+	}
+	.pa-algorithm .node-loop {
+		fill: #eef4fa;
+		stroke: var(--accent-border-strong);
+	}
+	.pa-algorithm .node-end {
+		fill: #f0f7f1;
+		stroke: var(--success-border-strong);
+	}
+	.pa-algorithm .node-text {
+		font-size: 13px;
+		font-weight: 600;
+		fill: var(--text-dark);
+		text-anchor: middle;
+		dominant-baseline: middle;
+	}
+	.pa-algorithm .node-text-title {
+		fill: var(--text-inverse);
+	}
+	.pa-algorithm .node-text-end {
+		fill: var(--success-text);
+	}
+	.pa-algorithm .node-text-loop {
+		font-size: 16px;
+		font-weight: 700;
+		fill: var(--accent-text);
+	}
+	.pa-algorithm .node-text-sub {
+		font-weight: 500;
+		font-size: 12px;
+		fill: var(--text-color);
+	}
+	.pa-algorithm .node-text-mono {
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+		font-size: 12px;
+		font-weight: 500;
+		fill: var(--text-color);
+	}
+	.pa-algorithm .flow {
+		stroke: var(--text-soft);
+		stroke-width: 1.6;
+		fill: none;
+	}
+	.pa-algorithm .flow.loop {
+		stroke-dasharray: 5 4;
+	}
+	.pa-algorithm .flow-label {
+		font-size: 11px;
+		font-weight: 700;
+		fill: var(--text-soft);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+	.pa-algorithm .loop-label {
+		text-anchor: middle;
 	}
 </style>
