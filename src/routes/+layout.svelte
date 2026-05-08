@@ -1,14 +1,19 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/state';
-	import { METHODS } from '$lib/data/methods';
+	import { METHODS, type MethodId } from '$lib/data/methods';
+	import MethodNavMenu from '$lib/components/MethodNavMenu.svelte';
 	let { children } = $props();
 	const isGlitchPage = $derived(page.url.pathname.startsWith('/glitch-poc'));
-	// Method pages get a wider container on >=1500px viewports so the left rail
-	// can sit beside (not inside) the article reading column. Normalise trailing
-	// slashes since SvelteKit may serve either form.
-	const methodRoutes = new Set(Object.values(METHODS).map((m) => m.route));
-	const isMethodPage = $derived(methodRoutes.has(page.url.pathname.replace(/\/$/, '')));
+	// Method pages span the full viewport so a 3-column grid can put the rail
+	// beside (not inside) the article reading column at >=1280px viewports.
+	// Below that, a hamburger drawer in the header replaces the rail.
+	// Normalise trailing slashes since SvelteKit may serve either form.
+	const normalisedPath = $derived(page.url.pathname.replace(/\/$/, ''));
+	const currentMethodId = $derived<MethodId | undefined>(
+		Object.values(METHODS).find((m) => m.route === normalisedPath)?.id
+	);
+	const isMethodPage = $derived(currentMethodId !== undefined);
 </script>
 
 <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
@@ -48,6 +53,9 @@
 				</a>
 			</div>
 
+			{#if isMethodPage && currentMethodId}
+				<MethodNavMenu current={currentMethodId} />
+			{/if}
 		</div>
 	</header>
 {/if}

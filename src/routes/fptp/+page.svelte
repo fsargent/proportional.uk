@@ -39,6 +39,7 @@
 	.page-body { display: grid; gap: 2rem; min-width: 0; }
 	.page-header { display: grid; gap: 1rem; }
 	.lede { font-size: 1.1rem; line-height: 1.7; margin: 0; }
+	.rail { display: none; }
 
 	@media (min-width: 1280px) {
 		.method-page {
@@ -47,7 +48,7 @@
 			column-gap: 2rem;
 			align-items: start;
 		}
-		.rail { grid-column: 1; justify-self: end; width: 16rem; position: sticky; top: 1rem; }
+		.rail { display: block; grid-column: 1; justify-self: end; width: 16rem; position: sticky; top: 1rem; }
 		.page-body { grid-column: 2; }
 	}
 </style>
