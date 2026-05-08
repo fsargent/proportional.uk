@@ -14,6 +14,10 @@
 		Object.values(METHODS).find((m) => m.route === normalisedPath)?.id
 	);
 	const isMethodPage = $derived(currentMethodId !== undefined);
+	// The home page already shows the petition CTA in its body; non-home
+	// pages get it in the footer instead of the tagline so every page
+	// carries a call to action.
+	const isHomePage = $derived(normalisedPath === '');
 </script>
 
 <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
@@ -73,15 +77,37 @@
 </main>
 
 {#if !isGlitchPage}
-	<footer class="site-footer">
-		<div class="footer-content">
-			<p class="footer-tagline">Better voting for a better democracy</p>
-			<p class="footer-credit">
-				Built by
-				<a href="https://felixsargent.com/" target="_blank" rel="noopener noreferrer">Felix Sargent</a>
-			</p>
-		</div>
-	</footer>
+	{#if isHomePage}
+		<footer class="site-footer">
+			<div class="footer-content">
+				<p class="footer-tagline">Better voting for a better democracy</p>
+				<p class="footer-credit">
+					Built by
+					<a href="https://felixsargent.com/" target="_blank" rel="noopener noreferrer">Felix Sargent</a>
+				</p>
+			</div>
+		</footer>
+	{:else}
+		<footer class="site-footer petition-footer">
+			<a
+				class="petition-cta"
+				href="https://www.open-britain.co.uk/ncer"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<span class="petition-eyebrow">Take action</span>
+				<h2 class="petition-headline">
+					Sign the petition for a National Commission on Electoral Reform
+				</h2>
+				<p class="petition-body">
+					Parliament should establish an independent commission to assess whether First Past the
+					Post is still fit for purpose — and if not, what should replace it. The single most useful
+					thing you can do right now.
+				</p>
+				<span class="petition-action">Sign the petition at open-britain.co.uk →</span>
+			</a>
+		</footer>
+	{/if}
 {/if}
 
 <style>
@@ -237,6 +263,66 @@
 	}
 
 	.footer-credit a:hover {
+		text-decoration: underline;
+	}
+
+	.petition-footer {
+		padding: 0;
+	}
+
+	.petition-cta {
+		display: block;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 2rem 1.5rem 2.25rem;
+		text-decoration: none;
+		color: var(--text-dark);
+		text-align: center;
+		transition: background-color 0.2s ease;
+	}
+
+	.petition-cta:hover {
+		background: var(--surface-emphasis);
+	}
+
+	.petition-cta:focus-visible {
+		outline: 3px solid var(--focus-ring);
+		outline-offset: -3px;
+	}
+
+	.petition-eyebrow {
+		display: inline-block;
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--text-soft);
+		margin-bottom: 0.6rem;
+	}
+
+	.petition-headline {
+		margin: 0 0 0.75rem 0;
+		color: var(--accent-text);
+		font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+		line-height: 1.3;
+	}
+
+	.petition-body {
+		margin: 0 auto 1rem;
+		max-width: 48rem;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: var(--text-color);
+	}
+
+	.petition-action {
+		display: inline-block;
+		font-weight: 700;
+		color: var(--link-color);
+		font-size: 1rem;
+	}
+
+	.petition-cta:hover .petition-action {
 		text-decoration: underline;
 	}
 
