@@ -41,6 +41,15 @@
 			</ul>
 		</section>
 	{/each}
+
+	<section class="group group-tools">
+		<h2 class="group-label">Tools</h2>
+		<ul class="methods">
+			<li>
+				<a class="link" href="/visualiser">Multi-Member District Visualiser</a>
+			</li>
+		</ul>
+	</section>
 </nav>
 
 <style>
@@ -82,6 +91,10 @@
 	}
 	.group.family-single-mark {
 		border-left-color: var(--family-single-mark);
+	}
+
+	.group-tools {
+		border-left-color: var(--border-strong);
 	}
 
 	.group-label {
