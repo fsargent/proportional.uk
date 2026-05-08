@@ -25,7 +25,20 @@
 		needsParliamentResize: boolean | 'helps';
 	};
 
+	// Order matters: when value preferences don't differentiate the systems,
+	// JS's stable sort preserves this order. Proportional Approval leads as the
+	// site's editorial focus.
 	const systems: System[] = [
+		{
+			methodId: 'proportional-approval',
+			description:
+				'Vote for as many candidates as you like in <a href="/visualiser">multi-member districts</a>. A reweighting method ensures proportional results.',
+			singleMemberOnly: false,
+			needsSecondBallot: false,
+			twoClassMPs: false,
+			ballotType: 'approval',
+			needsParliamentResize: false
+		},
 		{
 			methodId: 'stv',
 			description:
@@ -75,16 +88,6 @@
 			description:
 				'Keep one Member of Parliament per constituency, but vote for as many candidates as you like. The most approved candidate wins.',
 			singleMemberOnly: true,
-			needsSecondBallot: false,
-			twoClassMPs: false,
-			ballotType: 'approval',
-			needsParliamentResize: false
-		},
-		{
-			methodId: 'proportional-approval',
-			description:
-				'Vote for as many candidates as you like in <a href="/visualiser">multi-member districts</a>. A reweighting method ensures proportional results.',
-			singleMemberOnly: false,
 			needsSecondBallot: false,
 			twoClassMPs: false,
 			ballotType: 'approval',
