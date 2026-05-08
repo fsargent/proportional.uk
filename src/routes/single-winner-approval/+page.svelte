@@ -1,6 +1,8 @@
 <script lang="ts">
 	import SingleWinnerApprovalSection from '$lib/components/SingleWinnerApprovalSection.svelte';
 	import MethodNav from '$lib/components/MethodNav.svelte';
+	import ComposeBadgeRow from '$lib/components/ComposeBadgeRow.svelte';
+	import SiblingStrip from '$lib/components/SiblingStrip.svelte';
 </script>
 
 <svelte:head>
@@ -14,8 +16,10 @@
 		Keep one MP per constituency. Keep the familiar Westminster map. Change only the instruction on the
 		ballot: approve every candidate you would genuinely be happy to elect.
 	</p>
+	<ComposeBadgeRow method="single-winner-approval" />
 	<MethodNav current="single-winner-approval" />
 	<SingleWinnerApprovalSection />
+	<SiblingStrip method="single-winner-approval" />
 </section>
 
 <style>

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import AMSPlusSection from '$lib/components/AMSPlusSection.svelte';
 	import MethodNav from '$lib/components/MethodNav.svelte';
+	import ComposeBadgeRow from '$lib/components/ComposeBadgeRow.svelte';
+	import SiblingStrip from '$lib/components/SiblingStrip.svelte';
 </script>
 
 <svelte:head>
@@ -15,8 +17,10 @@
 		local FPTP ballot with approval voting. That makes it the clearest near-term approval-based route to
 		Westminster proportionality.
 	</p>
+	<ComposeBadgeRow method="ams-plus" />
 	<MethodNav current="ams-plus" />
 	<AMSPlusSection />
+	<SiblingStrip method="ams-plus" />
 </section>
 
 <style>

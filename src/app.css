@@ -60,6 +60,19 @@
   --radius-sm: 0.5rem;
   --radius-md: 0.875rem;
   --radius-lg: 1.25rem;
+
+  /* Method-family tints — used as left-border accents on cards, sidebar group
+     headers, and the "changed" outline on swapped atom badges. Never as fills.
+     All four carry equal visual weight to avoid signalling preference through colour. */
+  --family-approval: #2f7a59;
+  --family-approval-soft: #e6f1ec;
+  --family-ranked: #7a4d2f;
+  --family-ranked-soft: #f3eae1;
+  --family-mixed: #4d3f7a;
+  --family-mixed-soft: #ece8f3;
+  --family-single-mark: #4a5c6b;
+  --family-single-mark-soft: #e7ebef;
+
   color-scheme: light;
 }
 
@@ -124,6 +137,17 @@
     --map-label-bg-active: rgba(248, 251, 255, 0.94);
     --map-label-text: #0f1720;
     --chart-slice-stroke: rgba(15, 23, 32, 0.92);
+
+    /* Method-family tints — dark mode counterparts. */
+    --family-approval: #6dbb98;
+    --family-approval-soft: rgba(109, 187, 152, 0.16);
+    --family-ranked: #c79572;
+    --family-ranked-soft: rgba(199, 149, 114, 0.16);
+    --family-mixed: #a496d8;
+    --family-mixed-soft: rgba(164, 150, 216, 0.16);
+    --family-single-mark: #95a8b9;
+    --family-single-mark-soft: rgba(149, 168, 185, 0.16);
+
     color-scheme: dark;
   }
 }

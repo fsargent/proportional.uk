@@ -1,6 +1,8 @@
 <script lang="ts">
 	import PartyListSection from '$lib/components/PartyListSection.svelte';
 	import MethodNav from '$lib/components/MethodNav.svelte';
+	import ComposeBadgeRow from '$lib/components/ComposeBadgeRow.svelte';
+	import SiblingStrip from '$lib/components/SiblingStrip.svelte';
 </script>
 
 <svelte:head>
@@ -19,8 +21,10 @@
 		open or closed lists, thresholds, allocation formulas — determine how much power voters have
 		over which candidates actually take those seats.
 	</p>
+	<ComposeBadgeRow method="party-list" />
 	<MethodNav current="party-list" />
 	<PartyListSection />
+	<SiblingStrip method="party-list" />
 </section>
 
 <style>

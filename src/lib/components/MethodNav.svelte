@@ -1,67 +1,48 @@
 <script lang="ts">
-	type Slug =
-		| 'fptp'
-		| 'single-winner-approval'
-		| 'ams-plus'
-		| 'proportional-approval'
-		| 'stv'
-		| 'party-list';
+	import { METHODS, type Method, type MethodFamily, type MethodId } from '$lib/data/methods';
 
-	type Method = {
-		slug: Slug;
-		href: string;
-		label: string;
+	type Props = { current: MethodId };
+	let { current }: Props = $props();
+
+	// Family ordering — leads with approval (the site's editorial focus), then mixed,
+	// then ranked, then single-mark.
+	const FAMILY_ORDER: readonly MethodFamily[] = ['approval', 'mixed', 'ranked', 'single-mark'];
+
+	const FAMILY_LABEL: Record<MethodFamily, string> = {
+		approval: 'Approval',
+		mixed: 'Mixed',
+		ranked: 'Ranked',
+		'single-mark': 'Single-mark'
 	};
 
-	// PR methods ordered to lead with approval-based reforms (the site's editorial lean),
-	// then ranked, then party-list.
-	const proportional: Method[] = [
-		{ slug: 'ams-plus', href: '/ams-plus', label: 'AMS+' },
-		{ slug: 'proportional-approval', href: '/proportional-approval', label: 'Proportional Approval' },
-		{ slug: 'stv', href: '/stv', label: 'STV' },
-		{ slug: 'party-list', href: '/party-list', label: 'List PR' }
-	];
-
-	const singleWinner: Method[] = [
-		{ slug: 'single-winner-approval', href: '/single-winner-approval', label: 'Single-Winner Approval' },
-		{ slug: 'fptp', href: '/fptp', label: 'First Past the Post' }
-	];
-
-	let { current }: { current: Slug } = $props();
+	type Group = { family: MethodFamily; methods: Method[] };
+	const groups: Group[] = FAMILY_ORDER
+		.map((family) => ({
+			family,
+			methods: Object.values(METHODS).filter((m) => m.family === family)
+		}))
+		.filter((g) => g.methods.length > 0);
 </script>
 
 <nav class="method-nav" aria-label="Voting methods">
 	<a class="home-link" href="/">← Home</a>
 
-	<div class="row">
-		<span class="row-label">Proportional</span>
-		<ul class="pills">
-			{#each proportional as m (m.slug)}
-				<li>
-					{#if m.slug === current}
-						<span class="pill pill-current" aria-current="page">{m.label}</span>
-					{:else}
-						<a class="pill" href={m.href}>{m.label}</a>
-					{/if}
-				</li>
-			{/each}
-		</ul>
-	</div>
-
-	<div class="row">
-		<span class="row-label">Single-winner</span>
-		<ul class="pills">
-			{#each singleWinner as m (m.slug)}
-				<li>
-					{#if m.slug === current}
-						<span class="pill pill-current" aria-current="page">{m.label}</span>
-					{:else}
-						<a class="pill" href={m.href}>{m.label}</a>
-					{/if}
-				</li>
-			{/each}
-		</ul>
-	</div>
+	{#each groups as group (group.family)}
+		<div class="row family-{group.family}">
+			<span class="row-label">{FAMILY_LABEL[group.family]}</span>
+			<ul class="pills">
+				{#each group.methods as m (m.id)}
+					<li>
+						{#if m.id === current}
+							<span class="pill pill-current" aria-current="page">{m.name}</span>
+						{:else}
+							<a class="pill" href={m.route}>{m.name}</a>
+						{/if}
+					</li>
+				{/each}
+			</ul>
+		</div>
+	{/each}
 </nav>
 
 <style>
@@ -91,6 +72,21 @@
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.6rem 0.85rem;
+		padding-left: 0.6rem;
+		border-left: 3px solid transparent;
+	}
+
+	.row.family-approval {
+		border-left-color: var(--family-approval);
+	}
+	.row.family-mixed {
+		border-left-color: var(--family-mixed);
+	}
+	.row.family-ranked {
+		border-left-color: var(--family-ranked);
+	}
+	.row.family-single-mark {
+		border-left-color: var(--family-single-mark);
 	}
 
 	.row-label {

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import STVSection from '$lib/components/STVSection.svelte';
 	import MethodNav from '$lib/components/MethodNav.svelte';
+	import ComposeBadgeRow from '$lib/components/ComposeBadgeRow.svelte';
+	import SiblingStrip from '$lib/components/SiblingStrip.svelte';
 </script>
 
 <svelte:head>
@@ -14,8 +16,10 @@
 		Single Transferable Vote, usually shortened to STV, offers proportional representation without closed lists.
 		The trade-off is also clear: it asks more of voters and more of the count.
 	</p>
+	<ComposeBadgeRow method="stv" />
 	<MethodNav current="stv" />
 	<STVSection />
+	<SiblingStrip method="stv" />
 </section>
 
 <style>

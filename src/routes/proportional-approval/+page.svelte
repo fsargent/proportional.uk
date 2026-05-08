@@ -1,6 +1,8 @@
 <script lang="ts">
 	import ProportionalApprovalSection from '$lib/components/ProportionalApprovalSection.svelte';
 	import MethodNav from '$lib/components/MethodNav.svelte';
+	import ComposeBadgeRow from '$lib/components/ComposeBadgeRow.svelte';
+	import SiblingStrip from '$lib/components/SiblingStrip.svelte';
 </script>
 
 <svelte:head>
@@ -15,8 +17,10 @@
 		this is the destination. The price is not ballot complexity. It is the move to multi-member
 		districts and the design choices that come with them.
 	</p>
+	<ComposeBadgeRow method="proportional-approval" />
 	<MethodNav current="proportional-approval" />
 	<ProportionalApprovalSection />
+	<SiblingStrip method="proportional-approval" />
 </section>
 
 <style>
