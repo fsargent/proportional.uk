@@ -137,7 +137,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 	},
 	'ams-plus': {
 		id: 'ams-plus',
-		name: 'AMS+',
+		name: 'Additional Member System / Mixed-Member Proportional + Approval',
 		character: 'the top-up',
 		family: 'mixed',
 		atoms: {

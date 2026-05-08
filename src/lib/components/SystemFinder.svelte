@@ -50,23 +50,9 @@
 			needsParliamentResize: false
 		},
 		{
-			// Reference row — vanilla AMS / MMP isn't a separate METHODS entry.
-			// The href steers readers to the AMS+ page since that's the closest
-			// dedicated explainer on this site.
-			name: 'Additional Member System / Mixed-Member Proportional',
-			href: '/ams-plus',
-			description:
-				'Keep your local Member of Parliament, add a second vote for a party. Top-up seats make the overall result proportional.',
-			singleMemberOnly: true,
-			needsSecondBallot: true,
-			twoClassMPs: true,
-			ballotType: 'one-vote',
-			needsParliamentResize: 'helps'
-		},
-		{
 			methodId: 'ams-plus',
 			description:
-				'Like the Additional Member System but with approval voting for your local Member of Parliament. Keeps the constituency link and adds proportionality.',
+				'Approve local Members of Parliament instead of picking just one. A separate party vote tops up regional seats for proportional results. Keeps the constituency link.',
 			singleMemberOnly: true,
 			needsSecondBallot: true,
 			twoClassMPs: true,
