@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { METHODS, type Method, type MethodFamily, type MethodId } from '$lib/data/methods';
 
-	type Props = { current: MethodId };
+	type Props = { current?: MethodId };
 	let { current }: Props = $props();
 
 	// Family ordering — leads with approval (the site's editorial focus), then mixed,

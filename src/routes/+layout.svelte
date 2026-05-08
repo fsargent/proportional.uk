@@ -53,8 +53,8 @@
 				</a>
 			</div>
 
-			{#if isMethodPage && currentMethodId}
-				<MethodNavMenu current={currentMethodId} />
+			{#if !isGlitchPage}
+				<MethodNavMenu current={currentMethodId} hasRail={isMethodPage} />
 			{/if}
 		</div>
 	</header>

@@ -44,7 +44,7 @@
 			column-gap: 2rem;
 			align-items: start;
 		}
-		.rail { display: block; grid-column: 1; justify-self: end; width: 16rem; position: sticky; top: 1rem; }
+		.rail { display: block; grid-column: 3; justify-self: start; width: 16rem; position: sticky; top: 1rem; }
 		.page-body { grid-column: 2; }
 	}
 </style>

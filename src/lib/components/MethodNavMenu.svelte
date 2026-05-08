@@ -2,8 +2,14 @@
 	import MethodNav from './MethodNav.svelte';
 	import type { MethodId } from '$lib/data/methods';
 
-	type Props = { current: MethodId };
-	let { current }: Props = $props();
+	type Props = {
+		current?: MethodId;
+		/** Whether a desktop rail handles this nav at >=1280px. When true, the
+		 * hamburger hides at wide viewports (rail takes over). When false, the
+		 * hamburger stays visible — useful on pages without a rail. */
+		hasRail?: boolean;
+	};
+	let { current, hasRail = false }: Props = $props();
 
 	let open = $state(false);
 
@@ -20,6 +26,7 @@
 
 <button
 	class="menu-button"
+	class:menu-button--has-rail={hasRail}
 	type="button"
 	aria-expanded={open}
 	aria-controls="method-nav-drawer"
@@ -52,6 +59,7 @@
 {#if open}
 	<button
 		class="backdrop"
+		class:backdrop--has-rail={hasRail}
 		type="button"
 		aria-label="Close menu"
 		onclick={close}
@@ -60,6 +68,7 @@
 	<aside
 		id="method-nav-drawer"
 		class="drawer"
+		class:drawer--has-rail={hasRail}
 		aria-label="Voting methods navigation"
 	>
 		<header class="drawer-head">
@@ -191,11 +200,12 @@
 		overflow-y: auto;
 	}
 
-	/* Hide entirely at >=1280px — the rail handles nav there. */
+	/* On pages with a desktop rail, hide the hamburger at >=1280px since the
+	   rail takes over. On pages without a rail (home, etc.), keep it visible. */
 	@media (min-width: 1280px) {
-		.menu-button,
-		.backdrop,
-		.drawer {
+		.menu-button--has-rail,
+		.backdrop--has-rail,
+		.drawer--has-rail {
 			display: none;
 		}
 	}
