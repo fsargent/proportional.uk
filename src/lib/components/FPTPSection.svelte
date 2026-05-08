@@ -1,28 +1,6 @@
 <script lang="ts">
-	import StepCard from './StepCard.svelte';
 	import FAQItem from './FAQItem.svelte';
 	import MethodSection from './MethodSection.svelte';
-
-	const steps = [
-		{
-			number: 1,
-			title: 'One vote',
-			description:
-				'Each voter marks a single candidate on the ballot. No ranking, no second choices, no party vote.'
-		},
-		{
-			number: 2,
-			title: 'Most votes wins',
-			description:
-				'The candidate with the most votes in each constituency wins the seat — even if a majority of voters preferred someone else.'
-		},
-		{
-			number: 3,
-			title: 'Winner takes all',
-			description:
-				'Every vote cast for a losing candidate has no effect on the final result. There is no transfer, no consolation, no proportional adjustment.'
-		}
-	];
 </script>
 
 <MethodSection slot="mechanics">
@@ -33,11 +11,20 @@
 		candidate can win with 30% of the vote if no other candidate gets more. The party that wins
 		the most seats across the country typically forms the government.
 	</p>
-	<div class="process-steps">
-		{#each steps as step (step.number)}
-			<StepCard number={step.number} title={step.title} description={step.description} />
-		{/each}
-	</div>
+	<ol class="mechanics-steps">
+		<li>
+			<strong>One vote.</strong> Each voter marks a single candidate on the ballot. No ranking,
+			no second choices, no party vote.
+		</li>
+		<li>
+			<strong>Most votes wins.</strong> The candidate with the most votes in each constituency
+			wins the seat — even if a majority of voters preferred someone else.
+		</li>
+		<li>
+			<strong>Winner takes all.</strong> Every vote cast for a losing candidate has no effect on
+			the final result. There is no transfer, no consolation, no proportional adjustment.
+		</li>
+	</ol>
 
 	<h3>Why Britain uses this system</h3>
 	<p>
@@ -354,8 +341,16 @@
 		line-height: 1.7;
 	}
 
-	:global(.method-section) .process-steps {
-		grid-template-columns: 1fr;
+	.mechanics-steps {
+		list-style: decimal outside;
+		padding-left: 1.5rem;
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.mechanics-steps li {
+		font-size: 1.05rem;
+		line-height: 1.7;
 	}
 
 	.problem-cards,
