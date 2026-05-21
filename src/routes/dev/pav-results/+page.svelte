@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { dev } from '$app/environment';
+	import SampleBallot from '$lib/components/SampleBallot.svelte';
 
 	type Candidate = { id: string; name: string; party: string; color: string };
 	type Voter = { id: string; approvals: string[]; bloc?: string; blocColor?: string };
@@ -259,13 +259,7 @@
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
-{#if !dev}
-	<main class="not-available">
-		<h1>Not available</h1>
-		<p>This dev sketch is bundled out of production. Run <code>npm run dev</code> locally.</p>
-	</main>
-{:else}
-	<main>
+<main>
 		<header class="page-header">
 			<h1>Proportional Approval — results sketch</h1>
 			<p class="subtitle">
@@ -286,7 +280,7 @@
 		</section>
 
 		<section class="ballots">
-			<h2>The ballots</h2>
+			<h3>The ballots</h3>
 			<div class="bloc-grid">
 				{#each blocs as bloc}
 					{@const blocVoters = voters.filter((v) => v.bloc === bloc)}
@@ -308,7 +302,7 @@
 		</section>
 
 		<section class="rounds">
-			<h2>How each seat was filled</h2>
+			<h3>How each seat was filled</h3>
 			{#each rounds as round, r}
 				<article class="round-card">
 					<header class="round-header">
@@ -381,7 +375,7 @@
 		</section>
 
 		<section class="final">
-			<h2>Final result</h2>
+			<h3>Final result</h3>
 			<ol class="winner-list">
 				{#each elected as winnerId, i}
 					{@const c = findCandidate(winnerId)}
@@ -411,23 +405,52 @@
 			</p>
 		</section>
 
-		<section class="clusters-legend">
-			<h2>Voter clusters</h2>
-			<div class="legend-grid">
+		<section class="sample-ballot-section">
+			<h3>What a voter sees</h3>
+			<p class="section-intro">
+				A single ballot — voters tick any number of candidates they approve. This example shows the
+				most common approval pattern ({clusters[0].voterIds.length} voters cast this exact ballot).
+			</p>
+			<SampleBallot candidates={largeCandidates} approvals={clusters[0].approvals} />
+		</section>
+
+		<section class="ballots">
+			<h3>The ballots — top {TOP_K} approval patterns</h3>
+			<p class="section-intro">
+				Each card shows what a coalition of voters approved. The colored strip is the cluster's
+				color, used in the bars below to trace its contribution through every round.
+			</p>
+			<div class="bloc-grid">
 				{#each clusters as cl}
-					<div class="legend-item">
-						<span class="legend-swatch" style="background:{cl.color}"></span>
-						<div class="legend-text">
-							<strong>{cl.label}</strong>
-							<small>{cl.voterIds.length} voters</small>
-						</div>
+					<div class="cluster-card" style="border-left:6px solid {cl.color};">
+						<header>
+							<span class="cluster-swatch" style="background:{cl.color}"></span>
+							<div class="cluster-title">
+								<strong>{cl.label}</strong>
+								<small>{cl.voterIds.length} voters</small>
+							</div>
+						</header>
+						{#if cl.id === 'other'}
+							<p class="cluster-meta">
+								Long-tail patterns not in the top {TOP_K}. Each contains a handful of voters with
+								unique approval sets.
+							</p>
+						{:else}
+							{@const approvals = cl.approvals.map(findLargeCandidate)}
+							<p class="approves">Approves:</p>
+							<ul>
+								{#each approvals as c}
+									<li><span class="dot" style="background:{c.color}"></span>{c.name}</li>
+								{/each}
+							</ul>
+						{/if}
 					</div>
 				{/each}
 			</div>
 		</section>
 
 		<section class="rounds">
-			<h2>How each seat was filled</h2>
+			<h3>How each seat was filled</h3>
 			{#each largeRounds as round, r}
 				<article class="round-card">
 					<header class="round-header">
@@ -504,7 +527,7 @@
 		</section>
 
 		<section class="final">
-			<h2>Final result</h2>
+			<h3>Final result</h3>
 			<ol class="winner-list">
 				{#each largeElected as winnerId, i}
 					{@const c = findLargeCandidate(winnerId)}
@@ -519,7 +542,6 @@
 			</ol>
 		</section>
 	</main>
-{/if}
 
 <style>
 	main {
@@ -529,14 +551,11 @@
 		color: var(--text-color);
 	}
 
-	.not-available {
-		text-align: center;
-		padding: 4rem 1.5rem;
-	}
-
 	.page-header h1 {
 		margin: 0 0 0.4rem;
 		color: var(--text-dark);
+		font-size: 2rem;
+		line-height: 1.2;
 	}
 
 	.subtitle {
@@ -552,11 +571,28 @@
 	}
 
 	h2 {
+		font-size: 1.6rem;
+		color: var(--text-dark);
+		margin: 3rem 0 0.75rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 2px solid var(--border-color);
+		font-weight: 700;
+		line-height: 1.25;
+	}
+
+	h3 {
 		font-size: 1.1rem;
 		color: var(--text-dark);
-		margin: 2.5rem 0 1rem;
-		padding-bottom: 0.5rem;
+		margin: 2rem 0 0.75rem;
+		padding-bottom: 0.4rem;
 		border-bottom: 1px solid var(--border-color);
+		font-weight: 600;
+	}
+
+	.section-intro {
+		color: var(--text-soft);
+		margin: 0 0 1rem;
+		max-width: 52rem;
 	}
 
 	/* Ballots */
@@ -611,6 +647,79 @@
 		height: 0.7rem;
 		border-radius: 50%;
 		flex-shrink: 0;
+	}
+
+	/* Cluster ballot cards (realistic-scale section) */
+	.cluster-card {
+		background: var(--surface-raised);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		padding: 1rem 1.2rem;
+	}
+
+	.cluster-card header {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		margin-bottom: 0.6rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px dashed var(--border-color);
+	}
+
+	.cluster-swatch {
+		width: 1rem;
+		height: 1rem;
+		border-radius: 3px;
+		flex-shrink: 0;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+	}
+
+	.cluster-title {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+		flex: 1;
+	}
+
+	.cluster-title strong {
+		color: var(--text-dark);
+		font-size: 0.95rem;
+		font-weight: 600;
+	}
+
+	.cluster-title small {
+		color: var(--text-soft);
+		font-size: 0.78rem;
+	}
+
+	.cluster-card .approves {
+		font-size: 0.85rem;
+		color: var(--text-soft);
+		margin: 0 0 0.4rem;
+	}
+
+	.cluster-card ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+	}
+
+	.cluster-card li {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.9rem;
+		color: var(--text-dark);
+	}
+
+	.cluster-meta {
+		font-size: 0.85rem;
+		color: var(--text-soft);
+		margin: 0;
+		font-style: italic;
 	}
 
 	/* Rounds */
@@ -834,10 +943,10 @@
 	}
 
 	.example-divider h2 {
-		margin: 0 0 0.5rem;
-		border-bottom: none;
-		padding-bottom: 0;
-		font-size: 1.4rem;
+		margin: 0 0 0.6rem;
+		padding-bottom: 0.6rem;
+		font-size: 1.7rem;
+		border-bottom: 2px solid var(--header-bg);
 	}
 
 	.example-divider p {
@@ -849,52 +958,6 @@
 	.example-divider .setup {
 		font-size: 0.9rem;
 		margin: 0;
-	}
-
-	/* ===== Cluster legend ===== */
-	.legend-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: 0.6rem;
-	}
-
-	.legend-item {
-		display: flex;
-		align-items: center;
-		gap: 0.6rem;
-		padding: 0.5rem 0.75rem;
-		background: var(--surface-raised);
-		border: 1px solid var(--border-color);
-		border-radius: var(--radius-sm);
-	}
-
-	.legend-swatch {
-		width: 1rem;
-		height: 1rem;
-		border-radius: 3px;
-		flex-shrink: 0;
-		border: 1px solid rgba(0, 0, 0, 0.12);
-	}
-
-	.legend-text {
-		display: flex;
-		flex-direction: column;
-		gap: 0;
-		min-width: 0;
-	}
-
-	.legend-text strong {
-		color: var(--text-dark);
-		font-size: 0.9rem;
-		font-weight: 600;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.legend-text small {
-		color: var(--text-soft);
-		font-size: 0.75rem;
 	}
 
 	/* ===== Cluster lanes (per-round voice panel) ===== */
