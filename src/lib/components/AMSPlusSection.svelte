@@ -534,9 +534,6 @@
 
 	.candidate-item,
 	.party-item {
-		display: flex;
-		align-items: center;
-		padding: 0.75rem;
 		background: var(--surface-color);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-sm);
@@ -555,7 +552,6 @@
 	.party-radio {
 		width: 1.25rem;
 		height: 1.25rem;
-		margin-right: 1rem;
 		cursor: pointer;
 		flex-shrink: 0;
 		accent-color: var(--header-bg);
@@ -569,6 +565,8 @@
 		display: flex;
 		align-items: center;
 		gap: 1rem;
+		padding: 0.75rem;
+		box-sizing: border-box;
 	}
 
 	.candidate-copy {

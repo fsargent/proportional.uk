@@ -40,29 +40,31 @@
 	<div class="ballot-example" class:party-selection={type === 'single'}>
 		{#each candidates as candidate}
 			<div class="candidate-item" class:party-item={type === 'single'}>
-				{#if type === 'approval'}
-					<input
-						type="checkbox"
-						id={candidate.id}
-						class="candidate-checkbox"
-						checked={selections[candidate.id] || false}
-						onchange={() => toggleCandidate(candidate.id)}
-					/>
-				{:else}
-					<input
-						type="radio"
-						id={candidate.id}
-						name="party-select"
-						class="party-radio"
-						checked={selectedParty === candidate.id}
-						onchange={() => toggleCandidate(candidate.id)}
-					/>
-				{/if}
 				<label for={candidate.id}>
-					<div class="candidate-name">{candidate.name}</div>
-					{#if candidate.party}
-						<div class="candidate-party">{candidate.party}</div>
+					{#if type === 'approval'}
+						<input
+							type="checkbox"
+							id={candidate.id}
+							class="candidate-checkbox"
+							checked={selections[candidate.id] || false}
+							onchange={() => toggleCandidate(candidate.id)}
+						/>
+					{:else}
+						<input
+							type="radio"
+							id={candidate.id}
+							name="party-select"
+							class="party-radio"
+							checked={selectedParty === candidate.id}
+							onchange={() => toggleCandidate(candidate.id)}
+						/>
 					{/if}
+					<span class="candidate-copy">
+						<span class="candidate-name">{candidate.name}</span>
+						{#if candidate.party}
+							<span class="candidate-party">{candidate.party}</span>
+						{/if}
+					</span>
 				</label>
 			</div>
 		{/each}
@@ -116,9 +118,6 @@
 
 	.candidate-item,
 	.party-item {
-		display: flex;
-		align-items: center;
-		padding: 1rem;
 		background: white;
 		border: 1px solid #ddd;
 		border-radius: 4px;
@@ -135,7 +134,6 @@
 	.party-radio {
 		width: 1.25rem;
 		height: 1.25rem;
-		margin-right: 1rem;
 		cursor: pointer;
 		flex-shrink: 0;
 	}
@@ -143,9 +141,18 @@
 	.candidate-item label,
 	.party-item label {
 		cursor: pointer;
-		flex: 1;
 		margin: 0;
 		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 1rem;
+		box-sizing: border-box;
+		width: 100%;
+	}
+
+	.candidate-copy {
+		display: flex;
+		flex: 1;
 		flex-direction: column;
 		gap: 0.25rem;
 	}
