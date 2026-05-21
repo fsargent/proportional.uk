@@ -9,7 +9,6 @@ import { oddRNeighbours } from "./geometry";
 
 interface SeatGroup {
   seats: HexSeatWithNeighbours[];
-  allowsBridgeFallback: boolean;
 }
 
 export function withNeighbours(seats: HexSeat[]): HexSeatWithNeighbours[] {
@@ -41,6 +40,9 @@ function average(values: number[]): number {
 
 function pickSeed(
   unassignedSeats: HexSeatWithNeighbours[],
+  unassigned: Set<string>,
+  seatMap: Map<string, HexSeatWithNeighbours>,
+  shouldPreserveRemainder: boolean,
 ): HexSeatWithNeighbours {
   const ordered = [...unassignedSeats].sort((a, b) => {
     const scoreA = a.neighbours.length;
@@ -49,7 +51,12 @@ function pickSeed(
       scoreA - scoreB || a.r - b.r || a.q - b.q || a.name.localeCompare(b.name)
     );
   });
-  return ordered[0];
+
+  return shouldPreserveRemainder
+    ? ordered.find((seat) =>
+        leavesRemainderConnected(seat.id, unassigned, seatMap),
+      ) ?? ordered[0]
+    : ordered[0];
 }
 
 function sharedNeighbourCount(
@@ -104,25 +111,6 @@ function scoreCandidate(
   );
 }
 
-function bestRemainingByDistance(
-  allSeatsInGroup: HexSeatWithNeighbours[],
-  unassigned: Set<string>,
-  districtSeats: HexSeatWithNeighbours[],
-): HexSeatWithNeighbours | undefined {
-  const centroidQ = average(districtSeats.map((seat) => seat.q));
-  const centroidR = average(districtSeats.map((seat) => seat.r));
-
-  return allSeatsInGroup
-    .filter((seat) => unassigned.has(seat.id))
-    .sort((a, b) => {
-      const distA = Math.hypot(a.q - centroidQ, a.r - centroidR);
-      const distB = Math.hypot(b.q - centroidQ, b.r - centroidR);
-      return (
-        distA - distB || a.r - b.r || a.q - b.q || a.name.localeCompare(b.name)
-      );
-    })[0];
-}
-
 function connectedSeatGroups(
   nationSeats: HexSeatWithNeighbours[],
   seatMap: Map<string, HexSeatWithNeighbours>,
@@ -155,7 +143,7 @@ function connectedSeatGroups(
     component.sort((a, b) =>
       districtSortKey(a).localeCompare(districtSortKey(b)),
     );
-    groups.push({ seats: component, allowsBridgeFallback: false });
+    groups.push({ seats: component });
   }
 
   return groups.sort(
@@ -165,72 +153,62 @@ function connectedSeatGroups(
   );
 }
 
-function groupDistance(a: SeatGroup, b: SeatGroup): number {
-  let bestDistance = Number.POSITIVE_INFINITY;
-  for (const seatA of a.seats) {
-    for (const seatB of b.seats) {
-      bestDistance = Math.min(
-        bestDistance,
-        Math.hypot(seatA.q - seatB.q, seatA.r - seatB.r),
-      );
+function connectedComponentSize(
+  startId: string,
+  availableSeatIds: Set<string>,
+  seatMap: Map<string, HexSeatWithNeighbours>,
+): number {
+  const visited = new Set<string>([startId]);
+  const stack = [startId];
+
+  while (stack.length > 0) {
+    const seatId = stack.pop();
+    if (!seatId) continue;
+    const seat = seatMap.get(seatId);
+    if (!seat) continue;
+
+    for (const neighbourId of seat.neighbours) {
+      if (!availableSeatIds.has(neighbourId) || visited.has(neighbourId)) {
+        continue;
+      }
+      visited.add(neighbourId);
+      stack.push(neighbourId);
     }
   }
-  return bestDistance;
+
+  return visited.size;
 }
 
-function mergeBridgeGroups(
-  groups: SeatGroup[],
-  targetMembers: number,
-): SeatGroup[] {
-  const minimumStandaloneSize = Math.max(1, targetMembers - 1);
-  const mergedGroups = groups.map((group) => ({
-    ...group,
-    seats: [...group.seats],
-  }));
+function leavesRemainderConnected(
+  candidateId: string,
+  unassigned: Set<string>,
+  seatMap: Map<string, HexSeatWithNeighbours>,
+): boolean {
+  if (unassigned.size <= 1) return true;
 
-  while (mergedGroups.length > 1) {
-    const undersizedIndex = mergedGroups.findIndex(
-      (group) => group.seats.length < minimumStandaloneSize,
-    );
-    if (undersizedIndex === -1) break;
-
-    const source = mergedGroups[undersizedIndex];
-    let bestTargetIndex = -1;
-    let bestDistance = Number.POSITIVE_INFINITY;
-
-    for (let index = 0; index < mergedGroups.length; index++) {
-      if (index === undersizedIndex) continue;
-      const distance = groupDistance(source, mergedGroups[index]);
-      if (distance < bestDistance) {
-        bestDistance = distance;
-        bestTargetIndex = index;
-      }
+  let startId: string | undefined;
+  for (const seatId of unassigned) {
+    if (seatId !== candidateId) {
+      startId = seatId;
+      break;
     }
-
-    if (bestTargetIndex === -1) break;
-
-    const target = mergedGroups[bestTargetIndex];
-    target.seats = [...target.seats, ...source.seats].sort((a, b) =>
-      districtSortKey(a).localeCompare(districtSortKey(b)),
-    );
-    target.allowsBridgeFallback = true;
-    mergedGroups.splice(undersizedIndex, 1);
   }
+  if (!startId) return true;
 
-  return mergedGroups.sort(
-    (a, b) =>
-      districtSortKey(a.seats[0]).localeCompare(districtSortKey(b.seats[0])) ||
-      b.seats.length - a.seats.length,
+  const remainingIds = new Set(unassigned);
+  remainingIds.delete(candidateId);
+
+  return (
+    connectedComponentSize(startId, remainingIds, seatMap) ===
+    remainingIds.size
   );
 }
 
 function growCompactDistrict(
   seed: HexSeatWithNeighbours,
-  groupSeats: HexSeatWithNeighbours[],
   seatMap: Map<string, HexSeatWithNeighbours>,
   unassigned: Set<string>,
   targetMembers: number,
-  allowsBridgeFallback: boolean,
 ): HexSeatWithNeighbours[] {
   const districtSeats: HexSeatWithNeighbours[] = [seed];
   const districtSeatIds = new Set<string>([seed.id]);
@@ -247,23 +225,21 @@ function growCompactDistrict(
       }
     }
 
-    let candidate: HexSeatWithNeighbours | undefined;
-    if (frontier.size > 0) {
-      candidate = [...frontier.values()].sort(
-        (a, b) =>
-          scoreCandidate(b, districtSeats, districtSeatIds, targetMembers) -
-            scoreCandidate(a, districtSeats, districtSeatIds, targetMembers) ||
-          a.r - b.r ||
-          a.q - b.q ||
-          a.name.localeCompare(b.name),
-      )[0];
-    } else if (allowsBridgeFallback) {
-      candidate = bestRemainingByDistance(
-        groupSeats,
-        unassigned,
-        districtSeats,
-      );
-    }
+    if (frontier.size === 0) break;
+
+    const rankedCandidates = [...frontier.values()].sort(
+      (a, b) =>
+        scoreCandidate(b, districtSeats, districtSeatIds, targetMembers) -
+          scoreCandidate(a, districtSeats, districtSeatIds, targetMembers) ||
+        a.r - b.r ||
+        a.q - b.q ||
+        a.name.localeCompare(b.name),
+    );
+
+    const candidate =
+      rankedCandidates.find((seat) =>
+        leavesRemainderConnected(seat.id, unassigned, seatMap),
+      ) ?? rankedCandidates[0];
 
     if (!candidate) break;
     unassigned.delete(candidate.id);
@@ -294,14 +270,17 @@ function assignSeatGroupDistricts(
       remainingCount <= targetMembers + 1
         ? remainingCount
         : Math.max(1, Math.min(targetMembers, remainingCount));
-    const seed = pickSeed(remainingSeats);
+    const seed = pickSeed(
+      remainingSeats,
+      unassigned,
+      seatMap,
+      remainingCount > desiredSize,
+    );
     const districtSeats = growCompactDistrict(
       seed,
-      seatGroup.seats,
       seatMap,
       unassigned,
       desiredSize,
-      seatGroup.allowsBridgeFallback,
     );
 
     districts.push({
@@ -324,10 +303,7 @@ function assignNationDistricts(
   targetMembers: number,
   startingDistrictNumber: number,
 ): { districts: HexDistrict[]; nextDistrictNumber: number } {
-  const seatGroups = mergeBridgeGroups(
-    connectedSeatGroups(nationSeats, seatMap),
-    targetMembers,
-  );
+  const seatGroups = connectedSeatGroups(nationSeats, seatMap);
   const districts: HexDistrict[] = [];
   let districtNumber = startingDistrictNumber;
 
