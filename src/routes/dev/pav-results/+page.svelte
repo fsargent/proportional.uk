@@ -63,7 +63,7 @@
 						0
 					)
 				}))
-				.sort((a, b) => b.score - a.score);
+				.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
 
 			const winner = candidates.find((c) => c.id === scores[0].id)!;
 			elected.push(winner.id);
@@ -77,6 +77,8 @@
 	const findCandidate = (id: string) => candidates.find((c) => c.id === id)!;
 	const weightLabel = (w: number) =>
 		w === 1 ? '×1' : w === 0.5 ? '×½' : w === 1 / 3 ? '×⅓' : `×${w.toFixed(2)}`;
+
+	const weightHeight = (w: number) => `${Math.max(w * 100, 4)}%`;
 
 	// =========================================================================
 	// Realistic-scale example: 240 voters, 10 candidates, auto-clustered
@@ -239,7 +241,7 @@
 					const score = segments.reduce((s, seg) => s + seg.value, 0);
 					return { id: c.id, score, segments };
 				})
-				.sort((a, b) => b.score - a.score);
+				.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
 
 			const winner = largeCandidates.find((c) => c.id === scores[0].id)!;
 			elected.push(winner.id);
@@ -370,6 +372,15 @@
 							bloc. That's proportionality.
 						{/if}
 					</p>
+					{#if r === 0}
+						<p class="tie-note">
+							In this toy example, <strong>Sarah Johnson</strong> and <strong>Aisha Patel</strong> tie on
+							5.00 in round 1. We break ties alphabetically by candidate id/name for the demo, so Sarah
+							Johnson is shown winning first. The same tie-break explains James Mitchell over Priya
+							Sharma in round 2 and Tom Wright over David Chen in round 3. A real election would need
+							a formal published tie-break rule.
+						</p>
+					{/if}
 				</article>
 			{/each}
 		</section>
@@ -887,6 +898,16 @@
 		color: var(--text-color);
 	}
 
+	.tie-note {
+		margin: 0.75rem 0 0;
+		padding: 0.75rem 1rem;
+		background: color-mix(in srgb, var(--surface-color) 88%, white);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-sm);
+		font-size: 0.92rem;
+		color: var(--text-soft);
+	}
+
 	/* Final winners */
 	.winner-list {
 		list-style: none;
@@ -982,15 +1003,16 @@
 		height: 56px;
 		display: flex;
 		align-items: flex-end;
-		border-bottom: 1px solid var(--border-color);
+		border: 1px solid var(--border-color);
+		border-radius: 4px 4px 0 0;
+		background: color-mix(in srgb, var(--surface-color) 85%, white);
+		overflow: hidden;
 	}
 
 	.lane-fill {
 		width: 100%;
 		min-height: 3px;
-		border-radius: 3px 3px 0 0;
-		border: 1px solid rgba(0, 0, 0, 0.12);
-		border-bottom: none;
+		border-top: 1px solid rgba(0, 0, 0, 0.12);
 		transition: height 0.25s ease;
 	}
 
