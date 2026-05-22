@@ -47,23 +47,31 @@
 		{
 			number: 1,
 			title: 'Cast Your Ballot',
-			description: 'Approve (tick) any candidates you find acceptable from the full list'
+			description: 'Approve (tick) any candidates you find acceptable from the full list.'
 		},
 		{
 			number: 2,
-			title: 'Count All Approvals',
-			description: 'Each candidate receives a count of their total approvals'
+			title: 'Group Identical Ballots',
+			description:
+				"Voters who marked the same set of candidates form a group. Counting groups (rather than every individual ballot) makes the proportional logic easy to follow — each group's voice rises and falls together."
 		},
 		{
 			number: 3,
-			title: 'Elect Sequentially',
+			title: 'Count All Approvals',
 			description:
-				'The candidate with most approvals wins a seat. Voters who elected them have reduced weight for the next round.'
+				'Sum the weighted approvals each candidate received across every group. In the first round every group is at full strength.'
 		},
 		{
 			number: 4,
+			title: 'Elect, Then Reduce the Winner’s Groups',
+			description:
+				"The candidate with the highest weighted total wins a seat. Every group that approved them has its weight reduced (½, then ⅓, …) so they don't dominate the next round."
+		},
+		{
+			number: 5,
 			title: 'Repeat Until Full',
-			description: 'Continue until all seats are filled, ensuring proportional representation'
+			description:
+				'Recount with the new weights, elect the next winner, reduce again. After every seat is filled, each coalition has won seats in rough proportion to its size.'
 		}
 	];
 
@@ -81,17 +89,79 @@
 	let selections = $state<Record<string, boolean>>({});
 
 	const approvedCount = $derived(Object.values(selections).filter(Boolean).length);
+
+	// === Worked-example data: 3 seats, 12 voters, 3 groups ===
+	type WECandidate = { id: string; name: string; party: string };
+	type WEGroup = { id: string; label: string; count: number; approvals: string[]; color: string };
+
+	const weCandidates: WECandidate[] = [
+		{ id: 'sj', name: 'Sarah Johnson', party: 'Labour' },
+		{ id: 'ap', name: 'Aisha Patel', party: 'Liberal Democrats' },
+		{ id: 'jm', name: 'James Mitchell', party: 'Conservative' },
+		{ id: 'ps', name: 'Priya Sharma', party: 'Reform UK' },
+		{ id: 'tw', name: 'Tom Wright', party: 'Green' },
+		{ id: 'dc', name: 'David Chen', party: 'Independent' }
+	];
+
+	const weGroups: WEGroup[] = [
+		{ id: 'A', label: 'Group A', count: 5, approvals: ['sj', 'ap'], color: '#c8102e' },
+		{ id: 'B', label: 'Group B', count: 4, approvals: ['jm', 'ps'], color: '#0087dc' },
+		{ id: 'C', label: 'Group C', count: 3, approvals: ['tw', 'dc'], color: '#6ab023' }
+	];
+
+	const weSeats = 3;
+
+	type WERound = {
+		weights: Record<string, number>;
+		scores: Array<{ id: string; score: number }>;
+		winner: WECandidate;
+	};
+
+	function computeWE(): { rounds: WERound[]; elected: string[] } {
+		const elected: string[] = [];
+		const rounds: WERound[] = [];
+		for (let r = 0; r < weSeats; r++) {
+			const weights: Record<string, number> = {};
+			weGroups.forEach((g) => {
+				const k = g.approvals.filter((a) => elected.includes(a)).length;
+				weights[g.id] = 1 / (1 + k);
+			});
+			const scores = weCandidates
+				.filter((c) => !elected.includes(c.id))
+				.map((c) => ({
+					id: c.id,
+					score: weGroups.reduce(
+						(s, g) => s + (g.approvals.includes(c.id) ? g.count * weights[g.id] : 0),
+						0
+					)
+				}))
+				.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+			const winner = weCandidates.find((c) => c.id === scores[0].id)!;
+			elected.push(winner.id);
+			rounds.push({ weights, scores, winner });
+		}
+		return { rounds, elected };
+	}
+
+	const { rounds: weRounds, elected: weElected } = computeWE();
+	const findWE = (id: string) => weCandidates.find((c) => c.id === id)!;
+	const weFmtWeight = (w: number) =>
+		w === 1 ? '1' : w === 0.5 ? '½' : w === 1 / 3 ? '⅓' : w.toFixed(2);
 </script>
 
 <MethodSection slot="mechanics">
 	<p class="intro-text">
 		This is the full version of the idea: a genuinely proportional Parliament built from approval
-		ballots in <a href="/visualiser">multi-member districts</a>. Technically, this is a form of Sequential Proportional Approval
-		Voting.
+		ballots in <a href="/visualiser">multi-member districts</a>. In academic literature this
+		implementation is called <a
+			href="https://en.wikipedia.org/wiki/Sequential_proportional_approval_voting"
+			target="_blank"
+			rel="noopener">Sequential Proportional Approval Voting</a
+		>, but we'll refer to it as Proportional Approval throughout.
 	</p>
 	<p class="intro-text">
-		It is probably not the first reform Westminster would adopt. But it is the cleanest way to carry
-		the simple ballot idea all the way through to a fully proportional result.
+		It is the cleanest way to carry the simple ballot idea all the way through to a fully
+		proportional result.
 	</p>
 
 	<h3 class="subsection-header">How You Vote</h3>
@@ -135,18 +205,18 @@
 		<div class="explanation-panel">
 			<h4>What Happens Next</h4>
 			<ol>
-				<li>All ballots are collected and approvals counted</li>
-				<li>The candidate with the most approvals wins the first seat</li>
+				<li>All ballots are collected and grouped by which candidates they approved</li>
+				<li>The candidate with the most approvals (across all groups) wins the first seat</li>
 				<li>
-					Voters who helped elect that candidate have their ballot weight reduced (so they don't
-					dominate all seats)
+					Every group that approved that winner has its weight reduced — so the same coalition can't
+					keep electing everyone
 				</li>
 				<li>The next most-approved candidate (by reweighted count) wins the next seat</li>
 				<li>This continues until all seats are filled</li>
 			</ol>
 			<p class="key-point">
-				<strong>Key insight:</strong> By reducing the weight of "already represented" voters, the system
-				ensures that different groups of voters each get proportional representation.
+				<strong>Key insight:</strong> By reducing the weight of "already represented" groups, the system
+				ensures that different coalitions each get proportional representation.
 			</p>
 		</div>
 	</div>
@@ -231,6 +301,74 @@
 			</svg>
 		</div>
 	</figure>
+
+	<div class="worked-example">
+		<h4>📊 Worked example: 3 seats, 12 voters</h4>
+		<p>
+			Twelve voters fall into three groups by which candidates they approved. Three seats up for
+			grabs. Watch how reweighting gives each group one seat — even though Group A is nearly twice
+			the size of Group C.
+		</p>
+
+		<div class="we-groups">
+			{#each weGroups as g (g.id)}
+				<div class="we-group" style="border-left: 4px solid {g.color};">
+					<header>
+						<strong>{g.label}</strong>
+						<small>{g.count} voters</small>
+					</header>
+					<p>Approves: {g.approvals.map((a) => findWE(a).name).join(', ')}</p>
+				</div>
+			{/each}
+		</div>
+
+		<ol class="we-rounds">
+			{#each weRounds as round, i (i)}
+				<li class="we-round">
+					<header>
+						<span class="we-round-tag">Round {i + 1}</span>
+						<span class="we-weights">
+							{#each weGroups as g (g.id)}
+								<span class="we-weight" style="--c:{g.color}">
+									{g.label}: ×{weFmtWeight(round.weights[g.id])}
+								</span>
+							{/each}
+						</span>
+					</header>
+					<ul class="we-scores">
+						{#each round.scores as s (s.id)}
+							{@const c = findWE(s.id)}
+							{@const winning = c.id === round.winner.id}
+							{@const maxScore = round.scores[0].score}
+							<li class:winning>
+								<span class="we-name">
+									{c.name}
+									<small>{c.party}</small>
+								</span>
+								<span class="we-bar">
+									<span class="we-bar-fill" style="width:{(s.score / maxScore) * 100}%"></span>
+								</span>
+								<span class="we-value">
+									{s.score.toFixed(1)}{winning ? ' ✓' : ''}
+								</span>
+							</li>
+						{/each}
+					</ul>
+					{#if i < weRounds.length - 1}
+						<p class="we-note">
+							→ <strong>{round.winner.name}</strong> won. The group that approved them drops to a
+							lower weight in the next round.
+						</p>
+					{:else}
+						<p class="we-note we-final">
+							→ Final winners: {weElected.map((id) => findWE(id).name).join(', ')} — one seat per
+							coalition.
+						</p>
+					{/if}
+				</li>
+			{/each}
+		</ol>
+	</div>
 
 	<div class="reweighting-explainer">
 		<h4>📐 The Reweighting Mechanism</h4>
@@ -722,5 +860,177 @@
 	}
 	.pa-algorithm .loop-label {
 		text-anchor: middle;
+	}
+
+	/* ===== Worked example (grouped ballots) ===== */
+	.worked-example {
+		margin: 1.5rem 0 1.5rem;
+		padding: 1.5rem 1.75rem;
+		background: var(--surface-subtle-gradient);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.worked-example h4 {
+		margin: 0 0 0.5rem;
+		color: var(--text-dark);
+	}
+
+	.worked-example > p {
+		margin: 0 0 1.25rem;
+		color: var(--text-color);
+	}
+
+	.we-groups {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+		gap: 0.75rem;
+		margin: 0 0 1.5rem;
+	}
+
+	.we-group {
+		padding: 0.65rem 0.85rem;
+		background: var(--surface-color);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-sm);
+	}
+
+	.we-group header {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		margin-bottom: 0.2rem;
+	}
+
+	.we-group small {
+		color: var(--text-soft);
+		font-size: 0.78rem;
+	}
+
+	.we-group p {
+		margin: 0;
+		font-size: 0.85rem;
+		color: var(--text-color);
+	}
+
+	.we-rounds {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.we-round {
+		background: var(--surface-color);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-sm);
+		padding: 0.85rem 1rem;
+	}
+
+	.we-round > header {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem 1rem;
+		margin-bottom: 0.6rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px dashed var(--border-color);
+	}
+
+	.we-round-tag {
+		background: var(--header-bg);
+		color: var(--text-inverse);
+		padding: 0.15rem 0.55rem;
+		border-radius: 999px;
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+	}
+
+	.we-weights {
+		display: inline-flex;
+		gap: 0.6rem;
+		flex-wrap: wrap;
+	}
+
+	.we-weight {
+		font-size: 0.78rem;
+		color: var(--text-soft);
+		border-left: 3px solid var(--c);
+		padding-left: 0.4rem;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.we-scores {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+	}
+
+	.we-scores li {
+		display: grid;
+		grid-template-columns: 11rem 1fr 3rem;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.3rem 0.5rem;
+		border-radius: var(--radius-sm);
+		font-size: 0.88rem;
+	}
+
+	.we-scores li.winning {
+		background: var(--field-hover, rgba(0, 0, 0, 0.04));
+		font-weight: 600;
+	}
+
+	.we-name {
+		display: flex;
+		flex-direction: column;
+		color: var(--text-dark);
+		min-width: 0;
+	}
+
+	.we-name small {
+		color: var(--text-soft);
+		font-size: 0.72rem;
+		font-weight: 400;
+	}
+
+	.we-bar {
+		height: 10px;
+		background: var(--surface-color);
+		border-radius: 999px;
+		overflow: hidden;
+		border: 1px solid var(--border-color);
+	}
+
+	.we-bar-fill {
+		display: block;
+		height: 100%;
+		background: var(--header-bg);
+		border-radius: 999px;
+		transition: width 0.25s ease;
+	}
+
+	.we-value {
+		font-variant-numeric: tabular-nums;
+		text-align: right;
+		color: var(--text-dark);
+	}
+
+	.we-note {
+		margin: 0.7rem 0 0;
+		font-size: 0.88rem;
+		color: var(--text-color);
+	}
+
+	.we-final {
+		font-weight: 500;
 	}
 </style>
