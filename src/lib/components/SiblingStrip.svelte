@@ -1,38 +1,41 @@
 <script lang="ts">
-	import { type MethodId } from '$lib/data/methods';
-	import { deltaLine, relatedMethods, type Relation } from '$lib/data/atom-graph';
+	import { METHODS, type MethodId } from '$lib/data/methods';
 
 	type Props = {
 		method: MethodId;
-		/**
-		 * Minimum number of shared atoms required for inclusion. Default 1 — relaxed
-		 * because with only 6 methods on the site, the spec's "≥2 of 3" rule leaves
-		 * 4 of 6 methods with no siblings. Pass 2 to enforce strict.
-		 */
-		minShared?: number;
 	};
-	let { method, minShared = 1 }: Props = $props();
+	let { method }: Props = $props();
 
-	const all = $derived(relatedMethods(method));
-	const visible = $derived<Relation[]>(all.filter((r) => r.sharedAxes.length >= minShared));
+	const source = $derived(METHODS[method]);
+
+	// Hand-curated peers from methods.ts (replaces algorithmic atom-graph
+	// siblings). Each peer carries its "why they're siblings" rationale —
+	// the editorial work of choosing the comparison is the value.
+	const peers = $derived(
+		(source.peers ?? [])
+			.map((id) => ({ method: METHODS[id], rationale: source.peerRationale?.[id] ?? '' }))
+			.filter((p) => p.method)
+	);
 </script>
 
-{#if visible.length > 0}
+{#if peers.length > 0}
 	<aside class="sibling-strip" aria-labelledby="sibling-strip-title">
 		<header class="strip-head">
 			<h2 id="sibling-strip-title" class="strip-title">Closely related</h2>
-			<p class="strip-sub">Same atoms shared, others swapped.</p>
+			<p class="strip-sub">Hand-picked peers — and why they're siblings.</p>
 		</header>
 		<ul class="cards">
-			{#each visible as rel (rel.method.id)}
+			{#each peers as peer (peer.method.id)}
 				<li>
-					<a class="card family-{rel.method.family}" href={rel.method.route}>
+					<a class="card family-{peer.method.family}" href={peer.method.route}>
 						<header>
-							<h3>{rel.method.name}</h3>
-							<span class="character">{rel.method.character}</span>
+							<h3>{peer.method.name}</h3>
+							<span class="character">{peer.method.character}</span>
 						</header>
-						<p class="delta">{deltaLine(rel)}</p>
-						<p class="short">{rel.method.shortDescription}</p>
+						{#if peer.rationale}
+							<p class="delta">{peer.rationale}</p>
+						{/if}
+						<p class="short">{peer.method.shortDescription}</p>
 					</a>
 				</li>
 			{/each}

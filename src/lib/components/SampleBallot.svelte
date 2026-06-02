@@ -7,32 +7,56 @@
 
 	interface Props {
 		candidates: Candidate[];
-		approvals: string[];
+		/** Approval mode: set of approved candidate ids. */
+		approvals?: string[];
+		/** Ranked mode: ordered list of preferences (rank 1 = first). When set,
+		 * the ballot renders rank numbers instead of checkmarks. */
+		ranking?: string[];
 		title?: string;
 		instruction?: string;
 	}
 
-	let {
-		candidates,
-		approvals,
-		title = 'Sample ballot',
-		instruction = "Approve any candidates you'd accept"
-	}: Props = $props();
+	let { candidates, approvals, ranking, title = 'Sample ballot', instruction }: Props = $props();
+
+	const isRanked = $derived(Boolean(ranking));
+	const defaultInstruction = $derived(
+		isRanked
+			? 'Rank candidates in order of preference (1 = most preferred)'
+			: "Approve any candidates you'd accept"
+	);
+	const resolvedInstruction = $derived(instruction ?? defaultInstruction);
+
+	function rankFor(id: string): number | null {
+		if (!ranking) return null;
+		const idx = ranking.indexOf(id);
+		return idx >= 0 ? idx + 1 : null;
+	}
 </script>
 
 <div class="sample-ballot">
 	{#if title}
 		<p class="ballot-title">{title}</p>
 	{/if}
-	<p class="ballot-instruction">✓ {instruction}</p>
+	<p class="ballot-instruction">{isRanked ? '①' : '✓'} {resolvedInstruction}</p>
 	<ul class="ballot-list">
 		{#each candidates as c}
-			{@const approved = approvals.includes(c.id)}
-			<li class="ballot-row" class:approved>
-				<span class="check" class:checked={approved}>{approved ? '✓' : ''}</span>
-				<span class="ballot-name">{c.name}</span>
-				<span class="ballot-party">{c.party}</span>
-			</li>
+			{#if isRanked}
+				{@const rank = rankFor(c.id)}
+				<li class="ballot-row" class:approved={rank !== null}>
+					<span class="rank-pill" class:filled={rank !== null}>
+						{rank ?? ''}
+					</span>
+					<span class="ballot-name">{c.name}</span>
+					<span class="ballot-party">{c.party}</span>
+				</li>
+			{:else}
+				{@const approved = (approvals ?? []).includes(c.id)}
+				<li class="ballot-row" class:approved>
+					<span class="check" class:checked={approved}>{approved ? '✓' : ''}</span>
+					<span class="ballot-name">{c.name}</span>
+					<span class="ballot-party">{c.party}</span>
+				</li>
+			{/if}
 		{/each}
 	</ul>
 </div>
@@ -104,6 +128,28 @@
 	}
 
 	.check.checked {
+		background: var(--header-bg);
+		border-color: var(--header-bg);
+		color: var(--text-inverse);
+	}
+
+	.rank-pill {
+		width: 1.15rem;
+		height: 1.15rem;
+		border: 1px solid var(--border-strong);
+		border-radius: 50%;
+		background: var(--surface-color);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: 700;
+		color: var(--text-soft);
+		line-height: 1;
+		font-size: 0.75rem;
+		flex-shrink: 0;
+	}
+
+	.rank-pill.filled {
 		background: var(--header-bg);
 		border-color: var(--header-bg);
 		color: var(--text-inverse);

@@ -32,9 +32,15 @@
 				{#each group.methods as m (m.id)}
 					<li>
 						{#if m.id === current}
-							<span class="link link-current" aria-current="page">{m.name}</span>
+							<span class="link link-current" aria-current="page">
+								<span class="method-name">{m.name}</span>
+								<span class="method-tagline">{m.tagline}</span>
+							</span>
 						{:else}
-							<a class="link" href={m.route}>{m.name}</a>
+							<a class="link" href={m.route}>
+								<span class="method-name">{m.name}</span>
+								<span class="method-tagline">{m.tagline}</span>
+							</a>
 						{/if}
 					</li>
 				{/each}
@@ -137,5 +143,23 @@
 		color: var(--text-dark);
 		font-weight: 700;
 		cursor: default;
+	}
+
+	.method-name {
+		display: block;
+		line-height: 1.3;
+	}
+
+	.method-tagline {
+		display: block;
+		margin-top: 0.1rem;
+		font-size: 0.78rem;
+		font-weight: 400;
+		color: var(--text-soft);
+		line-height: 1.3;
+	}
+
+	.link-current .method-tagline {
+		color: var(--text-color);
 	}
 </style>
