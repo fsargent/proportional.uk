@@ -20,15 +20,15 @@
 		},
 		{
 			emoji: '⚡',
-			title: 'Fast Counting',
+			title: 'Simpler to count than ranking',
 			description:
-				'Results on election night. Just add up approvals for each candidate—no multi-round elimination.'
+				'No quotas, no vote transfers, no exhausted ballots to chase — just approvals, reweighted seat by seat. The arithmetic is quick to run and easy to publish.'
 		},
 		{
-			emoji: '🎯',
-			title: 'Consensus Winners',
+			emoji: '🪞',
+			title: 'Mirrors the electorate',
 			description:
-				'Candidates with broad support get elected. Divisive candidates who appeal only to their base lose to those with wider appeal.'
+				'Where a single-winner method elects one broadly-acceptable candidate, proportional approval reweights after each seat so cohesive groups — minorities included — win seats in proportion to their size. The chamber reflects the spread of the electorate, not just its middle.'
 		},
 		{
 			emoji: '🗳️',
