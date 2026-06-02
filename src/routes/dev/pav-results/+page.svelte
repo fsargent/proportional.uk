@@ -1,7 +1,18 @@
 <script lang="ts">
 	import SampleBallot from '$lib/components/SampleBallot.svelte';
+	import {
+		candidates as largeCandidates,
+		voters as largeVoters,
+		seats as largeSeats,
+		groups,
+		approvalTotals,
+		spectrumTotals,
+		findCandidate as findLargeCandidate,
+		TOP_K,
+		type Candidate,
+		type Group
+	} from '$lib/data/synthetic-election';
 
-	type Candidate = { id: string; name: string; party: string; color: string };
 	type Voter = { id: string; approvals: string[]; bloc?: string; blocColor?: string };
 
 	const candidates: Candidate[] = [
@@ -81,139 +92,24 @@
 	const weightHeight = (w: number) => `${Math.max(w * 100, 4)}%`;
 
 	// =========================================================================
-	// Realistic-scale example: 240 voters, 10 candidates, auto-clustered
+	// Realistic-scale example: data + helpers imported from synthetic-election.
+	// Only the SPAV-specific computation lives here.
 	// =========================================================================
 
-	const TOP_K = 6;
-	const clusterPalette = [
-		'#4e79a7',
-		'#f28e2b',
-		'#59a14f',
-		'#e15759',
-		'#edc948',
-		'#af7aa1',
-		'#76b7b2',
-		'#9c9c9c' // reserved for "Other"
-	];
-
-	const largeCandidates: Candidate[] = [
-		{ id: 'a1', name: 'Anna Reid', party: 'Progressive', color: '#c8102e' },
-		{ id: 'a2', name: 'Marcus Lee', party: 'Progressive', color: '#c8102e' },
-		{ id: 'b1', name: 'Joanna Hart', party: 'Centrist', color: '#fdbb30' },
-		{ id: 'b2', name: 'Daniel Owen', party: 'Centrist', color: '#fdbb30' },
-		{ id: 'c1', name: 'Richard Black', party: 'Conservative', color: '#0087dc' },
-		{ id: 'c2', name: 'Margaret Pike', party: 'Conservative', color: '#0087dc' },
-		{ id: 'd1', name: 'Naomi Ford', party: 'Green', color: '#6ab023' },
-		{ id: 'd2', name: 'Eli Park', party: 'Green', color: '#6ab023' },
-		{ id: 'e1', name: 'Hassan Roe', party: 'Reform', color: '#12b6cf' },
-		{ id: 'e2', name: 'Linda Vale', party: 'Independent', color: '#7f7f7f' }
-	];
-
-	const largeSeats = 5;
-
-	const archetypes: Array<{ count: number; approvals: string[] }> = [
-		{ count: 50, approvals: ['a1', 'a2', 'd1'] },
-		{ count: 40, approvals: ['a1', 'b1'] },
-		{ count: 35, approvals: ['c1', 'c2'] },
-		{ count: 25, approvals: ['b1', 'c1'] },
-		{ count: 30, approvals: ['c2', 'e1'] },
-		{ count: 20, approvals: ['d1', 'd2'] },
-		{ count: 15, approvals: ['b2', 'a2'] },
-		{ count: 15, approvals: ['e2', 'd1'] },
-		{ count: 10, approvals: ['e2', 'b1'] }
-	];
-	// Total: 240 voters
-
-	function mulberry32(seed: number) {
-		return function () {
-			let t = (seed += 0x6d2b79f5);
-			t = Math.imul(t ^ (t >>> 15), t | 1);
-			t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-			return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-		};
-	}
-
-	function generateLargeVoters(): Voter[] {
-		const rng = mulberry32(7);
-		const out: Voter[] = [];
-		let id = 1;
-		for (const arch of archetypes) {
-			for (let i = 0; i < arch.count; i++) {
-				const set = new Set(arch.approvals);
-				if (rng() < 0.15) {
-					set.add(largeCandidates[Math.floor(rng() * largeCandidates.length)].id);
-				}
-				if (rng() < 0.1 && set.size > 1) {
-					const arr = [...set];
-					set.delete(arr[Math.floor(rng() * arr.length)]);
-				}
-				out.push({ id: `LV${id++}`, approvals: [...set].sort() });
-			}
-		}
-		return out;
-	}
-
-	const largeVoters = generateLargeVoters();
-
-	type Cluster = {
-		id: string;
-		approvals: string[];
-		voterIds: string[];
-		color: string;
-		label: string;
-	};
-
-	function buildClusters(): Cluster[] {
-		const groups = new Map<string, string[]>();
-		largeVoters.forEach((v) => {
-			const key = v.approvals.join(',');
-			if (!groups.has(key)) groups.set(key, []);
-			groups.get(key)!.push(v.id);
-		});
-		const sorted = [...groups.entries()].sort((a, b) => b[1].length - a[1].length);
-		const out: Cluster[] = [];
-		sorted.slice(0, TOP_K).forEach(([key, voterIds], i) => {
-			const approvals = key.split(',').filter(Boolean);
-			const names = approvals
-				.map((id) => largeCandidates.find((c) => c.id === id)?.name.split(' ')[0] ?? '?')
-				.join(' + ');
-			out.push({
-				id: `c${i}`,
-				approvals,
-				voterIds,
-				color: clusterPalette[i],
-				label: names
-			});
-		});
-		const rest = sorted.slice(TOP_K);
-		if (rest.length > 0) {
-			out.push({
-				id: 'other',
-				approvals: [],
-				voterIds: rest.flatMap(([, v]) => v),
-				color: clusterPalette[clusterPalette.length - 1],
-				label: `Other (${rest.length} patterns)`
-			});
-		}
-		return out;
-	}
-
-	const clusters = buildClusters();
-
-	type ClusterRound = {
+	type GroupRound = {
 		winner: Candidate;
-		clusterMeanWeights: Record<string, number>;
+		groupMeanWeights: Record<string, number>;
 		scores: Array<{
 			id: string;
 			score: number;
-			segments: Array<{ clusterId: string; value: number }>;
+			segments: Array<{ groupId: string; value: number }>;
 		}>;
 	};
 
-	function runSPAVClustered(): { rounds: ClusterRound[]; elected: string[] } {
+	function runSPAVGrouped(): { rounds: GroupRound[]; elected: string[] } {
 		const voterMap = new Map(largeVoters.map((v) => [v.id, v]));
 		const elected: string[] = [];
-		const rounds: ClusterRound[] = [];
+		const rounds: GroupRound[] = [];
 
 		for (let r = 0; r < largeSeats; r++) {
 			const perVoterWeights: Record<string, number> = {};
@@ -222,21 +118,21 @@
 				perVoterWeights[v.id] = 1 / (1 + k);
 			});
 
-			const clusterMeanWeights: Record<string, number> = {};
-			clusters.forEach((cl) => {
-				const totalW = cl.voterIds.reduce((s, vid) => s + perVoterWeights[vid], 0);
-				clusterMeanWeights[cl.id] = totalW / cl.voterIds.length;
+			const groupMeanWeights: Record<string, number> = {};
+			groups.forEach((grp) => {
+				const totalW = grp.voterIds.reduce((s, vid) => s + perVoterWeights[vid], 0);
+				groupMeanWeights[grp.id] = totalW / grp.voterIds.length;
 			});
 
 			const scores = largeCandidates
 				.filter((c) => !elected.includes(c.id))
 				.map((c) => {
-					const segments = clusters.map((cl) => {
-						const value = cl.voterIds.reduce((s, vid) => {
+					const segments = groups.map((grp) => {
+						const value = grp.voterIds.reduce((s, vid) => {
 							const v = voterMap.get(vid)!;
 							return s + (v.approvals.includes(c.id) ? perVoterWeights[vid] : 0);
 						}, 0);
-						return { clusterId: cl.id, value };
+						return { groupId: grp.id, value };
 					});
 					const score = segments.reduce((s, seg) => s + seg.value, 0);
 					return { id: c.id, score, segments };
@@ -245,15 +141,19 @@
 
 			const winner = largeCandidates.find((c) => c.id === scores[0].id)!;
 			elected.push(winner.id);
-			rounds.push({ winner, clusterMeanWeights, scores });
+			rounds.push({ winner, groupMeanWeights, scores });
 		}
 
 		return { rounds, elected };
 	}
 
-	const { rounds: largeRounds, elected: largeElected } = runSPAVClustered();
-	const findLargeCandidate = (id: string) => largeCandidates.find((c) => c.id === id)!;
-	const findCluster = (id: string) => clusters.find((c) => c.id === id)!;
+	const { rounds: largeRounds, elected: largeElected } = runSPAVGrouped();
+	const findGroup = (id: string) => groups.find((c) => c.id === id)!;
+
+	const avWinners = new Set(approvalTotals.slice(0, largeSeats).map((t) => t.id));
+	const pavWinners = new Set(largeElected);
+
+	const spectrumMax = Math.max(...spectrumTotals.map((t) => t.count));
 </script>
 
 <svelte:head>
@@ -266,7 +166,7 @@
 			<h1>Proportional Approval — results sketch</h1>
 			<p class="subtitle">
 				Two views of the same algorithm: a small, clean teaching example with three blocs, and an
-				auto-clustered view at realistic scale. Both use SPAV reweighting (1 / (1 + k)).
+				auto-grouped view at realistic scale. Both use SPAV reweighting (1 / (1 + k)).
 			</p>
 		</header>
 
@@ -402,7 +302,7 @@
 		</section>
 
 		<section class="example-divider">
-			<h2>2. At realistic scale — auto-clustered</h2>
+			<h2>2. At realistic scale — auto-grouped</h2>
 			<p>
 				A 5-seat, {largeVoters.length}-voter election with {largeCandidates.length} candidates and
 				overlapping approval patterns (some voters add or drop one candidate from their bloc's
@@ -412,7 +312,7 @@
 			</p>
 			<p class="setup">
 				<strong>{largeSeats} seats</strong> · {largeVoters.length} voters ·
-				{largeCandidates.length} candidates · clustered into {clusters.length} groups
+				{largeCandidates.length} candidates · grouped into {groups.length} groups
 			</p>
 		</section>
 
@@ -420,34 +320,120 @@
 			<h3>What a voter sees</h3>
 			<p class="section-intro">
 				A single ballot — voters tick any number of candidates they approve. This example shows the
-				most common approval pattern ({clusters[0].voterIds.length} voters cast this exact ballot).
+				most common approval pattern ({groups[0].voterIds.length} voters cast this exact ballot).
 			</p>
-			<SampleBallot candidates={largeCandidates} approvals={clusters[0].approvals} />
+			<SampleBallot candidates={largeCandidates} approvals={groups[0].approvals} />
+		</section>
+
+		<section class="totals-section">
+			<h3>Total approvals</h3>
+			<p class="section-intro">
+				If we just counted ticks — the top {largeSeats} candidates with the most approvals would win
+				under straight Approval Voting. PAV instead reweights ballots round by round so that
+				different coalitions get a seat, even when one coalition is the largest.
+			</p>
+			<div class="totals-list">
+				{#each approvalTotals as t}
+					{@const c = findLargeCandidate(t.id)}
+					{@const isAV = avWinners.has(c.id)}
+					{@const isPAV = pavWinners.has(c.id)}
+					{@const maxCount = approvalTotals[0].count}
+					<div class="totals-row" class:av-winner={isAV}>
+						<span class="totals-name">
+							{c.name}
+							<small>{c.party}</small>
+						</span>
+						<span class="totals-tags">
+							{#if isAV}<span class="tag tag-av">AV winner</span>{/if}
+							{#if isPAV}<span class="tag tag-pav">PAV winner</span>{/if}
+						</span>
+						<div class="bar-track">
+							<div
+								class="bar-fill"
+								style="width:{(t.count / maxCount) * 100}%; background:{c.color};"
+							></div>
+						</div>
+						<span class="totals-value">{t.count}</span>
+					</div>
+				{/each}
+			</div>
+		</section>
+
+		<section class="spectrum-section">
+			<h3>Approvals across the political spectrum</h3>
+			<p class="section-intro">
+				The same totals, but ordered left-to-right by political position (Independents sit with the
+				Centrists). Under straight Approval Voting, the {largeSeats} winners cluster around the
+				larger left/centrist bulge — the dashed lines mark exactly which candidates AV would
+				elect. PAV's winners (▼ marker) spread across the whole spectrum, electing one from each
+				of the Far Left, Left, Centrist, Right, and Far Right.
+			</p>
+			<div class="spectrum-chart">
+				{#each spectrumTotals as t, i}
+					{@const c = findLargeCandidate(t.id)}
+					{@const isAV = avWinners.has(c.id)}
+					{@const isPAV = pavWinners.has(c.id)}
+					{@const prevIsAV =
+						i > 0 &&
+						avWinners.has(findLargeCandidate(spectrumTotals[i - 1].id).id)}
+					{@const showPartition = i > 0 && isAV !== prevIsAV}
+					<div class="spectrum-col" class:partition-before={showPartition}>
+						<div class="spectrum-marker">
+							{#if isPAV}<span class="pav-mark" title="PAV winner">▼</span>{/if}
+						</div>
+						<div class="spectrum-bar">
+							<span class="spectrum-count">{t.count}</span>
+							<div
+								class="spectrum-fill"
+								style="height:{(t.count / spectrumMax) * 100}%; background:{c.color};"
+							></div>
+						</div>
+						<div class="spectrum-label">
+							<strong>{c.name.split(' ')[0]}</strong>
+							<small>{c.party}</small>
+						</div>
+					</div>
+				{/each}
+			</div>
+			<div class="spectrum-axis">
+				<span>← Far Left</span>
+				<span>Centrist · Independent</span>
+				<span>Far Right →</span>
+			</div>
+			<div class="spectrum-legend">
+				<span class="legend-chip">
+					<span class="legend-swatch legend-swatch-av"></span>Dashed lines bracket AV's winning
+					group (top {largeSeats} by raw approvals)
+				</span>
+				<span class="legend-chip">
+					<span class="legend-swatch legend-swatch-pav">▼</span>PAV winners (after reweighting)
+				</span>
+			</div>
 		</section>
 
 		<section class="ballots">
-			<h3>The ballots — top {TOP_K} approval patterns</h3>
+			<h3>Groups of ballots</h3>
 			<p class="section-intro">
-				Each card shows what a coalition of voters approved. The colored strip is the cluster's
-				color, used in the bars below to trace its contribution through every round.
+				Each card is a grouping of ballots that mark the same candidates. The colored strip is the
+				group’s color, used in the bars below to trace its contribution through every round.
 			</p>
 			<div class="bloc-grid">
-				{#each clusters as cl}
-					<div class="cluster-card" style="border-left:6px solid {cl.color};">
+				{#each groups as grp}
+					<div class="group-card" style="border-left:6px solid {grp.color};">
 						<header>
-							<span class="cluster-swatch" style="background:{cl.color}"></span>
-							<div class="cluster-title">
-								<strong>{cl.label}</strong>
-								<small>{cl.voterIds.length} voters</small>
+							<span class="group-swatch" style="background:{grp.color}"></span>
+							<div class="group-title">
+								<strong>{grp.label}</strong>
+								<small>{grp.voterIds.length} voters</small>
 							</div>
 						</header>
-						{#if cl.id === 'other'}
-							<p class="cluster-meta">
+						{#if grp.id === 'other'}
+							<p class="group-meta">
 								Long-tail patterns not in the top {TOP_K}. Each contains a handful of voters with
 								unique approval sets.
 							</p>
 						{:else}
-							{@const approvals = cl.approvals.map(findLargeCandidate)}
+							{@const approvals = grp.approvals.map(findLargeCandidate)}
 							<p class="approves">Approves:</p>
 							<ul>
 								{#each approvals as c}
@@ -472,27 +458,27 @@
 						</p>
 					</header>
 
-					<div class="cluster-lanes">
-						<p class="panel-label">Cluster voice remaining</p>
+					<div class="group-lanes">
+						<p class="panel-label">Group voice remaining</p>
 						<div class="lanes-row">
-							{#each clusters as cl}
-								{@const w = round.clusterMeanWeights[cl.id]}
-								<div class="lane" style="flex: {cl.voterIds.length} 0 0;">
+							{#each groups as grp}
+								{@const w = round.groupMeanWeights[grp.id]}
+								<div class="lane" style="flex: {grp.voterIds.length} 0 0;">
 									<div class="lane-track">
 										<div
 											class="lane-fill"
-											style="height:{Math.max(w * 100, 4)}%; background:{cl.color};"
-											title="{cl.label}: {cl.voterIds.length} voters at ×{w.toFixed(2)}"
+											style="height:{Math.max(w * 100, 4)}%; background:{grp.color};"
+											title="{grp.label}: {grp.voterIds.length} voters at ×{w.toFixed(2)}"
 										></div>
 									</div>
-									<span class="lane-label">{cl.voterIds.length} ×{weightLabel(w).slice(1)}</span>
+									<span class="lane-label">{grp.voterIds.length} ×{weightLabel(w).slice(1)}</span>
 								</div>
 							{/each}
 						</div>
 					</div>
 
 					<div class="score-panel">
-						<p class="panel-label">Reweighted scores (segmented by cluster)</p>
+						<p class="panel-label">Reweighted scores (segmented by group)</p>
 						<div class="score-list">
 							{#each round.scores as s}
 								{@const c = findLargeCandidate(s.id)}
@@ -506,11 +492,11 @@
 									<div class="bar-track segmented">
 										{#each s.segments as seg}
 											{#if seg.value > 0}
-												{@const cl = findCluster(seg.clusterId)}
+												{@const grp = findGroup(seg.groupId)}
 												<div
 													class="bar-seg"
-													style="width:{(seg.value / maxScore) * 100}%; background:{cl.color};"
-													title="{cl.label}: {seg.value.toFixed(1)}"
+													style="width:{(seg.value / maxScore) * 100}%; background:{grp.color};"
+													title="{grp.label}: {seg.value.toFixed(1)}"
 												></div>
 											{/if}
 										{/each}
@@ -525,8 +511,8 @@
 
 					<p class="caption">
 						{#if r < largeRounds.length - 1}
-							→ The clusters whose ballots include <strong>{round.winner.name}</strong> drop in
-							voice for round {r + 2}. The next winner emerges from whichever clusters still have
+							→ The groups whose ballots include <strong>{round.winner.name}</strong> drop in
+							voice for round {r + 2}. The next winner emerges from whichever groups still have
 							full-strength support.
 						{:else}
 							→ Five seats, allocated across distinct coalitions in rough proportion to their
@@ -660,15 +646,15 @@
 		flex-shrink: 0;
 	}
 
-	/* Cluster ballot cards (realistic-scale section) */
-	.cluster-card {
+	/* Group ballot cards (realistic-scale section) */
+	.group-card {
 		background: var(--surface-raised);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		padding: 1rem 1.2rem;
 	}
 
-	.cluster-card header {
+	.group-card header {
 		display: flex;
 		align-items: center;
 		gap: 0.6rem;
@@ -677,7 +663,7 @@
 		border-bottom: 1px dashed var(--border-color);
 	}
 
-	.cluster-swatch {
+	.group-swatch {
 		width: 1rem;
 		height: 1rem;
 		border-radius: 3px;
@@ -685,31 +671,31 @@
 		border: 1px solid rgba(0, 0, 0, 0.15);
 	}
 
-	.cluster-title {
+	.group-title {
 		display: flex;
 		flex-direction: column;
 		min-width: 0;
 		flex: 1;
 	}
 
-	.cluster-title strong {
+	.group-title strong {
 		color: var(--text-dark);
 		font-size: 0.95rem;
 		font-weight: 600;
 	}
 
-	.cluster-title small {
+	.group-title small {
 		color: var(--text-soft);
 		font-size: 0.78rem;
 	}
 
-	.cluster-card .approves {
+	.group-card .approves {
 		font-size: 0.85rem;
 		color: var(--text-soft);
 		margin: 0 0 0.4rem;
 	}
 
-	.cluster-card ul {
+	.group-card ul {
 		list-style: none;
 		padding: 0;
 		margin: 0;
@@ -718,7 +704,7 @@
 		gap: 0.3rem;
 	}
 
-	.cluster-card li {
+	.group-card li {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -726,7 +712,7 @@
 		color: var(--text-dark);
 	}
 
-	.cluster-meta {
+	.group-meta {
 		font-size: 0.85rem;
 		color: var(--text-soft);
 		margin: 0;
@@ -875,6 +861,226 @@
 		border: 1px solid var(--border-color);
 	}
 
+	/* Total approvals section */
+	.totals-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+
+	.totals-row {
+		display: grid;
+		grid-template-columns: 11rem 12rem 1fr 2.5rem;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.4rem 0.6rem;
+		border-radius: var(--radius-sm);
+	}
+
+	.totals-row.av-winner {
+		background: var(--field-hover, rgba(0, 0, 0, 0.04));
+	}
+
+	.totals-name {
+		display: flex;
+		flex-direction: column;
+		font-size: 0.9rem;
+		color: var(--text-dark);
+		min-width: 0;
+	}
+
+	.totals-name small {
+		color: var(--text-soft);
+		font-size: 0.75rem;
+	}
+
+	.totals-value {
+		font-variant-numeric: tabular-nums;
+		font-weight: 600;
+		color: var(--text-dark);
+		text-align: right;
+	}
+
+	.totals-tags {
+		display: flex;
+		gap: 0.35rem;
+		flex-wrap: wrap;
+	}
+
+	.tag {
+		font-size: 0.7rem;
+		font-weight: 600;
+		padding: 0.15rem 0.5rem;
+		border-radius: 999px;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	.tag-av {
+		background: var(--surface-color);
+		color: var(--text-soft);
+		border: 1px solid var(--border-color);
+	}
+
+	.tag-pav {
+		background: var(--header-bg);
+		color: var(--text-inverse);
+	}
+
+	/* ===== Spectrum chart ===== */
+	.spectrum-section {
+		margin-bottom: 1rem;
+	}
+
+	.spectrum-chart {
+		display: flex;
+		align-items: flex-end;
+		gap: 0.5rem;
+		margin: 1.25rem 0 0.4rem;
+		padding-bottom: 0.3rem;
+		border-bottom: 2px solid var(--border-strong);
+	}
+
+	.spectrum-col {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		min-width: 0;
+		gap: 0.25rem;
+		position: relative;
+	}
+
+	/* Dashed vertical line marking the AV-winning group boundary. The line sits
+	   in the gap to the LEFT of this column. */
+	.spectrum-col.partition-before::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: -2.4rem;
+		left: -0.3rem;
+		border-left: 2px dashed #d4af37;
+		pointer-events: none;
+	}
+
+	.spectrum-marker {
+		height: 1.2rem;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		color: var(--header-bg);
+		font-size: 1.1rem;
+		line-height: 1;
+	}
+
+	.pav-mark {
+		font-weight: 700;
+	}
+
+	.spectrum-bar {
+		height: 200px;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: flex-end;
+		position: relative;
+	}
+
+	.spectrum-count {
+		font-size: 0.75rem;
+		color: var(--text-dark);
+		text-align: center;
+		margin-bottom: 2px;
+		font-variant-numeric: tabular-nums;
+		font-weight: 600;
+	}
+
+	.spectrum-fill {
+		width: 100%;
+		min-height: 4px;
+		border-radius: 4px 4px 0 0;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		border-bottom: none;
+		transition: height 0.25s ease;
+	}
+
+	.spectrum-label {
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		gap: 1px;
+		padding-top: 0.25rem;
+		border-top: 1px dashed var(--border-color);
+		min-width: 0;
+	}
+
+	.spectrum-label strong {
+		font-size: 0.8rem;
+		color: var(--text-dark);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.spectrum-label small {
+		font-size: 0.68rem;
+		color: var(--text-soft);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.spectrum-axis {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.75rem;
+		color: var(--text-soft);
+		margin-top: 0.3rem;
+		letter-spacing: 0.02em;
+	}
+
+	.spectrum-legend {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 1rem;
+		font-size: 0.8rem;
+		color: var(--text-color);
+	}
+
+	.legend-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.legend-swatch {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.1rem;
+		height: 1.1rem;
+		border-radius: 3px;
+	}
+
+	.legend-swatch-av {
+		width: 1.4rem;
+		height: 1.2rem;
+		background: transparent;
+		border-left: 2px dashed #d4af37;
+		border-right: 2px dashed #d4af37;
+		border-top: none;
+		border-bottom: none;
+		border-radius: 0;
+	}
+
+	.legend-swatch-pav {
+		color: var(--header-bg);
+		font-size: 1rem;
+		font-weight: 700;
+	}
+
 	.bar-fill {
 		height: 100%;
 		border-radius: 999px;
@@ -981,8 +1187,8 @@
 		margin: 0;
 	}
 
-	/* ===== Cluster lanes (per-round voice panel) ===== */
-	.cluster-lanes {
+	/* ===== Group lanes (per-round voice panel) ===== */
+	.group-lanes {
 		margin-bottom: 1.25rem;
 	}
 

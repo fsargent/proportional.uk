@@ -34,7 +34,7 @@
 	}
 
 	let groupingIndex = $state(getInitialGroupingIndex());
-	let colourMode = $state<'groups' | 'seats'>('seats');
+	let colourMode = $state<'groups' | 'seats'>('groups');
 	let hoveredDistrictId = $state<string | null>(null);
 	let selectedDistrictId = $state<string | null>(null);
 
