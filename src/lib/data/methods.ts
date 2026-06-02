@@ -110,7 +110,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 			allocation: 'plurality'
 		},
 		route: '/fptp',
-		tagline: 'Our current failing system',
+		tagline: 'The system we use now',
 		shortDescription:
 			'Mark one candidate; the highest single vote total in each constituency wins the seat.',
 		tradeoff:
@@ -150,7 +150,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 
 		tradeoffHeadlines: [
 			'Seat shares routinely diverge sharply from vote shares — the 2024 Gallagher index was 23.7, fifth-worst on record.',
-			'Millions of votes elect nobody: the ERS counted roughly 73.7% of 2024 votes as cast for losing candidates.',
+			'Millions of votes elect nobody: the Electoral Reform Society counted roughly 73.7% of 2024 votes as cast for losing candidates.',
 			'Rewards tactical voting — backing the least-bad candidate who can win, not the one you prefer.',
 			'Concentrates campaigning on a handful of marginal seats while safe seats are ignored.'
 		],
@@ -158,7 +158,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 		faqs: [
 			{
 				q: "If it's so distorting, why does Britain still use it?",
-				a: 'Inertia and incumbency, mostly. The system tends to benefit whichever party last won under it, so the party with the power to change it usually has the least reason to. The 2011 referendum offered a different single-winner method (AV), not proportional representation — so a proportional alternative has never actually been on a UK-wide ballot.'
+				a: 'Inertia and incumbency, mostly. The system tends to benefit whichever party last won under it, so the party with the power to change it usually has the least reason to. The 2011 referendum offered a different single-winner method (the Alternative Vote), not proportional representation — so a proportional alternative has never actually been on a UK-wide ballot.'
 			},
 			{
 				q: "Doesn't FPTP at least keep out extremists?",
@@ -217,7 +217,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 		},
 
 		strengthHeadlines: [
-			'Genuinely proportional outcomes in real-world use (Ireland, Malta, Scottish local, NI Assembly).',
+			'Genuinely proportional outcomes in real-world use (Ireland, Malta, Scottish local government, the Northern Ireland Assembly).',
 			'Voters rank candidates, not parties — so the ballot keeps a candidate-centred local link.',
 			'Multi-member districts dissolve "wasted vote" arithmetic without abolishing constituencies.',
 			'Battle-tested at national scale for nearly a century.'
@@ -287,7 +287,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 		},
 
 		strengthHeadlines: [
-			'Lets you rank a small party or independent first without wasting your vote — it transfers if they are eliminated.',
+			'Lets you rank a small party or independent first without wasting your vote — your vote transfers if they are eliminated.',
 			'Ends vote-splitting between similar candidates, the classic First-Past-the-Post spoiler.',
 			'Keeps the familiar single-member constituency and its named local MP.',
 			'More expressive than a single mark, and well tested — Australia has used it for over a century.'
@@ -390,7 +390,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 	},
 	'ams-plus': {
 		id: 'ams-plus',
-		name: 'Additional Member System / Mixed-Member Proportional + Approval',
+		name: 'Additional Member System + Approval',
 		character: 'the top-up',
 		family: 'mixed',
 		atoms: {
@@ -399,7 +399,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 			allocation: 'topup'
 		},
 		route: '/ams-plus',
-		tagline: 'Used in Wales',
+		tagline: 'Used in Scotland',
 		shortDescription:
 			'Approve local candidates and cast a separate party vote; regional list seats top up the constituency results to make the overall outcome proportional.',
 		tradeoff:
@@ -498,7 +498,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 		],
 
 		tradeoffHeadlines: [
-			'Its track record is academic and organisational, not national-legislative — no country elects its parliament this way yet.',
+			'Its track record is thin: only Sweden has used it for a parliament, a century ago, before switching away — no legislature elects its members this way today.',
 			'The sequential reweighting step is unfamiliar to UK voters and harder to verify by hand than a simple tally.',
 			'Requires multi-member districts, so existing single-member constituencies would be grouped.',
 			'Less battle-tested at scale than STV or list PR — the honest cost of being the newest option.'
@@ -547,7 +547,7 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 		tags: ['divisor-method', 'closed-open-flexible-variants', 'multi-member-district'],
 		votingMachineCompatibility: {
 			existingMachines: true,
-			note: "Standard paper ballot; counts use Sainte-Laguë divisors (the most proportional of the common highest-averages methods)."
+			note: "Standard paper ballot; counts use Sainte-Laguë divisors (the most proportional of the common highest-averages methods)."
 		},
 		proportionality: 'full',
 

@@ -19,7 +19,7 @@
 			emoji: '🎯',
 			title: 'No Spoiler Effect',
 			description:
-				"Support your favorite candidates without worrying about splitting the vote or letting your least-preferred candidate win."
+				"Support your favourite candidates without worrying about splitting the vote or letting your least-preferred candidate win."
 		},
 		{
 			emoji: '⚖️',
@@ -338,7 +338,7 @@
 					<div class="detail-card">
 						<h4>Counting rule</h4>
 						<p>
-							Use a fair top-up formula such as <strong>Sainte-Lague</strong> rather than defaulting to
+							Use a fair top-up formula such as <strong>Sainte-Laguë</strong> rather than defaulting to
 							D'Hondt, because the UK is a multi-party system where small differences in divisor choice can
 							matter.
 						</p>

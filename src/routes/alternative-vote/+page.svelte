@@ -59,7 +59,7 @@
 	}
 
 	// --- Worked example: instant-runoff over a small electorate ------------------
-	// Deliberately a center-squeeze case: the centrist would beat both rivals
+	// Deliberately a centre-squeeze case: the centrist would beat both rivals
 	// one-to-one, yet is eliminated first for too few first preferences.
 	type AvCand = { id: string; name: string; lean: string; colour: string };
 	const avCands: AvCand[] = [
@@ -260,7 +260,7 @@
 					</div>
 
 					<div class="irv-squeeze">
-						<h4>This is center squeeze</h4>
+						<h4>This is centre squeeze</h4>
 						<p>
 							Chris Bell (Centre) is the second choice of nearly everyone and would beat both Lena and
 							Rosa one-to-one — yet they are eliminated in the very first round for too few
@@ -292,7 +292,7 @@
 						</p>
 					</article>
 					<article class="con-card">
-						<h4>Center squeeze — the spoiler that remains</h4>
+						<h4>Centre squeeze — the spoiler that remains</h4>
 						<p>
 							The Alternative Vote is not a <a href="https://en.wikipedia.org/wiki/Condorcet_method" target="_blank" rel="noopener">Condorcet method</a>. A broadly-liked centrist can be eliminated early simply
 							because too few voters rank them <em>first</em>, even when they would beat every rival in a

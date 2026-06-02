@@ -428,7 +428,7 @@
 						</div>
 						<div>
 							<h4>Counting benchmark</h4>
-							<p>For rough UK comparisons, Sainte-Lague is a better benchmark than D'Hondt because it is less biased toward the largest parties.</p>
+							<p>For rough UK comparisons, Sainte-Laguë is a better benchmark than D'Hondt because it is less biased toward the largest parties.</p>
 						</div>
 					</div>
 				</div>

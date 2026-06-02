@@ -104,7 +104,7 @@
 		{
 			title: 'Seat formula',
 			body:
-				'The 100 national seats would be allocated using Sainte-Lague, a standard proportional seat-allocation formula.'
+				'The 100 national seats would be allocated using Sainte-Laguë, a standard proportional seat-allocation formula.'
 		},
 		{
 			title: 'System type',
