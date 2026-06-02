@@ -65,6 +65,41 @@
 
 	let selections = $state<Record<string, boolean>>({});
 	const approvedCount = $derived(Object.values(selections).filter(Boolean).length);
+
+	// --- Worked count: how approvals across an electorate elect a winner --------
+	type SwaCand = { id: string; name: string; note: string; colour: string };
+	const swaCands: SwaCand[] = [
+		{ id: 'A', name: 'Ama Boateng', note: 'broadly acceptable', colour: '#2f7a59' },
+		{ id: 'B', name: 'Ben Carter', note: 'left bloc', colour: '#d62728' },
+		{ id: 'C', name: 'Carol Reed', note: 'right bloc', colour: '#1f77b4' },
+		{ id: 'D', name: 'Dan Obi', note: 'minor party', colour: '#7a4d2f' }
+	];
+	// Each group: how many voters, which candidates they approve, and — for the
+	// First-Past-the-Post comparison — which single candidate they'd mark.
+	const swaGroups: { count: number; approve: string[]; first: string }[] = [
+		{ count: 35, approve: ['B', 'A'], first: 'B' },
+		{ count: 30, approve: ['C', 'A'], first: 'C' },
+		{ count: 20, approve: ['A'], first: 'A' },
+		{ count: 15, approve: ['D', 'B'], first: 'D' }
+	];
+	const swaTotal = swaGroups.reduce((s, g) => s + g.count, 0);
+
+	let countMode = $state<'approval' | 'fptp'>('approval');
+
+	const swaTally = $derived(
+		swaCands
+			.map((c) => ({
+				...c,
+				votes:
+					countMode === 'approval'
+						? swaGroups.reduce((s, g) => s + (g.approve.includes(c.id) ? g.count : 0), 0)
+						: swaGroups.reduce((s, g) => s + (g.first === c.id ? g.count : 0), 0)
+			}))
+			.sort((a, b) => b.votes - a.votes)
+	);
+	const swaWinner = $derived(swaTally[0]);
+	const swaMax = $derived(Math.max(...swaTally.map((t) => t.votes)));
+	const swaCand = (id: string) => swaCands.find((c) => c.id === id)!;
 </script>
 
 <svelte:head>
@@ -149,6 +184,62 @@
 						<StepCard number={step.number} title={step.title} description={step.description} />
 					{/each}
 				</div>
+			{/snippet}
+
+			{#snippet workedExample()}
+				<p class="intro-text">
+					A single seat, 100 voters, four candidates. Watch how counting every approval — not just
+					first choices — changes who wins.
+				</p>
+
+				<div class="count-toggle" role="group" aria-label="Counting method">
+					<button type="button" class:selected={countMode === 'approval'} onclick={() => (countMode = 'approval')}>
+						Approval count
+					</button>
+					<button type="button" class:selected={countMode === 'fptp'} onclick={() => (countMode = 'fptp')}>
+						If it were First Past the Post
+					</button>
+				</div>
+
+				<div class="swa-electorate">
+					{#each swaGroups as g, i (i)}
+						<div class="swa-group">
+							<strong>{g.count} voters</strong>
+							<span class="swa-approve">
+								{#if countMode === 'approval'}
+									approve {g.approve.map((id) => swaCand(id).name).join(' + ')}
+								{:else}
+									mark {swaCand(g.first).name}
+								{/if}
+							</span>
+						</div>
+					{/each}
+				</div>
+
+				<ul class="swa-bars">
+					{#each swaTally as t (t.id)}
+						<li class:winner={t.id === swaWinner.id}>
+							<span class="swa-name">{t.name}<small>{t.note}</small></span>
+							<span class="swa-bar">
+								<span class="swa-bar-fill" style="width:{swaMax ? (t.votes / swaMax) * 100 : 0}%; background:{t.colour}"></span>
+							</span>
+							<span class="swa-val">{t.votes}{t.id === swaWinner.id ? ' ✓' : ''}</span>
+						</li>
+					{/each}
+				</ul>
+
+				<p class="swa-note">
+					{#if countMode === 'approval'}
+						<strong>{swaWinner.name} wins</strong> — acceptable to {swaWinner.votes} of {swaTotal}
+						voters. Approval rewards the candidate the most people can live with, not the one with the
+						largest single bloc.
+					{:else}
+						<strong>{swaWinner.name} wins</strong> with just {swaWinner.votes} of {swaTotal}
+						first-choice votes — opposed by {swaTotal - swaWinner.votes}. That is the vote-splitting
+						First Past the Post produces. Switch back to the approval count to see who a majority would
+						actually accept.
+					{/if}
+				</p>
 			{/snippet}
 
 			{#snippet strengths()}
@@ -319,6 +410,55 @@
 		margin: 0;
 		font-size: 0.95rem;
 		line-height: 1.65;
+	}
+
+	/* ===== Worked count (approval vs FPTP) ===== */
+	.count-toggle { display: inline-flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+	.count-toggle button {
+		font: inherit;
+		font-weight: 600;
+		padding: 0.5rem 0.9rem;
+		border-radius: 999px;
+		border: 1px solid var(--border-color);
+		background: var(--surface-color);
+		color: var(--text-dark);
+		cursor: pointer;
+	}
+	.count-toggle button.selected {
+		background: linear-gradient(180deg, var(--header-bg) 0%, var(--header-bg-strong) 100%);
+		color: var(--text-inverse);
+		border-color: transparent;
+	}
+	.swa-electorate { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.6rem; margin-bottom: 1rem; }
+	.swa-group {
+		padding: 0.6rem 0.8rem;
+		background: var(--surface-color);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-sm);
+		display: grid;
+		gap: 0.2rem;
+	}
+	.swa-group strong { font-size: 0.9rem; }
+	.swa-approve { font-size: 0.83rem; color: var(--text-soft); }
+	.swa-bars { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.4rem; }
+	.swa-bars li {
+		display: grid;
+		grid-template-columns: 9rem 1fr 3.5rem;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.3rem 0.5rem;
+		border-radius: var(--radius-sm);
+	}
+	.swa-bars li.winner { background: var(--highlight-bg, rgba(45, 122, 89, 0.12)); font-weight: 600; }
+	.swa-name { display: flex; flex-direction: column; color: var(--text-dark); min-width: 0; }
+	.swa-name small { color: var(--text-soft); font-size: 0.72rem; font-weight: 400; }
+	.swa-bar { height: 14px; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 999px; overflow: hidden; }
+	.swa-bar-fill { display: block; height: 100%; border-radius: 999px; transition: width 0.3s ease; }
+	.swa-val { font-variant-numeric: tabular-nums; text-align: right; color: var(--text-dark); }
+	.swa-note { margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--text-color); }
+
+	@media (max-width: 768px) {
+		.swa-bars li { grid-template-columns: 7rem 1fr 3rem; }
 	}
 
 	.intro-text {
