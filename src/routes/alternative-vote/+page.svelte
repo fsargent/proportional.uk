@@ -14,7 +14,7 @@
 			emoji: '🔀',
 			title: 'Ends classic vote-splitting',
 			description:
-				'When two similar candidates run, AV stops them splitting first preferences and handing the seat to a third the majority opposed — the Nader/Gore problem. (It does not protect a squeezed centrist — see the trade-offs.)'
+				'When two similar candidates run, the Alternative Vote stops them splitting first preferences and handing the seat to a third the majority opposed — the Nader/Gore problem. (It does not protect a squeezed centrist — see the trade-offs.)'
 		},
 		{
 			emoji: '🏛️',
@@ -26,7 +26,7 @@
 			emoji: '⬆️',
 			title: 'Expressive and well tested',
 			description:
-				'Ranking 1-2-3 captures more than a single X, and AV is proven at scale: Australia has used it for its House for over a century, with a growing list of US cities and states.'
+				'Ranking 1-2-3 captures more than a single X, and the Alternative Vote is proven at scale: Australia has used it for its House for over a century, with a growing list of US cities and states.'
 		}
 	];
 
@@ -120,10 +120,10 @@
 </script>
 
 <svelte:head>
-	<title>The Alternative Vote (AV / Ranked-Choice) — and why it isn't proportional</title>
+	<title>The Alternative Vote (Ranked-Choice / Instant-Runoff) — and why it isn't proportional</title>
 	<meta
 		name="description"
-		content="What the Alternative Vote is, how instant-runoff counting works, why it removes the spoiler effect but does not make Parliament proportional, and what the 2011 UK referendum actually settled."
+		content="What the Alternative Vote is, how instant-runoff counting works, why it ends classic vote-splitting but is not proportional and not a Condorcet method, and what the 2011 UK referendum actually settled."
 	/>
 </svelte:head>
 
@@ -264,7 +264,7 @@
 						<p>
 							Chris Bell (Centre) is the second choice of nearly everyone and would beat both Lena and
 							Rosa one-to-one — yet they are eliminated in the very first round for too few
-							<em>first</em> preferences. AV is not a Condorcet method: it can pass over the candidate
+							<em>first</em> preferences. The Alternative Vote is not a <a href="https://en.wikipedia.org/wiki/Condorcet_method" target="_blank" rel="noopener">Condorcet method</a>: it can pass over the candidate
 							most voters actually prefer. That is a real spoiler effect, just a different one from First
 							Past the Post's.
 						</p>
@@ -285,26 +285,26 @@
 					<article class="con-card">
 						<h4>Not proportional</h4>
 						<p>
-							AV elects one winner per seat, so national seat shares can still diverge sharply from
-							votes. Australia's AV-elected House of Representatives has stayed a two-party chamber for
-							over a century. This is the decisive limitation — and the reason AV is not on this site's
-							proportional shortlist.
+							The Alternative Vote elects one winner per seat, so national seat shares can still diverge
+							sharply from votes. Australia's House of Representatives, elected this way for over a
+							century, has stayed a two-party chamber. This is the decisive limitation — and the reason
+							the Alternative Vote is not on this site's proportional shortlist.
 						</p>
 					</article>
 					<article class="con-card">
 						<h4>Center squeeze — the spoiler that remains</h4>
 						<p>
-							AV is not a Condorcet method. A broadly-liked centrist can be eliminated early simply
+							The Alternative Vote is not a <a href="https://en.wikipedia.org/wiki/Condorcet_method" target="_blank" rel="noopener">Condorcet method</a>. A broadly-liked centrist can be eliminated early simply
 							because too few voters rank them <em>first</em>, even when they would beat every rival in a
 							head-to-head. That is a real spoiler effect — just a different one from First Past the
-							Post's vote-splitting. (AV can also be non-monotonic: in rare cases, ranking a candidate
+							Post's vote-splitting. (The Alternative Vote can also be non-monotonic: in rare cases, ranking a candidate
 							higher actually makes them lose.)
 						</p>
 					</article>
 					<article class="con-card">
 						<h4>The "majority" is manufactured</h4>
 						<p>
-							AV's winner only crosses 50% after other candidates are eliminated and exhausted ballots
+							The Alternative Vote's winner only crosses 50% after other candidates are eliminated and exhausted ballots
 							are set aside. It builds a majority from the ballots still in play — it cannot conjure
 							majority support that was never there. In some real elections, exhausted ballots have
 							outnumbered the winner's eventual margin.
@@ -313,9 +313,10 @@
 					<article class="con-card">
 						<h4>The system rejected in 2011</h4>
 						<p>
-							UK voters turned AV down 67.9% to 32.1% in the 2011 referendum. Any AV proposal has to win
-							back an argument the public has already heard — and "too complicated" was the message that
-							beat it. Crucially, that vote was about AV, not about proportional representation.
+							UK voters turned the Alternative Vote down 67.9% to 32.1% in the 2011 referendum. Any
+							Alternative Vote proposal has to win back an argument the public has already heard — and
+							"too complicated" was the message that beat it. Crucially, that vote was about the
+							Alternative Vote, not about proportional representation.
 						</p>
 					</article>
 				</div>

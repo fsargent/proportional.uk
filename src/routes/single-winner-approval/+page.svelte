@@ -98,7 +98,8 @@
 			.sort((a, b) => b.votes - a.votes)
 	);
 	const swaWinner = $derived(swaTally[0]);
-	const swaMax = $derived(Math.max(...swaTally.map((t) => t.votes)));
+	const swaSum = $derived(swaTally.reduce((s, t) => s + t.votes, 0));
+	const swaPct = (votes: number) => Math.round((votes / swaTotal) * 100);
 	const swaCand = (id: string) => swaCands.find((c) => c.id === id)!;
 </script>
 
@@ -216,28 +217,38 @@
 					{/each}
 				</div>
 
+				<p class="swa-caption">Each bar is the share of all {swaTotal} voters who support that candidate.</p>
+
 				<ul class="swa-bars">
 					{#each swaTally as t (t.id)}
 						<li class:winner={t.id === swaWinner.id}>
 							<span class="swa-name">{t.name}<small>{t.note}</small></span>
 							<span class="swa-bar">
-								<span class="swa-bar-fill" style="width:{swaMax ? (t.votes / swaMax) * 100 : 0}%; background:{t.colour}"></span>
+								<span class="swa-bar-fill" style="width:{swaPct(t.votes)}%; background:{t.colour}"></span>
 							</span>
-							<span class="swa-val">{t.votes}{t.id === swaWinner.id ? ' ✓' : ''}</span>
+							<span class="swa-val">{swaPct(t.votes)}%{t.id === swaWinner.id ? ' ✓' : ''}</span>
 						</li>
 					{/each}
 				</ul>
 
+				<p class="swa-sum">
+					{#if countMode === 'approval'}
+						Voters approve as many candidates as they like, so the shares add up to {swaSum}% — well
+						over 100%. Approval surfaces how much support each candidate <em>really</em> has.
+					{:else}
+						One mark each, so the shares add up to exactly 100% — spread thin, and the winner commands
+						far less of the room.
+					{/if}
+				</p>
+
 				<p class="swa-note">
 					{#if countMode === 'approval'}
-						<strong>{swaWinner.name} wins</strong> — acceptable to {swaWinner.votes} of {swaTotal}
-						voters. Approval rewards the candidate the most people can live with, not the one with the
-						largest single bloc.
+						<strong>{swaWinner.name} wins</strong> — approved by {swaPct(swaWinner.votes)}% of all
+						voters, the broadest genuine support of any candidate.
 					{:else}
-						<strong>{swaWinner.name} wins</strong> with just {swaWinner.votes} of {swaTotal}
-						first-choice votes — opposed by {swaTotal - swaWinner.votes}. That is the vote-splitting
-						First Past the Post produces. Switch back to the approval count to see who a majority would
-						actually accept.
+						<strong>{swaWinner.name} wins on {swaPct(swaWinner.votes)}%</strong> — not chosen by the
+						other {100 - swaPct(swaWinner.votes)}%. Forcing one mark each buries real support: most of
+						these voters would also have approved {swaCand('A').name}. Switch back to see it.
 					{/if}
 				</p>
 			{/snippet}
@@ -455,6 +466,8 @@
 	.swa-bar { height: 14px; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 999px; overflow: hidden; }
 	.swa-bar-fill { display: block; height: 100%; border-radius: 999px; transition: width 0.3s ease; }
 	.swa-val { font-variant-numeric: tabular-nums; text-align: right; color: var(--text-dark); }
+	.swa-caption { margin: 0 0 0.6rem; font-size: 0.85rem; color: var(--text-soft); }
+	.swa-sum { margin: 0 0 0.6rem; font-size: 0.92rem; line-height: 1.55; color: var(--text-color); }
 	.swa-note { margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--text-color); }
 
 	@media (max-width: 768px) {
