@@ -36,7 +36,7 @@
 		rounds,
 		seats,
 		totalVotes,
-		ariaLabel = 'STV count flow diagram',
+		ariaLabel = 'Sankey diagram showing how votes transfer between candidates across each round of an STV count.',
 		width = 600
 	}: Props = $props();
 
@@ -422,6 +422,7 @@
 				{#each layout.voteBlockRows[0] ?? [] as block (block.key)}
 					<g transform={`translate(${block.x + block.width / 2} -10)`}>
 						<text
+							role="presentation"
 							class="cand-label"
 							font-size="12"
 							dominant-baseline="middle"
@@ -436,6 +437,7 @@
 				{#each layout.voteBlockRows as row, rowIdx (rowIdx)}
 					{#each row as block (block.key)}
 						<g
+							role="presentation"
 							onpointerenter={() => (hover = { kind: 'node', key: block.key })}
 							onpointerleave={() => (hover = null)}
 						>
@@ -469,6 +471,7 @@
 				<!-- Transfer ribbons -->
 				{#each layout.transferPaths as t, i (t.key)}
 					<g
+						role="presentation"
 						onpointerenter={() => (hover = { kind: 'link', index: i })}
 						onpointerleave={() => (hover = null)}
 					>
@@ -489,6 +492,7 @@
 				{#each layout.voteBlockRows[layout.voteBlockRows.length - 1] ?? [] as block (block.key)}
 					<g transform={`translate(${block.x + block.width / 2} ${innerHeight + 10})`}>
 						<text
+							role="presentation"
 							class="cand-label"
 							font-size="12"
 							dominant-baseline="middle"

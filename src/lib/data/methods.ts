@@ -281,9 +281,9 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 			fptp:
 				'The same single-member seats, but you rank candidates instead of marking one — which ends vote-splitting between similar candidates, though it cannot deliver proportionality or guarantee the head-to-head favourite wins.',
 			stv:
-				'Shares the ranked ballot and transfer count, but STV uses multi-member districts to deliver proportionality. AV keeps single-member seats and does not — this is the system often confused with STV and rejected in 2011.',
+				'Shares the ranked ballot and transfer count, but STV uses multi-member districts to deliver proportionality. The Alternative Vote keeps single-member seats and does not — this is the system often confused with STV and rejected in 2011.',
 			'single-winner-approval':
-				"Tackles the single-winner spoiler problem with a tick-box approval ballot instead of ranking — and, unlike AV, it won't squeeze out a broadly-approved centrist."
+				"Tackles the single-winner spoiler problem with a tick-box approval ballot instead of ranking — and, unlike the Alternative Vote, it won't squeeze out a broadly-approved centrist."
 		},
 
 		strengthHeadlines: [
@@ -307,11 +307,11 @@ export const METHODS: Readonly<Record<MethodId, Method>> = {
 			},
 			{
 				q: 'Is the Alternative Vote proportional?',
-				a: "No. AV elects one winner per seat, so a party with broad second-place support across many seats can still win very few of them. Australia's House of Representatives, elected by AV for over a century, remains a largely two-party chamber. AV fixes the spoiler problem; it does not fix disproportionality."
+				a: "No. The Alternative Vote elects one winner per seat, so a party with broad second-place support across many seats can still win very few of them. Australia's House of Representatives, elected this way for over a century, remains a largely two-party chamber. It ends classic vote-splitting; it does not fix disproportionality."
 			},
 			{
 				q: "Didn't the UK already reject this?",
-				a: 'Yes — the 2011 referendum offered AV, and it was rejected 67.9% to 32.1%. That result is about AV specifically: a single-winner system that is not proportional. Proportional methods have never been put to UK voters. The distinction between "we rejected AV" and "we rejected proportional representation" is the one this whole site is built around.'
+				a: 'Yes — the 2011 referendum offered the Alternative Vote, and it was rejected 67.9% to 32.1%. That result is about the Alternative Vote specifically: a single-winner system that is not proportional. Proportional methods have never been put to UK voters. The distinction between "we rejected the Alternative Vote" and "we rejected proportional representation" is the one this whole site is built around.'
 			}
 		],
 

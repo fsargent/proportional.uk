@@ -20,15 +20,15 @@
 		},
 		{
 			emoji: '⚡',
-			title: 'Fast Counting',
+			title: 'Simpler to count than ranking',
 			description:
-				'Results on election night. Just add up approvals for each candidate—no multi-round elimination.'
+				'No quotas, no vote transfers, no exhausted ballots to chase — just approvals, reweighted seat by seat. The arithmetic is quick to run and easy to publish.'
 		},
 		{
-			emoji: '🎯',
-			title: 'Consensus Winners',
+			emoji: '🪞',
+			title: 'Mirrors the electorate',
 			description:
-				'Candidates with broad support get elected. Divisive candidates who appeal only to their base lose to those with wider appeal.'
+				'Where a single-winner method elects one broadly-acceptable candidate, proportional approval reweights after each seat so cohesive groups — minorities included — win seats in proportion to their size. The chamber reflects the spread of the electorate, not just its middle.'
 		},
 		{
 			emoji: '🗳️',
@@ -38,9 +38,9 @@
 		},
 		{
 			emoji: '🤝',
-			title: 'Honest Voting',
+			title: 'No vote-splitting',
 			description:
-				"No need for tactical voting. Approve all candidates you genuinely like—you can't hurt your favourites by also approving others."
+				"Approving more candidates never splits the vote the way First Past the Post does — you're free to back several you like without handing a seat to someone you don't."
 		}
 	];
 
@@ -443,28 +443,41 @@
 			{/snippet}
 
 			{#snippet tradeoffs()}
-				<div class="implementation-grid detail-grid">
+				<div class="tradeoff-stack">
 					<div class="detail-card">
-						<h4>District magnitude matters</h4>
+						<h4>Almost no real-world track record</h4>
 						<p>
-							Proportional Approval works best in districts large enough to reflect the UK’s real party
-							pluralism. Very small districts behave more like majoritarian contests; medium sizes are the
-							practical sweet spot.
+							This is the serious one. A sequential version was used for Swedish parliamentary
+							elections from 1909 to 1921, then dropped for party lists — and no national legislature
+							uses it today. STV and list PR each have a century of continuous practice to point to;
+							Proportional Approval does not. Adopting it means being the place that proves it at scale.
 						</p>
 					</div>
 					<div class="detail-card">
-						<h4>Use practical geographies</h4>
+						<h4>You can sometimes do better by not approving a front-runner</h4>
 						<p>
-							A UK rollout would not need to invent geography from nothing. It could group present
-							constituencies into stable multi-member units aligned where possible with local-authority or
-							combined-authority footprints.
+							Because your ballot's weight is reduced each time a candidate you approved wins a seat,
+							there's a strategic incentive not to approve a popular candidate who will win anyway —
+							keeping your full weight to help elect your real favourite for a later seat. Unlike
+							single-winner approval, honest approval isn't always your strongest play. (Theorists call
+							this free-riding.)
 						</p>
 					</div>
 					<div class="detail-card">
-						<h4>Fit reform sequencing</h4>
+						<h4>Results take a little explaining</h4>
 						<p>
-							If Westminster wins PR first through AMS/MMP, Proportional Approval can still serve as the
-							next-step argument for simplifying ballots and moving to a cleaner multi-member model later.
+							The maths is clean and simple, but the reweighting that decides the winners isn't
+							intuitive at a glance — about as much to explain as an STV count, if not slightly less.
+							You can't watch the result fall straight out of a single tally the way you can under First
+							Past the Post.
+						</p>
+					</div>
+					<div class="detail-card">
+						<h4>Needs multi-member districts</h4>
+						<p>
+							Like STV, it requires grouping today's single-member seats into larger multi-member
+							districts, with the boundary work that implies. Districts also have to be reasonably large
+							to be proportional: very small ones behave more like majoritarian contests.
 						</p>
 					</div>
 				</div>
@@ -487,6 +500,11 @@
 							voters there. You wouldn't have one specific "your MP," but you'd have several MPs from
 							your region, likely including one who shares your views.
 						</p>
+						<p>
+							That's a gain on today's system, not a loss: under First Past the Post, if the candidate
+							you voted for loses, no one in Parliament represents your choice at all. Under proportional
+							approval, your approvals actually help elect someone.
+						</p>
 					</FAQItem>
 
 					<FAQItem question="Can I just approve one candidate?">
@@ -499,9 +517,16 @@
 
 					<FAQItem question="Does approving more candidates hurt my favourite?">
 						<p>
-							No. This is a key advantage of approval voting. Approving additional candidates never
-							reduces the chances of your favourite winning. You can approve your first choice AND
-							several backup choices without any downside.
+							Under single-winner approval, no — approving a backup never hurts your favourite. Under the
+							<em>proportional</em> version it's subtler. Approving more candidates never splits the vote
+							the way First Past the Post does. But because your ballot loses weight each time a candidate
+							you approved wins a seat, approving a likely winner can leave you less weight to help elect
+							your real favourite for a later seat.
+						</p>
+						<p>
+							For most voters, approving everyone you genuinely support is still the simplest strategy and
+							a perfectly good one. But it's honest to say the proportional version isn't as strategy-proof
+							as single-winner approval — see the trade-offs above.
 						</p>
 					</FAQItem>
 
@@ -625,8 +650,10 @@
 		background: var(--surface-color);
 	}
 
-	.detail-grid {
-		margin-top: 0;
+	.tradeoff-stack {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
 	}
 
 	.subsection-header {
