@@ -43,7 +43,7 @@
 			emoji: '🔄',
 			title: 'Familiar Structure',
 			description:
-				'Builds on the proven AMS system already used in Scotland and Wales with minimal disruption.'
+				'Builds on the proven AMS family used in Scotland (and in Wales until 2021) with minimal disruption.'
 		}
 	];
 
@@ -76,19 +76,19 @@
 			emoji: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
 			title: 'Scotland',
 			description:
-				'Scottish Parliament elections use AMS with 129 seats: 73 from constituencies and 56 from regional lists. Voters are familiar with the two-vote system.'
+				'Scotland still elects its Parliament by AMS today: 129 seats — 73 constituency MSPs plus 56 regional list MSPs. (Scottish councils, confusingly, use a different system — STV.)'
 		},
 		{
 			emoji: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
 			title: 'Wales',
 			description:
-				"Welsh Senedd elections use the same AMS system with 60 seats: 40 from constituencies and 20 from regional lists. It's been delivering proportional representation for over two decades."
+				"Wales elected its Senedd by AMS from 1999 to 2021. At the May 2026 election it went further — to a fully proportional 96-member system — judging the old 40-constituency, 20-list mix too much of a half-measure. The lesson for AMS+: a top-up tier only delivers proportionality if it is large enough and fully compensatory."
 		},
 		{
 			emoji: '✅',
 			title: 'Proven Track Record',
 			description:
-				'Over 25 years of successful elections demonstrate AMS works. AMS+ simply improves it by using approval voting for the local vote.'
+				'Two decades of AMS elections across Scotland, Wales, Germany and New Zealand show the mixed-member structure works. AMS+ keeps that structure, fixes the FPTP local tier with approval, and — learning from Wales — uses a top-up big enough to be genuinely proportional rather than a half-measure.'
 		}
 	];
 
@@ -130,7 +130,7 @@
 						target="_blank"
 						rel="noopener noreferrer">Additional Member System</a
 					>
-					already used in Scotland and Wales, then swap out the local “pick one” ballot for approval voting.
+					used in Scotland — and in Wales until 2021 — then swap out the local “pick one” ballot for approval voting.
 				</p>
 				<p class="intro-text">
 					You keep local MPs. You keep proportional top-up seats. But the constituency vote stops forcing
@@ -348,8 +348,9 @@
 
 			{#snippet whereUsed()}
 				<p>
-					AMS isn't theoretical. It's been successfully used for elections in Scotland and Wales since
-					1999, proving it works in practice.
+					AMS isn't theoretical. Scotland has used it since 1999, and Wales did too from 1999 to 2021
+					before moving to fuller proportional representation — between them, real-world proof that it
+					works in practice.
 				</p>
 
 				<div class="benefits-grid">
@@ -428,8 +429,10 @@
 
 			{#snippet bottomLine()}
 				<p>
-					AMS+ builds on 25+ years of proven success in Scotland and Wales, but with a crucial
-					improvement: approval voting for constituency seats. If the UK wants a credible near-term route
+					AMS+ builds on 25+ years of proven mixed-member success — in Scotland still, in Wales until
+					2021, and in Germany and New Zealand — but with two improvements: approval voting for
+					constituency seats, and a top-up tier big enough to avoid the half-measure Wales outgrew. If
+					the UK wants a credible near-term route
 					to PR that still preserves familiar institutions, this is the strongest approval-based proposal.
 				</p>
 				<p>
