@@ -57,10 +57,11 @@
 		share: number;
 		fill: number;
 		backs: boolean;
+		pinned: boolean;
 	};
 	let geTip = $state<GeTip | null>(null);
 
-	function geMove(event: PointerEvent, ri: number) {
+	function setGeTip(event: PointerEvent, ri: number, pinned = false) {
 		const target = event.target;
 		if (!(target instanceof Element)) {
 			geTip = null;
@@ -88,11 +89,23 @@
 			voters: g.voterIds.length,
 			share: slot.share,
 			fill: slot.fill,
-			backs: slot.backsWinner
+			backs: slot.backsWinner,
+			pinned
 		};
 	}
 
-	function geLeave() {
+	function geMove(event: PointerEvent, ri: number) {
+		if (geTip?.pinned || event.pointerType === 'touch') return;
+		setGeTip(event, ri);
+	}
+
+	function gePress(event: PointerEvent, ri: number) {
+		if (event.pointerType === 'mouse') return;
+		setGeTip(event, ri, true);
+	}
+
+	function geLeave(event: PointerEvent) {
+		if (event.pointerType === 'touch' || geTip?.pinned) return;
 		geTip = null;
 	}
 </script>
@@ -101,7 +114,12 @@
 	{#each groupRoundViews as gr, ri (gr.seat)}
 		<div class="ge-round">
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div class="ge-bar" onpointermove={(e) => geMove(e, ri)} onpointerleave={geLeave}>
+			<div
+				class="ge-bar"
+				onpointermove={(e) => geMove(e, ri)}
+				onpointerdown={(e) => gePress(e, ri)}
+				onpointerleave={geLeave}
+			>
 				{#each gr.slots as s, i (s.groupId)}
 					<div
 						class="ge-slot"
@@ -145,7 +163,8 @@
 </div>
 <p class="ge-foot">
 	A slot outlined below in the winner's colour is a group that backed that seat's winner — watch
-	those slots lose fill in the next round as their weight is spent. Hover any slot for its group.
+	those slots lose fill in the next round as their weight is spent. Hover or tap any slot for its
+	group.
 </p>
 
 {#if geTip}
@@ -340,7 +359,15 @@
 
 	@media (hover: none) {
 		.ge-tip {
-			display: none;
+			position: fixed;
+			left: 0.75rem !important;
+			right: 0.75rem;
+			bottom: max(0.75rem, env(safe-area-inset-bottom));
+			top: auto !important;
+			transform: none;
+			margin-top: 0;
+			max-width: none;
+			z-index: 100;
 		}
 	}
 </style>
