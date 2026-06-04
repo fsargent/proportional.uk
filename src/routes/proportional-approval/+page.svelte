@@ -4,6 +4,21 @@
 	import BenefitCard from '$lib/components/BenefitCard.svelte';
 	import StepCard from '$lib/components/StepCard.svelte';
 	import FAQItem from '$lib/components/FAQItem.svelte';
+	import PavGroupRounds from '$lib/components/PavGroupRounds.svelte';
+	import PavSpectrum from '$lib/components/PavSpectrum.svelte';
+	import PavResultsExplained from '$lib/components/PavResultsExplained.svelte';
+	import {
+		candidates as pavCandidates,
+		voters as pavVoters,
+		seats as pavSeats,
+		approvalTotals as pavApprovalTotals,
+		spectrumTotals as pavSpectrumTotals,
+		buildGroups
+	} from '$lib/data/synthetic-election';
+
+	// Realistic worked-example data, grouped into the 11 biggest ballot patterns
+	// (+ "Other"). The round-by-round viz reweights Sainte-Laguë-style.
+	const pavGroups = buildGroups(pavVoters, 11);
 
 	const benefits = [
 		{
@@ -66,7 +81,7 @@
 			number: 4,
 			title: 'Elect, Then Reduce the Winner’s Groups',
 			description:
-				"The candidate with the highest weighted total wins a seat. Every group that approved them has its weight reduced (½, then ⅓, …) so they don't dominate the next round."
+				"The candidate with the highest weighted total wins a seat. Every group that approved them has its weight reduced (⅓, then ⅕, …) so they don't dominate the next round."
 		},
 		{
 			number: 5,
@@ -90,64 +105,6 @@
 	let selections = $state<Record<string, boolean>>({});
 
 	const approvedCount = $derived(Object.values(selections).filter(Boolean).length);
-
-	// === Worked-example data: 3 seats, 12 voters, 3 groups ===
-	type WECandidate = { id: string; name: string; party: string };
-	type WEGroup = { id: string; label: string; count: number; approvals: string[]; color: string };
-
-	const weCandidates: WECandidate[] = [
-		{ id: 'a', name: 'Anna Adams', party: 'Far Left' },
-		{ id: 'b', name: 'Bob Brown', party: 'Left' },
-		{ id: 'c', name: 'Charlie Clarke', party: 'Centrist' },
-		{ id: 'd', name: 'Dave Davies', party: 'Right' },
-		{ id: 'e', name: 'Eve Evans', party: 'Far Right' },
-		{ id: 'f', name: 'Frank Fisher', party: 'Independent' }
-	];
-
-	const weGroups: WEGroup[] = [
-		{ id: 'A', label: 'Group A', count: 5, approvals: ['a', 'b'], color: '#d62728' },
-		{ id: 'B', label: 'Group B', count: 4, approvals: ['c', 'd'], color: '#1f77b4' },
-		{ id: 'C', label: 'Group C', count: 3, approvals: ['e', 'f'], color: '#2ca02c' }
-	];
-
-	const weSeats = 3;
-
-	type WERound = {
-		weights: Record<string, number>;
-		scores: Array<{ id: string; score: number }>;
-		winner: WECandidate;
-	};
-
-	function computeWE(): { rounds: WERound[]; elected: string[] } {
-		const elected: string[] = [];
-		const rounds: WERound[] = [];
-		for (let r = 0; r < weSeats; r++) {
-			const weights: Record<string, number> = {};
-			weGroups.forEach((g) => {
-				const k = g.approvals.filter((a) => elected.includes(a)).length;
-				weights[g.id] = 1 / (1 + k);
-			});
-			const scores = weCandidates
-				.filter((c) => !elected.includes(c.id))
-				.map((c) => ({
-					id: c.id,
-					score: weGroups.reduce(
-						(s, g) => s + (g.approvals.includes(c.id) ? g.count * weights[g.id] : 0),
-						0
-					)
-				}))
-				.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
-			const winner = weCandidates.find((c) => c.id === scores[0].id)!;
-			elected.push(winner.id);
-			rounds.push({ weights, scores, winner });
-		}
-		return { rounds, elected };
-	}
-
-	const { rounds: weRounds, elected: weElected } = computeWE();
-	const findWE = (id: string) => weCandidates.find((c) => c.id === id)!;
-	const weFmtWeight = (w: number) =>
-		w === 1 ? '1' : w === 0.5 ? '½' : w === 1 / 3 ? '⅓' : w.toFixed(2);
 </script>
 
 <svelte:head>
@@ -169,7 +126,9 @@
 						href="https://en.wikipedia.org/wiki/Sequential_proportional_approval_voting"
 						target="_blank"
 						rel="noopener">Sequential Proportional Approval Voting</a
-					>, but we'll refer to it as Proportional Approval throughout.
+					>, but we'll refer to it as Proportional Approval throughout. We use
+					<strong>Sainte-Laguë</strong> divisors for the reweighting — the benchmark least biased toward
+					the largest groups, and our recommended default for UK reform.
 				</p>
 				<p class="intro-text">
 					It is the cleanest way to carry the simple ballot idea all the way through to a fully
@@ -243,15 +202,47 @@
 			{/snippet}
 
 			{#snippet workedExample()}
-				<figure class="pa-algorithm" aria-labelledby="pa-algorithm-caption">
-					<figcaption id="pa-algorithm-caption" class="caption">
-						<strong>The algorithm.</strong> Top-to-bottom, single entry, single exit (read like Drakon).
-						Elect the highest weighted approval total, reweight every ballot that helped, repeat until
-						seats are full.
-					</figcaption>
+				<div class="worked-example">
+					<h4>🗳️ The field: approvals across the political spectrum</h4>
+					<p>
+						First, the line-up. The {pavCandidates.length} candidates are arranged left-to-right by political
+						position, and each bar shows how many of the {pavVoters.length} voters approve them — support leans
+						to the left of centre. The dashed gold lines and ▼ markers preview the contrast we build to:
+						straight Approval Voting bunches its winners in the bulge, while Proportional Approval spreads them
+						across the spectrum.
+					</p>
+					<PavSpectrum
+						voters={pavVoters}
+						candidates={pavCandidates}
+						groups={pavGroups}
+						approvalTotals={pavApprovalTotals}
+						spectrumTotals={pavSpectrumTotals}
+						seats={pavSeats}
+					/>
 
-					<div class="flowchart-wrap">
-						<svg viewBox="0 0 600 620" role="img" aria-label="Drakon flowchart of the Proportional Approval count algorithm">
+					<h4>📐 The reweighting mechanism</h4>
+					<p>
+						The key to proportionality is how voter weights change after each seat is filled. When a candidate
+						you approved wins:
+					</p>
+					<ul>
+						<li>Your ballot weight decreases — you've helped elect someone who represents you.</li>
+						<li>Voters who haven't elected anyone yet keep their full weight.</li>
+						<li>So the next round favours candidates backed by currently-unrepresented voters.</li>
+					</ul>
+					<p>
+						The result: if 30% of voters approve only Green candidates, Greens win roughly 30% of seats — even
+						when other candidates have higher raw approval counts.
+					</p>
+
+					<figure class="pa-algorithm" aria-labelledby="pa-algorithm-caption">
+						<figcaption id="pa-algorithm-caption" class="caption">
+							<strong>The algorithm.</strong> Read top to bottom: one entry, one exit. Elect the highest
+							weighted approval total, reweight every ballot that helped, repeat until seats are full.
+						</figcaption>
+
+						<div class="flowchart-wrap">
+						<svg viewBox="0 0 600 620" role="img" aria-label="Flowchart of the Proportional Approval count algorithm">
 							<defs>
 								<marker id="pa-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
 									<path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" />
@@ -280,7 +271,7 @@
 							<!-- Action: Reweight -->
 							<rect class="node" x="180" y="356" width="220" height="76" />
 							<text class="node-text" x="290" y="378">Reweight ballots that approved them</text>
-							<text class="node-text node-text-mono" x="290" y="400">w = 1 ÷ (1 + elected on ballot)</text>
+							<text class="node-text node-text-mono" x="290" y="400">w = 1 ÷ (1 + 2 × elected)</text>
 
 							<!-- Loop end -->
 							<rect class="node node-loop" x="220" y="456" width="140" height="44" rx="22" />
@@ -314,94 +305,41 @@
 					</div>
 				</figure>
 
-				<div class="worked-example">
-					<h4>📊 Worked example: 3 seats, 12 voters</h4>
+					<h4>📊 The count, round by round — {pavSeats} seats, {pavVoters.length} voters</h4>
 					<p>
-						Twelve voters fall into three groups by which candidates they approved. Three seats up for
-						grabs. Watch how reweighting gives each group one seat — even though Group A is nearly twice
-						the size of Group C.
+						Now run it. Voters are grouped by the exact set of candidates they approved (the {pavGroups.length -
+							1} most common patterns, plus "Other"). The whole bar is the electorate; each round the candidate
+						with the most <em>reweighted</em> support wins a seat, then the groups who backed them lose weight
+						(Sainte-Laguë: ×⅓, then ×⅕ …), so their slice is spent and shrinks in the next bar. Hover any slice
+						for the group behind it.
+					</p>
+					<PavGroupRounds
+						voters={pavVoters}
+						candidates={pavCandidates}
+						groups={pavGroups}
+						approvalTotals={pavApprovalTotals}
+						seats={pavSeats}
+					/>
+					<p class="we-takeaway">
+						Notice the payoff: a candidate can take a seat on a modest <em>raw</em> approval once the voters who
+						already elected someone are discounted — proportionality giving every sizable group a voice, not just
+						the largest.
 					</p>
 
-					<div class="we-groups">
-						{#each weGroups as g (g.id)}
-							<div class="we-group" style="border-left: 4px solid {g.color};">
-								<header>
-									<strong>{g.label}</strong>
-									<small>{g.count} voters</small>
-								</header>
-								<p>Approves: {g.approvals.map((a) => findWE(a).name).join(', ')}</p>
-							</div>
-						{/each}
-					</div>
-
-					<ol class="we-rounds">
-						{#each weRounds as round, i (i)}
-							<li class="we-round">
-								<header>
-									<span class="we-round-tag">Round {i + 1}</span>
-									<span class="we-weights">
-										{#each weGroups as g (g.id)}
-											<span class="we-weight" style="--c:{g.color}">
-												{g.label}: ×{weFmtWeight(round.weights[g.id])}
-											</span>
-										{/each}
-									</span>
-								</header>
-								<ul class="we-scores">
-									{#each round.scores as s (s.id)}
-										{@const c = findWE(s.id)}
-										{@const winning = c.id === round.winner.id}
-										{@const maxScore = round.scores[0].score}
-										<li class:winning>
-											<span class="we-name">
-												{c.name}
-												<small>{c.party}</small>
-											</span>
-											<span class="we-bar">
-												<span class="we-bar-fill" style="width:{(s.score / maxScore) * 100}%"></span>
-											</span>
-											<span class="we-value">
-												{s.score.toFixed(1)}{winning ? ' ✓' : ''}
-											</span>
-										</li>
-									{/each}
-								</ul>
-								{#if i < weRounds.length - 1}
-									<p class="we-note">
-										→ <strong>{round.winner.name}</strong> won. The group that approved them drops to a
-										lower weight in the next round.
-									</p>
-								{:else}
-									<p class="we-note we-final">
-										→ Final winners: {weElected.map((id) => findWE(id).name).join(', ')} — one seat per
-										coalition.
-									</p>
-								{/if}
-							</li>
-						{/each}
-					</ol>
-				</div>
-
-				<div class="reweighting-explainer">
-					<h4>📐 The Reweighting Mechanism</h4>
+					<h4>⚖️ Results, explained — who represents whom</h4>
 					<p>
-						The key to proportionality is how voter weights are adjusted after each seat is filled. When a
-						candidate you approved wins:
+						A proportional election isn't trying to seat the most-liked individuals; it builds a chamber where
+						every sizable group of voters ends up with someone they approved. That's the standard to judge it by —
+						and it's why a candidate with fewer raw approvals can rightly take a seat ahead of a more-approved one
+						whose voters are already represented.
 					</p>
-					<ul>
-						<li>
-							Your ballot weight decreases (because you've successfully elected someone who represents
-							you)
-						</li>
-						<li>Voters who haven't elected anyone yet keep their full weight</li>
-						<li>
-							This means the next round favours candidates supported by currently-unrepresented voters
-						</li>
-					</ul>
-					<p>
-						The result: if 30% of voters approve only Green candidates, Greens will win approximately 30%
-						of seats—even if other candidates have higher raw approval counts.
-					</p>
+					<PavResultsExplained
+						voters={pavVoters}
+						candidates={pavCandidates}
+						groups={pavGroups}
+						approvalTotals={pavApprovalTotals}
+						seats={pavSeats}
+					/>
 				</div>
 			{/snippet}
 
@@ -447,10 +385,9 @@
 					<div class="detail-card">
 						<h4>Almost no real-world track record</h4>
 						<p>
-							This is the serious one. A sequential version was used for Swedish parliamentary
-							elections from 1909 to 1921, then dropped for party lists — and no national legislature
-							uses it today. STV and list PR each have a century of continuous practice to point to;
-							Proportional Approval does not. Adopting it means being the place that proves it at scale.
+							A sequential version was used for Swedish parliamentary elections from 1909 to 1921.
+							Beyond that, it has far less large-scale electoral history than STV or list PR, which both
+							have long, continuous records at national level to draw on.
 						</p>
 					</div>
 					<div class="detail-card">
@@ -481,6 +418,14 @@
 						</p>
 					</div>
 				</div>
+			{/snippet}
+
+			{#snippet whereUsed()}
+				<p>
+					Proportional Approval has real national pedigree: <strong>Sweden</strong> ran a sequential
+					proportional approval count for parliamentary elections from <strong>1909 to 1921</strong> —
+					proof that the method works at the scale of a national legislature, not just in theory.
+				</p>
 			{/snippet}
 
 			{#snippet faq()}
@@ -792,26 +737,12 @@
 		font-size: 0.95rem;
 	}
 
-	.reweighting-explainer {
-		margin: 0 0 1rem 0;
-		padding: 2rem;
-		background: var(--surface-subtle-gradient);
-		border: 1px solid var(--border-color);
-		border-radius: var(--radius-md);
-		box-shadow: var(--shadow-soft);
-	}
-
-	.reweighting-explainer h4 {
-		margin-top: 0;
-		color: var(--text-dark);
-	}
-
-	.reweighting-explainer ul {
+	.worked-example ul {
 		margin: 1rem 0;
 		padding-left: 1.5rem;
 	}
 
-	.reweighting-explainer li {
+	.worked-example li {
 		margin-bottom: 0.5rem;
 		line-height: 1.5;
 	}
@@ -826,7 +757,7 @@
 		}
 	}
 
-	/* SPAV algorithm flowchart — same Drakon-style language as STV's. */
+	/* SPAV algorithm flowchart — same visual language as STV's. */
 	.pa-algorithm {
 		margin: 0 0 1.5rem 0;
 		display: grid;
@@ -931,8 +862,18 @@
 	}
 
 	.worked-example h4 {
-		margin: 0 0 0.5rem;
+		margin: 2rem 0 0.75rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--border-color);
 		color: var(--text-dark);
+		font-size: 1.15rem;
+	}
+
+	/* First sub-section sits flush at the top of the single card. */
+	.worked-example > h4:first-child {
+		margin-top: 0;
+		padding-top: 0;
+		border-top: none;
 	}
 
 	.worked-example > p {
@@ -940,156 +881,15 @@
 		color: var(--text-color);
 	}
 
-	.we-groups {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-		gap: 0.75rem;
-		margin: 0 0 1.5rem;
-	}
-
-	.we-group {
-		padding: 0.65rem 0.85rem;
+	.we-takeaway {
+		margin: 1.25rem 0 0;
+		padding: 0.75rem 1rem;
 		background: var(--surface-color);
-		border: 1px solid var(--border-color);
+		border-left: 3px solid var(--header-bg);
 		border-radius: var(--radius-sm);
-	}
-
-	.we-group header {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-		margin-bottom: 0.2rem;
-	}
-
-	.we-group small {
-		color: var(--text-soft);
-		font-size: 0.78rem;
-	}
-
-	.we-group p {
-		margin: 0;
-		font-size: 0.85rem;
+		font-size: 0.95rem;
+		line-height: 1.6;
 		color: var(--text-color);
-	}
-
-	.we-rounds {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
-	}
-
-	.we-round {
-		background: var(--surface-color);
-		border: 1px solid var(--border-color);
-		border-radius: var(--radius-sm);
-		padding: 0.85rem 1rem;
-	}
-
-	.we-round > header {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.5rem 1rem;
-		margin-bottom: 0.6rem;
-		padding-bottom: 0.5rem;
-		border-bottom: 1px dashed var(--border-color);
-	}
-
-	.we-round-tag {
-		background: var(--header-bg);
-		color: var(--text-inverse);
-		padding: 0.15rem 0.55rem;
-		border-radius: 999px;
-		font-size: 0.72rem;
-		font-weight: 600;
-		letter-spacing: 0.05em;
-		text-transform: uppercase;
-	}
-
-	.we-weights {
-		display: inline-flex;
-		gap: 0.6rem;
-		flex-wrap: wrap;
-	}
-
-	.we-weight {
-		font-size: 0.78rem;
-		color: var(--text-soft);
-		border-left: 3px solid var(--c);
-		padding-left: 0.4rem;
-		font-variant-numeric: tabular-nums;
-	}
-
-	.we-scores {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0.3rem;
-	}
-
-	.we-scores li {
-		display: grid;
-		grid-template-columns: 11rem 1fr 3rem;
-		align-items: center;
-		gap: 0.6rem;
-		padding: 0.3rem 0.5rem;
-		border-radius: var(--radius-sm);
-		font-size: 0.88rem;
-	}
-
-	.we-scores li.winning {
-		background: var(--field-hover, rgba(0, 0, 0, 0.04));
-		font-weight: 600;
-	}
-
-	.we-name {
-		display: flex;
-		flex-direction: column;
-		color: var(--text-dark);
-		min-width: 0;
-	}
-
-	.we-name small {
-		color: var(--text-soft);
-		font-size: 0.72rem;
-		font-weight: 400;
-	}
-
-	.we-bar {
-		height: 10px;
-		background: var(--surface-color);
-		border-radius: 999px;
-		overflow: hidden;
-		border: 1px solid var(--border-color);
-	}
-
-	.we-bar-fill {
-		display: block;
-		height: 100%;
-		background: var(--header-bg);
-		border-radius: 999px;
-		transition: width 0.25s ease;
-	}
-
-	.we-value {
-		font-variant-numeric: tabular-nums;
-		text-align: right;
-		color: var(--text-dark);
-	}
-
-	.we-note {
-		margin: 0.7rem 0 0;
-		font-size: 0.88rem;
-		color: var(--text-color);
-	}
-
-	.we-final {
-		font-weight: 500;
 	}
 
 	@media (min-width: 1280px) {
