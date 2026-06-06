@@ -31,6 +31,8 @@
 	.compose-badge-row {
 		display: grid;
 		gap: 0.6rem;
+		width: 100%;
+		min-width: 0;
 		padding: 0.9rem 1rem 1rem;
 		border: 1px solid var(--border-color);
 		border-left-width: 4px;
@@ -70,6 +72,8 @@
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 0.5rem;
+		width: 100%;
+		min-width: 0;
 		margin: 0;
 		padding: 0;
 	}
@@ -79,6 +83,7 @@
 		align-items: baseline;
 		justify-content: space-between;
 		gap: 0.6rem;
+		width: 100%;
 		padding: 0.6rem 0.85rem;
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-sm);
@@ -89,6 +94,7 @@
 	}
 
 	.axis-label {
+		min-width: 0;
 		font-size: 0.72rem;
 		font-weight: 700;
 		text-transform: uppercase;
@@ -96,8 +102,10 @@
 		color: var(--text-soft);
 	}
 	.axis-value {
+		min-width: 0;
 		font-weight: 600;
 		text-align: right;
+		overflow-wrap: anywhere;
 	}
 
 	@media (max-width: 640px) {

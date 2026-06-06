@@ -182,8 +182,15 @@
 		gap: 1rem;
 	}
 
+	.method-header > * {
+		min-width: 0;
+		max-width: 100%;
+	}
+
 	.method-header h1 {
 		margin: 0;
+		min-width: 0;
+		overflow-wrap: anywhere;
 	}
 
 	.character {
@@ -206,6 +213,7 @@
 	.method-section {
 		display: grid;
 		gap: 1rem;
+		min-width: 0;
 	}
 
 	.method-section :global(p) {
