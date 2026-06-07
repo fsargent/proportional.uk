@@ -173,6 +173,7 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 		gap: 0.75rem;
+		min-width: 0;
 	}
 
 	.rep-card {
@@ -180,13 +181,16 @@
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		padding: 0.8rem 1rem;
+		min-width: 0;
 	}
 
 	.rep-head {
 		display: flex;
 		align-items: baseline;
+		flex-wrap: wrap;
 		gap: 0.4rem;
 		margin-bottom: 0.3rem;
+		min-width: 0;
 	}
 
 	.rep-head strong {
@@ -243,6 +247,7 @@
 		border-left: 3px solid var(--text-soft);
 		border-radius: var(--radius-sm);
 		padding: 0.75rem 1rem;
+		min-width: 0;
 	}
 
 	.nm-head {
@@ -288,5 +293,17 @@
 		color: var(--text-color);
 		line-height: 1.55;
 		max-width: 52rem;
+	}
+
+	@media (max-width: 640px) {
+		.rep-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.rep-card,
+		.nearmiss-card,
+		.counterfactual {
+			padding-inline: 0.85rem;
+		}
 	}
 </style>

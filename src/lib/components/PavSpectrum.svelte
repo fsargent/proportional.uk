@@ -80,6 +80,8 @@
 		margin: 1.25rem 0 0.4rem;
 		padding-bottom: 0.3rem;
 		border-bottom: 2px solid var(--border-strong);
+		min-width: 0;
+		max-width: 100%;
 	}
 
 	.spectrum-col {
@@ -174,10 +176,15 @@
 	.spectrum-axis {
 		display: flex;
 		justify-content: space-between;
+		gap: 0.5rem;
 		font-size: 0.75rem;
 		color: var(--text-soft);
 		margin-top: 0.3rem;
 		letter-spacing: 0.02em;
+	}
+
+	.spectrum-axis span {
+		min-width: 0;
 	}
 
 	.spectrum-legend {
@@ -219,5 +226,27 @@
 		color: var(--header-bg);
 		font-size: 1rem;
 		font-weight: 700;
+	}
+
+	@media (max-width: 640px) {
+		.spectrum-chart {
+			gap: 0.35rem;
+		}
+
+		.spectrum-bar {
+			height: 160px;
+		}
+
+		.spectrum-label strong {
+			font-size: 0.72rem;
+		}
+
+		.spectrum-label small {
+			font-size: 0.62rem;
+		}
+
+		.spectrum-axis {
+			font-size: 0.68rem;
+		}
 	}
 </style>

@@ -212,6 +212,7 @@
 		margin: 0;
 		display: grid;
 		gap: 1rem;
+		min-width: 0;
 	}
 
 	.caption {
@@ -227,9 +228,13 @@
 		background: var(--surface-color);
 		padding: 0.75rem;
 		box-shadow: var(--shadow-soft);
+		min-width: 0;
+		max-width: 100%;
+		overflow: hidden;
 	}
 
 	.flowchart-wrap svg {
+		display: block;
 		width: 100%;
 		max-width: 720px;
 		height: auto;
@@ -366,6 +371,19 @@
 		}
 		.node-end {
 			fill: #16291f;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.flowchart-wrap {
+			padding: 0.5rem;
+		}
+
+		.caption,
+		.round-summary,
+		.result,
+		.real-counts p {
+			font-size: 0.92rem;
 		}
 	}
 </style>

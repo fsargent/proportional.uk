@@ -194,6 +194,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.1rem;
+		min-width: 0;
 	}
 
 	.ge-round {
@@ -205,9 +206,11 @@
 	.ge-round-head {
 		display: flex;
 		align-items: center;
+		flex-wrap: wrap;
 		gap: 0.6rem;
 		font-size: 0.88rem;
 		color: var(--text-color);
+		min-width: 0;
 	}
 
 	.ge-seat {
@@ -236,12 +239,12 @@
 
 	.ge-stats {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 0.75rem;
 		font-size: 0.8rem;
 		color: var(--text-soft);
 		font-variant-numeric: tabular-nums;
-		white-space: nowrap;
-		flex-shrink: 0;
+		min-width: 0;
 	}
 
 	.ge-stat strong {
@@ -262,6 +265,7 @@
 		display: flex;
 		gap: 2px;
 		height: 30px;
+		min-width: 0;
 	}
 
 	.ge-slot {
@@ -289,6 +293,25 @@
 		font-size: 0.85rem;
 		color: var(--text-soft);
 		max-width: 52rem;
+	}
+
+	@media (max-width: 640px) {
+		.ge-round-head {
+			gap: 0.4rem 0.6rem;
+		}
+
+		.ge-winner {
+			flex-basis: 100%;
+		}
+
+		.ge-stats {
+			gap: 0.4rem 0.75rem;
+			font-size: 0.76rem;
+		}
+
+		.ge-stat strong {
+			font-size: 0.88rem;
+		}
 	}
 
 	/* Floating hover tooltip (pattern adapted from electionresults.uk PartyBars) */

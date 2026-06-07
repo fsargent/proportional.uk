@@ -512,6 +512,7 @@
 	.stv-sankey-wrap {
 		display: grid;
 		gap: 0.75rem;
+		min-width: 0;
 	}
 
 	.legend {
@@ -559,10 +560,27 @@
 		background: var(--surface-color);
 		padding: 0.75rem;
 		box-shadow: var(--shadow-soft);
+		min-width: 0;
+		max-width: 100%;
+		overflow: hidden;
 	}
 
 	svg {
 		display: block;
+		width: 100%;
+		max-width: 100%;
+		height: auto;
+	}
+
+	@media (max-width: 640px) {
+		.legend {
+			gap: 0.5rem 0.75rem;
+			font-size: 0.8rem;
+		}
+
+		.svg-wrap {
+			padding: 0.5rem;
+		}
 	}
 
 	.round-label {

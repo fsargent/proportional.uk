@@ -762,6 +762,7 @@
 		margin: 0 0 1.5rem 0;
 		display: grid;
 		gap: 0.75rem;
+		min-width: 0;
 	}
 
 	.pa-algorithm .caption {
@@ -776,6 +777,9 @@
 		background: var(--surface-color);
 		padding: 0.75rem;
 		box-shadow: var(--shadow-soft);
+		min-width: 0;
+		max-width: 100%;
+		overflow: hidden;
 	}
 
 	.pa-algorithm .flowchart-wrap svg {
@@ -859,6 +863,9 @@
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		box-shadow: var(--shadow-soft);
+		min-width: 0;
+		max-width: 100%;
+		overflow: hidden;
 	}
 
 	.worked-example h4 {
@@ -890,6 +897,13 @@
 		font-size: 0.95rem;
 		line-height: 1.6;
 		color: var(--text-color);
+	}
+
+	@media (max-width: 640px) {
+		.pa-algorithm .flowchart-wrap,
+		.worked-example {
+			padding: 0.9rem;
+		}
 	}
 
 	@media (min-width: 1280px) {
