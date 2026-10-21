@@ -1,11 +1,17 @@
 /**
- * Sequential Proportional Approval (SPAV) — shared algorithm + view helpers.
+ * Sequential proportional-approval counting — shared algorithm + view helpers.
  *
  * Extracted from the /dev/pav-results sketch so the same computation backs both
  * that page and the live /proportional-approval method page (via the
  * PavGroupRounds component). Reweighting uses Sainte-Laguë divisors by default
  * (1 / (1 + 2k): a ballot counts ×1, then ×⅓, ×⅕, … as more of its approved
  * candidates win) — the benchmark the site recommends for UK comparisons.
+ *
+ * Naming note: the Sequential Proportional Approval Voting (SPAV) of the
+ * classic literature reweights with D'Hondt/Jefferson divisors (1 / (1 + k);
+ * see DHONDT below). The Sainte-Laguë default is a related but distinct
+ * sequential reweighted-approval rule, so UI copy must not label the default
+ * "SPAV" without qualification. Classic SPAV stays available for comparison.
  */
 import type { Candidate, Group, Voter, ApprovalTotal } from '$lib/data/synthetic-election';
 
@@ -14,6 +20,26 @@ export type Divisor = (k: number) => number;
 export const SAINTE_LAGUE: Divisor = (k) => 1 / (1 + 2 * k);
 /** D'Hondt / Jefferson divisors: 1, ½, ⅓, ¼ … (classic SPAV). */
 export const DHONDT: Divisor = (k) => 1 / (1 + k);
+
+/** Divisor sequences offered side-by-side on the /proportional-approval page. */
+export const DIVISOR_OPTIONS = [
+	{
+		id: 'sainte-lague' as const,
+		label: 'Sainte-Laguë',
+		sequence: '×1, then ×⅓, ×⅕ …',
+		note: 'Site default — least biased toward the largest groups',
+		divisor: SAINTE_LAGUE
+	},
+	{
+		id: 'dhondt' as const,
+		label: 'D’Hondt',
+		sequence: '×1, then ×½, ×⅓ …',
+		note: 'Classic Sequential Proportional Approval Voting (SPAV)',
+		divisor: DHONDT
+	}
+];
+
+export type DivisorOptionId = (typeof DIVISOR_OPTIONS)[number]['id'];
 
 export type GroupRound = {
 	winner: Candidate;
