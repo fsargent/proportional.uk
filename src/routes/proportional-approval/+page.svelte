@@ -15,10 +15,21 @@
 		spectrumTotals as pavSpectrumTotals,
 		buildGroups
 	} from '$lib/data/synthetic-election';
+	import { DIVISOR_OPTIONS } from '$lib/pav';
 
 	// Realistic worked-example data, grouped into the 11 biggest ballot patterns
-	// (+ "Other"). The round-by-round viz reweights Sainte-Laguë-style.
+	// (+ "Other"). The round-by-round viz reweights with the selected divisor
+	// sequence (Sainte-Laguë by default; classic D'Hondt SPAV for comparison).
 	const pavGroups = buildGroups(pavVoters, 11);
+
+	// Reweighting sequence for the worked example. Both options run the same
+	// sequential algorithm — only the reweighting curve differs. Sainte-Laguë is
+	// the site default; D'Hondt is the classic SPAV sequence from the literature.
+	let divisorChoice = $state<(typeof DIVISOR_OPTIONS)[number]['id']>('sainte-lague');
+	const activeDivisorOption = $derived(
+		DIVISOR_OPTIONS.find((o) => o.id === divisorChoice) ?? DIVISOR_OPTIONS[0]
+	);
+	const activeDivisor = $derived(activeDivisorOption.divisor);
 
 	const benefits = [
 		{
@@ -121,14 +132,15 @@
 			{#snippet mechanics()}
 				<p class="intro-text">
 					This is the full version of the idea: a genuinely proportional Parliament built from approval
-					ballots in <a href="/visualiser">multi-member districts</a>. In academic literature this
-					implementation is called <a
+					ballots in <a href="/visualiser">multi-member districts</a>. The classic version of this
+					counting family in the academic literature is <a
 						href="https://en.wikipedia.org/wiki/Sequential_proportional_approval_voting"
 						target="_blank"
 						rel="noopener">Sequential Proportional Approval Voting</a
-					>, but we'll refer to it as Proportional Approval throughout. We use
-					<strong>Sainte-Laguë</strong> divisors for the reweighting — the benchmark least biased toward
-					the largest groups, and our recommended default for UK reform.
+					> (SPAV), which reweights ballots with <strong>D'Hondt</strong> divisors. We recommend
+					<strong>Sainte-Laguë</strong> divisors instead — the sequence least biased toward the largest
+					groups — and we refer to the method simply as Proportional Approval. The worked example below
+					lets you compare both sequences.
 				</p>
 				<p class="intro-text">
 					It is the cleanest way to carry the simple ballot idea all the way through to a fully
@@ -218,6 +230,7 @@
 						approvalTotals={pavApprovalTotals}
 						spectrumTotals={pavSpectrumTotals}
 						seats={pavSeats}
+						divisor={activeDivisor}
 					/>
 
 					<h4>📐 The reweighting mechanism</h4>
@@ -305,13 +318,29 @@
 					</div>
 				</figure>
 
+					<div class="divisor-toggle" role="group" aria-label="Reweighting divisor sequence">
+						<span class="divisor-toggle-label">Reweighting sequence:</span>
+						{#each DIVISOR_OPTIONS as opt (opt.id)}
+							<button
+								type="button"
+								class="divisor-option"
+								class:active={divisorChoice === opt.id}
+								aria-pressed={divisorChoice === opt.id}
+								onclick={() => (divisorChoice = opt.id)}
+							>
+								<span class="divisor-option-name">{opt.label}</span>
+								<span class="divisor-option-seq">{opt.sequence}</span>
+							</button>
+						{/each}
+					</div>
+
 					<h4>📊 The count, round by round — {pavSeats} seats, {pavVoters.length} voters</h4>
 					<p>
 						Now run it. Voters are grouped by the exact set of candidates they approved (the {pavGroups.length -
 							1} most common patterns, plus "Other"). The whole bar is the electorate; each round the candidate
 						with the most <em>reweighted</em> support wins a seat, then the groups who backed them lose weight
-						(Sainte-Laguë: ×⅓, then ×⅕ …), so their slice is spent and shrinks in the next bar. Hover any slice
-						for the group behind it.
+						({activeDivisorOption.label}: {activeDivisorOption.sequence}), so their slice is spent and shrinks
+						in the next bar. Hover any slice for the group behind it.
 					</p>
 					<PavGroupRounds
 						voters={pavVoters}
@@ -319,6 +348,7 @@
 						groups={pavGroups}
 						approvalTotals={pavApprovalTotals}
 						seats={pavSeats}
+						divisor={activeDivisor}
 					/>
 					<p class="we-takeaway">
 						Notice the payoff: a candidate can take a seat on a modest <em>raw</em> approval once the voters who
@@ -339,6 +369,7 @@
 						groups={pavGroups}
 						approvalTotals={pavApprovalTotals}
 						seats={pavSeats}
+						divisor={activeDivisor}
 					/>
 				</div>
 			{/snippet}
@@ -897,6 +928,45 @@
 		font-size: 0.95rem;
 		line-height: 1.6;
 		color: var(--text-color);
+	}
+
+	.divisor-toggle {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+		margin: 1rem 0 1.25rem;
+	}
+	.divisor-toggle-label {
+		font-size: 0.9rem;
+		font-weight: 600;
+		opacity: 0.75;
+	}
+	.divisor-option {
+		display: inline-flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.1rem;
+		padding: 0.45rem 0.8rem;
+		border: 1px solid rgba(0, 0, 0, 0.18);
+		border-radius: 0.5rem;
+		background: transparent;
+		cursor: pointer;
+		text-align: left;
+		font: inherit;
+		color: inherit;
+	}
+	.divisor-option.active {
+		border-color: currentColor;
+		box-shadow: inset 0 0 0 1px currentColor;
+	}
+	.divisor-option-name {
+		font-weight: 700;
+		font-size: 0.9rem;
+	}
+	.divisor-option-seq {
+		font-size: 0.8rem;
+		opacity: 0.75;
 	}
 
 	@media (max-width: 640px) {

@@ -30,10 +30,11 @@ An improved version of the Additional Member System already used in Scotland and
 
 #### Proportional Approval
 
-A fully proportional system using Sequential Proportional Approval Voting (SPAV):
+A fully proportional system using Proportional Approval Voting — sequential approval counting
+with Sainte-Laguë reweighting (the classic D'Hondt "SPAV" sequence is included as a comparison):
 
 - One simple ballot: approve any candidates you like
-- Maximum proportionality
+- Proportional seats via sequential reweighting (Sainte-Laguë by default)
 - No geographic constituencies (regional multi-member)
 - Fast counting, simple to understand
 
