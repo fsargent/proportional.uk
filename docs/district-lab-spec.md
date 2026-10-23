@@ -216,17 +216,17 @@ must state ballot, seats, and rule.
 | AV / IRV | rank candidates | 1 | eliminate last candidate and transfer | Shows how a ranked single-winner contest changes the winner but does not create proportional representation. |
 | Party-list Sainte-Laguë | one party | 8 | highest averages, divisors 1, 3, 5… | A transparent proportional benchmark. |
 | STV | rank candidates | 8 | fractional Gregory transfers and a stated quota | Candidate-centred proportional comparison. |
-| Reweighted approval, Sainte-Laguë | approve any candidates | 8 | elect highest weighted approval total, reweight voters after elected approvals by 1/(1+2k) | Primary cardinal-method demonstration. |
+| PAV | approve any candidates | 8 | elect highest weighted approval total, reweight voters after elected approvals by 1/(1+2k) | Primary cardinal-method demonstration. The assumptions drawer states the exact rule. |
 | Score PR | score 0–5 | 8 | Deferred to version 2 unless a specific rule is selected and fully implemented. | Avoid presenting “score voting” as one settled multiwinner rule. |
 
 For the initial public release, make FPTP, party-list Sainte-Laguë, STV, and
-Sainte-Laguë reweighted approval interactive. AV may be included as a short
+PAV interactive. AV may be included as a short
 single-winner side comparison; it should not dominate the page.
 
-Do not call the default approval method “SPAV”. Classic SPAV conventionally uses
-D'Hondt-style reweighting, 1/(1+k). The UI must call this rule **Sainte-Laguë
-reweighted approval** and offer classic SPAV only as an explicitly labelled
-future comparison. This follows the existing correction in `src/lib/pav.ts`.
+Use **PAV** as the public label. The assumptions drawer must state that the
+implemented reweighting is 1/(1+2k), because different methods that share
+approval ballots use different rules. In particular, classic SPAV conventionally
+uses 1/(1+k), so results for that method must not be inferred from the PAV view.
 
 ## Results screen
 
@@ -304,11 +304,10 @@ src/lib/components/district-lab/AssumptionsDrawer.svelte
 Reuse, rather than duplicate:
 
 - candidate and voter concepts from `src/lib/data/synthetic-election.ts`;
-- Sainte-Laguë reweighted approval functions from `src/lib/pav.ts` after making
+- PAV functions from `src/lib/pav.ts` after making
   their input generic enough for lab candidates and voters;
-- fractional-Gregory STV from `src/lib/stv.ts` if it already provides stable,
-  inspectable round data; otherwise defer STV interaction to a subsequent
-  release rather than building a second count engine in a component;
+- fractional-Gregory STV from `src/lib/stv.ts`, exposing the rankings and
+  candidate-election rounds used by the count;
 - `allocateSainteLague` in `src/lib/mmd-sim.ts` for the real-vote party re-count;
 - the existing `HexMap` and district grouping utilities for the inset.
 
@@ -372,9 +371,9 @@ It must show:
 
 ### Phase 1 — working core
 
-Build the data model, one scenario, party-list re-count, Sainte-Laguë
-reweighted approval, result summary, ledger, assumptions drawer, and shareable
-URL. Do not add map selection or STV animation yet.
+Build the data model, one scenario, party-list re-count, PAV, STV result
+summary, ledger, assumptions drawer, and shareable URL. Do not add map
+selection or a detailed STV transfer animation yet.
 
 ### Phase 2 — teaching experience
 
@@ -383,9 +382,10 @@ comparison, inset district map, present mode, and accessibility polish.
 
 ### Phase 3 — rigorous comparison
 
-Add STV only after its round data and tie handling are suitable for public
-inspection. Add a score-PR option only when the site has chosen a named rule,
-implemented it correctly, and can explain its properties without hand-waving.
+Add detailed STV transfer visualisation only after its round data and tie
+handling are suitable for public inspection. Add a score-PR option only when
+the site has chosen a named rule, implemented it correctly, and can explain its
+properties without hand-waving.
 
 ### Out of scope
 

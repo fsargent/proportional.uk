@@ -1,4 +1,4 @@
-export type LabSystem = 'fptp' | 'party-list' | 'reweighted-approval';
+export type LabSystem = 'fptp' | 'party-list' | 'pav' | 'stv';
 
 export type LabCandidate = {
 	id: string;

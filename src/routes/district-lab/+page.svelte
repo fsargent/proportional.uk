@@ -18,15 +18,21 @@
 			description: 'Eight seats allocated to parties using divisors 1, 3, 5…'
 		},
 		{
-			id: 'reweighted-approval',
-			label: 'Sainte-Laguë reweighted approval',
+			id: 'pav',
+			label: 'PAV',
 			ballot: 'Approve any candidates',
 			description: 'Eight seats, reweighting voters after candidates they approved are elected.'
+		},
+		{
+			id: 'stv',
+			label: 'Single Transferable Vote',
+			ballot: 'Rank candidates',
+			description: 'Eight seats, using a Droop quota and fractional surplus transfers.'
 		}
 	];
 
 	let scenarioId = $state(DEFAULT_SCENARIO_ID);
-	let system = $state<LabSystem>('reweighted-approval');
+	let system = $state<LabSystem>('pav');
 	let roundIndex = $state(0);
 	let showAssumptions = $state(false);
 
@@ -163,12 +169,18 @@
 							<strong>{candidateName(group.firstChoice)}</strong>
 						{:else if system === 'party-list'}
 							<strong>{scenario.candidates.find((candidate) => candidate.partyId === group.primaryPartyId)?.party}</strong>
-						{:else}
+						{:else if system === 'pav'}
 							<div class="candidate-chips">
 								{#each group.approval as id (id)}
 									<span style:--chip-color={candidateColour(id)}>{candidateName(id)}</span>
 								{/each}
 							</div>
+						{:else}
+							<ol class="ranked-chips" aria-label="{group.label} ranking">
+								{#each group.ranking as id, index (id)}
+									<li style:--chip-color={candidateColour(id)}><span>{index + 1}</span>{candidateName(id)}</li>
+								{/each}
+							</ol>
 						{/if}
 					</div>
 				</article>
@@ -251,10 +263,12 @@
 				<div>
 					<h3>Why this seat?</h3>
 					<p>
-						{system === 'reweighted-approval'
+						{system === 'pav'
 							? 'After every elected approval, those voters count at a lower weight: 1, then ⅓, then ⅕.'
 							: system === 'party-list'
 								? 'Each party’s votes are divided by 1, then 3, then 5 as it wins seats.'
+								: system === 'stv'
+									? 'Candidates reach the Droop quota. Surpluses and eliminated candidates transfer to next preferences.'
 								: 'The candidate with the most first-choice votes wins.'}
 					</p>
 				</div>
@@ -288,9 +302,10 @@
 			<div>
 				<p>The candidates, voter groups and preference ballots are fictional and deterministic. Each scenario totals 1,000 voters.</p>
 				<p>
-					Sainte-Laguë reweighted approval elects the highest approval total in each round, then reduces a group’s weight according to
+					PAV elects the highest approval total in each round, then reduces a group’s weight according to
 					<code>1 / (1 + 2k)</code>, where <code>k</code> is the number of elected candidates that group approved.
 				</p>
+				<p>STV uses the Droop quota and fractional Gregory transfers. The stepper shows candidate-election rounds; its ballot rows show the full rankings used for transfers.</p>
 				<p>Ties are resolved by the displayed ballot order. The party-list result uses each group’s stated political home; it is not a real-vote re-count.</p>
 			</div>
 		{/if}
@@ -309,7 +324,8 @@
 	.step { align-items: center; background: var(--header-bg); border-radius: 999px; color: var(--text-inverse); display: flex; height: 2rem; justify-content: center; margin: 0.1rem 0 0; width: 2rem; }
 	.section-heading h2 { color: var(--text-dark); font-size: clamp(1.45rem, 3vw, 2rem); margin: 0; }
 	.section-heading p { margin: 0.25rem 0 0; }
-	.scenario-grid, .system-picker { display: grid; gap: 0.8rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	.scenario-grid { display: grid; gap: 0.8rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	.system-picker { display: grid; gap: 0.8rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	.scenario-card, .system-card { background: var(--surface-raised); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-color); cursor: pointer; min-height: 9rem; padding: 1rem; text-align: left; }
 	.scenario-card:hover, .system-card:hover { border-color: var(--accent-color, #176b5b); transform: translateY(-1px); }
 	.scenario-card:focus-visible, .system-card:focus-visible, .round-controls button:focus-visible, .assumptions button:focus-visible { outline: 3px solid var(--focus-ring, #f4bb3a); outline-offset: 3px; }
@@ -329,6 +345,9 @@
 	.ballot-line > span { color: var(--text-soft); display: block; font-size: 0.75rem; margin-bottom: 0.35rem; text-transform: uppercase; }
 	.candidate-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
 	.candidate-chips span { border: 1px solid var(--chip-color); border-radius: 999px; font-size: 0.78rem; padding: 0.15rem 0.45rem; }
+	.ranked-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; list-style: none; margin: 0; padding: 0; }
+	.ranked-chips li { align-items: center; border: 1px solid var(--chip-color); border-radius: 999px; display: inline-flex; font-size: 0.78rem; gap: 0.25rem; padding: 0.12rem 0.45rem 0.12rem 0.18rem; }
+	.ranked-chips li span { align-items: center; background: var(--chip-color); border-radius: 50%; color: white; display: inline-flex; font-size: 0.68rem; height: 1rem; justify-content: center; width: 1rem; }
 	.results-layout { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.75fr); margin-top: 1.2rem; }
 	.results-card, .ledger-card, .count-card { background: var(--surface-raised); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.2rem; }
 	.result-header { align-items: flex-start; display: flex; gap: 1rem; justify-content: space-between; }
