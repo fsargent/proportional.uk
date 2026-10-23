@@ -54,6 +54,9 @@
 			<li>
 				<a class="link" href="/visualiser">Multi-Member District Visualiser</a>
 			</li>
+			<li>
+				<a class="link" href="/district-lab">District Lab</a>
+			</li>
 		</ul>
 	</section>
 </nav>
