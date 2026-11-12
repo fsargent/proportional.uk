@@ -4,45 +4,44 @@
 	const problems = [
 		{
 			emoji: '📊',
-			title: '14.8 Million Wasted Votes',
+			title: '14.8 million wasted votes',
 			description:
-				'In 2024, nearly 15 million votes had no impact on the result. If you live in a safe seat, your vote effectively does not count.'
+				'In 2024, nearly 15 million votes had no effect on who won. In a safe seat, the result rarely depends on how you vote.'
 		},
 		{
 			emoji: '⚖️',
-			title: 'Seats Don\'t Match Votes',
+			title: 'Seats and votes drift apart',
 			description:
-				'Labour won 63% of seats with just 34% of votes. Reform UK got 14% of votes but only 0.8% of seats. This is not democracy.'
+				'Labour won 63% of seats with 34% of the vote. Reform UK won 14% of the vote and 0.8% of seats.'
 		},
 		{
-			emoji: '🎭',
-			title: 'Forced Tactical Voting',
+			emoji: '🗳️',
+			title: 'Tactical voting',
 			description:
-				'Millions vote against their true preference to "stop the other side". Voters should vote for who they want, not against who they fear.'
+				'Many voters back a second choice to keep out a candidate they dislike. Their real first choice does not show in the count.'
 		},
 		{
-			emoji: '🏚️',
-			title: 'Safe Seats = Ignored Voters',
+			emoji: '📍',
+			title: 'Safe seats',
 			description:
-				'Most constituencies never change hands. Parties focus all resources on marginal seats while ignoring everyone else.'
+				'Most constituencies rarely change hands. Parties put most of their effort into a small number of marginal seats.'
 		}
 	];
 </script>
 
 <section class="problem-section">
-	<h2 class="section-header">The glitch in Westminster elections</h2>
+	<h2 id="problem-title" class="section-header">How First Past the Post behaves today</h2>
 
 	<p class="intro-text">
-		The odd thing about <strong>First Past the Post (FPTP)</strong> is that it can make perfectly normal
-		voter behaviour produce weird results. You can end up with millions of wasted votes, giant seat
-		bonuses for one party, safe seats where almost nobody gets campaigned to, and constant pressure to
-		vote against the side you fear rather than for the side you actually like.
+		Under <strong>First Past the Post (FPTP)</strong>, each voter marks one candidate. The candidate
+		with the most votes in each constituency wins. When many parties compete, this rule has some
+		predictable effects. Many votes elect nobody, seat shares drift from vote shares, safe seats get
+		little attention, and some voters feel they must vote tactically.
 	</p>
 	<p class="intro-text">
-		Those are not four separate problems. They are four symptoms of the same design choice: a ballot
-		that lets each voter make just one mark in a multi-party democracy.
+		These effects share one cause: a one-mark ballot in a contest with many parties. The systems on
+		this site change the ballot, the count, or both.
 	</p>
-
 	<div class="stat-highlight">
 		<div class="stat-item">
 			<span class="stat-number">34%</span>
@@ -97,8 +96,8 @@
 		gap: 2rem;
 		margin: 2.5rem 0;
 		padding: 2rem;
-		background: var(--surface-danger-gradient);
-		border: 1px solid var(--danger-border);
+		background: var(--surface-raised);
+		border: 1px solid var(--border-color);
 		border-radius: var(--radius-lg);
 		box-shadow: var(--shadow-soft);
 	}
@@ -113,7 +112,7 @@
 	.stat-number {
 		font-size: 3rem;
 		font-weight: 700;
-		color: var(--danger-color);
+		color: var(--text-dark);
 		line-height: 1;
 	}
 
@@ -127,7 +126,7 @@
 
 	.stat-arrow {
 		font-size: 2rem;
-		color: var(--danger-color);
+		color: var(--text-soft);
 		font-weight: bold;
 	}
 
