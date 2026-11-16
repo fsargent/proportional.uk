@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { METHODS, type Method, type MethodFamily, type MethodId } from '$lib/data/methods';
 
-	type Props = { current?: MethodId };
-	let { current }: Props = $props();
+	type Props = { current?: MethodId; showHome?: boolean };
+	let { current, showHome = true }: Props = $props();
 
 	// Family ordering — leads with approval (the site's editorial focus), then mixed,
 	// then ranked, then single-mark.
@@ -23,7 +23,9 @@
 </script>
 
 <nav class="method-nav" aria-label="Voting methods">
-	<a class="home-link" href="/">← Home</a>
+	{#if showHome}
+		<a class="home-link" href="/">← Home</a>
+	{/if}
 
 	{#each groups as group (group.family)}
 		<section class="group family-{group.family}">
